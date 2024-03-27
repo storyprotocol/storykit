@@ -1,9 +1,14 @@
 import type { Preview } from "@storybook/react";
 import "../src/global.css";
+import theme from "./theme";
 import { withThemeByClassName } from "@storybook/addon-themes";
 
 const preview: Preview = {
   parameters: {
+    options: {
+      theme,
+    },
+    backgrounds: { disable: true },
     controls: {
       matchers: {
         color: /(background|color)$/i,
