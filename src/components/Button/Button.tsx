@@ -1,5 +1,3 @@
-"use client"
-
 import "../../global.css"
 import { cn } from "../../utils"
 import { type VariantProps, cva } from "class-variance-authority"
