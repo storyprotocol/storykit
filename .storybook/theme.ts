@@ -1,5 +1,6 @@
-import { create } from "@storybook/theming/create";
-const logo = require("./assets/story-logo.png");
+import { create } from "@storybook/theming/create"
+
+const logo = require("./assets/story-logo.png")
 
 export default create({
   base: "light",
@@ -38,4 +39,4 @@ export default create({
   inputBorder: "#10162F",
   inputTextColor: "#10162F",
   inputBorderRadius: 2,
-});
+})

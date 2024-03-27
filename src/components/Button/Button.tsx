@@ -1,22 +1,23 @@
-import { cn } from "../../utils";
-import { type VariantProps, cva } from "class-variance-authority";
-import React, { forwardRef } from "react";
-import "../../global.css";
+"use client"
+
+import "../../global.css"
+import { cn } from "../../utils"
+import { type VariantProps, cva } from "class-variance-authority"
+import React from "react"
 
 const button = cva(
-  "px-4 py-2 rounded-md border focus:outline-none focus:ring focus:ring-gray disabled:opacity-50 disabled:pointer-events-none",
+  "rounded-md border px-4 py-2 focus:outline-none focus:ring focus:ring-gray-300 disabled:pointer-events-none disabled:opacity-50",
   {
     variants: {
       variant: {
         primary:
-          "bg-blue-500 border-blue-500 hover:bg-blue-700 text-white dark:bg-white dark:border-white dark:text-blue-700 dark:hover:bg-blue-500 dark:hover:text-white",
-        secondary:
-          "border-blue-500 hover:blue-700 text-blue-500 hover:bg-blue-500 hover:text-white",
+          "border-blue-500 bg-blue-500 text-white hover:bg-blue-700 dark:border-white dark:bg-white dark:text-blue-700 dark:hover:bg-blue-500 dark:hover:text-white",
+        secondary: "border-blue-500 text-blue-500 hover:bg-blue-500 hover:text-white",
       },
       size: {
-        small: " text-sm",
-        medium: " text-md",
-        large: " text-lg",
+        small: "text-sm",
+        medium: "text-base",
+        large: "text-lg",
       },
     },
     defaultVariants: {
@@ -24,29 +25,24 @@ const button = cva(
       size: "medium",
     },
   }
-);
+)
 
-export interface ButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
-    VariantProps<typeof button> {
-  variant?: "primary" | "secondary";
-  size?: "small" | "medium" | "large";
-}
-
-const Button = forwardRef(
-  ({ children, className, variant, size, ...rest }: ButtonProps, ref: any) => {
-    return (
-      <button
-        ref={ref}
-        className={cn(button({ variant, size, className }))}
-        {...rest}
-      >
-        {children}
-      </button>
-    );
+export type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> &
+  VariantProps<typeof button> & {
+    variant?: "primary" | "secondary"
+    size?: "small" | "medium" | "large"
   }
-);
 
-Button.displayName = "Button";
+type ButtonRef = React.ForwardedRef<HTMLButtonElement>
 
-export default Button;
+const Button = React.forwardRef(({ children, className, variant, size, ...rest }: ButtonProps, ref: ButtonRef) => {
+  return (
+    <button ref={ref} className={cn(button({ variant, size, className }))} {...rest}>
+      {children}
+    </button>
+  )
+})
+
+Button.displayName = "Button"
+
+export default Button
