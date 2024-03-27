@@ -1,5 +1,6 @@
 {
-  "name": "@storyprotocol/storykit",
+  "name": "storykit",
+  "author": "storyprotocol engineering <eng@storyprotocol.xyz>",
   "version": "0.1.0",
   "private": true,
   "type": "module",
