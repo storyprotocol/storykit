@@ -6,7 +6,10 @@
   "type": "module",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
-  "types": "dist/index.d.ts",
+  "types": "dist/types.d.ts",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "test": "react-scripts test",
     "format": "prettier --write --parser typescript '**/*.{ts,tsx}'",
