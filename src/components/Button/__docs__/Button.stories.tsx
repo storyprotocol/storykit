@@ -1,5 +1,5 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import Button from "../Button";
+import Button from "../Button"
+import type { Meta, StoryObj } from "@storybook/react"
 
 const meta = {
   title: "Example/Button",
@@ -10,10 +10,10 @@ const meta = {
   // tags: ["autodocs"],
   argTypes: {},
   args: {},
-} satisfies Meta<typeof Button>;
+} satisfies Meta<typeof Button>
 
-export default meta;
-type Story = StoryObj<typeof meta>;
+export default meta
+type Story = StoryObj<typeof meta>
 
 export const Primary: Story = {
   args: {
@@ -22,7 +22,7 @@ export const Primary: Story = {
     size: "medium",
     disabled: false,
   },
-};
+}
 
 export const Secondary: Story = {
   args: {
@@ -31,4 +31,4 @@ export const Secondary: Story = {
     size: "medium",
     disabled: false,
   },
-};
+}
