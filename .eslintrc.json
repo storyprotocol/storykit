@@ -2,7 +2,7 @@
   "env": {
     "browser": true,
     "node": true,
-    "es6": true,
+    "es6": true
   },
   "root": true,
   "parser": "@typescript-eslint/parser",
@@ -16,14 +16,14 @@
     "plugin:prettier/recommended",
     "plugin:react-hooks/recommended",
     "plugin:storybook/recommended",
-    "plugin:tailwindcss/recommended",
+    "plugin:tailwindcss/recommended"
   ],
   "settings": {
     "tailwindcss": {
-      "config": "./tailwind.config.js",
-    },
+      "config": "./tailwind.config.js"
+    }
   },
   "rules": {
-    "react/react-in-jsx-scope": "off",
-  },
+    "react/react-in-jsx-scope": "off"
+  }
 }
