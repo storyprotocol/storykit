@@ -5,8 +5,8 @@ import 'storykit/dist/build.css'
 export default function Home() {
   return (
     <main className={styles.main}>
-      <Button variant="primary">hi</Button>
-      <Button variant="secondary">hi</Button>
+      <Button variant="primary">Click me</Button>
+      <Button variant="secondary">Click me</Button>
     </main>
   )
 }
