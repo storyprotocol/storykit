@@ -1,11 +1,39 @@
-import { Meta } from "@storybook/blocks";
+import { Meta } from "@storybook/blocks"
 
 <Meta title="Introduction" />
 
-    # Introducing Storykit
+# Introducing Storykit
+
+Plug-and-play React components for Story Protocol.
+
+## Installation (tbc)
+
+#### Install the package in your React app
+
+```bash
+pnpm install storykit
+```
+
+#### Import the css
+
+```typescript
+import "storykit/dist/build.css"
+```
+
+#### Use the components
+
+```typescript
+import { Button } from "storykit"
+
+function Home() {
+  return (
+    <div>
+      <Button variant="primary">Click me</Button>
+    </div>
+  )
+}
 
 <style>
-  {`
-
-  `}
+  {``}
 </style>
+```

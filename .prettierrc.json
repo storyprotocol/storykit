@@ -5,6 +5,6 @@
   "printWidth": 120,
   "importOrderSeparation": true,
   "importOrderSortSpecifiers": true,
-  "importOrder": ["<THIRD_PARTY_MODULES>, ^@/(.*)$", "^[./]"],
+  "importOrder": ["^[./]"],
   "plugins": ["@trivago/prettier-plugin-sort-imports"]
 }

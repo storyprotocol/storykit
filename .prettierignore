@@ -1,0 +1,6 @@
+dist
+node_modules
+coverage
+examples
+.next
+*.hbs

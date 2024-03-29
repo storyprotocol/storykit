@@ -1,7 +1,15 @@
 {
   "name": "storykit",
+  "author": "storyprotocol engineering <eng@storyprotocol.xyz>",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "types": "dist/types.d.ts",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "test": "react-scripts test",
     "format": "prettier --write --parser typescript '**/*.{ts,tsx}'",
@@ -13,8 +21,7 @@
   "lint-staged": {
     "*.{ts,tsx}": [
       "npm run format",
-      "npm run lint",
-      "npm run test"
+      "npm run lint"
     ]
   },
   "eslintConfig": {
@@ -44,11 +51,14 @@
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^1.2.25",
+    "@rollup/plugin-commonjs": "^25.0.7",
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "@rollup/plugin-terser": "^0.4.4",
+    "@rollup/plugin-typescript": "^11.1.6",
     "@storybook/addon-essentials": "^8.0.4",
     "@storybook/addon-interactions": "^8.0.4",
     "@storybook/addon-links": "^8.0.4",
     "@storybook/addon-onboarding": "^8.0.4",
-    "@storybook/addon-postcss": "^2.0.0",
     "@storybook/addon-styling-webpack": "^1.0.0",
     "@storybook/addon-themes": "^8.0.4",
     "@storybook/blocks": "^8.0.4",
@@ -83,8 +93,11 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",
+    "rollup": "^4.13.1",
+    "rollup-plugin-dts": "^6.1.0",
+    "rollup-plugin-peer-deps-external": "^2.2.4",
+    "rollup-plugin-postcss": "^4.0.2",
     "storybook": "^8.0.4",
-    "storybook-tailwind-dark-mode": "^1.0.22",
     "typescript": "^4.9.5",
     "webpack": "^5.91.0"
   },
