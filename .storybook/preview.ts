@@ -18,14 +18,14 @@ const preview: Preview = {
     },
   },
   decorators: [
-     withThemeByClassName({
-       themes: {
-         light: '',
-         dark: 'dark',
-       },
-       defaultTheme: 'light',
-     }),
-    ]
+    withThemeByClassName({
+      themes: {
+        light: "",
+        dark: "dark",
+      },
+      defaultTheme: "light",
+    }),
+  ],
 }
 
 export default preview
