@@ -1,8 +1,7 @@
+import "@/global.css"
+import { cn } from "@/lib/utils"
 import { type VariantProps, cva } from "class-variance-authority"
 import React from "react"
-
-import "../../global.css"
-import { cn } from "../../utils"
 
 const button = cva(
   "rounded-md border px-4 py-2 focus:outline-none focus:ring focus:ring-gray-300 disabled:pointer-events-none disabled:opacity-50",
