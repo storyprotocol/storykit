@@ -1,6 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react"
+import { HttpResponse, http } from "msw"
 
 import Example from "./Example"
+import { AssetData, IPAPolicies, Licenses, NFT, Policy, Royalties } from "./mockData"
 
 const meta = {
   title: "Providers/IPAssetProvider",
@@ -8,21 +10,6 @@ const meta = {
   parameters: {
     layout: "centered",
   },
-  // tags: ["autodocs"],
-  // argTypes: {},
-  // argTypes: {
-  //   ipId: {
-  //     options: [
-  //       "0xbbf08a30b9ff0f717a024a75963d3196aaf0f0dd",
-  //       "0xa4ad3f18c2a37f1fb8d86bcd5922739f53e57bae",
-  //       "0x05aae0c68d33bc1fd3cc2241a6af2f5866271726",
-  //     ],
-  //     // control: { type: "select" }, // Automatically inferred when 'options' is defined
-  //   },
-  // },
-  // args: {
-  //   ipId: "0xbbf08a30b9ff0f717a024a75963d3196aaf0f0dd",
-  // },
 } satisfies Meta<typeof Example>
 
 export default meta
@@ -52,5 +39,68 @@ export const Input: Story = {
   },
   args: {
     ipId: "0xbbf08a30b9ff0f717a024a75963d3196aaf0f0dd",
+  },
+}
+
+export const WithMocks: Story = {
+  argTypes: {
+    ipId: {
+      control: "text",
+      table: {
+        disable: true,
+      },
+    },
+  },
+  args: {
+    ipId: "0xbbf08a30b9ff0f717a024a75963d3196aaf0f0dd",
+  },
+  parameters: {
+    msw: [
+      http.get(
+        "https://edge.stg.storyprotocol.net/api/sepolia/v1/assets/0xbbf08a30b9ff0f717a024a75963d3196aaf0f0dd",
+        () => {
+          return HttpResponse.json(AssetData, {
+            status: 202,
+            statusText: "Mocked status",
+          })
+        }
+      ),
+      http.post("https://edge.stg.storyprotocol.net/api/sepolia/v1/ipapolicies", () => {
+        return HttpResponse.json(IPAPolicies, {
+          status: 202,
+          statusText: "Mocked status",
+        })
+      }),
+      http.get(
+        "https://edge.stg.storyprotocol.net/api/sepolia/v1/royalties/policies/0xbbf08a30b9ff0f717a024a75963d3196aaf0f0dd",
+        () => {
+          return HttpResponse.json(Royalties, {
+            status: 202,
+            statusText: "Mocked status",
+          })
+        }
+      ),
+      http.post("https://edge.stg.storyprotocol.net/api/sepolia/v1/licenses", () => {
+        return HttpResponse.json(Licenses, {
+          status: 202,
+          statusText: "Mocked status",
+        })
+      }),
+      http.get("https://edge.stg.storyprotocol.net/api/sepolia/v1/policies/7", () => {
+        return HttpResponse.json(Policy, {
+          status: 202,
+          statusText: "Mocked status",
+        })
+      }),
+      http.get(
+        "https://api.simplehash.com/api/v0/nfts/ethereum-sepolia/0x7ee32b8b515dee0ba2f25f612a04a731eec24f49/324",
+        () => {
+          return HttpResponse.json(NFT, {
+            status: 202,
+            statusText: "Mocked status",
+          })
+        }
+      ),
+    ],
   },
 }

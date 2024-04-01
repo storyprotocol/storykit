@@ -94,6 +94,8 @@
     "eslint-plugin-tailwindcss": "^3.15.1",
     "husky": "^9.0.11",
     "lint-staged": "^15.2.2",
+    "msw": "^2.2.13",
+    "msw-storybook-addon": "2.0.0-beta.1",
     "postcss": "^8.4.38",
     "prettier": "^3.2.5",
     "prop-types": "^15.8.1",
@@ -115,5 +117,10 @@
     "react-dom": ">=18.2.0",
     "typescript": "^5.4.3",
     "viem": "^2.7.19"
+  },
+  "msw": {
+    "workerDirectory": [
+      "public"
+    ]
   }
 }
