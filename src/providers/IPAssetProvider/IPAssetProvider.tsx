@@ -1,5 +1,3 @@
-"use client"
-
 import { getResource, listResource } from "@/lib/api"
 import { getNFTByTokenId } from "@/lib/simplehash"
 import { NFTMetadata } from "@/lib/simplehash/types/simplehash"
