@@ -1,5 +1,5 @@
 {
-  "name": "storykit",
+  "name": "@storyprotocol/storykit",
   "author": "storyprotocol engineering <eng@storyprotocol.xyz>",
   "version": "0.1.0",
   "private": true,
@@ -10,6 +10,9 @@
   "files": [
     "dist"
   ],
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/@storyprotocol"
+  },
   "scripts": {
     "test": "react-scripts test",
     "format": "prettier --write --parser typescript '**/*.{ts,tsx}'",
