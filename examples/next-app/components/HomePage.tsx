@@ -1,7 +1,7 @@
 "use client"
 
 import styles from "./home.module.css"
-import { Button, IPAssetProvider, useIPAssetContext } from "storykit"
+import { Button, Button2, IPAssetProvider, useIPAssetContext } from "storykit"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import React from "react"
 
@@ -30,6 +30,7 @@ export default function Home() {
         <IPAssetProvider ipId="0xbbf08a30b9ff0f717a024a75963d3196aaf0f0dd">
           <ExampleComponent />
         </IPAssetProvider>
+        <Button2 variant="primary">Click me</Button2>
       </main>
       </QueryClientProvider>
   )

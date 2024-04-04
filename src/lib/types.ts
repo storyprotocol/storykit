@@ -1,5 +1,13 @@
 import { Address, Hash } from "viem"
 
+export const POLICY_TYPE = {
+  OPEN_DOMAIN: "Open Domain",
+  FREE_ATTRIBUTION: "Free with Attribution",
+  PAID_ATTRIBUTION: "Paid with Attribution",
+  PAID_NO_ATTRIBUTION: "Paid, no attribution",
+  NO_DERIVATIVE: "No Derivative",
+}
+
 export enum RESOURCE_TYPE {
   ASSET = "assets",
   COLLECTION = "collections",

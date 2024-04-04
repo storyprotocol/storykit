@@ -1,0 +1,25 @@
+import * as IPAssetWidgetStory from "./IPAssetWidget.stories"
+import { Canvas, Meta } from "@storybook/blocks"
+
+<Meta of={IPAssetWidget} title="Example/IPAssetWidget" />
+
+# Button
+
+Button component with different props.
+
+#### Example
+
+<Canvas of={IPAssetWidgetStory.Primary} />
+
+## Usage
+
+```ts
+import { IPAssetWidget } from "@storyprotocol/storykit";
+```
+
+#### Arguments
+
+- **children** - The content of the button. It can be a string, a ReactNode, or an array of ReactNodes.
+- **variant** - A string, 'primary' or 'secondary', that defines the color scheme of the button.
+- **size** - A string with one of three possible values: "small," "medium," or "large." It defines the size or dimensions of the button.
+- Other normal button props, such as `onClick`, `disabled`, etc.
