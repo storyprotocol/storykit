@@ -98,7 +98,7 @@ function IPAssetDropdownMenu() {
         leaveFrom="transform opacity-100 scale-100"
         leaveTo="transform opacity-0 scale-95"
       >
-        <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+        <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black/5 focus:outline-none">
           {assetData?.rootIpIds?.[0]?.id && (
             <div className="px-4 py-2">
               <p className="text-xs text-slate-400">Root IP</p>
@@ -565,23 +565,23 @@ function IPAGraph() {
 
   console.log({ formattedGraphData })
 
-  const linkCanvasObject = (link: any, ctx: any, globalScale: any) => {
-    // Example properties from the link object
-    const { source, target } = link
+  // const linkCanvasObject = (link: any, ctx: any, globalScale: any) => {
+  //   // Example properties from the link object
+  //   const { source, target } = link
 
-    // Start drawing the custom link
-    ctx.beginPath()
-    ctx.moveTo(source.x, source.y) // Move to the position of the source node
-    ctx.lineTo(target.x, target.y) // Draw a line to the position of the target node
+  //   // Start drawing the custom link
+  //   ctx.beginPath()
+  //   ctx.moveTo(source.x, source.y) // Move to the position of the source node
+  //   ctx.lineTo(target.x, target.y) // Draw a line to the position of the target node
 
-    // Set the style of the link
-    ctx.strokeStyle = "#f00" // Set the color of the link to red
-    ctx.lineWidth = Math.max(1, 2 / globalScale) // Set the width of the link, adjusted by globalScale
+  //   // Set the style of the link
+  //   ctx.strokeStyle = "#f00" // Set the color of the link to red
+  //   ctx.lineWidth = Math.max(1, 2 / globalScale) // Set the width of the link, adjusted by globalScale
 
-    // Optionally, you can add more custom drawing here, such as arrows or text
+  //   // Optionally, you can add more custom drawing here, such as arrows or text
 
-    ctx.stroke() // Apply the drawing to the canvas
-  }
+  //   ctx.stroke() // Apply the drawing to the canvas
+  // }
 
   const nodeCanvasObject = (node: any, ctx: any, globalScale: any) => {
     const isParent = node.level < 0
