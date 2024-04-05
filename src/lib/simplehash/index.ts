@@ -6,7 +6,7 @@ const createRequestOptions = (): RequestInit => ({
   method: "GET",
   headers: {
     accept: "application/json",
-    "X-API-KEY": process.env.REACT_APP_SIMPLE_HASH_API_KEY || process.env.SIMPLE_HASH_API_KEY || "",
+    "X-API-KEY": process.env.STORYBOOK_SIMPLE_HASH_API_KEY || process.env.SIMPLE_HASH_API_KEY || "",
   },
 })
 
