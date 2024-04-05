@@ -583,6 +583,7 @@ function IPAGraph() {
   //   ctx.stroke() // Apply the drawing to the canvas
   // }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const nodeCanvasObject = (node: any, ctx: any, globalScale: any) => {
     const isParent = node.level < 0
     const isSelf = node.level === 0
@@ -628,7 +629,7 @@ function IPAGraph() {
     }
 
     // Draw the text next to the circle
-    const textWidth = ctx.measureText(label).width
+    // const textWidth = ctx.measureText(label).width
     // const textOffsetX = circleRadius + 5; // Offset the text to the right of the circle
     // const textOffsetY = fontSize / 2 - circleRadius / 2; // Vertically center the text
     ctx.fillText(label, node.x, node.y + 10)
