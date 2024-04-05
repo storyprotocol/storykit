@@ -15,14 +15,8 @@
     "prettier",
     "plugin:prettier/recommended",
     "plugin:react-hooks/recommended",
-    "plugin:storybook/recommended",
-    "plugin:tailwindcss/recommended"
+    "plugin:storybook/recommended"
   ],
-  "settings": {
-    "tailwindcss": {
-      "config": "./tailwind.config.js"
-    }
-  },
   "rules": {
     "react/react-in-jsx-scope": "off"
   }
