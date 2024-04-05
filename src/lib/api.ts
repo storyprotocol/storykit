@@ -1,7 +1,7 @@
 import { QueryOptions, ResourceType } from "./types"
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || process.env.API_BASE_URL || ""
-const API_KEY = process.env.NEXT_PUBLIC_STORY_PROTOCOL_X_API_KEY || process.env.STORY_PROTOCOL_X_API_KEY || ""
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || process.env.API_BASE_URL || ""
+const API_KEY = process.env.REACT_APP_STORY_PROTOCOL_X_API_KEY || process.env.STORY_PROTOCOL_X_API_KEY || ""
 
 export async function getResource(resourceName: ResourceType, resourceId: string) {
   try {
