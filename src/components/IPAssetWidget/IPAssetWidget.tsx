@@ -17,6 +17,9 @@ import { Address } from "viem"
 
 import "../../global.css"
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const logoImg = require("../../assets/sp_logo_black.svg").default
+
 export type IPAssetWidgetProps = {
   ipId: Address
   isBottomNav?: boolean
@@ -291,7 +294,7 @@ function AnimatedTabs({ ipId }: { ipId: Address }) {
         </button>
       ))}
       <button>
-        <img src="/sp_logo_black.svg" alt="Story Protocol" width={36} height={36} />
+        <img src={logoImg} alt="Story Protocol" width={36} height={36} />
       </button>
     </div>
   )
