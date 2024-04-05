@@ -8,8 +8,8 @@ export default create({
   fontBase: '"Open Sans", sans-serif',
   fontCode: "monospace",
 
-  brandTitle: "Story Protocol | Emergence Universe",
-  brandUrl: "https://emergence-universe.vercel.app/",
+  brandTitle: "Story Protocol",
+  brandUrl: "https://storykit.vercel.app/",
   brandImage: logo,
   brandTarget: "_self",
 
