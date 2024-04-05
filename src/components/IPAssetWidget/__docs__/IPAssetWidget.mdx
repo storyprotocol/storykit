@@ -1,25 +1,34 @@
+import { Canvas, Controls, Meta } from "@storybook/blocks"
+
 import * as IPAssetWidgetStory from "./IPAssetWidget.stories"
-import { Canvas, Meta } from "@storybook/blocks"
 
-<Meta of={IPAssetWidget} title="Example/IPAssetWidget" />
+<Meta of={IPAssetWidgetStory} title="Components/IPAssetWidget" />
 
-# Button
+# IP Asset Widget
 
 Button component with different props.
 
 #### Example
 
-<Canvas of={IPAssetWidgetStory.Primary} />
+<Canvas of={IPAssetWidgetStory.Select} />
+
+<Controls />
 
 ## Usage
 
 ```ts
-import { IPAssetWidget } from "@storyprotocol/storykit";
+import { IPAssetWidget } from "@storyprotocol/storykit"
+
+const ExamplePage = () => {
+  return (
+    <IPAssetWidget ipId={"0xbbf08a30b9ff0f717a024a75963d3196aaf0f0dd"} />
+  );
+};
+
+export default ExamplePage;
 ```
 
 #### Arguments
 
-- **children** - The content of the button. It can be a string, a ReactNode, or an array of ReactNodes.
-- **variant** - A string, 'primary' or 'secondary', that defines the color scheme of the button.
-- **size** - A string with one of three possible values: "small," "medium," or "large." It defines the size or dimensions of the button.
-- Other normal button props, such as `onClick`, `disabled`, etc.
+- **ipId**: _string_ - The IP Asset Id, an Address starting 0x.
+- **isBottomNav**: _boolean_ - Position of Tabs
