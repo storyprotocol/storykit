@@ -5,11 +5,12 @@ const API_KEY = process.env.STORYBOOK_STORY_PROTOCOL_X_API_KEY || process.env.ST
 
 export async function getResource(resourceName: ResourceType, resourceId: string) {
   try {
-    const res = await fetch(`${API_BASE_URL}/api/sepolia/v1/${resourceName}/${resourceId}`, {
+    const res = await fetch(`${API_BASE_URL}/api/v1/${resourceName}/${resourceId}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
         "x-api-key": API_KEY as string,
+        "X-CHAIN": "sepolia",
       },
     })
     if (res.ok) {
@@ -22,12 +23,12 @@ export async function getResource(resourceName: ResourceType, resourceId: string
 
 export async function listResource(resourceName: ResourceType, options?: QueryOptions) {
   try {
-    console.log("url", `${API_BASE_URL}/api/sepolia/v1/${resourceName}`)
-    const res = await fetch(`${API_BASE_URL}/api/sepolia/v1/${resourceName}`, {
+    const res = await fetch(`${API_BASE_URL}/api/v1/${resourceName}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         "x-api-key": API_KEY as string,
+        "X-CHAIN": "sepolia",
       },
       cache: "no-cache",
       ...(options && { body: JSON.stringify({ options }) }),
