@@ -1,9 +1,11 @@
 "use client"
 
-import styles from "./home.module.css"
-import { Button, IPAssetProvider, useIPAssetContext } from "storykit"
+// import { Button, IPAssetProvider, IPAssetWidget, useIPAssetContext } from "@storyprotocol/storykit"
+import { Button, IPAssetProvider, useIPAssetContext } from "@storyprotocol/storykit"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import React from "react"
+
+import styles from "./home.module.css"
 
 const queryClient = new QueryClient()
 
