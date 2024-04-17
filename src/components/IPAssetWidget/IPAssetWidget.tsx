@@ -4,7 +4,6 @@ import { Asset, POLICY_TYPE } from "@/lib/types"
 import { cn, getPolicyTypeByPILData, shortenAddress } from "@/lib/utils"
 import { IPA_CARD_TABS, IPAssetProvider, useIPAssetContext } from "@/providers"
 import { Menu, Transition } from "@headlessui/react"
-import { motion } from "framer-motion"
 import { Check, X } from "lucide-react"
 import React, { Fragment } from "react"
 import Chart from "react-apexcharts"
@@ -276,16 +275,7 @@ function AnimatedTabs({ ipId }: { ipId: Address }) {
           }}
         >
           {activeTab === tab.id && (
-            <motion.span
-              layoutId={`${ipId}-bubble`}
-              className="absolute inset-0 z-10 bg-white mix-blend-difference"
-              style={{ borderRadius: 9999 }}
-              transition={{
-                type: "spring",
-                bounce: 0.2,
-                duration: 0.6,
-              }}
-            />
+            <span className="absolute inset-0 z-10 bg-white mix-blend-difference rounded-[9999px]" />
           )}
           {tab.label}
         </button>
