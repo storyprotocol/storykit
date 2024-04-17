@@ -9,7 +9,6 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@storyprotocol/storykit": "file:.yalc/@storyprotocol/storykit",
     "@tanstack/react-query": "^5.28.9",
     "next": "14.1.4",
     "react": "^18",

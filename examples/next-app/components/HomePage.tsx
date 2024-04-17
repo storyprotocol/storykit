@@ -2,13 +2,9 @@
 
 // import { Button, IPAssetProvider, IPAssetWidget, useIPAssetContext } from "@storyprotocol/storykit"
 import { Button, IPAssetProvider, useIPAssetContext } from "@storyprotocol/storykit"
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import React from "react"
 
 import styles from "./home.module.css"
-
-const queryClient = new QueryClient()
-
 
 const ExampleComponent = () => {
   const { nftData, isNftDataLoading } = useIPAssetContext()
@@ -22,17 +18,14 @@ const ExampleComponent = () => {
   )
 }
 
-
 export default function Home() {
   return (
-    <QueryClientProvider client={queryClient}>
-      <main className={styles.main}>
-        <Button variant="primary">Click me</Button>
-        <Button variant="secondary">Click me</Button>
-        <IPAssetProvider ipId="0xbbf08a30b9ff0f717a024a75963d3196aaf0f0dd">
-          <ExampleComponent />
-        </IPAssetProvider>
-      </main>
-      </QueryClientProvider>
+    <main className={styles.main}>
+      <Button variant="primary">Click me</Button>
+      <Button variant="secondary">Click me</Button>
+      <IPAssetProvider ipId="0xbbf08a30b9ff0f717a024a75963d3196aaf0f0dd">
+        <ExampleComponent />
+      </IPAssetProvider>
+    </main>
   )
 }
