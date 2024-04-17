@@ -3,21 +3,32 @@ name: publish on github
 on:
   push:
     branches:
-      - master
+      - feature/fix-build
 
 jobs:
   publish-gpr:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+
+      - uses: pnpm/action-setup@v2.0.1
+        with:
+          version: 8.8.0
+
       - uses: actions/setup-node@v1
         with:
-          node-version: 18
+          node-version: 20.0.0
+          cache: pnpm
           registry-url: https://npm.pkg.github.com/
           scope: "@storyprotocol"
-      - run: npm install
-      - run: npm run test
-      - run: npm run build
-      - run: npm publish
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Build
+        run: pnpm build
+
+      - name: Publish to npm
+        run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
