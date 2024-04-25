@@ -1,11 +1,11 @@
-import { NFTMetadata } from "@/lib/simplehash/types/simplehash"
-import { Asset, IPAPolicy, License, Policy, RESOURCE_TYPE, RoyaltyPolicy } from "@/lib/types"
 import { useQuery } from "@tanstack/react-query"
 import React, { useState } from "react"
 import { Address } from "viem"
 
 import { getResource, listResource } from "../../lib/api"
 import { getNFTByTokenId } from "../../lib/simplehash"
+import { NFTMetadata } from "../../lib/simplehash/types/simplehash"
+import { Asset, IPAPolicy, License, Policy, RESOURCE_TYPE, RoyaltyPolicy } from "../../lib/types"
 
 const IPAssetContext = React.createContext<{
   activeTab: string

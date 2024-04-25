@@ -3,8 +3,6 @@ import { convertAssetToGraphFormat } from "@/lib/graph"
 // import { Asset, POLICY_TYPE } from "@/lib/types"
 import { Asset } from "@/lib/types"
 // import { cn, getPolicyTypeByPILData, shortenAddress } from "@/lib/utils"
-import { cn, shortenAddress } from "@/lib/utils"
-import { IPA_CARD_TABS, IPAssetProvider, useIPAssetContext } from "@/providers"
 import { Menu, Transition } from "@headlessui/react"
 // import { Check, X } from "lucide-react"
 import React, { Fragment } from "react"
@@ -17,6 +15,8 @@ import { TbLicense } from "react-icons/tb"
 import { Address } from "viem"
 
 import "../../global.css"
+import { cn, shortenAddress } from "../../lib/utils"
+import { IPA_CARD_TABS, IPAssetProvider, useIPAssetContext } from "../../providers"
 
 export type IPAssetWidgetProps = {
   ipId: Address
