@@ -1,13 +1,5 @@
-// import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
-import { convertAssetToGraphFormat } from "@/lib/graph"
-// import { Asset, POLICY_TYPE } from "@/lib/types"
-import { Asset } from "@/lib/types"
-// import { cn, getPolicyTypeByPILData, shortenAddress } from "@/lib/utils"
 import { Menu, Transition } from "@headlessui/react"
-// import { Check, X } from "lucide-react"
 import React, { Fragment } from "react"
-import Chart from "react-apexcharts"
-import ForceGraph2D from "react-force-graph-2d"
 import { FaWandMagicSparkles } from "react-icons/fa6"
 import { IoIosShareAlt } from "react-icons/io"
 import { SiOpensea } from "react-icons/si"
@@ -17,6 +9,9 @@ import { Address } from "viem"
 import "../../global.css"
 import { cn, shortenAddress } from "../../lib/utils"
 import { IPA_CARD_TABS, IPAssetProvider, useIPAssetContext } from "../../providers"
+import { IPAGraph } from "../IPAGraph"
+import { IPAPolicyList } from "../IPAPolicyList"
+import { IPARoyaltyChart } from "../IPARoyaltyChart"
 
 export type IPAssetWidgetProps = {
   ipId: Address
@@ -28,29 +23,23 @@ const IPAssetWidget = ({ ipId, isBottomNav, ...rest }: IPAssetWidgetProps) => {
 }
 
 function IPAssetCardWrapper({ ipId, isBottomNav = true }: { ipId: Address; isBottomNav?: boolean }) {
-  if (isBottomNav) {
-    return (
-      <IPAssetProvider ipId={ipId} key={ipId}>
-        <div className="flex min-h-[410px] w-[390px] flex-col items-start justify-between gap-0 rounded-xl border-2 bg-white shadow-lg">
-          <div className="w-full p-2">
-            <IPAssetCard isBottomNav={isBottomNav} />
-          </div>
-          <div className="w-full py-1">
-            <AnimatedTabs ipId={ipId} />
-          </div>
-        </div>
-      </IPAssetProvider>
-    )
-  }
+  const _Tabs = () => (
+    <div className={cn("w-full px-2", isBottomNav ? "pb-2" : "pt-2")}>
+      <Tabs ipId={ipId} />
+    </div>
+  )
+
+  const _Card = () => (
+    <div className="flex size-full flex-auto flex-col p-2">
+      <IPAssetCard isBottomNav={isBottomNav} />
+    </div>
+  )
+
   return (
     <IPAssetProvider ipId={ipId} key={ipId}>
-      <div className="flex min-h-[410px] w-[390px] flex-col items-start justify-start gap-0 rounded-xl border-2 bg-white shadow-lg">
-        <div className="w-full pt-1">
-          <AnimatedTabs ipId={ipId} />
-        </div>
-        <div className="flex size-full flex-auto flex-col p-2">
-          <IPAssetCard />
-        </div>
+      <div className="flex min-h-[410px] w-[390px] flex-col items-start justify-between gap-0 rounded-xl border-2 bg-white shadow-lg">
+        {isBottomNav ? <_Card /> : <_Tabs />}
+        {isBottomNav ? <_Tabs /> : <_Card />}
       </div>
     </IPAssetProvider>
   )
@@ -242,8 +231,8 @@ function IPAssetHeader({ hideImage }: { hideImage?: boolean }) {
   return (
     <div className="flex w-full flex-row justify-between">
       <div className="flex w-full flex-row justify-start gap-2">
-        <div className={hideImage ? "hidden" : ""}>
-          <img src={nftData?.image_url} className="size-10 rounded-md object-contain" />
+        <div className={cn("", hideImage ? "hidden" : "")}>
+          <img src={nftData?.image_url} className="size-10 rounded-md object-cover" />
         </div>
         <div>
           <div>
@@ -260,28 +249,30 @@ function IPAssetHeader({ hideImage }: { hideImage?: boolean }) {
   )
 }
 
-function AnimatedTabs({ ipId }: { ipId: Address }) {
+function Tabs({ ipId }: { ipId: Address }) {
   const { activeTab, setActiveTab } = useIPAssetContext()
 
   return (
     <div className="flex space-x-1" id={ipId}>
-      {IPA_CARD_TABS.map((tab) => (
-        <button
-          key={`${ipId}-${tab.id}`}
-          onClick={() => setActiveTab(tab.id)}
-          className={`${
-            activeTab === tab.id ? "" : "hover:text-black/60"
-          } relative rounded-full px-3 py-1.5 text-sm font-medium text-black outline-gray-400 transition focus-visible:outline-2`}
-          style={{
-            WebkitTapHighlightColor: "transparent",
-          }}
-        >
-          {activeTab === tab.id && (
-            <span className="absolute inset-0 z-10 bg-white mix-blend-difference rounded-[9999px]" />
-          )}
-          {tab.label}
-        </button>
-      ))}
+      <div className="flex w-full justify-between">
+        {IPA_CARD_TABS.map((tab) => (
+          <button
+            key={`${ipId}-${tab.id}`}
+            onClick={() => setActiveTab(tab.id)}
+            className={`${
+              activeTab === tab.id ? "" : "hover:text-black/60"
+            } relative rounded-full px-2.5 py-1.5 text-sm font-medium text-black outline-gray-400 transition focus-visible:outline-2`}
+            style={{
+              WebkitTapHighlightColor: "transparent",
+            }}
+          >
+            {activeTab === tab.id && (
+              <span className="absolute inset-0 z-10 bg-white mix-blend-difference rounded-full" />
+            )}
+            {tab.label}
+          </button>
+        ))}
+      </div>
       <button>
         <svg width="36" height="36" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
           <g clipPath="url(#clip0_235_3)">
@@ -313,6 +304,7 @@ function AnimatedTabs({ ipId }: { ipId: Address }) {
     </div>
   )
 }
+
 function IPAssetCard({ isBottomNav }: { isBottomNav?: boolean }) {
   const { activeTab } = useIPAssetContext()
 
@@ -322,19 +314,19 @@ function IPAssetCard({ isBottomNav }: { isBottomNav?: boolean }) {
     case "licensing":
       return (
         <IPAssetLayout isBottomNav={isBottomNav}>
-          <IPAssetPolicy />
+          <IPAPolicyList />
         </IPAssetLayout>
       )
     case "derivatives":
       return (
         <IPAssetLayout isBottomNav={isBottomNav}>
-          <IPAGraph />
+          <IPAGraph width={370} height={250} />
         </IPAssetLayout>
       )
     case "royalty":
       return (
         <IPAssetLayout isBottomNav={isBottomNav}>
-          <IPAssetRoyalty />
+          <IPARoyaltyChart />
         </IPAssetLayout>
       )
     default:
@@ -378,284 +370,17 @@ function IPAssetOverview({ isBottomNav }: { isBottomNav?: boolean }) {
       </div>
     )
 
-  if (isBottomNav) {
-    return (
-      <div className="flex w-full flex-col items-start justify-start">
-        <div className="flex w-full flex-row justify-between pb-1">
-          <Title />
-        </div>
-
-        <AssetImage />
-      </div>
-    )
-  }
-  return (
-    <div className="flex w-full flex-col items-start justify-start">
-      {/* <div className="flex justify-center text-center w-full"> */}
-      <AssetImage />
-      {/* </div> */}
-
-      <div className="flex w-full flex-row justify-between pt-1">
-        <Title />
-      </div>
+  const TitleBar = () => (
+    <div className={cn("flex w-full flex-row justify-between", isBottomNav ? "pb-1" : "pt-1")}>
+      <Title />
     </div>
   )
-}
-
-// function PILLabel({ type }: { type: string }) {
-//   if (type === POLICY_TYPE.OPEN_DOMAIN) {
-//     return (
-//       <span className="flex flex-wrap items-center gap-1 text-xs font-light">
-//         <X className="size-2" /> attribution
-//         <Check className="size-2" /> commercial use
-//         <Check className="size-2" /> derivatives
-//         <Check className="size-2" /> all content
-//       </span>
-//     )
-//   } else if (type === POLICY_TYPE.FREE_ATTRIBUTION) {
-//     return (
-//       <span className="flex flex-wrap items-center gap-1 text-xs font-light">
-//         <X className="size-2" /> attribution
-//         <Check className="size-2" /> commercial use
-//         <Check className="size-2" /> derivatives
-//         <Check className="size-2" /> all content
-//       </span>
-//     )
-//   } else if (type === POLICY_TYPE.PAID_ATTRIBUTION) {
-//     return (
-//       <span className="flex flex-wrap items-center gap-1 text-xs font-light">
-//         <X className="size-2" /> attribution
-//         <Check className="size-2" /> commercial use
-//         <Check className="size-2" /> derivatives
-//         <Check className="size-2" /> all content
-//       </span>
-//     )
-//   } else if (type === POLICY_TYPE.PAID_NO_ATTRIBUTION) {
-//     return (
-//       <span className="flex flex-wrap items-center gap-1 text-xs font-light">
-//         <X className="size-2" /> attribution
-//         <Check className="size-2" /> commercial use
-//         <Check className="size-2" /> derivatives
-//         <Check className="size-2" /> all content
-//       </span>
-//     )
-//   } else if (type === POLICY_TYPE.NO_DERIVATIVE) {
-//     return (
-//       <span className="flex flex-wrap items-center gap-1 text-xs font-light">
-//         <X className="size-2" /> attribution
-//         <Check className="size-2" /> commercial use
-//         <Check className="size-2" /> derivatives
-//         <Check className="size-2" /> all content
-//       </span>
-//     )
-//   }
-//   return <></>
-// }
-
-function IPAssetPolicy() {
-  const { policyData } = useIPAssetContext()
-
-  return policyData ? (
-    <div className="flex flex-col">{policyData?.map((policy) => <span key={policy.id}>id: {policy.id}</span>)}</div>
-  ) : (
-    // <Accordion type="single" collapsible className="px-2">
-    //   {policyData?.map((policy) => (
-    //     <AccordionItem key={policy.id} value={policy.id}>
-    //       <AccordionTrigger>
-    //         <div className="flex flex-col text-left">
-    //           <p className="text-[10px] text-slate-400">Policy ID {policy.id}</p>
-    //           <p className="text-xs">{getPolicyTypeByPILData(policy.pil)}</p>
-    //           <PILLabel type={getPolicyTypeByPILData(policy.pil)} />
-    //         </div>
-    //       </AccordionTrigger>
-    //       <AccordionContent>
-    //         <dl className="divide-y divide-gray-100 overflow-x-hidden text-sm leading-6">
-    //           {Object.entries(policy?.pil).map(([key, value]) => (
-    //             <div key={key} className="flex justify-between gap-x-4 py-1">
-    //               <dt className="text-xs capitalize text-gray-500">{key}</dt>
-    //               <dd className="truncate text-gray-700">{value.toString()}</dd>
-    //             </div>
-    //           ))}
-    //         </dl>
-    //       </AccordionContent>
-    //     </AccordionItem>
-    //   ))}
-    // </Accordion>
-    <div className="flex h-60 flex-col items-center justify-center text-slate-400">No Policy</div>
-  )
-}
-
-// function IPAssetLicense() {
-//   return <div>License</div>
-// }
-
-function IPAssetRoyalty() {
-  // const Chart = dynamic(() => import("react-apexcharts"), { ssr: false })
-
-  const { royaltyData } = useIPAssetContext()
-
-  if (royaltyData) {
-    const chart = {
-      options: {
-        chart: {
-          width: 300,
-          type: "pie" as `pie`,
-        },
-        dataLabels: {
-          style: {
-            fontSize: "20px",
-            // fontFamily: "Inter, ui-sans-serif",
-            fontWeight: "400",
-            colors: ["#fff", "#fff", "#1f2937"],
-          },
-          dropShadow: {
-            enabled: false,
-          },
-          formatter: (value: number) => `${value.toFixed(1)} %`,
-        },
-        // labels: ["Direct", "Organic search"],
-        plotOptions: {
-          pie: {
-            dataLabels: {
-              offset: -20,
-            },
-          },
-        },
-        colors: ["#5f6060", "#494848"],
-        tooltip: {
-          enabled: true,
-          y: {
-            title: {
-              formatter: (value: Address) => shortenAddress(value),
-            },
-          },
-        },
-        legend: {
-          show: false,
-        },
-        labels: royaltyData?.targetAncestors,
-        responsive: [
-          {
-            breakpoint: 480,
-            options: {
-              chart: {
-                width: 300,
-              },
-              legend: {
-                position: "bottom",
-              },
-            },
-          },
-        ],
-      },
-      series: royaltyData?.targetRoyaltyAmount.map(Number),
-    }
-
-    return (
-      <div className="flex flex-col items-center justify-between">
-        <div className="min-h-[230px]">
-          <Chart options={chart.options} series={chart.series} type="pie" height={250} width="300" />
-        </div>
-        <div className="w-full min-w-[300px] px-2">
-          <dl className="divide-y divide-gray-100 overflow-x-hidden text-sm leading-6">
-            {royaltyData?.targetAncestors.map((target, i) => (
-              <div key={target} className="flex justify-between gap-x-4 py-1">
-                <dt className="text-xs capitalize text-gray-500">{shortenAddress(target)}</dt>
-                <dd className="truncate text-gray-700">{royaltyData.targetRoyaltyAmount[i]}</dd>
-              </div>
-            ))}
-          </dl>
-        </div>
-      </div>
-    )
-  }
-
-  return <div className="flex h-60 flex-col items-center justify-center text-slate-400">No Royalty Data</div>
-}
-
-// function IPADerivatives() {
-//   return <div>Derivatives</div>
-// }
-
-function IPAGraph() {
-  const { assetData } = useIPAssetContext()
-  const formattedGraphData = convertAssetToGraphFormat(assetData as Asset)
-
-  console.log({ formattedGraphData })
-
-  // const linkCanvasObject = (link: any, ctx: any, globalScale: any) => {
-  //   // Example properties from the link object
-  //   const { source, target } = link
-
-  //   // Start drawing the custom link
-  //   ctx.beginPath()
-  //   ctx.moveTo(source.x, source.y) // Move to the position of the source node
-  //   ctx.lineTo(target.x, target.y) // Draw a line to the position of the target node
-
-  //   // Set the style of the link
-  //   ctx.strokeStyle = "#f00" // Set the color of the link to red
-  //   ctx.lineWidth = Math.max(1, 2 / globalScale) // Set the width of the link, adjusted by globalScale
-
-  //   // Optionally, you can add more custom drawing here, such as arrows or text
-
-  //   ctx.stroke() // Apply the drawing to the canvas
-  // }
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const nodeCanvasObject = (node: any, ctx: any, globalScale: any) => {
-    const isParent = node.level < 0
-    const isSelf = node.level === 0
-    const isChild = node.level > 0
-
-    let label
-
-    if (node.isRoot) {
-      if (isParent) {
-        label = `${node.name} (Root / Parent)`
-      } else {
-        label = `${node.name} (Root)`
-      }
-    } else if (isParent) {
-      label = `${node.name} (Parent)`
-    } else if (isChild) {
-      label = `${node.name} (Child)`
-    } else {
-      label = `${node.name}`
-    }
-
-    const fontSize = 12 / globalScale
-    const circleRadius = isSelf ? 6 : 3 // Radius of the circle
-
-    // Set the font for the text
-    ctx.font = `${fontSize}px Sans-Serif`
-
-    // Draw the circle
-    ctx.beginPath()
-    ctx.arc(node.x, node.y, circleRadius, 0, 2 * Math.PI, false)
-    if (isSelf) {
-      ctx.fillStyle = "black" // Color of the circle
-    } else if (isParent) {
-      ctx.fillStyle = "grey" // Color of the circle
-    } else {
-      ctx.fillStyle = "lightgrey" // Color of the circle
-    }
-
-    ctx.fill()
-    if (isSelf) {
-      ctx.strokeStyle = "lightblue" // Border color of the circle
-      ctx.stroke()
-    }
-
-    // Draw the text next to the circle
-    // const textWidth = ctx.measureText(label).width
-    // const textOffsetX = circleRadius + 5; // Offset the text to the right of the circle
-    // const textOffsetY = fontSize / 2 - circleRadius / 2; // Vertically center the text
-    ctx.fillText(label, node.x, node.y + 10)
-  }
 
   return (
-    <div className="relative">
-      <ForceGraph2D width={370} height={250} graphData={formattedGraphData} nodeCanvasObject={nodeCanvasObject} />
+    <div className="flex w-full flex-col items-start justify-start">
+      {isBottomNav && <TitleBar />}
+      <AssetImage />
+      {!isBottomNav && <TitleBar />}
     </div>
   )
 }
