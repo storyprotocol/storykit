@@ -1,0 +1,32 @@
+import { Canvas, Controls, Meta } from "@storybook/blocks"
+
+import * as IPARoyaltyChartStory from "./IPARoyaltyChart.stories"
+
+<Meta of={IPARoyaltyChartStory} title="Components/IPARoyaltyChart" />
+
+# IPA Graph
+
+Show Asset derivatives graph
+
+#### Example
+
+<Canvas of={IPARoyaltyChartStory.Select} />
+
+<Controls />
+
+## Usage
+
+```ts
+import { IPAssetProvider } from "@story-protocol/storykit"
+import { IPARoyaltyChart } from "@story-protocol/storykit"
+
+const ExamplePage = () => {
+  return (
+    <IPAssetProvider ipId={"0xbbf08a30b9ff0f717a024a75963d3196aaf0f0dd"}>
+      <IPARoyaltyChart />
+    </IPAssetProvider>
+  );
+};
+
+export default ExamplePage;
+```

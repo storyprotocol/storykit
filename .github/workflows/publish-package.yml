@@ -3,7 +3,7 @@ name: publish on github
 on:
   push:
     branches:
-      - main
+      - feature/monorepo-refactor
 
 jobs:
   publish-gpr:
@@ -29,6 +29,8 @@ jobs:
         run: pnpm build
 
       - name: Publish to npm
-        run: npm publish
+        run: |
+          cd packages/storykit
+          npm publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}

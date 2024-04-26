@@ -1,112 +1,80 @@
-# Storykit
+# Turborepo starter with Rollup
 
-Plug-and-play React components for Story Protocol.
+This is an official starter Turborepo, showing how Turborepo can be used with Rollup for bundling a `ui` package.
 
-## Installation (tbc)
+## Using this example
 
-#### Install the package in your React app
+Run the following command:
 
-```bash
-pnpm install @storyprotocol/storykit @tanstack/react-query
+```sh
+npx create-turbo@latest -e with-rollup
 ```
 
-#### Import the css
+## What's inside?
 
-```typescript
-import "@storyprotocol/storykit/dist/build.css"
+This Turborepo includes the following packages/apps:
+
+### Apps and Packages
+
+- `web`: a [Next.js](https://nextjs.org) app
+- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
+- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
+- `@repo/ui`: a React component library used by the `web` application, compiled with Rollup
+
+Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
+
+### Utilities
+
+This Turborepo has some additional tools already setup for you:
+
+- [TypeScript](https://www.typescriptlang.org/) for static type checking
+- [ESLint](https://eslint.org/) for code linting
+- [Prettier](https://prettier.io) for code formatting
+
+### Build
+
+To build all apps and packages, run the following command:
+
+```
+cd my-turborepo
+pnpm run build
 ```
 
-#### Use the components
+### Develop
 
-```typescript
-import { Button } from "@storyprotocol/storykit"
-
-function Home() {
-  return (
-    <div>
-      <Button variant="primary">Click me</Button>
-    </div>
-  )
-}
+To develop all apps and packages, run the following command:
 
 ```
-
-See [the example app](/examples/next-app/app/page.tsx).
-
-## Contributing
-
-#### Installation
-
-```bash
-pnpm install
+cd my-turborepo
+pnpm run dev
 ```
 
-#### Run Storybook
+### Remote Caching
 
-Build components within the Storybook workshop environment.
+Turborepo can use a technique known as [Remote Caching](https://turborepo.org/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
 
-```bash
-pnpm storybook
+By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup), then enter the following commands:
+
+```
+cd my-turborepo
+npx turbo login
 ```
 
-#### Formatting w\ prettier, linting w\ eslint & running tests
+This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
 
-```bash
-pnpm format
-pnpm lint
-pnpm test
+Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
+
+```
+npx turbo link
 ```
 
-#### Bundle `/dist` package
+## Useful Links
 
-```bash
-pnpm build
-```
+Learn more about the power of Turborepo:
 
-## Installing as a private package
-
-1. Create a personal access token: [github.com/settings/tokens](https://github.com/settings/tokens)
-
-2. Login with Story Protocol scope:
-
-```bash
-npm login --scope=@storyprotocol --registry=https://npm.pkg.github.com
-```
-
-3. Use your github username and personal access token to login
-
-4. Install the package as normal
-
-```bash
-npm install @storyprotocol/storykit
-```
-
-## Running examples
-
-From the root, build a package
-
-```bash
-pnpm build
-```
-
-Link `storykit` for use locally
-
-```bash
-pnpm link --global
-```
-
-Install the example app
-
-```bash
-cd examples/next-app
-pnpm install
-```
-
-Link the `storykit` package and start the app
-
-```bash
-pnpm link --global @storyprotocol/storykit
-pnpm dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- [Pipelines](https://turborepo.org/docs/core-concepts/pipelines)
+- [Caching](https://turborepo.org/docs/core-concepts/caching)
+- [Remote Caching](https://turborepo.org/docs/core-concepts/remote-caching)
+- [Scoped Tasks](https://turborepo.org/docs/core-concepts/scopes)
+- [Configuration Options](https://turborepo.org/docs/reference/configuration)
+- [CLI Usage](https://turborepo.org/docs/reference/command-line-reference)

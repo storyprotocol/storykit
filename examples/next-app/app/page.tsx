@@ -1,22 +1,20 @@
-import dynamic from "next/dynamic"
 
-import Providers from '@/components/Providers'
+import "@story-protocol/storykit/dist/build.css"
+import dynamic from "next/dynamic"
 
 const DynamicHomePage = dynamic(
   () => {
-    return import("@/components/HomePage")
+    return import("../components/HomePage")
   },
   { ssr: false }
-  )
+)
 
-import '@storyprotocol/storykit/dist/build.css'
+
 
 export default function Home() {
   return (
     <div>
-      <Providers>
-        <DynamicHomePage />
-      </Providers>
+      <DynamicHomePage />
     </div>
   )
 }
