@@ -29,7 +29,7 @@ importers:
 
   examples/next-app:
     dependencies:
-      '@story-protocol/storykit':
+      '@storyprotocol/storykit':
         specifier: workspace:*
         version: link:../../packages/storykit
       '@tanstack/react-query':

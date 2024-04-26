@@ -1,9 +1,9 @@
 {
   "private": true,
   "scripts": {
-    "build": "turbo run build --filter @story-protocol/storykit",
-    "dev": "turbo run dev --filter @story-protocol/storykit",
-    "lint": "turbo run lint --filter @story-protocol/storykit",
+    "build": "turbo run build --filter @storyprotocol/storykit",
+    "dev": "turbo run dev --filter @storyprotocol/storykit",
+    "lint": "turbo run lint --filter @storyprotocol/storykit",
     "lint-all": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "prepare": "husky"

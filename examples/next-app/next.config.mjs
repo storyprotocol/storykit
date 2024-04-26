@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // transpilePackages: ["@story-protocol/storykit"],
+  // transpilePackages: ["@storyprotocol/storykit"],
 }
 
 export default nextConfig

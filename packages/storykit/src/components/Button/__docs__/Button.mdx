@@ -1,5 +1,6 @@
-import * as ButtonStory from "./Button.stories"
 import { Canvas, Meta } from "@storybook/blocks"
+
+import * as ButtonStory from "./Button.stories"
 
 <Meta of={ButtonStory} title="Example/Button" />
 
@@ -14,7 +15,7 @@ Button component with different props.
 ## Usage
 
 ```ts
-import { Button } from "@story-protocol/storykit";
+import { Button } from "@storyprotocol/storykit";
 
 const Example = () => {
   return (
@@ -22,7 +23,9 @@ const Example = () => {
         size="small"
         variant="primary"
         onClick={()=> console.log("Clicked")}
-      >hello</Button>
+      >
+        hello
+      </Button>
   );
 };
 

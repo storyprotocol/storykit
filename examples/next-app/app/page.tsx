@@ -1,5 +1,5 @@
 
-import "@story-protocol/storykit/dist/build.css"
+import "@storyprotocol/storykit/dist/build.css"
 import dynamic from "next/dynamic"
 
 const DynamicHomePage = dynamic(

@@ -1,6 +1,6 @@
 "use client"
 
-import { Button, IPAssetProvider, IPAssetWidget, useIPAssetContext } from "@story-protocol/storykit"
+import { Button, IPAssetProvider, IPAssetWidget, useIPAssetContext } from "@storyprotocol/storykit"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import React from "react"
 
