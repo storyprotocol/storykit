@@ -23,6 +23,7 @@
   "scripts": {
     "test": "react-scripts test",
     "lint": "eslint . --ext .ts,.tsx --ignore-path ../../.prettierignore --fix",
+    "format": "prettier --write --parser typescript '**/*.{ts,tsx}'",
     "dev": "storybook dev -p 6006",
     "build-tailwind": "pnpm exec tailwindcss -o dist/build.css --minify",
     "build": "rollup -c --bundleConfigAsCjs && pnpm build-tailwind"
