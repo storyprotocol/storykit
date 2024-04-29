@@ -1,3 +1,4 @@
+import { PREVIEW_IP_ASSETS } from "@/stories/data"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import React, { FC } from "react"
 import { Address } from "viem"
@@ -5,7 +6,7 @@ import { Address } from "viem"
 import IPAssetWidget from "../IPAssetWidget"
 
 const Example: FC<{ ipId: Address; isBottomNav?: boolean }> = ({
-  ipId = "0xbbf08a30b9ff0f717a024a75963d3196aaf0f0dd",
+  ipId = PREVIEW_IP_ASSETS[1] as "0x${string}",
   isBottomNav = false,
 }) => {
   const queryClient = new QueryClient()
