@@ -1,4 +1,5 @@
-import { Address, Hash } from "viem"
+// import { Address, Hash } from "viem"
+import { Address } from "viem"
 
 export const POLICY_TYPE = {
   OPEN_DOMAIN: "Open Domain",
@@ -362,21 +363,36 @@ export type Policy = {
   block_time: string
 }
 
+// export type PILType = {
+//   id: Hash
+//   attribution: boolean
+//   commercialUse: boolean
+//   commercialAttribution: boolean
+//   commercializerChecker: Address
+//   commercializerCheckerData: string
+//   commercialRevShare: string
+//   derivativesAllowed: boolean
+//   derivativesAttribution: boolean
+//   derivativesApproval: boolean
+//   derivativesReciprocal: boolean
+//   territories: string[]
+//   distributionChannels: string[]
+//   contentRestrictions: string[]
+// }
+
 export type PILType = {
-  id: Hash
-  attribution: boolean
-  commercialUse: boolean
-  commercialAttribution: boolean
-  commercializerChecker: Address
-  commercializerCheckerData: string
-  commercialRevShare: string
-  derivativesAllowed: boolean
-  derivativesAttribution: boolean
-  derivativesApproval: boolean
-  derivativesReciprocal: boolean
-  territories: string[]
-  distributionChannels: string[]
-  contentRestrictions: string[]
+  commercialAttribution: string
+  commercialRevenueCelling: number
+  commercialRevenueShare: number
+  commercialUse: string
+  commercializerCheck: Address
+  currency: Address
+  derivativesAllowed: string
+  derivativesApproval: string
+  derivativesAttribution: string
+  derivativesReciprocal: string
+  derivativesRevenueCelling: number
+  expiration: string
 }
 
 export type RoyaltySplit = {

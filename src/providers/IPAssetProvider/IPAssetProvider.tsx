@@ -6,6 +6,7 @@ import { getResource, listResource } from "../../lib/api"
 import { getNFTByTokenId } from "../../lib/simplehash"
 import { NFTMetadata } from "../../lib/simplehash/types/simplehash"
 import { Asset, IPAPolicy, License, Policy, RESOURCE_TYPE, RoyaltyPolicy } from "../../lib/types"
+import { camelize } from "../../lib/utils"
 
 const IPAssetContext = React.createContext<{
   activeTab: string
@@ -56,12 +57,36 @@ export const IPAssetProvider = ({ children, ipId }: { children: React.ReactNode;
   })
 
   async function fetchPolicyDetails(data: IPAPolicy[]) {
-    const requests = data.map((item) => getResource(RESOURCE_TYPE.POLICY, item.policyId))
+    // const requests = data.map((item) => getResource(RESOURCE_TYPE.POLICY, item.policyId))
+
+    const uniquePolicies = data.filter((item, index) => {
+      const first = data.find((_item) => _item.license_terms_id === item.license_terms_id)
+      return data.indexOf(first!) === index
+    })
+
+    const requests = uniquePolicies.map((item) => getResource(RESOURCE_TYPE.POLICY, item.license_terms_id))
     const results = await Promise.all(requests)
-    return results.reduce((acc, result) => {
-      acc.push(result.data)
-      return acc
-    }, [])
+
+    return results
+      .filter((result) => result.data?.json?.length)
+      .map((result) => {
+        let json = result.data.json.slice(-1) === "," ? result.data.json.slice(0, -1) : result.data.json
+        json = JSON.parse(`{"data": [${json}]}`)
+
+        return {
+          ...result.data,
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          json: json.data.reduce((acc: any, option: any) => {
+            return { ...acc, [camelize(option.trait_type)]: option.value }
+          }, {}),
+        }
+      })
+
+    // return results.reduce((acc, result) => {
+    //   console.log(JSON.parse(result.data.json))
+    //   if (result.data?.json?.length) acc.push({ ...result.data, _json: result.data.json })
+    //   return acc
+    // }, [])
   }
 
   const { isLoading: isPolicyDataLoading, data: policyData } = useQuery({
