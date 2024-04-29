@@ -10,7 +10,7 @@ function IPARoyaltyChart() {
 
   const { royaltyData } = useIPAssetContext()
 
-  if (royaltyData) {
+  if (royaltyData?.targetAncestors) {
     const chart = {
       options: {
         chart: {

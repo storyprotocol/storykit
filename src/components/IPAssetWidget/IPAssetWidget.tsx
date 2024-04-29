@@ -236,7 +236,7 @@ function IPAssetHeader({ hideImage }: { hideImage?: boolean }) {
         </div>
         <div>
           <div>
-            <h1 className="font-semibold">{assetData?.metadata.name || nftData?.name || "Untitled"}</h1>
+            <h1 className="font-semibold">{assetData?.nftMetadata.name || nftData?.name || "Untitled"}</h1>
             <h2 className="text-xs">
               Owned by{" "}
               <span className="text-slate-400">{shortenAddress(nftData?.owners[0].owner_address as string)}</span>

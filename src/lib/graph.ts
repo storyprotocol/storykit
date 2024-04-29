@@ -33,12 +33,12 @@ export function convertJsonToGraphFormat(ipAssets: Asset[]): GraphData {
 
   // Create nodes
   for (const asset of ipAssets) {
-    const nodeName = asset.metadata.name || "Untitled"
+    const nodeName = asset.nftMetadata.name || "Untitled"
     const node: GraphNode = {
       id: asset.id,
       name: nodeName,
       val: 1,
-      tokenContract: asset.tokenContract,
+      tokenContract: asset.nftMetadata.tokenContract,
     }
     nodes.push(node)
 
@@ -69,9 +69,9 @@ export function convertAssetToGraphFormat(jsonData: Asset): GraphData {
   // Create node for the main object
   const mainNode: GraphNode = {
     id: jsonData.id,
-    name: jsonData.metadata.name || "Untitled",
-    tokenContract: jsonData.tokenContract,
-    tokenId: jsonData.tokenId,
+    name: jsonData.nftMetadata.name || "Untitled",
+    tokenContract: jsonData.nftMetadata.tokenContract,
+    tokenId: jsonData.nftMetadata.tokenId,
     val: 1,
     level: 0,
     isRoot: rootIpId === undefined,
@@ -83,9 +83,9 @@ export function convertAssetToGraphFormat(jsonData: Asset): GraphData {
     for (const child of jsonData.childIpIds) {
       const childNode: GraphNode = {
         id: child.id,
-        name: child.metadata.name || "Untitled",
-        tokenContract: child.tokenContract,
-        tokenId: child.tokenId,
+        name: child.nftMetadata.name || "Untitled",
+        tokenContract: child.nftMetadata.tokenContract,
+        tokenId: child.nftMetadata.tokenId,
         val: 1,
         level: 1,
       }
@@ -103,9 +103,9 @@ export function convertAssetToGraphFormat(jsonData: Asset): GraphData {
     for (const parent of jsonData.parentIpIds) {
       const parentNode: GraphNode = {
         id: parent.id,
-        name: parent.metadata.name || "Untitled",
-        tokenContract: parent.tokenContract,
-        tokenId: parent.tokenId,
+        name: parent.nftMetadata.name || "Untitled",
+        tokenContract: parent.nftMetadata.tokenContract,
+        tokenId: parent.nftMetadata.tokenId,
         val: 1,
         level: -1, // assuming parent is one level up
         isRoot: parent.id === rootIpId,

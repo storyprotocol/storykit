@@ -102,10 +102,18 @@ export const IPAssetProvider = ({ children, ipId }: { children: React.ReactNode;
     queryFn: () => getResource(RESOURCE_TYPE.ROYALTY_POLICY, ipId),
   })
 
+  // const { isLoading: isNftDataLoading, data: nftData } = useQuery({
+  //   queryKey: ["getNFTByTokenId", assetData?.data?.tokenContract, assetData?.data?.tokenId],
+  //   queryFn: () => getNFTByTokenId(assetData.data.tokenContract, assetData.data.tokenId),
+  //   enabled: Boolean(assetData) && Boolean(assetData.data.tokenContract) && Boolean(assetData.data.tokenId),
+  // })
   const { isLoading: isNftDataLoading, data: nftData } = useQuery({
-    queryKey: ["getNFTByTokenId", assetData?.data?.tokenContract, assetData?.data?.tokenId],
-    queryFn: () => getNFTByTokenId(assetData.data.tokenContract, assetData.data.tokenId),
-    enabled: Boolean(assetData) && Boolean(assetData.data.tokenContract) && Boolean(assetData.data.tokenId),
+    queryKey: ["getNFTByTokenId", assetData?.data?.nftMetadata?.tokenContract, assetData?.data?.nftMetadata?.tokenId],
+    queryFn: () => getNFTByTokenId(assetData.data.nftMetadata.tokenContract, assetData.data.nftMetadata.tokenId),
+    enabled:
+      Boolean(assetData) &&
+      Boolean(assetData.data.nftMetadata.tokenContract) &&
+      Boolean(assetData.data.nftMetadata.tokenId),
   })
 
   return (
