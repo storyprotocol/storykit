@@ -28,23 +28,6 @@ export function camelize(str: string) {
   })
 }
 
-// export function getPolicyTypeByPILData(pilData: PILType) {
-//   const { attribution, derivativesAllowed, commercialUse, commercialRevShare, contentRestrictions } = pilData
-
-//   if (derivativesAllowed && commercialUse && contentRestrictions.length === 0) {
-//     if (attribution) return POLICY_TYPE.FREE_ATTRIBUTION
-//     if (!attribution && commercialRevShare !== "0") return POLICY_TYPE.PAID_NO_ATTRIBUTION
-//     if (!attribution && commercialRevShare === "0") return POLICY_TYPE.OPEN_DOMAIN
-//   }
-
-//   if (attribution && !commercialUse && !derivativesAllowed && contentRestrictions.length > 0) {
-//     return POLICY_TYPE.NO_DERIVATIVE
-//   }
-
-//   // default
-//   return POLICY_TYPE.OPEN_DOMAIN
-// }
-
 export function getPolicyTypeByPILData(pilData: PILType) {
   const { derivativesAttribution, derivativesAllowed, commercialUse, commercialRevenueShare } = pilData
 

@@ -1,4 +1,3 @@
-// import { Address, Hash } from "viem"
 import { Address } from "viem"
 
 export const POLICY_TYPE = {
@@ -13,17 +12,13 @@ export enum RESOURCE_TYPE {
   ASSET = "assets",
   COLLECTION = "collections",
   DISPUTE = "disputes",
-  // IPA_POLICY = "ipapolicies",
   IPA_POLICY = "licenses/ip/terms",
-  // LICENSE = "licenses",
   LICENSE = "licenses/tokens",
   LICENSE_MINT_FEES = "licenses/mintingfees",
   LICENSE_OWNER = "licenses/owners",
   MODULE = "modules",
   PERMISSION = "permissions",
-  // POLICY = "policies",
   POLICY = "licenses/terms",
-  // POLICY_FRAMEWORK = "policies/frameworks",
   POLICY_FRAMEWORK = "licenses/templates",
   ROYALTY = "royalties",
   ROYALTY_PAY = "royalties/payments",
@@ -161,26 +156,6 @@ export type Transaction = {
   resourceType: string
 }
 
-// export type Asset = {
-//   id: Address
-//   chainId: string
-//   childIpIds: Asset[] | null
-//   parentIpIds: Asset[] | null
-//   rootIpIds: Asset[] | null
-//   tokenContract: Address
-//   tokenId: string
-//   metadataResolverAddress: string
-//   metadata: {
-//     name: string
-//     hash: string
-//     registrationDate: string
-//     registrant: string
-//     uri: string
-//   }
-//   blockNumber: string
-//   blockTimestamp: string
-// }
-
 export type Asset = {
   id: Address
   parentIpIds: Asset[] | null
@@ -208,16 +183,6 @@ export type Permission = {
   blockTimestamp: string
 }
 
-// export type License = {
-//   id: string
-//   policyId: string
-//   licensorIpId: Address
-//   amount: string
-//   transferable: boolean
-//   blockNumber: string
-//   blockTimestamp: string
-// }
-
 export type License = {
   id: string
   licensorIpId: Address
@@ -231,14 +196,6 @@ export type License = {
   blockNumber: string
   blockTime: string
 }
-
-// export type PolicyFramework = {
-//   id: string
-//   address: Address
-//   name: string
-//   blockNumber: string
-//   blockTimestamp: string
-// }
 
 export type PolicyFramework = {
   id: string
@@ -266,17 +223,6 @@ export type Tag = {
   blockNumber: string
   blockTimestamp: string
 }
-
-// export type IPAPolicy = {
-//   id: string
-//   ipId: Address
-//   policyId: Address
-//   index: string
-//   active: boolean
-//   inherited: boolean
-//   blockNumber: string
-//   blockTimestamp: string
-// }
 
 export type IPAPolicy = {
   id: string
@@ -343,19 +289,6 @@ export type Collection = {
   blockTimestamp: string
 }
 
-// export type Policy = {
-//   id: string
-//   policyFrameworkManager: Address
-//   frameworkData: string
-//   royaltyPolicy: Address
-//   royaltyData: string
-//   mintingFee: string
-//   mintingFeeToken: Address
-//   blockNumber: string
-//   blockTimestamp: string
-//   pil: PILType
-// }
-
 export type Policy = {
   id: string
   json: string
@@ -363,23 +296,6 @@ export type Policy = {
   blockNumber: string
   blockTime: string
 }
-
-// export type PILType = {
-//   id: Hash
-//   attribution: boolean
-//   commercialUse: boolean
-//   commercialAttribution: boolean
-//   commercializerChecker: Address
-//   commercializerCheckerData: string
-//   commercialRevShare: string
-//   derivativesAllowed: boolean
-//   derivativesAttribution: boolean
-//   derivativesApproval: boolean
-//   derivativesReciprocal: boolean
-//   territories: string[]
-//   distributionChannels: string[]
-//   contentRestrictions: string[]
-// }
 
 export type PILType = {
   commercialAttribution: boolean

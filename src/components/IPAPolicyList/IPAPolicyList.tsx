@@ -1,6 +1,5 @@
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 import { POLICY_TYPE } from "@/lib/types"
-// import { Asset } from "@/lib/types"
 import { getPolicyTypeByPILData } from "@/lib/utils"
 import { useIPAssetContext } from "@/providers"
 import { Check, X } from "lucide-react"

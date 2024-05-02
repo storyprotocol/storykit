@@ -57,14 +57,7 @@ export const IPAssetProvider = ({ children, ipId }: { children: React.ReactNode;
   })
 
   async function fetchPolicyDetails(data: IPAPolicy[]) {
-    // const requests = data.map((item) => getResource(RESOURCE_TYPE.POLICY, item.policyId))
-
     const uniquePolicies = data.filter((item) => item.ip_id.toLowerCase() === ipId.toLowerCase())
-    // .filter((item, index) => {
-    //   const first = data.find((_item) => _item.licenseTermsId === item.licenseTermsId)
-    //   return data.indexOf(first!) === index
-    // })
-    // .sort((a, b) => parseInt(a.licenseTermsId) - parseInt(b.licenseTermsId))
 
     const requests = uniquePolicies.map((item) => getResource(RESOURCE_TYPE.POLICY, item.licenseTermsId))
     const results = await Promise.all(requests)
@@ -87,12 +80,6 @@ export const IPAssetProvider = ({ children, ipId }: { children: React.ReactNode;
           }, {}),
         }
       })
-
-    // return results.reduce((acc, result) => {
-    //   console.log(JSON.parse(result.data.json))
-    //   if (result.data?.json?.length) acc.push({ ...result.data, _json: result.data.json })
-    //   return acc
-    // }, [])
   }
 
   const { isLoading: isPolicyDataLoading, data: policyData } = useQuery({
