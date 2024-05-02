@@ -59,13 +59,12 @@ export const IPAssetProvider = ({ children, ipId }: { children: React.ReactNode;
   async function fetchPolicyDetails(data: IPAPolicy[]) {
     // const requests = data.map((item) => getResource(RESOURCE_TYPE.POLICY, item.policyId))
 
-    const uniquePolicies = data
-      .filter((item, index) => {
-        const first = data.find((_item) => _item.licenseTermsId === item.licenseTermsId)
-        return data.indexOf(first!) === index
-      })
-      .sort((a, b) => parseInt(a.licenseTermsId) - parseInt(b.licenseTermsId))
-      .filter((item) => item.ip_id === ipId)
+    const uniquePolicies = data.filter((item) => item.ip_id.toLowerCase() === ipId.toLowerCase())
+    // .filter((item, index) => {
+    //   const first = data.find((_item) => _item.licenseTermsId === item.licenseTermsId)
+    //   return data.indexOf(first!) === index
+    // })
+    // .sort((a, b) => parseInt(a.licenseTermsId) - parseInt(b.licenseTermsId))
 
     const requests = uniquePolicies.map((item) => getResource(RESOURCE_TYPE.POLICY, item.licenseTermsId))
     const results = await Promise.all(requests)
@@ -80,7 +79,11 @@ export const IPAssetProvider = ({ children, ipId }: { children: React.ReactNode;
           ...result.data,
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           json: json.data.reduce((acc: any, option: any) => {
-            return { ...acc, [camelize(option.trait_type)]: option.value }
+            return {
+              ...acc,
+              [camelize(option.trait_type)]:
+                option.value === "true" ? true : option.value === "false" ? false : option.value,
+            }
           }, {}),
         }
       })

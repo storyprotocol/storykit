@@ -382,16 +382,16 @@ export type Policy = {
 // }
 
 export type PILType = {
-  commercialAttribution: string
+  commercialAttribution: boolean
   commercialRevenueCelling: number
   commercialRevenueShare: number
-  commercialUse: string
+  commercialUse: boolean
   commercializerCheck: Address
   currency: Address
-  derivativesAllowed: string
-  derivativesApproval: string
-  derivativesAttribution: string
-  derivativesReciprocal: string
+  derivativesAllowed: boolean
+  derivativesApproval: boolean
+  derivativesAttribution: boolean
+  derivativesReciprocal: boolean
   derivativesRevenueCelling: number
   expiration: string
   URI: string

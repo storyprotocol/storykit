@@ -45,29 +45,16 @@ export function camelize(str: string) {
 //   return POLICY_TYPE.OPEN_DOMAIN
 // }
 
-// commercialAttribution: "true"
-// commercialRevenueCelling: 0
-// commercialRevenueShare: 10000000
-// commercialUse: "true"
-// commercializerCheck: "0x0000000000000000000000000000000000000000"
-// currency: "0xb132a6b7ae652c974ee1557a3521d53d18f6739f"
-// derivativesAllowed: "true"
-// derivativesApproval: "false"
-// derivativesAttribution: "true"
-// derivativesReciprocal: "true"
-// derivativesRevenueCelling: 0
-// expiration: "never"
-
 export function getPolicyTypeByPILData(pilData: PILType) {
-  const { commercialAttribution, derivativesAllowed, commercialUse } = pilData
+  const { derivativesAttribution, derivativesAllowed, commercialUse, commercialRevenueShare } = pilData
 
-  if (derivativesAllowed === "true" && commercialUse === "true") {
-    if (commercialAttribution !== "true") return POLICY_TYPE.FREE_ATTRIBUTION
-    if (commercialAttribution === "true") return POLICY_TYPE.PAID_NO_ATTRIBUTION
-    // if (!attribution && commercialRevShare === "0") return POLICY_TYPE.OPEN_DOMAIN
+  if (derivativesAllowed && commercialUse) {
+    if (derivativesAttribution) return POLICY_TYPE.FREE_ATTRIBUTION
+    if (!derivativesAttribution && commercialRevenueShare !== 0) return POLICY_TYPE.PAID_NO_ATTRIBUTION
+    if (!derivativesAttribution && commercialRevenueShare === 0) return POLICY_TYPE.OPEN_DOMAIN
   }
 
-  if (commercialAttribution === "true" && commercialUse !== "true" && derivativesAllowed !== "true") {
+  if (!derivativesAllowed) {
     return POLICY_TYPE.NO_DERIVATIVE
   }
 

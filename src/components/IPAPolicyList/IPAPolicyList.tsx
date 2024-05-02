@@ -59,7 +59,6 @@ function PILLabel({ type }: { type: string }) {
 
 function IPAPolicyList() {
   const { policyData } = useIPAssetContext()
-  console.log("policyData", policyData)
 
   return policyData?.length ? (
     <Accordion type="single" collapsible className="px-2">
