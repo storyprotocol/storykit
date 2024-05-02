@@ -1,10 +1,11 @@
+import { PREVIEW_IP_ASSETS } from "@/stories/data"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import React, { FC } from "react"
 import { Address } from "viem"
 
 import { IPAssetProvider, useIPAssetContext } from "../IPAssetProvider"
 
-const Example: FC<{ ipId: Address }> = ({ ipId = "0xbbf08a30b9ff0f717a024a75963d3196aaf0f0dd" }) => {
+const Example: FC<{ ipId: Address }> = ({ ipId = PREVIEW_IP_ASSETS[0] as `0x${string}` }) => {
   const queryClient = new QueryClient()
   return (
     <QueryClientProvider client={queryClient}>
@@ -26,6 +27,7 @@ const Example: FC<{ ipId: Address }> = ({ ipId = "0xbbf08a30b9ff0f717a024a75963d
 
 const ExampleComponent = () => {
   const { nftData, isNftDataLoading } = useIPAssetContext()
+
   return (
     <>
       {isNftDataLoading && <div>Fetching Asset...</div>}

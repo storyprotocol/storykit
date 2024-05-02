@@ -21,16 +21,23 @@ export function shortenAddress(address: string, length = 4): string {
   return `${start}...${end}`
 }
 
-export function getPolicyTypeByPILData(pilData: PILType) {
-  const { attribution, derivativesAllowed, commercialUse, commercialRevShare, contentRestrictions } = pilData
+export function camelize(str: string) {
+  return str.replace(/(?:^\w|[A-Z]|\b\w|\s+)/g, function (match, index) {
+    if (+match === 0) return "" // or if (/\s+/.test(match)) for white spaces
+    return index === 0 ? match.toLowerCase() : match.toUpperCase()
+  })
+}
 
-  if (derivativesAllowed && commercialUse && contentRestrictions.length === 0) {
-    if (attribution) return POLICY_TYPE.FREE_ATTRIBUTION
-    if (!attribution && commercialRevShare !== "0") return POLICY_TYPE.PAID_NO_ATTRIBUTION
-    if (!attribution && commercialRevShare === "0") return POLICY_TYPE.OPEN_DOMAIN
+export function getPolicyTypeByPILData(pilData: PILType) {
+  const { derivativesAttribution, derivativesAllowed, commercialUse, commercialRevenueShare } = pilData
+
+  if (derivativesAllowed && commercialUse) {
+    if (derivativesAttribution) return POLICY_TYPE.FREE_ATTRIBUTION
+    if (!derivativesAttribution && commercialRevenueShare !== 0) return POLICY_TYPE.PAID_NO_ATTRIBUTION
+    if (!derivativesAttribution && commercialRevenueShare === 0) return POLICY_TYPE.OPEN_DOMAIN
   }
 
-  if (attribution && !commercialUse && !derivativesAllowed && contentRestrictions.length > 0) {
+  if (!derivativesAllowed) {
     return POLICY_TYPE.NO_DERIVATIVE
   }
 

@@ -1,11 +1,12 @@
-import { NFTMetadata } from "@/lib/simplehash/types/simplehash"
-import { Asset, IPAPolicy, License, Policy, RESOURCE_TYPE, RoyaltyPolicy } from "@/lib/types"
 import { useQuery } from "@tanstack/react-query"
 import React, { useState } from "react"
 import { Address } from "viem"
 
 import { getResource, listResource } from "../../lib/api"
 import { getNFTByTokenId } from "../../lib/simplehash"
+import { NFTMetadata } from "../../lib/simplehash/types/simplehash"
+import { Asset, IPAPolicy, License, Policy, RESOURCE_TYPE, RoyaltyPolicy } from "../../lib/types"
+import { camelize } from "../../lib/utils"
 
 const IPAssetContext = React.createContext<{
   activeTab: string
@@ -56,12 +57,29 @@ export const IPAssetProvider = ({ children, ipId }: { children: React.ReactNode;
   })
 
   async function fetchPolicyDetails(data: IPAPolicy[]) {
-    const requests = data.map((item) => getResource(RESOURCE_TYPE.POLICY, item.policyId))
+    const uniquePolicies = data.filter((item) => item.ip_id.toLowerCase() === ipId.toLowerCase())
+
+    const requests = uniquePolicies.map((item) => getResource(RESOURCE_TYPE.POLICY, item.licenseTermsId))
     const results = await Promise.all(requests)
-    return results.reduce((acc, result) => {
-      acc.push(result.data)
-      return acc
-    }, [])
+
+    return results
+      .filter((result) => result.data?.json?.length)
+      .map((result) => {
+        let json = result.data.json.slice(-1) === "," ? result.data.json.slice(0, -1) : result.data.json
+        json = JSON.parse(`{"data": [${json}]}`)
+
+        return {
+          ...result.data,
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          json: json.data.reduce((acc: any, option: any) => {
+            return {
+              ...acc,
+              [camelize(option.trait_type)]:
+                option.value === "true" ? true : option.value === "false" ? false : option.value,
+            }
+          }, {}),
+        }
+      })
   }
 
   const { isLoading: isPolicyDataLoading, data: policyData } = useQuery({
@@ -102,10 +120,18 @@ export const IPAssetProvider = ({ children, ipId }: { children: React.ReactNode;
     queryFn: () => getResource(RESOURCE_TYPE.ROYALTY_POLICY, ipId),
   })
 
+  // const { isLoading: isNftDataLoading, data: nftData } = useQuery({
+  //   queryKey: ["getNFTByTokenId", assetData?.data?.tokenContract, assetData?.data?.tokenId],
+  //   queryFn: () => getNFTByTokenId(assetData.data.tokenContract, assetData.data.tokenId),
+  //   enabled: Boolean(assetData) && Boolean(assetData.data.tokenContract) && Boolean(assetData.data.tokenId),
+  // })
   const { isLoading: isNftDataLoading, data: nftData } = useQuery({
-    queryKey: ["getNFTByTokenId", assetData?.data?.tokenContract, assetData?.data?.tokenId],
-    queryFn: () => getNFTByTokenId(assetData.data.tokenContract, assetData.data.tokenId),
-    enabled: Boolean(assetData) && Boolean(assetData.data.tokenContract) && Boolean(assetData.data.tokenId),
+    queryKey: ["getNFTByTokenId", assetData?.data?.nftMetadata?.tokenContract, assetData?.data?.nftMetadata?.tokenId],
+    queryFn: () => getNFTByTokenId(assetData.data.nftMetadata.tokenContract, assetData.data.nftMetadata.tokenId),
+    enabled:
+      Boolean(assetData) &&
+      Boolean(assetData.data.nftMetadata.tokenContract) &&
+      Boolean(assetData.data.nftMetadata.tokenId),
   })
 
   return (

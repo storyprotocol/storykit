@@ -1,0 +1,37 @@
+import { Canvas, Controls, Meta } from "@storybook/blocks"
+
+import * as IPAGraphStory from "./IPAGraph.stories"
+
+<Meta of={IPAGraphStory} title="Components/IPAGraph" />
+
+# IPA Graph
+
+Show Asset derivatives graph
+
+#### Example
+
+<Canvas of={IPAGraphStory.Select} />
+
+<Controls />
+
+## Usage
+
+```ts
+import { IPAssetProvider } from "@storyprotocol/storykit"
+import { IPAGraph } from "@storyprotocol/storykit"
+
+const ExamplePage = () => {
+  return (
+    <IPAssetProvider ipId={"0xbbf08a30b9ff0f717a024a75963d3196aaf0f0dd"}>
+      <IPAGraph />
+    </IPAssetProvider>
+  );
+};
+
+export default ExamplePage;
+```
+
+#### Arguments
+
+- **width**: _number_ - The width of the canvas
+- **height**: _number_ - The height of the canvas

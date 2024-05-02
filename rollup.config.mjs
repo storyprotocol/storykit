@@ -24,15 +24,8 @@ const config = [
         sourcemap: true,
       },
     ],
-    plugins: [
-      peerDepsExternal(),
-      resolve(),
-      commonjs(),
-      typescript({ tsconfig: "./tsconfig.json" }),
-      terser(),
-      postcss(),
-    ],
-    external: ["react", "react-dom"],
+    plugins: [peerDepsExternal(), resolve(), commonjs(), typescript(), terser(), postcss()],
+    external: ["react/jsx-runtime"],
   },
   {
     input: "src/index.ts",

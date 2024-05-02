@@ -1,0 +1,32 @@
+import { Canvas, Controls, Meta } from "@storybook/blocks"
+
+import * as IPAPolicyListStory from "./IPAPolicyList.stories"
+
+<Meta of={IPAPolicyListStory} title="Components/IPAPolicyList" />
+
+# IPA Graph
+
+Show Asset derivatives graph
+
+#### Example
+
+<Canvas of={IPAPolicyListStory.Select} />
+
+<Controls />
+
+## Usage
+
+```ts
+import { IPAssetProvider } from "@storyprotocol/storykit"
+import { IPAPolicyList } from "@storyprotocol/storykit"
+
+const ExamplePage = () => {
+  return (
+    <IPAssetProvider ipId={"0xbbf08a30b9ff0f717a024a75963d3196aaf0f0dd"}>
+      <IPAPolicyList />
+    </IPAssetProvider>
+  );
+};
+
+export default ExamplePage;
+```

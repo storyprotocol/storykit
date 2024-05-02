@@ -7,19 +7,19 @@ Plug-and-play React components for Story Protocol.
 #### Install the package in your React app
 
 ```bash
-pnpm install storykit @tanstack/react-query viem
+pnpm install @storyprotocol/storykit @tanstack/react-query
 ```
 
 #### Import the css
 
 ```typescript
-import "storykit/dist/build.css"
+import "@storyprotocol/storykit/dist/build.css"
 ```
 
 #### Use the components
 
 ```typescript
-import { Button } from "storykit"
+import { Button } from "@storyprotocol/storykit"
 
 function Home() {
   return (
@@ -63,6 +63,24 @@ pnpm test
 pnpm build
 ```
 
+## Installing as a private package
+
+1. Create a personal access token: [github.com/settings/tokens](https://github.com/settings/tokens)
+
+2. Login with Story Protocol scope:
+
+```bash
+npm login --scope=@storyprotocol --registry=https://npm.pkg.github.com
+```
+
+3. Use your github username and personal access token to login
+
+4. Install the package as normal
+
+```bash
+npm install @storyprotocol/storykit
+```
+
 ## Running examples
 
 From the root, build a package
@@ -87,7 +105,7 @@ pnpm install
 Link the `storykit` package and start the app
 
 ```bash
-pnpm link --global storykit
+pnpm link --global @storyprotocol/storykit
 pnpm dev
 ```
 
