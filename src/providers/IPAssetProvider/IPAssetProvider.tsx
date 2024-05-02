@@ -59,10 +59,13 @@ export const IPAssetProvider = ({ children, ipId }: { children: React.ReactNode;
   async function fetchPolicyDetails(data: IPAPolicy[]) {
     // const requests = data.map((item) => getResource(RESOURCE_TYPE.POLICY, item.policyId))
 
-    const uniquePolicies = data.filter((item, index) => {
-      const first = data.find((_item) => _item.licenseTermsId === item.licenseTermsId)
-      return data.indexOf(first!) === index
-    })
+    const uniquePolicies = data
+      .filter((item, index) => {
+        const first = data.find((_item) => _item.licenseTermsId === item.licenseTermsId)
+        return data.indexOf(first!) === index
+      })
+      .sort((a, b) => parseInt(a.licenseTermsId) - parseInt(b.licenseTermsId))
+      .filter((item) => item.ip_id === ipId)
 
     const requests = uniquePolicies.map((item) => getResource(RESOURCE_TYPE.POLICY, item.licenseTermsId))
     const results = await Promise.all(requests)
