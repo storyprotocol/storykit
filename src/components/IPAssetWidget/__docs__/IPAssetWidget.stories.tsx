@@ -26,7 +26,7 @@ export const Select: Story = {
     },
   },
   args: {
-    ipId: PREVIEW_IP_ASSETS[1] as `0x${string}`,
+    ipId: PREVIEW_IP_ASSETS[0] as `0x${string}`,
     isBottomNav: true,
   },
 }
@@ -35,7 +35,7 @@ export const Input: Story = {
     ipId: { control: "text" },
   },
   args: {
-    ipId: PREVIEW_IP_ASSETS[1] as `0x${string}`,
+    ipId: PREVIEW_IP_ASSETS[0] as `0x${string}`,
     isBottomNav: true,
   },
 }
