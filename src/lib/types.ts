@@ -394,6 +394,7 @@ export type PILType = {
   derivativesReciprocal: string
   derivativesRevenueCelling: number
   expiration: string
+  URI: string
 }
 
 export type RoyaltySplit = {
