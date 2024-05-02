@@ -60,11 +60,11 @@ export const IPAssetProvider = ({ children, ipId }: { children: React.ReactNode;
     // const requests = data.map((item) => getResource(RESOURCE_TYPE.POLICY, item.policyId))
 
     const uniquePolicies = data.filter((item, index) => {
-      const first = data.find((_item) => _item.license_terms_id === item.license_terms_id)
+      const first = data.find((_item) => _item.licenseTermsId === item.licenseTermsId)
       return data.indexOf(first!) === index
     })
 
-    const requests = uniquePolicies.map((item) => getResource(RESOURCE_TYPE.POLICY, item.license_terms_id))
+    const requests = uniquePolicies.map((item) => getResource(RESOURCE_TYPE.POLICY, item.licenseTermsId))
     const results = await Promise.all(requests)
 
     return results

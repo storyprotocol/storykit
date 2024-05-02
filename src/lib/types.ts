@@ -220,16 +220,16 @@ export type Permission = {
 
 export type License = {
   id: string
-  licensor_ip_id: Address
-  license_template: string
-  license_terms_id: string
+  licensorIpId: Address
+  licenseTemplate: string
+  licenseTermsId: string
   transferable: boolean
   owner: Address
-  minted_at: string
-  expires_at: string
-  burnt_at: string
-  block_number: string
-  block_time: string
+  mintedAt: string
+  expiresAt: string
+  burntAt: string
+  blockNumber: string
+  blockTime: string
 }
 
 // export type PolicyFramework = {
@@ -243,9 +243,9 @@ export type License = {
 export type PolicyFramework = {
   id: string
   name: string
-  metadata_uri: string
-  block_number: string
-  block_time: string
+  metadataUri: string
+  blockNumber: string
+  blockTime: string
 }
 
 export type Module = {
@@ -281,10 +281,10 @@ export type Tag = {
 export type IPAPolicy = {
   id: string
   ip_id: Address
-  license_template: string
-  license_terms_id: string
-  block_number: string
-  block_time: string
+  licenseTemplate: string
+  licenseTermsId: string
+  blockNumber: string
+  blockTime: string
 }
 
 export type RoyaltyPay = {
@@ -359,8 +359,9 @@ export type Collection = {
 export type Policy = {
   id: string
   json: string
-  license_template: Address
-  block_time: string
+  licenseTemplate: Address
+  blockNumber: string
+  blockTime: string
 }
 
 // export type PILType = {
