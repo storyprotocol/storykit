@@ -16,23 +16,60 @@ npm login --scope=@storyprotocol --registry=https://npm.pkg.github.com
 
 3. Use your github username and personal access token (for password) to login
 
-4. Install the package
+4. Install the package and the required react-query dependencies
 
 ```bash
-npm install @storyprotocol/storykit
+npm install @storyprotocol/storykit @tanstack/react-query
 ```
 
 ## Usage
 
 Using Storykit in your React app
 
-#### Import the css
+### Import the css
 
 ```typescript
 import "@storyprotocol/storykit/dist/build.css"
 ```
 
-#### The IPAssetProvider
+### Include React Query
+
+Don't forget that react query is a dependency, you will need to wrap Storykit components with a `QueryClientProvider`, you can do this once at the root of the app.
+
+```typescript
+import Providers from "./Providers"
+
+import "@storyprotocol/storykit/dist/build.css"
+
+export default function Layout({children}) {
+  return (
+    <html>
+      <body>
+        <Providers>{children}</Providers>
+      </body>
+    </html>
+  )
+}
+```
+
+```typescript
+"use client"
+
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
+
+const queryClient = new QueryClient()
+
+export default function Providers({ children }) {
+  return (
+    <QueryClientProvider client={queryClient}>
+      {children}
+    </QueryClientProvider>
+  )
+}
+
+```
+
+### The IPAssetProvider
 
 The IPAssetProvider provides IP Asset data to child components.
 
@@ -41,9 +78,9 @@ import { IPAssetProvider, useIPAssetContext } from "@storyprotocol/storykit"
 
 const ExamplePage = () => {
   return (
-    <IPAssetProvider ipId={"0xbbf08a30b9ff0f717a024a75963d3196aaf0f0dd"}>
-      <ExampleComponent />
-    </IPAssetProvider>
+      <IPAssetProvider ipId={"0xbbf08a30b9ff0f717a024a75963d3196aaf0f0dd"}>
+        <ExampleComponent />
+      </IPAssetProvider>
   );
 };
 
@@ -62,7 +99,7 @@ const ExampleComponent = () => {
 };
 ```
 
-#### The IPAGraph
+### The IPAGraph
 
 Some components require the IPAssetProvider to supply asset data
 
@@ -78,7 +115,7 @@ const ExamplePage = () => {
 };
 ```
 
-#### The IPAssetWidget
+### The IPAssetWidget
 
 The IPAssetProvider is already included in the IPAssetWidget
 
@@ -97,13 +134,13 @@ See [the example app](/examples/next-app/app/page.tsx).
 
 ## Contributing
 
-#### Installation
+### Installation
 
 ```bash
 pnpm install
 ```
 
-#### Run Storybook
+### Run Storybook
 
 Build components within the Storybook workshop environment.
 
@@ -111,7 +148,7 @@ Build components within the Storybook workshop environment.
 pnpm storybook
 ```
 
-#### Formatting w\ prettier, linting w\ eslint & running tests
+### Formatting w\ prettier, linting w\ eslint & running tests
 
 ```bash
 pnpm format
@@ -119,7 +156,7 @@ pnpm lint
 pnpm test
 ```
 
-#### Bundle `/dist` package
+### Bundle `/dist` package
 
 ```bash
 pnpm build

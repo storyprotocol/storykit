@@ -1,4 +1,5 @@
 import { PREVIEW_IP_ASSETS } from "@/stories/data"
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import React, { FC } from "react"
 import { Address } from "viem"
 
@@ -10,12 +11,15 @@ const Example: FC<{ ipId: Address; width?: number; height?: number }> = ({
   width = 400,
   height = 300,
 }) => {
+  const queryClient = new QueryClient()
   return (
-    <div className="flex h-full items-center justify-center">
-      <IPAssetProvider ipId={ipId}>
-        <IPAGraph width={width} height={height} />
-      </IPAssetProvider>
-    </div>
+    <QueryClientProvider client={queryClient}>
+      <div className="flex h-full items-center justify-center">
+        <IPAssetProvider ipId={ipId}>
+          <IPAGraph width={width} height={height} />
+        </IPAssetProvider>
+      </div>
+    </QueryClientProvider>
   )
 }
 

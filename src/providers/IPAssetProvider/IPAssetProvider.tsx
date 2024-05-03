@@ -1,5 +1,4 @@
 import { useQuery } from "@tanstack/react-query"
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import React, { useState } from "react"
 import { Address } from "viem"
 
@@ -34,8 +33,7 @@ export const IPA_CARD_TABS = [
   // { id: "derivatives", label: "Derivatives" },
 ]
 
-// export const IPAssetProvider = ({ children, ipId }: { children: React.ReactNode; ipId: Address }) => {
-export const IPAssetContextProvider = ({ children, ipId }: { children: React.ReactNode; ipId: Address }) => {
+export const IPAssetProvider = ({ children, ipId }: { children: React.ReactNode; ipId: Address }) => {
   const [activeTab, setActiveTab] = useState(IPA_CARD_TABS[0].id)
   // Fetch asset data
   const { isLoading: isAssetDataLoading, data: assetData } = useQuery({
@@ -152,15 +150,6 @@ export const IPAssetContextProvider = ({ children, ipId }: { children: React.Rea
     >
       {children}
     </IPAssetContext.Provider>
-  )
-}
-
-export const IPAssetProvider = ({ children, ipId }: { children: React.ReactNode; ipId: Address }) => {
-  const queryClient = new QueryClient()
-  return (
-    <QueryClientProvider client={queryClient}>
-      <IPAssetContextProvider ipId={ipId}>{children}</IPAssetContextProvider>
-    </QueryClientProvider>
   )
 }
 

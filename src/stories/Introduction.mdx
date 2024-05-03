@@ -20,23 +20,60 @@ npm login --scope=@storyprotocol --registry=https://npm.pkg.github.com
 
 3 . Use your github username and personal access token (for password) to login
 
-4 . Install the package
+4 . Install the package and the required react-query dependencies
 
 ```bash
-npm install @storyprotocol/storykit
+npm install @storyprotocol/storykit @tanstack/react-query
 ```
 
 ## Usage
 
 Using Storykit in your React app
 
-#### Import the css
+### Import the css
 
 ```typescript
 import "@storyprotocol/storykit/dist/build.css"
 ```
 
-#### The IPAssetProvider
+### Include React Query
+
+Don't forget that react query is a dependency, you will need to wrap Storykit components with a `QueryClientProvider`, you can do this once at the root of the app.
+
+```typescript
+import Providers from "./Providers"
+
+import "@storyprotocol/storykit/dist/build.css"
+
+export default function Layout({children}) {
+  return (
+    <html>
+      <body>
+        <Providers>{children}</Providers>
+      </body>
+    </html>
+  )
+}
+```
+
+```typescript
+"use client"
+
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
+
+const queryClient = new QueryClient()
+
+export default function Providers({ children }) {
+  return (
+    <QueryClientProvider client={queryClient}>
+      {children}
+    </QueryClientProvider>
+  )
+}
+
+```
+
+### The IPAssetProvider
 
 The IPAssetProvider provides IP Asset data to child components.
 
@@ -66,7 +103,7 @@ const ExampleComponent = () => {
 };
 ```
 
-#### The IPAGraph
+### The IPAGraph
 
 Some components require the IPAssetProvider to supply asset data
 
@@ -82,7 +119,7 @@ const ExamplePage = () => {
 };
 ```
 
-#### The IPAssetWidget
+### The IPAssetWidget
 
 The IPAssetProvider is already included in the IPAssetWidget
 
