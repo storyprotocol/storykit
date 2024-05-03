@@ -226,7 +226,7 @@ export type Tag = {
 
 export type IPAPolicy = {
   id: string
-  ip_id: Address
+  ipId: Address
   licenseTemplate: string
   licenseTermsId: string
   blockNumber: string

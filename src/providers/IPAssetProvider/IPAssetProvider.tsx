@@ -59,7 +59,7 @@ export const IPAssetContextProvider = ({ children, ipId }: { children: React.Rea
   })
 
   async function fetchPolicyDetails(data: IPAPolicy[]) {
-    const uniquePolicies = data.filter((item) => item.ip_id.toLowerCase() === ipId.toLowerCase())
+    const uniquePolicies = data.filter((item) => item.ipId.toLowerCase() === ipId.toLowerCase())
 
     const requests = uniquePolicies.map((item) => getResource(RESOURCE_TYPE.POLICY, item.licenseTermsId))
     const results = await Promise.all(requests)
