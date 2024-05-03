@@ -7,7 +7,7 @@ Plug-and-play React components for Story Protocol.
 #### Install the package in your React app
 
 ```bash
-pnpm install @storyprotocol/storykit @tanstack/react-query
+npm install @storyprotocol/storykit
 ```
 
 #### Import the css
