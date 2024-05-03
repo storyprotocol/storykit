@@ -67,13 +67,13 @@ function IPAPolicyList() {
           <AccordionTrigger>
             <div className="flex flex-col text-left">
               <p className="text-[10px] text-slate-400">Policy ID {policy.id}</p>
-              <p className="text-xs">{getPolicyTypeByPILData(policy.json)}</p>
-              <PILLabel type={getPolicyTypeByPILData(policy.json)} />
+              <p className="text-xs">{getPolicyTypeByPILData(policy.licenseTerms)}</p>
+              <PILLabel type={getPolicyTypeByPILData(policy.licenseTerms)} />
             </div>
           </AccordionTrigger>
           <AccordionContent>
             <dl className="divide-y divide-gray-100 overflow-x-hidden text-sm leading-6">
-              {Object.entries(policy?.json).map(([key, value]) => (
+              {Object.entries(policy?.licenseTerms).map(([key, value]) => (
                 <div key={key} className="flex justify-between gap-x-4 py-1">
                   <dt className="text-xs capitalize text-gray-500">{key}</dt>
                   <dd className="truncate text-gray-700">{value?.toString()}</dd>

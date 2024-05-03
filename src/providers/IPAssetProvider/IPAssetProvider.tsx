@@ -64,24 +64,19 @@ export const IPAssetContextProvider = ({ children, ipId }: { children: React.Rea
     const requests = uniquePolicies.map((item) => getResource(RESOURCE_TYPE.POLICY, item.licenseTermsId))
     const results = await Promise.all(requests)
 
-    return results
-      .filter((result) => result.data?.json?.length)
-      .map((result) => {
-        let json = result.data.json.slice(-1) === "," ? result.data.json.slice(0, -1) : result.data.json
-        json = JSON.parse(`{"data": [${json}]}`)
-
-        return {
-          ...result.data,
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          json: json.data.reduce((acc: any, option: any) => {
-            return {
-              ...acc,
-              [camelize(option.trait_type)]:
-                option.value === "true" ? true : option.value === "false" ? false : option.value,
-            }
-          }, {}),
-        }
-      })
+    return results.map((result) => {
+      return {
+        ...result.data,
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        licenseTerms: result.data.licenseTerms.reduce((acc: any, option: any) => {
+          return {
+            ...acc,
+            [camelize(option.trait_type)]:
+              option.value === "true" ? true : option.value === "false" ? false : option.value,
+          }
+        }, {}),
+      }
+    })
   }
 
   const { isLoading: isPolicyDataLoading, data: policyData } = useQuery({
