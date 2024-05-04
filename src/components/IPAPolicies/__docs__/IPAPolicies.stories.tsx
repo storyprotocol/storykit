@@ -4,7 +4,7 @@ import type { Meta, StoryObj } from "@storybook/react"
 import Example from "./Example"
 
 const meta = {
-  title: "Components/IPAPolicyList",
+  title: "Components/IPAPolicies",
   component: Example,
   parameters: {
     layout: "centered",

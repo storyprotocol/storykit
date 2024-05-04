@@ -10,7 +10,7 @@ import "../../global.css"
 import { cn, shortenAddress } from "../../lib/utils"
 import { IPA_CARD_TABS, IPAssetProvider, useIPAssetContext } from "../../providers"
 import { IPAGraph } from "../IPAGraph"
-import { IPAPolicyList } from "../IPAPolicyList"
+import { IPAPolicies } from "../IPAPolicies"
 import { IPARoyaltyChart } from "../IPARoyaltyChart"
 
 export type IPAssetWidgetProps = {
@@ -314,7 +314,9 @@ function IPAssetCard({ isBottomNav }: { isBottomNav?: boolean }) {
     case "licensing":
       return (
         <IPAssetLayout isBottomNav={isBottomNav}>
-          <IPAPolicyList />
+          <div className="p-2">
+            <IPAPolicies />
+          </div>
         </IPAssetLayout>
       )
     case "derivatives":

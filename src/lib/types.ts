@@ -1,10 +1,10 @@
 import { Address } from "viem"
 
 export const POLICY_TYPE = {
+  NON_COMMERCIAL_SOCIAL_REMIXING: "Non-Commercial Social Remixing",
+  COMMERCIAL_USE: "Commercial Use",
+  COMMERCIAL_REMIX: "Commercial Remix",
   OPEN_DOMAIN: "Open Domain",
-  FREE_ATTRIBUTION: "Free with Attribution",
-  PAID_ATTRIBUTION: "Paid with Attribution",
-  PAID_NO_ATTRIBUTION: "Paid, no attribution",
   NO_DERIVATIVE: "No Derivative",
 }
 

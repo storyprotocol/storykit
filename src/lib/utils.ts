@@ -29,18 +29,23 @@ export function camelize(str: string) {
 }
 
 export function getPolicyTypeByPILData(pilData: PILType) {
-  const { derivativesAttribution, derivativesAllowed, commercialUse, commercialRevenueShare } = pilData
+  const { derivativesAttribution, derivativesAllowed, commercialUse, derivativesReciprocal } = pilData
 
-  if (derivativesAllowed && commercialUse) {
-    if (derivativesAttribution) return POLICY_TYPE.FREE_ATTRIBUTION
-    if (!derivativesAttribution && commercialRevenueShare !== 0) return POLICY_TYPE.PAID_NO_ATTRIBUTION
-    if (!derivativesAttribution && commercialRevenueShare === 0) return POLICY_TYPE.OPEN_DOMAIN
+  if (commercialUse) {
+    if (!derivativesReciprocal) {
+      return POLICY_TYPE.COMMERCIAL_USE
+    } else {
+      return POLICY_TYPE.COMMERCIAL_REMIX
+    }
+  } else {
+    if (!derivativesAllowed) {
+      return POLICY_TYPE.NO_DERIVATIVE
+    } else {
+      if (derivativesAttribution) {
+        return POLICY_TYPE.NON_COMMERCIAL_SOCIAL_REMIXING
+      } else {
+        return POLICY_TYPE.OPEN_DOMAIN
+      }
+    }
   }
-
-  if (!derivativesAllowed) {
-    return POLICY_TYPE.NO_DERIVATIVE
-  }
-
-  // default
-  return POLICY_TYPE.OPEN_DOMAIN
 }

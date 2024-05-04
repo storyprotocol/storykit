@@ -8,7 +8,8 @@
   "exports": {
     ".": {
       "module": "./dist/storyprotocol-storykit.esm.js",
-      "default": "./dist/storyprotocol-storykit.cjs.js"
+      "default": "./dist/storyprotocol-storykit.cjs.js",
+      "types": "./dist/types.d.ts"
     },
     "./package.json": "./package.json",
     "./dist/build.css": "./dist/build.css"

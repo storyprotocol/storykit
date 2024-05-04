@@ -161,3 +161,33 @@ pnpm test
 ```bash
 pnpm build
 ```
+
+## Running examples
+
+From the root, build a package
+
+```bash
+pnpm build
+```
+
+Link `storykit` for use locally
+
+```bash
+pnpm link --global
+```
+
+Install the example app
+
+```bash
+cd examples/next-app
+pnpm install
+```
+
+Link the `storykit` package and start the app
+
+```bash
+pnpm link --global @storyprotocol/storykit
+pnpm dev
+```
+
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.

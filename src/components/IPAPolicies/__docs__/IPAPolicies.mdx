@@ -1,8 +1,8 @@
 import { Canvas, Controls, Meta } from "@storybook/blocks"
 
-import * as IPAPolicyListStory from "./IPAPolicyList.stories"
+import * as IPAPoliciesStory from "./IPAPolicies.stories"
 
-<Meta of={IPAPolicyListStory} title="Components/IPAPolicyList" />
+<Meta of={IPAPoliciesStory} title="Components/IPAPolicies" />
 
 # IPA Policy List
 
@@ -10,7 +10,7 @@ Show Asset derivatives graph
 
 #### Example
 
-<Canvas of={IPAPolicyListStory.Select} />
+<Canvas of={IPAPoliciesStory.Select} />
 
 <Controls />
 
@@ -18,12 +18,12 @@ Show Asset derivatives graph
 
 ```ts
 import { IPAssetProvider } from "@storyprotocol/storykit"
-import { IPAPolicyList } from "@storyprotocol/storykit"
+import { IPAPolicies } from "@storyprotocol/storykit"
 
 const ExamplePage = () => {
   return (
     <IPAssetProvider ipId={"0xbbf08a30b9ff0f717a024a75963d3196aaf0f0dd"}>
-      <IPAPolicyList />
+      <IPAPolicies />
     </IPAssetProvider>
   );
 };
