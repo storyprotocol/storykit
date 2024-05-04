@@ -53,7 +53,6 @@
     "@emotion/is-prop-valid": "^1.2.2",
     "@emotion/react": "^11.11.4",
     "@headlessui/react": "^1.7.18",
-    "@radix-ui/react-accordion": "^1.1.2",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
     "lucide-react": "^0.364.0",
