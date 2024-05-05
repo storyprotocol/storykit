@@ -1,7 +1,7 @@
 {
   "name": "@storyprotocol/storykit",
   "author": "storyprotocol engineering <eng@storyprotocol.xyz>",
-  "version": "0.1.6-mrtest.1",
+  "version": "0.1.6-mrtest.2",
   "type": "module",
   "exports": {
     ".": {
@@ -30,7 +30,7 @@
     "format": "prettier --write --parser typescript '**/*.{ts,tsx}'",
     "dev": "storybook dev -p 6006",
     "build-tailwind": "pnpm exec tailwindcss -o dist/build.css --minify",
-    "build": "rollup -c --bundleConfigAsCjs && pnpm build-tailwind"
+    "build": "rollup -c --bundleConfigAsCjs --inlineDynamicImports && pnpm build-tailwind"
   },
   "prettier": "@storykit/prettier-config",
   "dependencies": {
@@ -51,9 +51,6 @@
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^1.2.25",
-    "@storykit/eslint-config": "workspace:*",
-    "@storykit/prettier-config": "workspace:*",
-    "@storykit/typescript-config": "workspace:*",
     "@rollup/plugin-commonjs": "^25.0.7",
     "@rollup/plugin-node-resolve": "^15.2.3",
     "@rollup/plugin-terser": "^0.4.4",
@@ -71,14 +68,17 @@
     "@storybook/react-webpack5": "^8.0.4",
     "@storybook/test": "^8.0.4",
     "@storybook/theming": "^8.0.4",
+    "@storykit/eslint-config": "workspace:*",
+    "@storykit/prettier-config": "workspace:*",
+    "@storykit/typescript-config": "workspace:*",
     "@tanstack/react-query": "^5.25.0",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "@turbo/gen": "^1.12.4",
+    "@types/eslint": "^8.56.5",
     "@types/jest": "^29.5.12",
     "@types/node": "^20.11.24",
-    "@types/eslint": "^8.56.5",
     "@types/react": "^18.2.61",
     "@types/react-dom": "^18.2.19",
     "eslint": "^8.57.0",
