@@ -3,8 +3,6 @@
   "author": "storyprotocol engineering <eng@storyprotocol.xyz>",
   "version": "0.1.2",
   "type": "module",
-  "main": "dist/storyprotocol-storykit.cjs.js",
-  "module": "dist/storyprotocol-storykit.esm.js",
   "exports": {
     ".": {
       "module": "./dist/storyprotocol-storykit.esm.js",

@@ -13,12 +13,13 @@ const config = [
     input: "src/index.ts",
     output: [
       {
-        file: packageJson.main,
+        // file: packageJson.main,
+        file: packageJson.exports["."].default,
         format: "cjs",
         sourcemap: true,
       },
       {
-        file: packageJson.module,
+        file: packageJson.exports["."].module,
         format: "esm",
         sourcemap: true,
       },
