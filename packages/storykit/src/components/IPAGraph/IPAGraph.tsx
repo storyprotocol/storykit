@@ -5,10 +5,9 @@
 //   ForceGraph2D = require("react-force-graph-2d")
 // }
 // import loadable from "@loadable/component"
-import { useMemo } from "react"
-import React, { Suspense } from "react"
-import ForceGraph2D from "react-force-graph-2d"
+import React, { Suspense, useEffect, useMemo, useState } from "react"
 
+// import ForceGraph2D from "react-force-graph-2d"
 import "../../global.css"
 import { convertAssetToGraphFormat } from "../../lib/graph"
 import { Asset } from "../../lib/types"
@@ -25,6 +24,18 @@ export type IPAGraphProps = {
 function IPAGraph({ width = 500, height = 500 }: IPAGraphProps) {
   const { assetData } = useIPAssetContext()
   const formattedGraphData = useMemo(() => assetData && convertAssetToGraphFormat(assetData as Asset), [assetData])
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const [ForceGraph, setForceGraph] = useState<any>(null)
+
+  useEffect(() => {
+    // ForceGraph will break SSR, and needs to be loaded dynamically
+    async function importForceGraphModule() {
+      const fg = await import("react-force-graph-2d")
+      setForceGraph(fg.default)
+    }
+    importForceGraphModule()
+  }, [])
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const nodeCanvasObject = (node: any, ctx: any, globalScale: any) => {
@@ -77,16 +88,9 @@ function IPAGraph({ width = 500, height = 500 }: IPAGraphProps) {
 
   return (
     <div className="relative">
-      {/* {typeof window === "undefined" ? null : ( */}
-      <Suspense fallback={null}>
-        <ForceGraph2D
-          width={width}
-          height={height}
-          graphData={formattedGraphData}
-          nodeCanvasObject={nodeCanvasObject}
-        />
-      </Suspense>
-      {/* )} */}
+      {ForceGraph && (
+        <ForceGraph width={width} height={height} graphData={formattedGraphData} nodeCanvasObject={nodeCanvasObject} />
+      )}
     </div>
   )
 }

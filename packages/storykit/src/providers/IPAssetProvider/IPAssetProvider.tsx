@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query"
-import React, { useState } from "react"
+import React from "react"
 import { Address } from "viem"
 
 import { getResource, listResource } from "../../lib/api"
