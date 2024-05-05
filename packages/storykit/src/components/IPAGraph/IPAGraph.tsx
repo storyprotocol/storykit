@@ -15,7 +15,7 @@ import { Asset } from "../../lib/types"
 import { useIPAssetContext } from "../../providers"
 
 // const ForceGraph2D = loadable(() => import("./forceGraph2d"))
-const ForceGraph2D = React.lazy(() => import("./forceGraph2d"))
+// const ForceGraph2D = React.lazy(() => import("./forceGraph2d"))
 
 export type IPAGraphProps = {
   width?: number
@@ -79,12 +79,13 @@ function IPAGraph({ width = 500, height = 500 }: IPAGraphProps) {
     <div className="relative">
       {/* {typeof window === "undefined" ? null : ( */}
       <Suspense fallback={null}>
-        <ForceGraph2D
+        {/* <ForceGraph2D
           width={width}
           height={height}
           graphData={formattedGraphData}
           nodeCanvasObject={nodeCanvasObject}
-        />
+        /> */}
+        <p>hi</p>
       </Suspense>
       {/* )} */}
     </div>
