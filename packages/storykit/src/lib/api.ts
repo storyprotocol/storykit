@@ -8,11 +8,6 @@ const API_KEY =
   process.env.STORY_PROTOCOL_X_API_KEY ||
   ""
 
-console.log("API_BASE_URL", API_BASE_URL)
-console.log("process.env.STORYBOOK_API_BASE_URL", process.env.STORYBOOK_API_BASE_URL)
-console.log("process.env.NEXT_PUBLIC_API_BASE_URL", process.env.NEXT_PUBLIC_API_BASE_URL)
-console.log("process.env.API_BASE_URL", process.env.API_BASE_URL)
-
 export async function getResource(resourceName: ResourceType, resourceId: string) {
   try {
     const res = await fetch(`${API_BASE_URL}/api/v1/${resourceName}/${resourceId}`, {

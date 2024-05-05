@@ -4,7 +4,7 @@ import type { Meta, StoryObj } from "@storybook/react"
 import Example from "./Example"
 
 const meta = {
-  title: "Components/IPARoyaltyChart",
+  title: "Components/IPAPolicies",
   component: Example,
   parameters: {
     layout: "centered",
@@ -25,7 +25,7 @@ export const Select: Story = {
     },
   },
   args: {
-    ipId: PREVIEW_IP_ASSETS[1] as `0x${string}`,
+    ipId: PREVIEW_IP_ASSETS[0] as `0x${string}`,
   },
 }
 export const Input: Story = {
@@ -33,6 +33,6 @@ export const Input: Story = {
     ipId: { control: "text" },
   },
   args: {
-    ipId: PREVIEW_IP_ASSETS[1] as `0x${string}`,
+    ipId: PREVIEW_IP_ASSETS[0] as `0x${string}`,
   },
 }

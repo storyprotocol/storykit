@@ -1,5 +1,5 @@
 export * from "./Button"
 export * from "./IPAssetWidget"
 export * from "./IPAGraph"
-// export * from "./IPAPolicyList"
+export * from "./IPAPolicies"
 export * from "./IPARoyaltyChart"

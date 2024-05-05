@@ -21,19 +21,31 @@ export function shortenAddress(address: string, length = 4): string {
   return `${start}...${end}`
 }
 
+export function camelize(str: string) {
+  return str.replace(/(?:^\w|[A-Z]|\b\w|\s+)/g, function (match, index) {
+    if (+match === 0) return "" // or if (/\s+/.test(match)) for white spaces
+    return index === 0 ? match.toLowerCase() : match.toUpperCase()
+  })
+}
+
 export function getPolicyTypeByPILData(pilData: PILType) {
-  const { attribution, derivativesAllowed, commercialUse, commercialRevShare, contentRestrictions } = pilData
+  const { derivativesAttribution, derivativesAllowed, commercialUse, derivativesReciprocal } = pilData
 
-  if (derivativesAllowed && commercialUse && contentRestrictions.length === 0) {
-    if (attribution) return POLICY_TYPE.FREE_ATTRIBUTION
-    if (!attribution && commercialRevShare !== "0") return POLICY_TYPE.PAID_NO_ATTRIBUTION
-    if (!attribution && commercialRevShare === "0") return POLICY_TYPE.OPEN_DOMAIN
+  if (commercialUse) {
+    if (!derivativesReciprocal) {
+      return POLICY_TYPE.COMMERCIAL_USE
+    } else {
+      return POLICY_TYPE.COMMERCIAL_REMIX
+    }
+  } else {
+    if (!derivativesAllowed) {
+      return POLICY_TYPE.NO_DERIVATIVE
+    } else {
+      if (derivativesAttribution) {
+        return POLICY_TYPE.NON_COMMERCIAL_SOCIAL_REMIXING
+      } else {
+        return POLICY_TYPE.OPEN_DOMAIN
+      }
+    }
   }
-
-  if (attribution && !commercialUse && !derivativesAllowed && contentRestrictions.length > 0) {
-    return POLICY_TYPE.NO_DERIVATIVE
-  }
-
-  // default
-  return POLICY_TYPE.OPEN_DOMAIN
 }

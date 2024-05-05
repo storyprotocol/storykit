@@ -1,10 +1,10 @@
-import { Address, Hash } from "viem"
+import { Address } from "viem"
 
 export const POLICY_TYPE = {
+  NON_COMMERCIAL_SOCIAL_REMIXING: "Non-Commercial Social Remixing",
+  COMMERCIAL_USE: "Commercial Use",
+  COMMERCIAL_REMIX: "Commercial Remix",
   OPEN_DOMAIN: "Open Domain",
-  FREE_ATTRIBUTION: "Free with Attribution",
-  PAID_ATTRIBUTION: "Paid with Attribution",
-  PAID_NO_ATTRIBUTION: "Paid, no attribution",
   NO_DERIVATIVE: "No Derivative",
 }
 
@@ -12,14 +12,14 @@ export enum RESOURCE_TYPE {
   ASSET = "assets",
   COLLECTION = "collections",
   DISPUTE = "disputes",
-  IPA_POLICY = "ipapolicies",
-  LICENSE = "licenses",
+  IPA_POLICY = "licenses/ip/terms",
+  LICENSE = "licenses/tokens",
   LICENSE_MINT_FEES = "licenses/mintingfees",
   LICENSE_OWNER = "licenses/owners",
   MODULE = "modules",
   PERMISSION = "permissions",
-  POLICY = "policies",
-  POLICY_FRAMEWORK = "policies/frameworks",
+  POLICY = "licenses/terms",
+  POLICY_FRAMEWORK = "licenses/templates",
   ROYALTY = "royalties",
   ROYALTY_PAY = "royalties/payments",
   ROYALTY_POLICY = "royalties/policies",
@@ -158,19 +158,16 @@ export type Transaction = {
 
 export type Asset = {
   id: Address
-  chainId: string
-  childIpIds: Asset[] | null
   parentIpIds: Asset[] | null
+  childIpIds: Asset[] | null
   rootIpIds: Asset[] | null
-  tokenContract: Address
-  tokenId: string
-  metadataResolverAddress: string
-  metadata: {
+  nftMetadata: {
     name: string
-    hash: string
-    registrationDate: string
-    registrant: string
-    uri: string
+    chainId: string
+    tokenContract: Address
+    tokenId: string
+    tokenUri: string
+    imageUrl: string
   }
   blockNumber: string
   blockTimestamp: string
@@ -188,20 +185,24 @@ export type Permission = {
 
 export type License = {
   id: string
-  policyId: string
   licensorIpId: Address
-  amount: string
+  licenseTemplate: string
+  licenseTermsId: string
   transferable: boolean
+  owner: Address
+  mintedAt: string
+  expiresAt: string
+  burntAt: string
   blockNumber: string
-  blockTimestamp: string
+  blockTime: string
 }
 
 export type PolicyFramework = {
   id: string
-  address: Address
   name: string
+  metadataUri: string
   blockNumber: string
-  blockTimestamp: string
+  blockTime: string
 }
 
 export type Module = {
@@ -226,12 +227,10 @@ export type Tag = {
 export type IPAPolicy = {
   id: string
   ipId: Address
-  policyId: Address
-  index: string
-  active: boolean
-  inherited: boolean
+  licenseTemplate: string
+  licenseTermsId: string
   blockNumber: string
-  blockTimestamp: string
+  blockTime: string
 }
 
 export type RoyaltyPay = {
@@ -292,32 +291,26 @@ export type Collection = {
 
 export type Policy = {
   id: string
-  policyFrameworkManager: Address
-  frameworkData: string
-  royaltyPolicy: Address
-  royaltyData: string
-  mintingFee: string
-  mintingFeeToken: Address
+  json: string
+  licenseTemplate: Address
   blockNumber: string
-  blockTimestamp: string
-  pil: PILType
+  blockTime: string
 }
 
 export type PILType = {
-  id: Hash
-  attribution: boolean
-  commercialUse: boolean
   commercialAttribution: boolean
-  commercializerChecker: Address
-  commercializerCheckerData: string
-  commercialRevShare: string
+  commercialRevenueCelling: number
+  commercialRevenueShare: number
+  commercialUse: boolean
+  commercializerCheck: Address
+  currency: Address
   derivativesAllowed: boolean
-  derivativesAttribution: boolean
   derivativesApproval: boolean
+  derivativesAttribution: boolean
   derivativesReciprocal: boolean
-  territories: string[]
-  distributionChannels: string[]
-  contentRestrictions: string[]
+  derivativesRevenueCelling: number
+  expiration: string
+  URI: string
 }
 
 export type RoyaltySplit = {

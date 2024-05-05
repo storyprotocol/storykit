@@ -1,5 +1,5 @@
 import { Menu, Transition } from "@headlessui/react"
-import React, { Fragment } from "react"
+import React, { Fragment, useState } from "react"
 import { FaWandMagicSparkles } from "react-icons/fa6"
 import { IoIosShareAlt } from "react-icons/io"
 import { SiOpensea } from "react-icons/si"
@@ -8,9 +8,9 @@ import { Address } from "viem"
 
 import "../../global.css"
 import { cn, shortenAddress } from "../../lib/utils"
-import { IPA_CARD_TABS, IPAssetProvider, useIPAssetContext } from "../../providers"
+import { IPAssetProvider, useIPAssetContext } from "../../providers"
 import { IPAGraph } from "../IPAGraph"
-import { IPAPolicyList } from "../IPAPolicyList"
+import { IPAPolicies } from "../IPAPolicies"
 import { IPARoyaltyChart } from "../IPARoyaltyChart"
 
 export type IPAssetWidgetProps = {
@@ -18,20 +18,29 @@ export type IPAssetWidgetProps = {
   isBottomNav?: boolean
 }
 
+export const IPA_CARD_TABS = [
+  { id: "overview", label: "Overview" },
+  { id: "licensing", label: "Licensing" },
+  { id: "derivatives", label: "IP Graph" },
+  { id: "royalty", label: "Royalty" },
+]
+
 const IPAssetWidget = ({ ipId, isBottomNav, ...rest }: IPAssetWidgetProps) => {
   return <IPAssetCardWrapper ipId={ipId} isBottomNav={isBottomNav} {...rest} />
 }
 
 function IPAssetCardWrapper({ ipId, isBottomNav = true }: { ipId: Address; isBottomNav?: boolean }) {
+  const [activeTab, setActiveTab] = useState(IPA_CARD_TABS[0].id)
+
   const _Tabs = () => (
     <div className={cn("w-full px-2", isBottomNav ? "pb-2" : "pt-2")}>
-      <Tabs ipId={ipId} />
+      <Tabs ipId={ipId} activeTab={activeTab} setActiveTab={setActiveTab} />
     </div>
   )
 
   const _Card = () => (
     <div className="flex size-full flex-auto flex-col p-2">
-      <IPAssetCard isBottomNav={isBottomNav} />
+      <IPAssetCard isBottomNav={isBottomNav} activeTab={activeTab} />
     </div>
   )
 
@@ -236,7 +245,7 @@ function IPAssetHeader({ hideImage }: { hideImage?: boolean }) {
         </div>
         <div>
           <div>
-            <h1 className="font-semibold">{assetData?.metadata.name || nftData?.name || "Untitled"}</h1>
+            <h1 className="font-semibold">{assetData?.nftMetadata.name || nftData?.name || "Untitled"}</h1>
             <h2 className="text-xs">
               Owned by{" "}
               <span className="text-slate-400">{shortenAddress(nftData?.owners[0].owner_address as string)}</span>
@@ -249,9 +258,15 @@ function IPAssetHeader({ hideImage }: { hideImage?: boolean }) {
   )
 }
 
-function Tabs({ ipId }: { ipId: Address }) {
-  const { activeTab, setActiveTab } = useIPAssetContext()
-
+function Tabs({
+  ipId,
+  activeTab,
+  setActiveTab,
+}: {
+  ipId: Address
+  activeTab: string
+  setActiveTab: (tab: string) => void
+}) {
   return (
     <div className="flex space-x-1" id={ipId}>
       <div className="flex w-full justify-between">
@@ -305,16 +320,16 @@ function Tabs({ ipId }: { ipId: Address }) {
   )
 }
 
-function IPAssetCard({ isBottomNav }: { isBottomNav?: boolean }) {
-  const { activeTab } = useIPAssetContext()
-
+function IPAssetCard({ isBottomNav, activeTab }: { isBottomNav?: boolean; activeTab: string }) {
   switch (activeTab) {
     case "overview":
       return <IPAssetOverview isBottomNav={isBottomNav} />
     case "licensing":
       return (
         <IPAssetLayout isBottomNav={isBottomNav}>
-          <IPAPolicyList />
+          <div className="p-2">
+            <IPAPolicies />
+          </div>
         </IPAssetLayout>
       )
     case "derivatives":
