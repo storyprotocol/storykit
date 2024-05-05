@@ -328,7 +328,7 @@ function IPAssetCard({ isBottomNav, activeTab }: { isBottomNav?: boolean; active
       return (
         <IPAssetLayout isBottomNav={isBottomNav}>
           <div className="p-2">
-            <IPAPolicies />
+            <IPAPolicies size="small" />
           </div>
         </IPAssetLayout>
       )
