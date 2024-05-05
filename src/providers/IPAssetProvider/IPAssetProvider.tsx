@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query"
-import React, { useState } from "react"
+import React from "react"
 import { Address } from "viem"
 
 import { getResource, listResource } from "../../lib/api"
@@ -9,8 +9,6 @@ import { Asset, IPAPolicy, License, Policy, RESOURCE_TYPE, RoyaltyPolicy } from 
 import { camelize } from "../../lib/utils"
 
 const IPAssetContext = React.createContext<{
-  activeTab: string
-  setActiveTab: React.Dispatch<React.SetStateAction<string>>
   assetData: Asset | undefined
   nftData: NFTMetadata | undefined
   isNftDataLoading: boolean
@@ -25,16 +23,7 @@ const IPAssetContext = React.createContext<{
   isRoyaltyDataLoading: boolean
 } | null>(null)
 
-export const IPA_CARD_TABS = [
-  { id: "overview", label: "Overview" },
-  { id: "licensing", label: "Licensing" },
-  { id: "derivatives", label: "IP Graph" },
-  { id: "royalty", label: "Royalty" },
-  // { id: "derivatives", label: "Derivatives" },
-]
-
 export const IPAssetProvider = ({ children, ipId }: { children: React.ReactNode; ipId: Address }) => {
-  const [activeTab, setActiveTab] = useState(IPA_CARD_TABS[0].id)
   // Fetch asset data
   const { isLoading: isAssetDataLoading, data: assetData } = useQuery({
     queryKey: [RESOURCE_TYPE.ASSET, ipId],
@@ -132,8 +121,6 @@ export const IPAssetProvider = ({ children, ipId }: { children: React.ReactNode;
   return (
     <IPAssetContext.Provider
       value={{
-        activeTab,
-        setActiveTab,
         nftData,
         isNftDataLoading,
         assetData: assetData?.data,
