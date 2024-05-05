@@ -7,8 +7,8 @@
 // import loadable from "@loadable/component"
 import { useMemo } from "react"
 import React, { Suspense } from "react"
+import ForceGraph2D from "react-force-graph-2d"
 
-// import ForceGraph2D from "react-force-graph-2d"
 import "../../global.css"
 import { convertAssetToGraphFormat } from "../../lib/graph"
 import { Asset } from "../../lib/types"
@@ -79,13 +79,12 @@ function IPAGraph({ width = 500, height = 500 }: IPAGraphProps) {
     <div className="relative">
       {/* {typeof window === "undefined" ? null : ( */}
       <Suspense fallback={null}>
-        {/* <ForceGraph2D
+        <ForceGraph2D
           width={width}
           height={height}
           graphData={formattedGraphData}
           nodeCanvasObject={nodeCanvasObject}
-        /> */}
-        <p>hi</p>
+        />
       </Suspense>
       {/* )} */}
     </div>
