@@ -1,6 +1,6 @@
 "use client"
 
-import { Button, IPAssetProvider, IPAssetWidget, useIPAssetContext } from "@storyprotocol/storykit"
+import { IPAssetProvider,  useIPAssetContext, IPAssetWidget } from "@storyprotocol/storykit"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import React from "react"
 
@@ -23,12 +23,13 @@ export default function Home() {
     <>
       <QueryClientProvider client={queryClient}>
         <main className={styles.main}>
-          <Button variant="primary">Click me</Button>
-          <Button variant="secondary">Click me</Button>
-          <IPAssetProvider ipId="0xbbf08a30b9ff0f717a024a75963d3196aaf0f0dd">
+          {/* <IPAssetProvider ipId="0xbbf08a30b9ff0f717a024a75963d3196aaf0f0dd"> */}
+          <IPAssetProvider ipId="0x6833490Ea60121F507f5Bf41AD0b17A6Ae537e6e">
             <ExampleComponent />
+            {/* <IPARoyaltyChart /> */}
+            {/* <IPAGraph /> */}
           </IPAssetProvider>
-          <IPAssetWidget ipId={"0xbbf08a30b9ff0f717a024a75963d3196aaf0f0dd"}></IPAssetWidget>
+          <IPAssetWidget ipId={"0xb56831B7cDab9De9e4D3B38C88DdD7B6a57e8287"}></IPAssetWidget>
         </main>
       </QueryClientProvider>
     </>
