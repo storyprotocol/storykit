@@ -1,32 +1,22 @@
 import { shortenAddress } from "@/lib/utils"
 import { useIPAssetContext } from "@/providers"
 import { useEffect, useState } from "react"
-// import Chart from "react-apexcharts"
 import { Address } from "viem"
 
 import "../../global.css"
 
 function IPARoyaltyChart() {
-  // const Chart = dynamic(() => import("react-apexcharts"), { ssr: false })
-
   const { royaltyData } = useIPAssetContext()
-
-  // console.log("Chart", Chart)
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [Chart, setChart] = useState<any>(null)
   useEffect(() => {
     import("react-apexcharts").then((Component) => setChart(Component))
   }, [])
-  console.log("Chart", Chart)
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  // let ApexChart = Chart ? (Chart as unknown as any)?.default || Chart : null
+
   let ApexChart = Chart
-  console.log("ApexChart 1", ApexChart)
   if (ApexChart?.default) ApexChart = ApexChart.default
-  console.log("ApexChart 2", ApexChart)
   if (ApexChart?.default) ApexChart = ApexChart.default
-  console.log("ApexChart 3", ApexChart)
 
   if (royaltyData?.targetAncestors) {
     const chart = {
