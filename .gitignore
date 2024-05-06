@@ -37,7 +37,7 @@ yarn-error.log*
 .DS_Store
 *.pem
 
-__archive
+.yalc
+yalc.lock
 
-*storybook.log
-storybook-static
+__archive
