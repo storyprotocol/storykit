@@ -24,6 +24,7 @@
     "lint": "eslint . --ext .ts,.tsx --ignore-path ../../.prettierignore --fix",
     "format": "prettier --write --parser typescript '**/*.{ts,tsx}'",
     "dev": "storybook dev -p 6006",
+    "build-storybook": "storybook build",
     "build-tailwind": "pnpm exec tailwindcss -o dist/build.css --minify",
     "build": "rollup -c --bundleConfigAsCjs --inlineDynamicImports && pnpm build-tailwind"
   },

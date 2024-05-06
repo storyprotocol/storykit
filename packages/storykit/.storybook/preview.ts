@@ -8,6 +8,9 @@ const preview: Preview = {
   parameters: {
     options: {
       theme,
+      storySort: {
+        order: ["Introduction", "*", "Example"],
+      },
     },
     backgrounds: { disable: true },
     controls: {
