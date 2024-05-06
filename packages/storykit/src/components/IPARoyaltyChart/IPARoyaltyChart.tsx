@@ -1,12 +1,22 @@
 import { shortenAddress } from "@/lib/utils"
 import { useIPAssetContext } from "@/providers"
-import Chart from "react-apexcharts"
+import { useEffect, useState } from "react"
 import { Address } from "viem"
 
 import "../../global.css"
 
 function IPARoyaltyChart() {
   const { royaltyData } = useIPAssetContext()
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const [Chart, setChart] = useState<any>(null)
+  useEffect(() => {
+    import("react-apexcharts").then((Component) => setChart(Component))
+  }, [])
+
+  let ApexChart = Chart
+  if (ApexChart?.default) ApexChart = ApexChart.default
+  if (ApexChart?.default) ApexChart = ApexChart.default
 
   if (royaltyData?.targetAncestors) {
     const chart = {
@@ -68,7 +78,9 @@ function IPARoyaltyChart() {
     return (
       <div className="flex flex-col items-center justify-between">
         <div className="min-h-[230px]">
-          <Chart options={chart.options} series={chart.series} type="pie" height={250} width="300" />
+          {ApexChart ? (
+            <ApexChart options={chart.options} series={chart.series} type="pie" height={250} width="300" />
+          ) : null}
         </div>
         <div className="w-full min-w-[300px] px-2">
           <dl className="divide-y divide-gray-100 overflow-x-hidden text-sm leading-6">

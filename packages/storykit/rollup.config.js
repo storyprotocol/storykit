@@ -13,30 +13,12 @@ const config = [
     input: "src/index.ts",
     output: [
       {
-        // file: packageJson.main,
         file: packageJson.exports["."].default,
         format: "cjs",
         sourcemap: true,
       },
       {
         file: packageJson.exports["."].module,
-        format: "esm",
-        sourcemap: true,
-      },
-    ],
-    plugins: [peerDepsExternal(), resolve(), commonjs(), typescript(), terser(), postcss()],
-    external: ["react/jsx-runtime"],
-  },
-  {
-    input: "src/providers/index.ts",
-    output: [
-      {
-        file: packageJson.exports["./providers"].default,
-        format: "cjs",
-        sourcemap: true,
-      },
-      {
-        file: packageJson.exports["./providers"].module,
         format: "esm",
         sourcemap: true,
       },
