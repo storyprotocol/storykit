@@ -1,6 +1,7 @@
 import { POLICY_TYPE } from "@/lib/types"
 import { cn, getPolicyTypeByPILData } from "@/lib/utils"
 import { useIPAssetContext } from "@/providers"
+import { cva } from "class-variance-authority"
 import { CircleCheck, CircleMinus } from "lucide-react"
 import { useState } from "react"
 import { FaCaretDown, FaCaretUp } from "react-icons/fa6"
@@ -65,12 +66,38 @@ const ShowCannots = ({ type }: { type: string }) => {
   }
 }
 
-function IPAPolicies() {
+const policiesStyles = cva("flex flex-col w-full min-w-48", {
+  variants: {
+    size: {
+      small: "text-sm",
+      medium: "text-base",
+      large: "text-lg",
+    },
+  },
+})
+
+const listStyles = cva("flex flex-col", {
+  variants: {
+    size: {
+      small: "",
+      medium: "gap-1",
+      large: "gap-2",
+    },
+  },
+})
+
+export type IPAPoliciesProps = {
+  size?: "small" | "medium" | "large"
+}
+
+function IPAPolicies({ size = "medium" }: IPAPoliciesProps) {
   const { policyData } = useIPAssetContext()
   const [expanded, setExpanded] = useState<number | null>(0)
 
+  const iconWidth = size === "small" ? 16 : size === "medium" ? 20 : 24
+
   return policyData?.length ? (
-    <div className="flex flex-col w-full min-w-48">
+    <div className={policiesStyles({ size })}>
       {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
       {(policyData as unknown as any[])?.map((policy, index) => (
         <div key={policy.id} className="flex flex-col w-full">
@@ -88,14 +115,14 @@ function IPAPolicies() {
               expanded === index ? "h-auto" : "h-0"
             )}
           >
-            <div className="flex flex-col gap-2 pt-2">
+            <div className="flex flex-col pt-2 gap-2">
               {ShowCans({ type: getPolicyTypeByPILData(policy.licenseTerms) }).length ? (
                 <>
                   <div className="font-bold">Others Can</div>
-                  <div className="flex flex-col gap-1">
+                  <div className={listStyles({ size })}>
                     {ShowCans({ type: getPolicyTypeByPILData(policy.licenseTerms) }).map((can, index) => (
                       <div key={index} className="flex w-full items-center gap-2">
-                        <CircleCheck width={16} className="text-green-500" />
+                        <CircleCheck width={iconWidth} className="text-green-500" />
                         <span>{can}</span>
                       </div>
                     ))}
@@ -103,10 +130,10 @@ function IPAPolicies() {
                 </>
               ) : null}
               <div className="font-bold">Others Cannot</div>
-              <div className="flex flex-col gap-1">
+              <div className={listStyles({ size })}>
                 {ShowCannots({ type: getPolicyTypeByPILData(policy.licenseTerms) }).map((can, index) => (
                   <div key={index} className="flex w-full items-center gap-2">
-                    <CircleMinus width={16} className="text-red-500" />
+                    <CircleMinus width={iconWidth} className="text-red-500" />
                     <span>{can}</span>
                   </div>
                 ))}

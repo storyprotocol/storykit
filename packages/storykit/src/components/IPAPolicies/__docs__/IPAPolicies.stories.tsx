@@ -26,6 +26,7 @@ export const Select: Story = {
   },
   args: {
     ipId: PREVIEW_IP_ASSETS[0] as `0x${string}`,
+    size: "medium",
   },
 }
 export const Input: Story = {
@@ -34,5 +35,6 @@ export const Input: Story = {
   },
   args: {
     ipId: PREVIEW_IP_ASSETS[0] as `0x${string}`,
+    size: "medium",
   },
 }

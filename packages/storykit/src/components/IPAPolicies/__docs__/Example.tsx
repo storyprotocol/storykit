@@ -6,13 +6,18 @@ import { Address } from "viem"
 import { IPAssetProvider } from "../../../providers"
 import IPAPolicies from "../IPAPolicies"
 
-const Example: FC<{ ipId: Address }> = ({ ipId = PREVIEW_IP_ASSETS[0] as `0x${string}` }) => {
+type Size = "small" | "medium" | "large"
+
+const Example: FC<{ ipId: Address; size: Size }> = ({
+  ipId = PREVIEW_IP_ASSETS[0] as `0x${string}`,
+  size = "medium",
+}) => {
   const queryClient = new QueryClient()
   return (
     <QueryClientProvider client={queryClient}>
       <div className="flex h-full w-full items-center justify-center">
         <IPAssetProvider ipId={ipId}>
-          <IPAPolicies />
+          <IPAPolicies size={size} />
         </IPAssetProvider>
       </div>
     </QueryClientProvider>
