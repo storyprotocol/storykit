@@ -1,20 +1,9 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-// let ForceGraph2D: any
-// if (typeof window !== "undefined") {
-//   ForceGraph2D = require("react-force-graph-2d")
-// }
-// import loadable from "@loadable/component"
-import React, { Suspense, useEffect, useMemo, useState } from "react"
+import React, { useEffect, useMemo, useState } from "react"
 
-// import ForceGraph2D from "react-force-graph-2d"
 import "../../global.css"
 import { convertAssetToGraphFormat } from "../../lib/graph"
 import { Asset } from "../../lib/types"
 import { useIPAssetContext } from "../../providers"
-
-// const ForceGraph2D = loadable(() => import("./forceGraph2d"))
-// const ForceGraph2D = React.lazy(() => import("./forceGraph2d"))
 
 export type IPAGraphProps = {
   width?: number
@@ -88,9 +77,9 @@ function IPAGraph({ width = 500, height = 500 }: IPAGraphProps) {
 
   return (
     <div className="relative">
-      {ForceGraph && (
+      {ForceGraph ? (
         <ForceGraph width={width} height={height} graphData={formattedGraphData} nodeCanvasObject={nodeCanvasObject} />
-      )}
+      ) : null}
     </div>
   )
 }
