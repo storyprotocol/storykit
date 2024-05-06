@@ -16,14 +16,23 @@ const config = [
         file: packageJson.exports["."].default,
         format: "cjs",
         sourcemap: true,
+        // globals: {
+        //   react: "React",
+        //   "react-dom": "ReactDOM",
+        //   "react-apexcharts": "ApexCharts",
+        // },
       },
       {
         file: packageJson.exports["."].module,
         format: "esm",
         sourcemap: true,
+        // globals: {
+        //   "react-apexcharts": "ApexCharts",
+        // },
       },
     ],
     plugins: [peerDepsExternal(), resolve(), commonjs(), typescript(), terser(), postcss()],
+    // external: ["react/jsx-runtime", "react-apexcharts"],
     external: ["react/jsx-runtime"],
   },
   {
