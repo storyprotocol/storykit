@@ -86,11 +86,11 @@ const listStyles = cva("flex flex-col", {
   },
 })
 
-export type IpPoliciesProps = {
+export type IpPolicyAccordionProps = {
   size?: "small" | "medium" | "large"
 }
 
-function IpPolicies({ size = "medium" }: IpPoliciesProps) {
+function IpPolicyAccordion({ size = "medium" }: IpPolicyAccordionProps) {
   const { policyData } = useIpAssetContext()
   const [expanded, setExpanded] = useState<number | null>(0)
 
@@ -150,4 +150,4 @@ function IpPolicies({ size = "medium" }: IpPoliciesProps) {
   )
 }
 
-export default IpPolicies
+export default IpPolicyAccordion

@@ -1,16 +1,16 @@
 import { Canvas, Controls, Meta } from "@storybook/blocks"
 
-import * as IpPoliciesStory from "./IpPolicies.stories"
+import * as IpPolicyAccordionStory from "./IpPolicyAccordion.stories"
 
-<Meta of={IpPoliciesStory} />
+<Meta of={IpPolicyAccordionStory} />
 
-# IPA Policy List
+# IpPolicyAccordion
 
-Show Asset derivatives graph
+Displays the IP Asset policies in a readable format (cans & cannots).
 
 #### Example
 
-<Canvas of={IpPoliciesStory.Select} />
+<Canvas of={IpPolicyAccordionStory.Select} />
 
 <Controls />
 
@@ -18,12 +18,12 @@ Show Asset derivatives graph
 
 ```ts
 import { IpAssetProvider } from "@storyprotocol/storykit"
-import { IpPolicies } from "@storyprotocol/storykit"
+import { IpPolicyAccordion } from "@storyprotocol/storykit"
 
 const ExamplePage = () => {
   return (
     <IpAssetProvider ipId={"0xbbf08a30b9ff0f717a024a75963d3196aaf0f0dd"}>
-      <IpPolicies />
+      <IpPolicyAccordion />
     </IpAssetProvider>
   );
 };

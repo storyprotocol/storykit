@@ -1,5 +1,5 @@
 export * from "./Button"
 export * from "./IpWidget"
 export * from "./IpGraph"
-export * from "./IpPolicies"
+export * from "./IpPolicyAccordion"
 export * from "./IpRoyaltyPieChart"

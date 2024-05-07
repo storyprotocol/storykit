@@ -10,7 +10,7 @@ import "../../global.css"
 import { cn, shortenAddress } from "../../lib/utils"
 import { IpAssetProvider, useIpAssetContext } from "../../providers"
 import { IpGraph } from "../IpGraph"
-import { IpPolicies } from "../IpPolicies"
+import { IpPolicyAccordion } from "../IpPolicyAccordion"
 import { IpRoyaltyPieChart } from "../IpRoyaltyPieChart"
 
 export type IpWidgetProps = {
@@ -328,7 +328,7 @@ function IPAssetCard({ isBottomNav, activeTab }: { isBottomNav?: boolean; active
       return (
         <IPAssetLayout isBottomNav={isBottomNav}>
           <div className="p-2">
-            <IpPolicies size="small" />
+            <IpPolicyAccordion size="small" />
           </div>
         </IPAssetLayout>
       )
