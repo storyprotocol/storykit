@@ -1,1 +1,1 @@
-export * from "./IPAssetProvider"
+export * from "./IpAssetProvider"

@@ -3,8 +3,8 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import React, { FC } from "react"
 import { Address } from "viem"
 
-import { IPAssetProvider } from "../../../providers"
-import IPAPolicies from "../IPAPolicies"
+import { IpAssetProvider } from "../../../providers"
+import IpPolicies from "../IpPolicies"
 
 type Size = "small" | "medium" | "large"
 
@@ -16,9 +16,9 @@ const Example: FC<{ ipId: Address; size: Size }> = ({
   return (
     <QueryClientProvider client={queryClient}>
       <div className="flex h-full w-full items-center justify-center">
-        <IPAssetProvider ipId={ipId}>
-          <IPAPolicies size={size} />
-        </IPAssetProvider>
+        <IpAssetProvider ipId={ipId}>
+          <IpPolicies size={size} />
+        </IpAssetProvider>
       </div>
     </QueryClientProvider>
   )

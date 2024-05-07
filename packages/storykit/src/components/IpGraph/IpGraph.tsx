@@ -3,15 +3,15 @@ import React, { useEffect, useMemo, useState } from "react"
 import "../../global.css"
 import { convertAssetToGraphFormat } from "../../lib/graph"
 import { Asset } from "../../lib/types"
-import { useIPAssetContext } from "../../providers"
+import { useIpAssetContext } from "../../providers"
 
-export type IPAGraphProps = {
+export type IpGraphProps = {
   width?: number
   height?: number
 }
 
-function IPAGraph({ width = 500, height = 500 }: IPAGraphProps) {
-  const { assetData } = useIPAssetContext()
+function IpGraph({ width = 500, height = 500 }: IpGraphProps) {
+  const { assetData } = useIpAssetContext()
   const formattedGraphData = useMemo(() => assetData && convertAssetToGraphFormat(assetData as Asset), [assetData])
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -84,6 +84,6 @@ function IPAGraph({ width = 500, height = 500 }: IPAGraphProps) {
   )
 }
 
-IPAGraph.displayName = "IPAGraph"
+IpGraph.displayName = "IpGraph"
 
-export default IPAGraph
+export default IpGraph

@@ -1,6 +1,6 @@
 import { POLICY_TYPE } from "@/lib/types"
 import { cn, getPolicyTypeByPILData } from "@/lib/utils"
-import { useIPAssetContext } from "@/providers"
+import { useIpAssetContext } from "@/providers"
 import { cva } from "class-variance-authority"
 import { CircleCheck, CircleMinus } from "lucide-react"
 import { useState } from "react"
@@ -86,12 +86,12 @@ const listStyles = cva("flex flex-col", {
   },
 })
 
-export type IPAPoliciesProps = {
+export type IpPoliciesProps = {
   size?: "small" | "medium" | "large"
 }
 
-function IPAPolicies({ size = "medium" }: IPAPoliciesProps) {
-  const { policyData } = useIPAssetContext()
+function IpPolicies({ size = "medium" }: IpPoliciesProps) {
+  const { policyData } = useIpAssetContext()
   const [expanded, setExpanded] = useState<number | null>(0)
 
   const iconWidth = size === "small" ? 16 : size === "medium" ? 20 : 24
@@ -150,4 +150,4 @@ function IPAPolicies({ size = "medium" }: IPAPoliciesProps) {
   )
 }
 
-export default IPAPolicies
+export default IpPolicies

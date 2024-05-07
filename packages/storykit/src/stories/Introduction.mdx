@@ -73,23 +73,23 @@ export default function Providers({ children }) {
 
 ```
 
-### The IPAssetProvider
+### The IpAssetProvider
 
-The IPAssetProvider provides IP Asset data to child components.
+The IpAssetProvider provides IP Asset data to child components.
 
 ```typescript
-import { IPAssetProvider, useIPAssetContext } from "@storyprotocol/storykit"
+import { IpAssetProvider, useIpAssetContext } from "@storyprotocol/storykit"
 
 const ExamplePage = () => {
   return (
-    <IPAssetProvider ipId={"0xbbf08a30b9ff0f717a024a75963d3196aaf0f0dd"}>
+    <IpAssetProvider ipId={"0xbbf08a30b9ff0f717a024a75963d3196aaf0f0dd"}>
       <ExampleComponent />
-    </IPAssetProvider>
+    </IpAssetProvider>
   );
 };
 
 const ExampleComponent = () => {
-  const { nftData, isNftDataLoading } = useIPAssetContext()
+  const { nftData, isNftDataLoading } = useIpAssetContext()
 
   return (
     <div>
@@ -103,32 +103,32 @@ const ExampleComponent = () => {
 };
 ```
 
-### The IPAGraph
+### The IpGraph
 
-Some components require the IPAssetProvider to supply asset data
+Some components require the IpAssetProvider to supply asset data
 
 ```typescript
-import { IPAssetProvider, IPAGraph } from "@storyprotocol/storykit"
+import { IpAssetProvider, IpGraph } from "@storyprotocol/storykit"
 
 const ExamplePage = () => {
   return (
-    <IPAssetProvider ipId={"0xbbf08a30b9ff0f717a024a75963d3196aaf0f0dd"}>
-      <IPAGraph />
-    </IPAssetProvider>
+    <IpAssetProvider ipId={"0xbbf08a30b9ff0f717a024a75963d3196aaf0f0dd"}>
+      <IpGraph />
+    </IpAssetProvider>
   );
 };
 ```
 
-### The IPAssetWidget
+### The IpWidget
 
-The IPAssetProvider is already included in the IPAssetWidget
+The IpAssetProvider is already included in the IpWidget
 
 ```typescript
-import { IPAssetWidget } from "@storyprotocol/storykit"
+import { IpWidget } from "@storyprotocol/storykit"
 
 const ExamplePage = () => {
   return (
-    <IPAssetWidget ipId={"0xbbf08a30b9ff0f717a024a75963d3196aaf0f0dd"} />
+    <IpWidget ipId={"0xbbf08a30b9ff0f717a024a75963d3196aaf0f0dd"} />
   )
 }
 

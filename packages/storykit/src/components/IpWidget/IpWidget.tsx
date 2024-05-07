@@ -8,12 +8,12 @@ import { Address } from "viem"
 
 import "../../global.css"
 import { cn, shortenAddress } from "../../lib/utils"
-import { IPAssetProvider, useIPAssetContext } from "../../providers"
-import { IPAGraph } from "../IPAGraph"
-import { IPAPolicies } from "../IPAPolicies"
-import { IPARoyaltyChart } from "../IPARoyaltyChart"
+import { IpAssetProvider, useIpAssetContext } from "../../providers"
+import { IpGraph } from "../IpGraph"
+import { IpPolicies } from "../IpPolicies"
+import { IpRoyaltyPieChart } from "../IpRoyaltyPieChart"
 
-export type IPAssetWidgetProps = {
+export type IpWidgetProps = {
   ipId: Address
   isBottomNav?: boolean
 }
@@ -25,7 +25,7 @@ export const IPA_CARD_TABS = [
   { id: "royalty", label: "Royalty" },
 ]
 
-const IPAssetWidget = ({ ipId, isBottomNav, ...rest }: IPAssetWidgetProps) => {
+const IpWidget = ({ ipId, isBottomNav, ...rest }: IpWidgetProps) => {
   return <IPAssetCardWrapper ipId={ipId} isBottomNav={isBottomNav} {...rest} />
 }
 
@@ -45,12 +45,12 @@ function IPAssetCardWrapper({ ipId, isBottomNav = true }: { ipId: Address; isBot
   )
 
   return (
-    <IPAssetProvider ipId={ipId} key={ipId}>
+    <IpAssetProvider ipId={ipId} key={ipId}>
       <div className="flex min-h-[410px] w-[390px] flex-col items-start justify-between gap-0 rounded-xl border-2 bg-white shadow-lg">
         {isBottomNav ? <_Card /> : <_Tabs />}
         {isBottomNav ? <_Tabs /> : <_Card />}
       </div>
-    </IPAssetProvider>
+    </IpAssetProvider>
   )
 }
 
@@ -64,7 +64,7 @@ function IPAssetLayout({ children, isBottomNav }: { children: React.ReactNode; i
 }
 
 function IPAssetDropdownMenu() {
-  const { assetData } = useIPAssetContext()
+  const { assetData } = useIpAssetContext()
   return (
     <Menu as="div" className="relative inline-block text-left">
       <div>
@@ -236,7 +236,7 @@ function IPAssetDropdownMenu() {
 }
 
 function IPAssetHeader({ hideImage }: { hideImage?: boolean }) {
-  const { nftData, assetData } = useIPAssetContext()
+  const { nftData, assetData } = useIpAssetContext()
   return (
     <div className="flex w-full flex-row justify-between">
       <div className="flex w-full flex-row justify-start gap-2">
@@ -328,20 +328,20 @@ function IPAssetCard({ isBottomNav, activeTab }: { isBottomNav?: boolean; active
       return (
         <IPAssetLayout isBottomNav={isBottomNav}>
           <div className="p-2">
-            <IPAPolicies size="small" />
+            <IpPolicies size="small" />
           </div>
         </IPAssetLayout>
       )
     case "derivatives":
       return (
         <IPAssetLayout isBottomNav={isBottomNav}>
-          <IPAGraph width={370} height={250} />
+          <IpGraph width={370} height={250} />
         </IPAssetLayout>
       )
     case "royalty":
       return (
         <IPAssetLayout isBottomNav={isBottomNav}>
-          <IPARoyaltyChart />
+          <IpRoyaltyPieChart />
         </IPAssetLayout>
       )
     default:
@@ -350,7 +350,7 @@ function IPAssetCard({ isBottomNav, activeTab }: { isBottomNav?: boolean; active
 }
 
 function IPAssetOverview({ isBottomNav }: { isBottomNav?: boolean }) {
-  const { nftData, isAssetDataLoading, isNftDataLoading } = useIPAssetContext()
+  const { nftData, isAssetDataLoading, isNftDataLoading } = useIpAssetContext()
 
   const isLoading = isAssetDataLoading || isNftDataLoading
 
@@ -400,6 +400,6 @@ function IPAssetOverview({ isBottomNav }: { isBottomNav?: boolean }) {
   )
 }
 
-IPAssetWidget.displayName = "IPAssetWidget"
+IpWidget.displayName = "IpWidget"
 
-export default IPAssetWidget
+export default IpWidget

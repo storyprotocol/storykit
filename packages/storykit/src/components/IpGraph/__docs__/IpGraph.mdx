@@ -1,0 +1,37 @@
+import { Canvas, Controls, Meta } from "@storybook/blocks"
+
+import * as IpGraphStory from "./IpGraph.stories"
+
+<Meta of={IpGraphStory} />
+
+# IPA Graph
+
+Show Asset derivatives graph
+
+#### Example
+
+<Canvas of={IpGraphStory.Select} />
+
+<Controls />
+
+## Usage
+
+```ts
+import { IpAssetProvider } from "@storyprotocol/storykit"
+import { IpGraph } from "@storyprotocol/storykit"
+
+const ExamplePage = () => {
+  return (
+    <IpAssetProvider ipId={"0xbbf08a30b9ff0f717a024a75963d3196aaf0f0dd"}>
+      <IpGraph />
+    </IpAssetProvider>
+  );
+};
+
+export default ExamplePage;
+```
+
+#### Arguments
+
+- **width**: _number_ - The width of the canvas
+- **height**: _number_ - The height of the canvas

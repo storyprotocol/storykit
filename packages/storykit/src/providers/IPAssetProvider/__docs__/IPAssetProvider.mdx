@@ -1,32 +1,32 @@
 import { Canvas, Controls, Meta } from "@storybook/blocks"
 
-import * as IPAssetProviderStory from "./IPAssetProvider.stories"
+import * as IpAssetProviderStory from "./IpAssetProvider.stories"
 
-<Meta of={IPAssetProviderStory} title="Providers/IPAssetProvider" />
+<Meta of={IpAssetProviderStory} title="Providers/IpAssetProvider" />
 
-# IPAssetProvider
+# IpAssetProvider
 
 Provides IP Asset data to children components.
 
 #### Example
 
-<Canvas of={IPAssetProviderStory.Select} />
+<Canvas of={IpAssetProviderStory.Select} />
 
 <Controls />
 
 ## Usage
 
 ```ts
-// wrap your component with the IPAssetProvider
+// wrap your component with the IpAssetProvider
 
-import { IPAssetProvider } from "@storyprotocol/storykit"
+import { IpAssetProvider } from "@storyprotocol/storykit"
 import ExampleComponent from './ExampleComponent'
 
 const ExamplePage = () => {
   return (
-    <IPAssetProvider ipId={"0xbbf08a30b9ff0f717a024a75963d3196aaf0f0dd"}>
+    <IpAssetProvider ipId={"0xbbf08a30b9ff0f717a024a75963d3196aaf0f0dd"}>
       <ExampleComponent />
-    </IPAssetProvider>
+    </IpAssetProvider>
   );
 };
 
@@ -36,11 +36,11 @@ export default ExamplePage;
 ```ts
 // in your component file, context provides IP asset state
 
-import { useIPAssetContext } from "@storyprotocol/storykit"
+import { useIpAssetContext } from "@storyprotocol/storykit"
 
 const ExampleComponent = () => {
 
-  const { nftData, isNftDataLoading } = useIPAssetContext()
+  const { nftData, isNftDataLoading } = useIpAssetContext()
 
   return (
     <div>

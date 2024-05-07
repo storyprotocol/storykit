@@ -1,8 +1,8 @@
 import { Canvas, Controls, Meta } from "@storybook/blocks"
 
-import * as IPAssetWidgetStory from "./IPAssetWidget.stories"
+import * as IpWidgetStory from "./IpWidget.stories"
 
-<Meta of={IPAssetWidgetStory} title="Components/IPAssetWidget" />
+<Meta of={IpWidgetStory} />
 
 # IP Asset Widget
 
@@ -10,18 +10,18 @@ Button component with different props.
 
 #### Example
 
-<Canvas of={IPAssetWidgetStory.Select} />
+<Canvas of={IpWidgetStory.Select} />
 
 <Controls />
 
 ## Usage
 
 ```ts
-import { IPAssetWidget } from "@storyprotocol/storykit"
+import { IpWidget } from "@storyprotocol/storykit"
 
 const ExamplePage = () => {
   return (
-    <IPAssetWidget ipId={"0xbbf08a30b9ff0f717a024a75963d3196aaf0f0dd"} />
+    <IpWidget ipId={"0xbbf08a30b9ff0f717a024a75963d3196aaf0f0dd"} />
   );
 };
 

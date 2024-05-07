@@ -1,0 +1,32 @@
+import { Canvas, Controls, Meta } from "@storybook/blocks"
+
+import * as IpRoyaltyPieChartStory from "./IpRoyaltyPieChart.stories"
+
+<Meta of={IpRoyaltyPieChartStory} />
+
+# IPA Royalty Chart
+
+Show Asset derivatives graph
+
+#### Example
+
+<Canvas of={IpRoyaltyPieChartStory.Select} />
+
+<Controls />
+
+## Usage
+
+```ts
+import { IpAssetProvider } from "@storyprotocol/storykit"
+import { IpRoyaltyPieChart } from "@storyprotocol/storykit"
+
+const ExamplePage = () => {
+  return (
+    <IpAssetProvider ipId={"0xbbf08a30b9ff0f717a024a75963d3196aaf0f0dd"}>
+      <IpRoyaltyPieChart />
+    </IpAssetProvider>
+  );
+};
+
+export default ExamplePage;
+```

@@ -3,7 +3,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import React, { FC } from "react"
 import { Address } from "viem"
 
-import IPAssetWidget from "../IPAssetWidget"
+import IpWidget from "../IpWidget"
 
 const Example: FC<{ ipId: Address; isBottomNav?: boolean }> = ({
   ipId = PREVIEW_IP_ASSETS[1] as "0x${string}",
@@ -20,7 +20,7 @@ const Example: FC<{ ipId: Address; isBottomNav?: boolean }> = ({
           height: "100%",
         }}
       >
-        <IPAssetWidget ipId={ipId} isBottomNav={isBottomNav} />
+        <IpWidget ipId={ipId} isBottomNav={isBottomNav} />
       </div>
     </QueryClientProvider>
   )

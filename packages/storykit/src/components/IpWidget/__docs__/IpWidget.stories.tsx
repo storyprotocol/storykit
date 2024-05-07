@@ -4,15 +4,16 @@ import type { Meta, StoryObj } from "@storybook/react"
 import Example from "./Example"
 
 const meta = {
-  title: "Components/IPARoyaltyChart",
+  title: "IP Assets/IpWidget",
   component: Example,
   parameters: {
     layout: "centered",
   },
   // tags: ["autodocs"],
-  argTypes: {},
+  argTypes: {
+    isBottomNav: { control: "boolean", defaultValue: true },
+  },
   args: {},
-  // tags: ["isHidden"],
 } satisfies Meta<typeof Example>
 
 export default meta
@@ -25,7 +26,8 @@ export const Select: Story = {
     },
   },
   args: {
-    ipId: PREVIEW_IP_ASSETS[1] as `0x${string}`,
+    ipId: PREVIEW_IP_ASSETS[0] as `0x${string}`,
+    isBottomNav: true,
   },
 }
 export const Input: Story = {
@@ -33,6 +35,7 @@ export const Input: Story = {
     ipId: { control: "text" },
   },
   args: {
-    ipId: PREVIEW_IP_ASSETS[1] as `0x${string}`,
+    ipId: PREVIEW_IP_ASSETS[0] as `0x${string}`,
+    isBottomNav: true,
   },
 }

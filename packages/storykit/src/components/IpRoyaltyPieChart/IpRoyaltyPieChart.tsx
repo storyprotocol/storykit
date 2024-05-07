@@ -1,12 +1,12 @@
 import { shortenAddress } from "@/lib/utils"
-import { useIPAssetContext } from "@/providers"
+import { useIpAssetContext } from "@/providers"
 import { useEffect, useState } from "react"
 import { Address } from "viem"
 
 import "../../global.css"
 
-function IPARoyaltyChart() {
-  const { royaltyData } = useIPAssetContext()
+function IpRoyaltyPieChart() {
+  const { royaltyData } = useIpAssetContext()
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [Chart, setChart] = useState<any>(null)
@@ -99,4 +99,4 @@ function IPARoyaltyChart() {
   return <div className="flex h-60 flex-col items-center justify-center text-slate-400">No Royalty Data</div>
 }
 
-export default IPARoyaltyChart
+export default IpRoyaltyPieChart
