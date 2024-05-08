@@ -1,6 +1,6 @@
 "use client"
 
-import { IpAssetProvider, useIpAssetContext, IpWidget, IpPolicyAccordion, IpRoyaltyPieChart, IpGraph } from "@storyprotocol/storykit"
+import { IpAssetProvider, useIpAssetContext, IpWidget, IpPolicyAccordion, IpRoyaltyPieChart, IpGraph, Button } from "@storyprotocol/storykit"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import React from "react"
 
@@ -27,6 +27,8 @@ export default function Home() {
           <IpAssetProvider ipId="0xb56831B7cDab9De9e4D3B38C88DdD7B6a57e8287">
             <IpPolicyAccordion size="medium" />
           </IpAssetProvider>
+
+          <Button variant="primary" size="medium">Primary Button</Button>
 
           {/* <IpAssetProvider ipId="0x6833490Ea60121F507f5Bf41AD0b17A6Ae537e6e">
             <ExampleComponent />

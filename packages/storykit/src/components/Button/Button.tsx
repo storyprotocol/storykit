@@ -5,16 +5,16 @@ import React from "react"
 import "../../global.css"
 import "./styles.css"
 
-const button = cva("sk-button", {
+const button = cva("skButton", {
   variants: {
     variant: {
-      primary: "sk-button--primary",
-      secondary: "sk-button--secondary",
+      primary: "skButton--primary",
+      secondary: "skButton--secondary",
     },
     size: {
-      small: "sk-button--small",
-      medium: "sk-button--medium",
-      large: "sk-button--large",
+      small: "skButton--small",
+      medium: "skButton--medium",
+      large: "skButton--large",
     },
   },
   defaultVariants: {

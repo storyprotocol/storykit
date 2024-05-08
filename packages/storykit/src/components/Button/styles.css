@@ -1,21 +1,21 @@
-.sk-button {
+.skButton {
   @apply rounded-md border focus:outline-none focus:ring focus:ring-gray-300 disabled:pointer-events-none disabled:opacity-50;
 
-  &.sk-button--primary {
+  &.skButton--primary {
     @apply border-blue-500 bg-blue-500 text-white hover:bg-blue-700 dark:border-white dark:bg-white dark:text-blue-700 dark:hover:bg-blue-500 dark:hover:text-white;
   }
 
-  &.sk-button--secondary {
+  &.skButton--secondary {
     @apply border-blue-500 text-blue-500 hover:bg-blue-500 hover:text-white;
   }
 
-  &.sk-button--small {
+  &.skButton--small {
     @apply text-xs px-2 py-1;
   }
-  &.sk-button--medium {
+  &.skButton--medium {
     @apply text-base px-4 py-2;
   }
-  &.sk-button--large {
+  &.skButton--large {
     @apply text-xl px-6 py-3;
   }
 }
