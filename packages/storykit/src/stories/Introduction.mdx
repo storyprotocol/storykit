@@ -35,7 +35,12 @@ npm install @storyprotocol/storykit @tanstack/react-query
 
 Storkykit requires [@tanstack/react-query](https://tanstack.com/query/latest) to function.
 
-Some components have additional dependencies, see the individual component docs for more information or install them all at once with:
+Some components have additional dependencies including:
+
+- [react-apexcharts](https://www.npmjs.com/package/react-apexcharts)
+- [react-force-graph-2d](https://www.npmjs.com/package/react-force-graph-2d)
+
+See the individual component docs ro see if they require an additional dependency or install them all at once with:
 
 ```bash
 npm install @storyprotocol/storykit @tanstack/react-query react-apexcharts react-force-graph-2d
@@ -45,22 +50,14 @@ npm install @storyprotocol/storykit @tanstack/react-query react-apexcharts react
 
 Using Storykit in your React app
 
-### Import the css
-
-```typescript
-import "@storyprotocol/storykit/dist/build.css"
-```
-
 ### Include React Query
 
-Don't forget that react query is a dependency, you will need to wrap Storykit components with a `QueryClientProvider`, you can do this once at the root of the app.
+React Query is a dependency, you will need to wrap Storykit components with a `QueryClientProvider`, we recommend doing this once in the root of the app.
 
 ```typescript
 // app/layout.tsx
 
 import Providers from "./Providers"
-
-import "@storyprotocol/storykit/dist/build.css"
 
 export default function Layout({children}) {
   return (
