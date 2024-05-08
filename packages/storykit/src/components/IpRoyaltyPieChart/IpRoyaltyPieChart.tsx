@@ -3,7 +3,7 @@ import { useIpAssetContext } from "@/providers"
 import { useEffect, useState } from "react"
 import { Address } from "viem"
 
-import "../../global.css"
+// import "../../global.css"
 
 function IpRoyaltyPieChart() {
   const { royaltyData } = useIpAssetContext()

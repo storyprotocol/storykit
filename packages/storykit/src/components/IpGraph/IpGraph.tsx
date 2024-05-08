@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react"
 
-import "../../global.css"
+// import "../../global.css"
 import { convertAssetToGraphFormat } from "../../lib/graph"
 import { Asset } from "../../lib/types"
 import { useIpAssetContext } from "../../providers"

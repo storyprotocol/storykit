@@ -6,7 +6,7 @@ import { SiOpensea } from "react-icons/si"
 import { TbLicense } from "react-icons/tb"
 import { Address } from "viem"
 
-import "../../global.css"
+// import "../../global.css"
 import { cn, shortenAddress } from "../../lib/utils"
 import { IpAssetProvider, useIpAssetContext } from "../../providers"
 import { IpGraph } from "../IpGraph"
