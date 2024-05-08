@@ -1,9 +1,10 @@
 import React, { useEffect, useMemo, useState } from "react"
 
-// import "../../global.css"
+import "../../global.css"
 import { convertAssetToGraphFormat } from "../../lib/graph"
 import { Asset } from "../../lib/types"
 import { useIpAssetContext } from "../../providers"
+import "./styles.css"
 
 export type IpGraphProps = {
   width?: number
@@ -76,7 +77,7 @@ function IpGraph({ width = 500, height = 500 }: IpGraphProps) {
   }
 
   return (
-    <div className="relative">
+    <div className="skIpGraph">
       {ForceGraph ? (
         <ForceGraph width={width} height={height} graphData={formattedGraphData} nodeCanvasObject={nodeCanvasObject} />
       ) : null}
