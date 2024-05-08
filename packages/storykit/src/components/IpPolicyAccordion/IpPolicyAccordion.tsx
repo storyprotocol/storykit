@@ -70,9 +70,9 @@ const ShowCannots = ({ type }: { type: string }) => {
 const policiesStyles = cva("", {
   variants: {
     size: {
-      small: "small",
-      medium: "medium",
-      large: "large",
+      small: "skIpPolicyAccordion--small",
+      medium: "skIpPolicyAccordion--medium",
+      large: "skIpPolicyAccordion--large",
     },
   },
 })
@@ -88,23 +88,31 @@ function IpPolicyAccordion({ size = "medium" }: IpPolicyAccordionProps) {
   const iconWidth = size === "small" ? 16 : size === "medium" ? 20 : 24
 
   return policyData?.length ? (
-    <div className={cn("storykit-ip-policy-accordion", policiesStyles({ size }))}>
+    <div className={cn("skIpPolicyAccordion", policiesStyles({ size }))}>
       {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
       {(policyData as unknown as any[])?.map((policy, index) => (
-        <div key={policy.id} className="policy-item">
-          <div className="policy-item-header" onClick={() => setExpanded(expanded === index ? null : index)}>
+        <div key={policy.id} className="skIpPolicyAccordion__item">
+          <div
+            className="skIpPolicyAccordion__item-header"
+            onClick={() => setExpanded(expanded === index ? null : index)}
+          >
             {getPolicyTypeByPILData(policy.licenseTerms)}
             {expanded === index ? <FaCaretUp width={12} /> : <FaCaretDown width={12} />}
           </div>
 
-          <div className={cn("policy-item-list", expanded === index && "policy-item-list-expanded")}>
-            <div className="policy-properties">
+          <div
+            className={cn(
+              "skIpPolicyAccordion__item-list",
+              expanded === index && "skIpPolicyAccordion__item-list--expanded"
+            )}
+          >
+            <div className="skIpPolicyAccordion__properties">
               {ShowCans({ type: getPolicyTypeByPILData(policy.licenseTerms) }).length ? (
                 <>
-                  <div className="policy-item-list-title">Others Can</div>
-                  <div className="policy-list">
+                  <div className="skIpPolicyAccordion__item-list-title">Others Can</div>
+                  <div className="skIpPolicyAccordion__list">
                     {ShowCans({ type: getPolicyTypeByPILData(policy.licenseTerms) }).map((can, index) => (
-                      <div key={index} className="policy-property policy-property-can">
+                      <div key={index} className="skIpPolicyAccordion__property skIpPolicyAccordion__property--can">
                         <CircleCheck width={iconWidth} />
                         <span>{can}</span>
                       </div>
@@ -112,10 +120,10 @@ function IpPolicyAccordion({ size = "medium" }: IpPolicyAccordionProps) {
                   </div>
                 </>
               ) : null}
-              <div className="policy-item-list-title">Others Cannot</div>
-              <div className="policy-list">
+              <div className="skIpPolicyAccordion__item-list-title">Others Cannot</div>
+              <div className="skIpPolicyAccordion__list">
                 {ShowCannots({ type: getPolicyTypeByPILData(policy.licenseTerms) }).map((can, index) => (
-                  <div key={index} className="policy-property policy-property-cannot">
+                  <div key={index} className="skIpPolicyAccordion__property skIpPolicyAccordion__property--cannot">
                     <CircleMinus width={iconWidth} />
                     <span>{can}</span>
                   </div>
@@ -124,12 +132,12 @@ function IpPolicyAccordion({ size = "medium" }: IpPolicyAccordionProps) {
             </div>
           </div>
 
-          {index < policyData.length - 1 && <div className="policy-divider" />}
+          {index < policyData.length - 1 && <div className="skIpPolicyAccordion__divider" />}
         </div>
       ))}
     </div>
   ) : (
-    <div className="storykit-ip-policy-accordion no-policy">No Policy</div>
+    <div className="skIpPolicyAccordion skIpPolicyAccordion--no-policy">No Policy</div>
   )
 }
 
