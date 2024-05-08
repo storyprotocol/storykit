@@ -7,6 +7,7 @@ import { useState } from "react"
 import { FaCaretDown, FaCaretUp } from "react-icons/fa6"
 
 import "../../global.css"
+import "./styles.css"
 
 const CANS = {
   REMIX: "Remix this work",
@@ -66,22 +67,12 @@ const ShowCannots = ({ type }: { type: string }) => {
   }
 }
 
-const policiesStyles = cva("flex flex-col w-full min-w-48", {
+const policiesStyles = cva("", {
   variants: {
     size: {
-      small: "text-sm",
-      medium: "text-base",
-      large: "text-lg",
-    },
-  },
-})
-
-const listStyles = cva("flex flex-col", {
-  variants: {
-    size: {
-      small: "",
-      medium: "gap-1",
-      large: "gap-2",
+      small: "small",
+      medium: "medium",
+      large: "large",
     },
   },
 })
@@ -97,43 +88,35 @@ function IpPolicyAccordion({ size = "medium" }: IpPolicyAccordionProps) {
   const iconWidth = size === "small" ? 16 : size === "medium" ? 20 : 24
 
   return policyData?.length ? (
-    <div className={policiesStyles({ size })}>
+    <div className={cn("ip-policy-accordion", policiesStyles({ size }))}>
       {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
       {(policyData as unknown as any[])?.map((policy, index) => (
-        <div key={policy.id} className="flex flex-col w-full">
-          <div
-            className="flex w-full items-center justify-between cursor-pointer"
-            onClick={() => setExpanded(expanded === index ? null : index)}
-          >
+        <div key={policy.id} className="policy-item">
+          <div className="policy-item-header" onClick={() => setExpanded(expanded === index ? null : index)}>
             {getPolicyTypeByPILData(policy.licenseTerms)}
             {expanded === index ? <FaCaretUp width={12} /> : <FaCaretDown width={12} />}
           </div>
 
-          <div
-            className={cn(
-              "flex w-full items-center justify-between overflow-hidden",
-              expanded === index ? "h-auto" : "h-0"
-            )}
-          >
-            <div className="flex flex-col pt-2 gap-2">
+          <div className={cn("policy-item-list", expanded === index && "policy-item-list-expanded")}>
+            <div className="policy-properties">
               {ShowCans({ type: getPolicyTypeByPILData(policy.licenseTerms) }).length ? (
                 <>
-                  <div className="font-bold">Others Can</div>
-                  <div className={listStyles({ size })}>
+                  <div className="policy-item-list-title">Others Can</div>
+                  <div className="policy-list">
                     {ShowCans({ type: getPolicyTypeByPILData(policy.licenseTerms) }).map((can, index) => (
-                      <div key={index} className="flex w-full items-center gap-2">
-                        <CircleCheck width={iconWidth} className="text-green-500" />
+                      <div key={index} className="policy-property policy-property-can">
+                        <CircleCheck width={iconWidth} />
                         <span>{can}</span>
                       </div>
                     ))}
                   </div>
                 </>
               ) : null}
-              <div className="font-bold">Others Cannot</div>
-              <div className={listStyles({ size })}>
+              <div className="policy-item-list-title">Others Cannot</div>
+              <div className="policy-list">
                 {ShowCannots({ type: getPolicyTypeByPILData(policy.licenseTerms) }).map((can, index) => (
-                  <div key={index} className="flex w-full items-center gap-2">
-                    <CircleMinus width={iconWidth} className="text-red-500" />
+                  <div key={index} className="policy-property policy-property-cannot">
+                    <CircleMinus width={iconWidth} />
                     <span>{can}</span>
                   </div>
                 ))}
@@ -141,12 +124,12 @@ function IpPolicyAccordion({ size = "medium" }: IpPolicyAccordionProps) {
             </div>
           </div>
 
-          {index < policyData.length - 1 && <div className="border-b border-gray-200 w-full my-2" />}
+          {index < policyData.length - 1 && <div className="policy-divider" />}
         </div>
       ))}
     </div>
   ) : (
-    <div className="flex h-60 flex-col items-center justify-center text-slate-400">No Policy</div>
+    <div className="ip-policy-accordion no-policy">No Policy</div>
   )
 }
 
