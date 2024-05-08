@@ -6,6 +6,7 @@ import { CircleCheck, CircleMinus } from "lucide-react"
 import { useState } from "react"
 import { FaCaretDown, FaCaretUp } from "react-icons/fa6"
 
+import "../../global.css"
 import "./styles.css"
 
 const CANS = {
