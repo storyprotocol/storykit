@@ -1,0 +1,40 @@
+import { Canvas, Controls, Meta } from "@storybook/blocks"
+
+import * as IpRoyaltyPieChartStory from "./IpRoyaltyPieChart.stories"
+
+<Meta of={IpRoyaltyPieChartStory} />
+
+# IpRoyaltyPieChart
+
+Displays the divisions of royalties for an IP Asset in a pie chart.
+
+#### Example
+
+<Canvas of={IpRoyaltyPieChartStory.Select} />
+
+<Controls />
+
+## Dependencies
+
+The IP Royalty Pie Chart also requires [react-apexcharts](https://www.npmjs.com/package/react-apexcharts).
+
+```bash
+npm install react-apexcharts
+```
+
+## Usage
+
+```ts
+import { IpAssetProvider } from "@storyprotocol/storykit"
+import { IpRoyaltyPieChart } from "@storyprotocol/storykit"
+
+const ExamplePage = () => {
+  return (
+    <IpAssetProvider ipId={"0xbbf08a30b9ff0f717a024a75963d3196aaf0f0dd"}>
+      <IpRoyaltyPieChart />
+    </IpAssetProvider>
+  );
+};
+
+export default ExamplePage;
+```

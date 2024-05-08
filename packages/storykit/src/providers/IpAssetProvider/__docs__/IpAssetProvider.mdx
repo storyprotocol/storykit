@@ -1,0 +1,62 @@
+import { Canvas, Controls, Meta } from "@storybook/blocks"
+
+import * as IpAssetProviderStory from "./IpAssetProvider.stories"
+
+<Meta of={IpAssetProviderStory} title="Providers/IpAssetProvider" />
+
+# IpAssetProvider
+
+Provides IP Asset data to children components.
+
+#### Example
+
+<Canvas of={IpAssetProviderStory.Select} />
+
+<Controls />
+
+## Usage
+
+```ts
+// wrap your component with the IpAssetProvider
+
+import { IpAssetProvider } from "@storyprotocol/storykit"
+import ExampleComponent from './ExampleComponent'
+
+const ExamplePage = () => {
+  return (
+    <IpAssetProvider ipId={"0xbbf08a30b9ff0f717a024a75963d3196aaf0f0dd"}>
+      <ExampleComponent />
+    </IpAssetProvider>
+  );
+};
+
+export default ExamplePage;
+```
+
+```ts
+// in your component file, context provides IP asset state
+
+import { useIpAssetContext } from "@storyprotocol/storykit"
+
+const ExampleComponent = () => {
+
+  const { nftData, isNftDataLoading } = useIpAssetContext()
+
+  return (
+    <div>
+      {isNftDataLoading && <div>Fetching Asset...</div>}
+
+      {nftData && !isNftDataLoading ? (
+        <div>nft id: {nftData.nft_id}</div>
+      ) : null}
+    </div>
+  );
+};
+
+export default ExampleComponent;
+```
+
+#### Arguments
+
+- **children** - The child component to provide the IP Asset context to.
+- **ipId** - The IP Asset Id, an Address starting 0x.

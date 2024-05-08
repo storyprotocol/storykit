@@ -1,0 +1,70 @@
+.ip-policy-accordion {
+  @apply flex flex-col w-full min-w-48;
+
+  .policy-item {
+    @apply flex flex-col w-full;
+  }
+
+  .policy-item-header {
+    @apply flex w-full items-center justify-between cursor-pointer;
+  }
+
+  .policy-item-list {
+    @apply flex w-full items-center justify-between overflow-hidden h-0;
+
+    &.policy-item-list-expanded {
+      @apply h-auto;
+    }
+  }
+
+  .policy-properties {
+    @apply flex flex-col pt-2 gap-2;
+  }
+
+  .policy-item-list-title {
+    @apply font-bold;
+  }
+
+  .policy-list {
+    @apply flex flex-col;
+  }
+
+  .policy-property {
+    @apply flex w-full items-center gap-2;
+
+    &.policy-property-can > svg {
+      @apply text-green-500;
+    }
+
+    &.policy-property-cannot > svg {
+      @apply text-red-500;
+    }
+  }
+
+  .policy-divider {
+    @apply border-b border-gray-200 w-full my-2;
+  }
+
+  &.small {
+    @apply text-sm;
+  }
+
+  &.medium {
+    @apply text-base;
+
+    .policy-list {
+      @apply gap-1;
+    }
+  }
+
+  &.large {
+    @apply text-lg;
+    .policy-list {
+      @apply gap-2;
+    }
+  }
+
+  &.no-policy {
+    @apply text-slate-400;
+  }
+}
