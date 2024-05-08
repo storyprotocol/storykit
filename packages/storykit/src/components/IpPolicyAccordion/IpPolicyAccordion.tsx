@@ -6,7 +6,6 @@ import { CircleCheck, CircleMinus } from "lucide-react"
 import { useState } from "react"
 import { FaCaretDown, FaCaretUp } from "react-icons/fa6"
 
-import "../../global.css"
 import "./styles.css"
 
 const CANS = {
@@ -88,7 +87,7 @@ function IpPolicyAccordion({ size = "medium" }: IpPolicyAccordionProps) {
   const iconWidth = size === "small" ? 16 : size === "medium" ? 20 : 24
 
   return policyData?.length ? (
-    <div className={cn("ip-policy-accordion", policiesStyles({ size }))}>
+    <div className={cn("storykit-ip-policy-accordion", policiesStyles({ size }))}>
       {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
       {(policyData as unknown as any[])?.map((policy, index) => (
         <div key={policy.id} className="policy-item">
@@ -129,7 +128,7 @@ function IpPolicyAccordion({ size = "medium" }: IpPolicyAccordionProps) {
       ))}
     </div>
   ) : (
-    <div className="ip-policy-accordion no-policy">No Policy</div>
+    <div className="storykit-ip-policy-accordion no-policy">No Policy</div>
   )
 }
 

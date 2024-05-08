@@ -1,4 +1,8 @@
-.ip-policy-accordion {
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.storykit-ip-policy-accordion {
   @apply flex flex-col w-full min-w-48;
 
   .policy-item {
