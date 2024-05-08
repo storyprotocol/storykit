@@ -24,7 +24,23 @@ const config = [
         sourcemap: true,
       },
     ],
-    plugins: [peerDepsExternal(), resolve(), commonjs(), typescript(), terser(), postcss()],
+    plugins: [
+      peerDepsExternal(),
+      resolve(),
+      commonjs(),
+      typescript(),
+      terser(),
+      postcss({
+        config: {
+          path: "./postcss.config.cjs",
+        },
+        extensions: [".css"],
+        minimize: true,
+        inject: {
+          insertAt: "top",
+        },
+      }),
+    ],
     external: ["react/jsx-runtime"],
   },
   {
