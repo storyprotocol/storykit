@@ -12,24 +12,35 @@ _Storykit is a private package so you need repo access and a personal access tok
 
 1 . Create a personal access token: [github.com/settings/tokens](https://github.com/settings/tokens)
 
-2 . Create an `.npmrc` file in the root of your project and add the following:
+2 . Create an `.npmrc` file in the root of your project and add the following, replacing `NPM_TOKEN` with yout access token:
+
+```bash
+//npm.pkg.github.com/:_authToken=NPM_TOKEN
+@storyprotocol/storykit:registry=https://npm.pkg.github.com
+```
+
+3 . Add `.npmrc` to your `.gitignore` to keep your access token private.
+
+4 . Install the package and the required dependencies:
+
+```bash
+npm install @storyprotocol/storykit @tanstack/react-query
+```
+
+## Deploying on vercel
+
+To deploy on vercel, you can either include an `.npmrc` file with the following contents (note the curly braces) in the root, and add your access token to the `NPM_TOKEN` vercel environment variable:
 
 ```bash
 //npm.pkg.github.com/:_authToken=${NPM_TOKEN}
 @storyprotocol/storykit:registry=https://npm.pkg.github.com
 ```
 
-3 . Add your personal access token to your environment variables
+#### OR...
 
-```bash
-NPM_TOKEN=your_personal_access_token
-```
+You can add all the content of the `.npmrc` file, including your personal access token, to a `NPM_RC` vercel environment variable.
 
-4 . Install the package and the required react-query dependencies
-
-```bash
-npm install @storyprotocol/storykit @tanstack/react-query
-```
+See the [vercel docs](https://vercel.com/guides/using-private-dependencies-with-vercel) for more information.
 
 ## Dependencies
 
