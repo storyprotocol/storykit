@@ -3,7 +3,8 @@ import { useIpAssetContext } from "@/providers"
 import { useEffect, useState } from "react"
 import { Address } from "viem"
 
-// import "../../global.css"
+import "../../global.css"
+import "./styles.css"
 
 function IpRoyaltyPieChart() {
   const { royaltyData } = useIpAssetContext()
@@ -76,18 +77,18 @@ function IpRoyaltyPieChart() {
     }
 
     return (
-      <div className="flex flex-col items-center justify-between">
-        <div className="min-h-[230px]">
+      <div className="skIpRoyaltyPieChart">
+        <div className="skIpRoyaltyPieChart__chart">
           {ApexChart ? (
             <ApexChart options={chart.options} series={chart.series} type="pie" height={250} width="300" />
           ) : null}
         </div>
-        <div className="w-full min-w-[300px] px-2">
-          <dl className="divide-y divide-gray-100 overflow-x-hidden text-sm leading-6">
+        <div className="skIpRoyaltyPieChart__key">
+          <dl className="skIpRoyaltyPieChart__list">
             {royaltyData?.targetAncestors.map((target, i) => (
-              <div key={target} className="flex justify-between gap-x-4 py-1">
-                <dt className="text-xs capitalize text-gray-500">{shortenAddress(target)}</dt>
-                <dd className="truncate text-gray-700">{royaltyData.targetRoyaltyAmount[i]}</dd>
+              <div key={target} className="skIpRoyaltyPieChart__item">
+                <dt className="skIpRoyaltyPieChart__address">{shortenAddress(target)}</dt>
+                <dd className="skIpRoyaltyPieChart__value">{royaltyData.targetRoyaltyAmount[i]}</dd>
               </div>
             ))}
           </dl>
@@ -96,7 +97,7 @@ function IpRoyaltyPieChart() {
     )
   }
 
-  return <div className="flex h-60 flex-col items-center justify-center text-slate-400">No Royalty Data</div>
+  return <div className="skIpRoyaltyPieChart skIpRoyaltyPieChart--empty">No Royalty Data</div>
 }
 
 export default IpRoyaltyPieChart
