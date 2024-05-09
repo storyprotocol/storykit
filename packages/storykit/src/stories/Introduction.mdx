@@ -15,7 +15,7 @@ _Storykit is a private package so you need repo access and a personal access tok
 2 . Create an `.npmrc` file in the root of your project and add the following:
 
 ```bash
-//npm.pkg.github.com/:_authToken=$NPM_TOKEN
+//npm.pkg.github.com/:_authToken=${NPM_TOKEN}
 @storyprotocol/storykit:registry=https://npm.pkg.github.com
 ```
 
@@ -44,6 +44,43 @@ See the individual component docs ro see if they require an additional dependenc
 
 ```bash
 npm install @storyprotocol/storykit @tanstack/react-query react-apexcharts react-force-graph-2d
+```
+
+## Run locally
+
+### Storybook
+
+Run Storybook locally for component development and documentation:
+
+```bash
+pnpm dev
+```
+
+Find the Storybook at [http://localhost:6006](http://localhost:6006)
+
+### Example app
+
+Run the next.js example app:
+
+```bash
+pnpm build
+pnpm dev-example
+```
+
+The dev server will be running at [http://localhost:3000](http://localhost:3000)
+
+### Linting and formatting
+
+Lint with eslint:
+
+```bash
+pnpm lint
+```
+
+Format with prettier:
+
+```bash
+pnpm format
 ```
 
 ## Usage
