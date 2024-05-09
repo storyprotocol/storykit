@@ -85,7 +85,8 @@ function IpRoyaltyPieChart() {
         </div>
         <div className="skIpRoyaltyPieChart__key">
           <dl className="skIpRoyaltyPieChart__list">
-            {royaltyData?.targetAncestors.map((target, i) => (
+            {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+            {royaltyData?.targetAncestors.map((target: any, i: any) => (
               <div key={target} className="skIpRoyaltyPieChart__item">
                 <dt className="skIpRoyaltyPieChart__address">{shortenAddress(target)}</dt>
                 <dd className="skIpRoyaltyPieChart__value">{royaltyData.targetRoyaltyAmount[i]}</dd>
