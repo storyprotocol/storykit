@@ -8,7 +8,7 @@ Plug-and-play React components for Story Protocol.
 
 ## Installation
 
-_Storykit is a private package so you need repo access and a personal access token to use_
+_Storykit is currently a private github package so you need repo access and a personal access token to use_
 
 1 . Create a personal access token: [github.com/settings/tokens](https://github.com/settings/tokens)
 
@@ -19,12 +19,22 @@ _Storykit is a private package so you need repo access and a personal access tok
 @storyprotocol/storykit:registry=https://npm.pkg.github.com
 ```
 
+The first line authenticates you with the github package registry, the second line tells npm to use the Storykit package from the Story Protocol github registry.
+
 3 . Add `.npmrc` to your `.gitignore` to keep your access token private.
 
 4 . Install the package and the required dependencies:
 
 ```bash
 npm install @storyprotocol/storykit @tanstack/react-query
+```
+
+5 . Currently Story Protocol api credetials must be defined in the environment variables, add them to your `.env.local`:
+
+```bash
+NEXT_PUBLIC_API_BASE_URL="https://edge.stg.storyprotocol.net"
+NEXT_PUBLIC_STORY_PROTOCOL_X_API_KEY="SP_API_KEY_HERE"
+NEXT_PUBLIC_SIMPLE_HASH_API_KEY="SIMPLEHASH_API_KEY_HERE"
 ```
 
 ## Deploying on vercel
@@ -44,9 +54,7 @@ See the [vercel docs](https://vercel.com/guides/using-private-dependencies-with-
 
 ## Dependencies
 
-Storkykit requires [@tanstack/react-query](https://tanstack.com/query/latest) to function.
-
-Some components have additional dependencies including:
+Storkykit requires [@tanstack/react-query](https://tanstack.com/query/latest), some components have additional dependencies including:
 
 - [react-apexcharts](https://www.npmjs.com/package/react-apexcharts)
 - [react-force-graph-2d](https://www.npmjs.com/package/react-force-graph-2d)
