@@ -8,7 +8,7 @@ import { Address } from "viem"
 
 import "../../global.css"
 import { cn, shortenAddress } from "../../lib/utils"
-import { IpAssetProvider, useIpAssetContext } from "../../providers"
+import { IpProvider, useIpContext } from "../../providers"
 import { IpGraph } from "../IpGraph"
 import { IpPolicyAccordion } from "../IpPolicyAccordion"
 import { IpRoyaltyPieChart } from "../IpRoyaltyPieChart"
@@ -46,12 +46,12 @@ function IPAssetCardWrapper({ ipId, isBottomNav = true }: { ipId: Address; isBot
   )
 
   return (
-    <IpAssetProvider ipId={ipId} key={ipId}>
+    <IpProvider ipId={ipId} key={ipId}>
       <div className="skIpWidget">
         {isBottomNav ? <_Card /> : <_Tabs />}
         {isBottomNav ? <_Tabs /> : <_Card />}
       </div>
-    </IpAssetProvider>
+    </IpProvider>
   )
 }
 
@@ -152,7 +152,7 @@ function IPAssetLayout({ children, isBottomNav }: { children: React.ReactNode; i
 }
 
 function IPAssetDropdownMenu() {
-  const { assetData } = useIpAssetContext()
+  const { assetData } = useIpContext()
   return (
     <Menu as="div" className="skIpWidget__ipAssetDropdownMenu">
       <div>
@@ -311,7 +311,7 @@ function IPAssetDropdownMenu() {
 }
 
 function IPAssetHeader({ hideImage }: { hideImage?: boolean }) {
-  const { nftData, assetData } = useIpAssetContext()
+  const { nftData, assetData } = useIpContext()
   return (
     <div className="skIpWidget__ipAssetHeader">
       <div className="skIpWidget__ipAssetHeader__inner">
@@ -340,7 +340,7 @@ function IPAssetHeader({ hideImage }: { hideImage?: boolean }) {
 }
 
 function IPAssetOverview({ isBottomNav }: { isBottomNav?: boolean }) {
-  const { nftData, isAssetDataLoading, isNftDataLoading } = useIpAssetContext()
+  const { nftData, isAssetDataLoading, isNftDataLoading } = useIpContext()
 
   const isLoading = isAssetDataLoading || isNftDataLoading
 

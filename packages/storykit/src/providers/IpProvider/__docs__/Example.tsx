@@ -2,7 +2,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import React, { FC } from "react"
 import { Address } from "viem"
 
-import { IpAssetProvider, useIpAssetContext } from "../IpAssetProvider"
+import { IpProvider, useIpContext } from "../IpProvider"
 
 const Example: FC<{ ipId: Address }> = ({ ipId = "0xbbf08a30b9ff0f717a024a75963d3196aaf0f0dd" }) => {
   const queryClient = new QueryClient()
@@ -16,16 +16,16 @@ const Example: FC<{ ipId: Address }> = ({ ipId = "0xbbf08a30b9ff0f717a024a75963d
           height: "100%",
         }}
       >
-        <IpAssetProvider ipId={ipId}>
+        <IpProvider ipId={ipId}>
           <ExampleComponent />
-        </IpAssetProvider>
+        </IpProvider>
       </div>
     </QueryClientProvider>
   )
 }
 
 const ExampleComponent = () => {
-  const { nftData, isNftDataLoading } = useIpAssetContext()
+  const { nftData, isNftDataLoading } = useIpContext()
   return (
     <>
       {isNftDataLoading && <div>Fetching Asset...</div>}

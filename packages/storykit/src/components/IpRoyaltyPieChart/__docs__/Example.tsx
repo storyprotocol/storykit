@@ -3,7 +3,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import React, { FC } from "react"
 import { Address } from "viem"
 
-import { IpAssetProvider } from "../../../providers"
+import { IpProvider } from "../../../providers"
 import IpRoyaltyPieChart from "../IpRoyaltyPieChart"
 
 const Example: FC<{ ipId: Address }> = ({ ipId = PREVIEW_IP_ASSETS[1] as `0x${string}` }) => {
@@ -11,9 +11,9 @@ const Example: FC<{ ipId: Address }> = ({ ipId = PREVIEW_IP_ASSETS[1] as `0x${st
   return (
     <QueryClientProvider client={queryClient}>
       <div className="flex h-full items-center justify-center">
-        <IpAssetProvider ipId={ipId}>
+        <IpProvider ipId={ipId}>
           <IpRoyaltyPieChart />
-        </IpAssetProvider>
+        </IpProvider>
       </div>
     </QueryClientProvider>
   )

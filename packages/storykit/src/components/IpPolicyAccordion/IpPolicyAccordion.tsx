@@ -1,6 +1,6 @@
 import { POLICY_TYPE } from "@/lib/types"
 import { cn, getPolicyTypeByPILData } from "@/lib/utils"
-import { useIpAssetContext } from "@/providers"
+import { useIpContext } from "@/providers"
 import { cva } from "class-variance-authority"
 import { CircleCheck, CircleMinus } from "lucide-react"
 import { useState } from "react"
@@ -82,7 +82,7 @@ export type IpPolicyAccordionProps = {
 }
 
 function IpPolicyAccordion({ size = "medium" }: IpPolicyAccordionProps) {
-  const { policyData } = useIpAssetContext()
+  const { policyData } = useIpContext()
   const [expanded, setExpanded] = useState<number | null>(0)
 
   const iconWidth = size === "small" ? 16 : size === "medium" ? 20 : 24

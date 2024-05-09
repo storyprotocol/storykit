@@ -17,14 +17,14 @@ Displays the IP Asset policies in a readable format (cans & cannots).
 ## Usage
 
 ```ts
-import { IpAssetProvider } from "@storyprotocol/storykit"
+import { IpProvider } from "@storyprotocol/storykit"
 import { IpPolicyAccordion } from "@storyprotocol/storykit"
 
 const ExamplePage = () => {
   return (
-    <IpAssetProvider ipId={"0xbbf08a30b9ff0f717a024a75963d3196aaf0f0dd"}>
+    <IpProvider ipId={"0xbbf08a30b9ff0f717a024a75963d3196aaf0f0dd"}>
       <IpPolicyAccordion />
-    </IpAssetProvider>
+    </IpProvider>
   );
 };
 

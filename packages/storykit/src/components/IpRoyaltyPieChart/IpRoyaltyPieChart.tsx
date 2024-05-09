@@ -1,5 +1,5 @@
 import { shortenAddress } from "@/lib/utils"
-import { useIpAssetContext } from "@/providers"
+import { useIpContext } from "@/providers"
 import { useEffect, useState } from "react"
 import { Address } from "viem"
 
@@ -7,7 +7,7 @@ import "../../global.css"
 import "./styles.css"
 
 function IpRoyaltyPieChart() {
-  const { royaltyData } = useIpAssetContext()
+  const { royaltyData } = useIpContext()
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [Chart, setChart] = useState<any>(null)

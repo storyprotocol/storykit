@@ -8,7 +8,7 @@ import { NFTMetadata } from "../../lib/simplehash/types/simplehash"
 import { Asset, IPAPolicy, License, Policy, RESOURCE_TYPE, RoyaltyPolicy } from "../../lib/types"
 import { camelize } from "../../lib/utils"
 
-const IpAssetContext = React.createContext<{
+const IpContext = React.createContext<{
   // activeTab: string
   // setActiveTab: React.Dispatch<React.SetStateAction<string>>
   assetData: Asset | undefined
@@ -25,7 +25,7 @@ const IpAssetContext = React.createContext<{
   isRoyaltyDataLoading: boolean
 } | null>(null)
 
-export const IpAssetProvider = ({ children, ipId }: { children: React.ReactNode; ipId: Address }) => {
+export const IpProvider = ({ children, ipId }: { children: React.ReactNode; ipId: Address }) => {
   // Fetch asset data
   const { isLoading: isAssetDataLoading, data: assetData } = useQuery({
     queryKey: [RESOURCE_TYPE.ASSET, ipId],
@@ -121,7 +121,7 @@ export const IpAssetProvider = ({ children, ipId }: { children: React.ReactNode;
   })
 
   return (
-    <IpAssetContext.Provider
+    <IpContext.Provider
       value={{
         // activeTab,
         // setActiveTab,
@@ -140,14 +140,14 @@ export const IpAssetProvider = ({ children, ipId }: { children: React.ReactNode;
       }}
     >
       {children}
-    </IpAssetContext.Provider>
+    </IpContext.Provider>
   )
 }
 
-export const useIpAssetContext = () => {
-  const context = React.useContext(IpAssetContext)
+export const useIpContext = () => {
+  const context = React.useContext(IpContext)
   if (!context) {
-    throw new Error("useAccount must be used within an IpAssetProvider")
+    throw new Error("useAccount must be used within an IpProvider")
   }
   return context
 }

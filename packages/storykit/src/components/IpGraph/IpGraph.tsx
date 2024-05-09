@@ -3,7 +3,7 @@ import React, { useEffect, useMemo, useState } from "react"
 import "../../global.css"
 import { convertAssetToGraphFormat } from "../../lib/graph"
 import { Asset } from "../../lib/types"
-import { useIpAssetContext } from "../../providers"
+import { useIpContext } from "../../providers"
 import "./styles.css"
 
 export type IpGraphProps = {
@@ -12,7 +12,7 @@ export type IpGraphProps = {
 }
 
 function IpGraph({ width = 500, height = 500 }: IpGraphProps) {
-  const { assetData } = useIpAssetContext()
+  const { assetData } = useIpContext()
   const formattedGraphData = useMemo(() => assetData && convertAssetToGraphFormat(assetData as Asset), [assetData])
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

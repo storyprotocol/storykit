@@ -137,23 +137,23 @@ export default function Providers({ children }) {
 
 ```
 
-### The IpAssetProvider
+### The IpProvider
 
-The IpAssetProvider provides IP Asset data to child components.
+The IpProvider provides IP Asset data to child components.
 
 ```typescript
-import { IpAssetProvider, useIpAssetContext } from "@storyprotocol/storykit"
+import { IpProvider, useIpContext } from "@storyprotocol/storykit"
 
 const ExamplePage = () => {
   return (
-    <IpAssetProvider ipId={"0xbbf08a30b9ff0f717a024a75963d3196aaf0f0dd"}>
+    <IpProvider ipId={"0xbbf08a30b9ff0f717a024a75963d3196aaf0f0dd"}>
       <ExampleComponent />
-    </IpAssetProvider>
+    </IpProvider>
   );
 };
 
 const ExampleComponent = () => {
-  const { nftData, isNftDataLoading } = useIpAssetContext()
+  const { nftData, isNftDataLoading } = useIpContext()
 
   return (
     <div>
@@ -169,23 +169,23 @@ const ExampleComponent = () => {
 
 ### The IpGraph
 
-Some components require the IpAssetProvider to supply asset data
+Some components require the IpProvider to supply asset data
 
 ```typescript
-import { IpAssetProvider, IpGraph } from "@storyprotocol/storykit"
+import { IpProvider, IpGraph } from "@storyprotocol/storykit"
 
 const ExamplePage = () => {
   return (
-    <IpAssetProvider ipId={"0xbbf08a30b9ff0f717a024a75963d3196aaf0f0dd"}>
+    <IpProvider ipId={"0xbbf08a30b9ff0f717a024a75963d3196aaf0f0dd"}>
       <IpGraph />
-    </IpAssetProvider>
+    </IpProvider>
   );
 };
 ```
 
 ### The IpWidget
 
-The IpAssetProvider is already included in the IpWidget
+The IpProvider is already included in the IpWidget
 
 ```typescript
 import { IpWidget } from "@storyprotocol/storykit"
