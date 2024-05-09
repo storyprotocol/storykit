@@ -1,0 +1,30 @@
+.skIpRoyaltyPieChart {
+  @apply flex flex-col items-center justify-between;
+
+  .skIpRoyaltyPieChart__chart {
+    @apply min-h-[230px];
+  }
+
+  .skIpRoyaltyPieChart__key {
+    @apply w-full min-w-[300px] px-2;
+  }
+
+  .skIpRoyaltyPieChart__list {
+    @apply divide-y divide-gray-100 overflow-x-hidden text-sm leading-6;
+  }
+
+  .skIpRoyaltyPieChart__item {
+    @apply flex justify-between gap-x-4 py-1;
+  }
+
+  .skIpRoyaltyPieChart__address {
+    @apply text-xs capitalize text-gray-500;
+  }
+  .skIpRoyaltyPieChart__value {
+    @apply truncate text-gray-700;
+  }
+
+  &.skIpRoyaltyPieChart--empty {
+    @apply items-start text-slate-400;
+  }
+}
