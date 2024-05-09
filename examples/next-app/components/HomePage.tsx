@@ -25,22 +25,27 @@ export default function Home() {
         <main className={styles.main}>
 
           <IpAssetProvider ipId="0xb56831B7cDab9De9e4D3B38C88DdD7B6a57e8287">
-            <IpPolicyAccordion size="medium" />
+            <div className={`${styles.block} ${styles.padded}`}>
+              <IpPolicyAccordion size="medium" />
+            </div>
           </IpAssetProvider>
 
-          <Button variant="primary" size="medium">Primary Button</Button>
+          {/* <Button variant="primary" size="medium">Primary Button</Button> */}
 
-          {/* <IpAssetProvider ipId="0x6833490Ea60121F507f5Bf41AD0b17A6Ae537e6e">
-            <ExampleComponent />
-          </IpAssetProvider> */}
+          <IpAssetProvider ipId="0x6833490Ea60121F507f5Bf41AD0b17A6Ae537e6e">
+            <div className={`${styles.block} ${styles.padded}`}>
+              <ExampleComponent />
+            </div>
+            <div className={`${styles.block} ${styles.padded}`}>
+              <IpRoyaltyPieChart />
+            </div>
+          </IpAssetProvider>
 
-          {/* <IpAssetProvider ipId="0x6833490Ea60121F507f5Bf41AD0b17A6Ae537e6e">
-            <IpRoyaltyPieChart />
-          </IpAssetProvider> */}
-
-          {/* <IpAssetProvider ipId="0x6833490Ea60121F507f5Bf41AD0b17A6Ae537e6e">
-            <IpGraph />
-          </IpAssetProvider> */}
+          <IpAssetProvider ipId="0x6833490Ea60121F507f5Bf41AD0b17A6Ae537e6e">
+            <div className={styles.block}>
+              <IpGraph width={400} height={300} />
+            </div>
+          </IpAssetProvider>
 
           <IpWidget ipId={"0xb56831B7cDab9De9e4D3B38C88DdD7B6a57e8287"} />
         </main>
