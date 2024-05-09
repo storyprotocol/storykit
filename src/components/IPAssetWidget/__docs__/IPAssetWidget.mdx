@@ -1,0 +1,34 @@
+import { Canvas, Controls, Meta } from "@storybook/blocks"
+
+import * as IPAssetWidgetStory from "./IPAssetWidget.stories"
+
+<Meta of={IPAssetWidgetStory} title="Components/IPAssetWidget" />
+
+# IP Asset Widget
+
+Button component with different props.
+
+#### Example
+
+<Canvas of={IPAssetWidgetStory.Select} />
+
+<Controls />
+
+## Usage
+
+```ts
+import { IPAssetWidget } from "@storyprotocol/storykit"
+
+const ExamplePage = () => {
+  return (
+    <IPAssetWidget ipId={"0xbbf08a30b9ff0f717a024a75963d3196aaf0f0dd"} />
+  );
+};
+
+export default ExamplePage;
+```
+
+#### Arguments
+
+- **ipId**: _string_ - The IP Asset Id, an Address starting 0x.
+- **isBottomNav**: _boolean_ - Position of Tabs
