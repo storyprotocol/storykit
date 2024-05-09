@@ -3,7 +3,7 @@ name: publish on github
 on:
   push:
     branches:
-      - feature/monorepo-merge
+      - main
 
 jobs:
   publish-gpr:
