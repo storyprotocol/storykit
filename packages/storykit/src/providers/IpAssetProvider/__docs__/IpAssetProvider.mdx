@@ -56,6 +56,23 @@ const ExampleComponent = () => {
 export default ExampleComponent;
 ```
 
+#### Provider data
+
+The IpAssetProvider provides the following data to its children:
+
+- **assetData** - The IP Asset data.
+- **isAssetDataLoading** - IP Asset data loading state.
+- **nftData** - The NFT Metadata.
+- **isNftDataLoading** - NFT Metadata loading state.
+- **ipPolicyData** - Policies attached to the IP Asset.
+- **isIPAPolicyDataLoading** - Policy data loading state.
+- **policyData** - The Policy details including the template id, address and terms.
+- **isPolicyDataLoading** - Policy data loading state.
+- **licenseData** - IP Asset minted Licenses.
+- **isLicenseDataLoading** - License data loading state.
+- **royaltyData** - The Royalty Policy data.
+- **isRoyaltyDataLoading** - Royalty Policy data loading state.
+
 #### Arguments
 
 - **children** - The child component to provide the IP Asset context to.
