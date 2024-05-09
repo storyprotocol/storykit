@@ -1,18 +1,10 @@
-import dynamic from "next/dynamic"
 
-const DynamicHomePage = dynamic(
-  () => {
-    return import("@/components/HomePage")
-  },
-  { ssr: false }
-  )
-
-import '@storyprotocol/storykit/dist/build.css'
+import HomePage from "../components/HomePage"
 
 export default function Home() {
   return (
     <div>
-        <DynamicHomePage />
+      <HomePage />
     </div>
   )
 }

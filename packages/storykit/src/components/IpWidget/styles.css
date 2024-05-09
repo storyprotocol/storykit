@@ -1,0 +1,218 @@
+.skIpWidget {
+  @apply flex min-h-[410px] w-[390px] flex-col items-start justify-between gap-0 rounded-xl border-2 bg-white shadow-lg;
+
+  .skIpWidget__card {
+    @apply flex size-full flex-auto flex-col p-2;
+  }
+
+  .skIpWidget__tabs {
+    @apply w-full px-2 pt-2;
+
+    &.skIpWidget__tabs--bottom {
+      @apply pb-2 pt-0;
+    }
+
+    .skIpWidget__tabsContainer {
+      @apply flex space-x-1;
+    }
+
+    .skIpWidget__tabsInner {
+      @apply flex w-full justify-between;
+    }
+
+    .skIpWidget__tab {
+      @apply relative rounded-full px-2.5 py-1.5 text-sm font-medium text-black outline-gray-400 transition focus-visible:outline-2;
+
+      &.skIpWidget__tab--active {
+        @apply hover:text-black/60;
+      }
+    }
+
+    .skIpWidget__activeTab {
+      @apply absolute inset-0 z-10 bg-white mix-blend-difference rounded-full;
+    }
+  }
+
+  .skIpWidget__policyContainer {
+    @apply p-2;
+
+    .skIpPolicyAccordion--no-policy {
+      @apply w-full items-center py-32;
+    }
+  }
+
+  .skIpWidget__ipAssetLayout {
+    @apply flex gap-2 flex-col;
+
+    .skIpWidget__ipAssetLayout--topNav {
+      @apply flex-col-reverse justify-between h-full flex-auto;
+    }
+
+    .skIpRoyaltyPieChart--empty {
+      @apply w-full items-center py-32;
+    }
+  }
+
+  .skIpWidget__ipAssetDropdownMenu {
+    @apply relative inline-block text-left;
+
+    .skIpWidget__ipAssetDropdownMenu__button {
+      @apply inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white p-2 text-sm font-semibold text-gray-900 hover:bg-gray-100 hover:shadow-sm;
+
+      svg {
+        @apply size-4 flex-none text-gray-600;
+      }
+    }
+
+    .skIpWidget__ipAssetDropdownMenu__items {
+      @apply absolute right-0 z-10 mt-2 w-48 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black/5 focus:outline-none;
+    }
+
+    .skIpWidget__ipAssetDropdownMenu__rootIp {
+      @apply px-4 py-2;
+
+      .skIpWidget__ipAssetDropdownMenu__rootIp__title {
+        @apply text-xs text-slate-400;
+      }
+
+      .skIpWidget__ipAssetDropdownMenu__rootIp__item {
+        @apply flex items-center;
+
+        > img {
+          @apply relative z-10 mr-3 inline-block size-5 rounded-full ring-2 ring-white;
+        }
+
+        > p {
+          @apply truncate text-sm text-gray-900;
+        }
+      }
+    }
+
+    .skIpWidget__ipAssetDropdownMenu__parentIp {
+      @apply px-4 py-2;
+
+      .skIpWidget__ipAssetDropdownMenu__parentIp__title {
+        @apply text-xs text-slate-400;
+      }
+
+      .skIpWidget__ipAssetDropdownMenu__parentIp__avatars {
+        @apply mr-3 -space-x-3;
+
+        img {
+          @apply relative inline-block h-5 w-5 rounded-full ring-2 ring-white;
+        }
+      }
+      .skIpWidget__ipAssetDropdownMenu__parentIp__addresses {
+        @apply truncate text-sm text-gray-900;
+      }
+    }
+
+    .skIpWidget__ipAssetDropdownMenu__childIp {
+      @apply px-4 py-2;
+
+      .skIpWidget__ipAssetDropdownMenu__childIp__title {
+        @apply text-xs text-slate-400;
+      }
+      .skIpWidget__ipAssetDropdownMenu__childIp__container {
+        @apply flex items-center;
+      }
+      .skIpWidget__ipAssetDropdownMenu__childIp__avatars {
+        @apply mr-3 -space-x-3;
+
+        img {
+          @apply relative inline-block h-5 w-5 rounded-full ring-2 ring-white;
+        }
+      }
+      .skIpWidget__ipAssetDropdownMenu__childIp__addresses {
+        @apply truncate text-sm text-gray-900;
+      }
+    }
+
+    .skIpWidget__ipAssetDropdownMenu__menu {
+      @apply py-1;
+
+      .skIpWidget__ipAssetDropdownMenu__menu__link {
+        @apply flex items-center px-4 py-2 text-sm text-gray-700;
+
+        .skIpWidget__ipAssetDropdownMenu__menu__icon {
+          @apply mr-3 size-5 text-gray-400;
+        }
+
+        &.skIpWidget__ipAssetDropdownMenu__menu__link--active {
+          @apply bg-gray-100 text-gray-900;
+
+          .skIpWidget__ipAssetDropdownMenu__menu__icon {
+            @apply text-gray-500;
+          }
+        }
+      }
+    }
+  }
+
+  .skIpWidget__ipAssetHeader {
+    @apply flex w-full flex-row justify-between;
+
+    .skIpWidget__ipAssetHeader__inner {
+      @apply flex w-full flex-row justify-start gap-2;
+    }
+
+    .skIpWidget__ipAssetHeader__image {
+      &.skIpWidget__ipAssetHeader__image--hidden {
+        @apply hidden;
+      }
+      img {
+        @apply size-10 rounded-md object-cover;
+      }
+    }
+    .skIpWidget__ipAssetHeader__name {
+      @apply font-semibold;
+    }
+    .skIpWidget__ipAssetHeader__owner {
+      @apply text-xs;
+      .skIpWidget__ipAssetHeader__owner__address {
+        @apply text-slate-400;
+      }
+    }
+  }
+
+  .skIpWidget__ipAssetOverview {
+    @apply flex w-full flex-col items-start justify-start;
+
+    .skIpWidget__ipAssetOverview__titleBar {
+      @apply flex w-full flex-row justify-between pt-1;
+
+      &.skIpWidget__ipAssetOverview__titleBar--bottom {
+        @apply pb-1 pt-0;
+      }
+    }
+
+    .skIpWidget__ipAssetOverview__titleLoading {
+      @apply flex animate-pulse flex-col gap-2;
+      div:nth-child(1) {
+        @apply h-4 w-20 rounded bg-slate-200;
+      }
+      div:nth-child(2) {
+        @apply h-3 w-32 rounded bg-slate-200;
+      }
+    }
+
+    .skIpWidget__ipAssetOverview__assetImage {
+      @apply flex w-full justify-center text-center;
+
+      img {
+        @apply rounded-md object-contain;
+      }
+    }
+    .skIpWidget__ipAssetOverview__assetImage__loading {
+      @apply w-full animate-pulse py-1;
+
+      > div {
+        @apply flex h-64 items-center justify-center rounded bg-slate-200 dark:bg-slate-700;
+
+        > svg {
+          @apply size-10 text-slate-100 dark:text-slate-600;
+        }
+      }
+    }
+  }
+}
