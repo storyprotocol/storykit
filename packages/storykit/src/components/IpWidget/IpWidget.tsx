@@ -202,7 +202,7 @@ function IPAssetDropdownMenu() {
               <p className="skIpWidget__ipAssetDropdownMenu__parentIp__title">Parent IPs</p>
               <div className="skIpWidget__ipAssetDropdownMenu__parentIp__item">
                 <div className="skIpWidget__ipAssetDropdownMenu__parentIp__avatars">
-                  {[...assetData?.parentIpIds, ...assetData?.parentIpIds]?.slice(0, 5).map((asset, index) => (
+                  {assetData?.parentIpIds?.slice(0, 5).map((asset, index) => (
                     <img
                       key={index}
                       style={{
