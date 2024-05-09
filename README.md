@@ -1,80 +1,190 @@
-# Turborepo starter with Rollup
+import { Meta } from "@storybook/blocks"
 
-This is an official starter Turborepo, showing how Turborepo can be used with Rollup for bundling a `ui` package.
+<Meta title="Introduction" />
 
-## Using this example
+# Storykit
 
-Run the following command:
+Plug-and-play React components for Story Protocol.
 
-```sh
-npx create-turbo@latest -e with-rollup
+## Installation
+
+_Storykit is a private package so you need repo access and a personal access token to use_
+
+1 . Create a personal access token: [github.com/settings/tokens](https://github.com/settings/tokens)
+
+2 . Create an `.npmrc` file in the root of your project and add the following:
+
+```bash
+//npm.pkg.github.com/:_authToken=${NPM_TOKEN}
+@storyprotocol/storykit:registry=https://npm.pkg.github.com
 ```
 
-## What's inside?
+3 . Add your personal access token to your environment variables
 
-This Turborepo includes the following packages/apps:
-
-### Apps and Packages
-
-- `web`: a [Next.js](https://nextjs.org) app
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
-- `@repo/ui`: a React component library used by the `web` application, compiled with Rollup
-
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
-
-### Utilities
-
-This Turborepo has some additional tools already setup for you:
-
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
-
-### Build
-
-To build all apps and packages, run the following command:
-
-```
-cd my-turborepo
-pnpm run build
+```bash
+NPM_TOKEN=your_personal_access_token
 ```
 
-### Develop
+4 . Install the package and the required react-query dependencies
 
-To develop all apps and packages, run the following command:
-
-```
-cd my-turborepo
-pnpm run dev
+```bash
+npm install @storyprotocol/storykit @tanstack/react-query
 ```
 
-### Remote Caching
+## Dependencies
 
-Turborepo can use a technique known as [Remote Caching](https://turborepo.org/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
+Storkykit requires [@tanstack/react-query](https://tanstack.com/query/latest) to function.
 
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup), then enter the following commands:
+Some components have additional dependencies including:
 
-```
-cd my-turborepo
-npx turbo login
-```
+- [react-apexcharts](https://www.npmjs.com/package/react-apexcharts)
+- [react-force-graph-2d](https://www.npmjs.com/package/react-force-graph-2d)
 
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
+See the individual component docs ro see if they require an additional dependency or install them all at once with:
 
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
-
-```
-npx turbo link
+```bash
+npm install @storyprotocol/storykit @tanstack/react-query react-apexcharts react-force-graph-2d
 ```
 
-## Useful Links
+## Run locally
 
-Learn more about the power of Turborepo:
+### Storybook
 
-- [Pipelines](https://turborepo.org/docs/core-concepts/pipelines)
-- [Caching](https://turborepo.org/docs/core-concepts/caching)
-- [Remote Caching](https://turborepo.org/docs/core-concepts/remote-caching)
-- [Scoped Tasks](https://turborepo.org/docs/core-concepts/scopes)
-- [Configuration Options](https://turborepo.org/docs/reference/configuration)
-- [CLI Usage](https://turborepo.org/docs/reference/command-line-reference)
+Run Storybook locally for component development and documentation:
+
+```bash
+pnpm dev
+```
+
+Find the Storybook at [http://localhost:6006](http://localhost:6006)
+
+### Example app
+
+Run the next.js [example app](./examples/next-app/):
+
+```bash
+pnpm build
+pnpm dev-example
+```
+
+The dev server will be running at [http://localhost:3000](http://localhost:3000)
+
+### Linting and formatting
+
+Lint with eslint:
+
+```bash
+pnpm lint
+```
+
+Format with prettier:
+
+```bash
+pnpm format
+```
+
+## Usage
+
+Using Storykit in your React app
+
+### Include React Query
+
+React Query is a dependency, you will need to wrap Storykit components with a `QueryClientProvider`, we recommend doing this once in the root of the app.
+
+```typescript
+// app/layout.tsx
+
+import Providers from "./Providers"
+
+export default function Layout({children}) {
+  return (
+    <html>
+      <body>
+        <Providers>{children}</Providers>
+      </body>
+    </html>
+  )
+}
+```
+
+```typescript
+// app/Providers.tsx
+
+"use client"
+
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
+
+const queryClient = new QueryClient()
+
+export default function Providers({ children }) {
+  return (
+    <QueryClientProvider client={queryClient}>
+      {children}
+    </QueryClientProvider>
+  )
+}
+
+```
+
+### The IpAssetProvider
+
+The IpAssetProvider provides IP Asset data to child components.
+
+```typescript
+import { IpAssetProvider, useIpAssetContext } from "@storyprotocol/storykit"
+
+const ExamplePage = () => {
+  return (
+    <IpAssetProvider ipId={"0xbbf08a30b9ff0f717a024a75963d3196aaf0f0dd"}>
+      <ExampleComponent />
+    </IpAssetProvider>
+  );
+};
+
+const ExampleComponent = () => {
+  const { nftData, isNftDataLoading } = useIpAssetContext()
+
+  return (
+    <div>
+      {isNftDataLoading && <div>Fetching Asset...</div>}
+
+      {nftData && !isNftDataLoading ? (
+        <div>nft id: {nftData.nft_id}</div>
+      ) : null}
+    </div>
+  );
+};
+```
+
+### The IpGraph
+
+Some components require the IpAssetProvider to supply asset data
+
+```typescript
+import { IpAssetProvider, IpGraph } from "@storyprotocol/storykit"
+
+const ExamplePage = () => {
+  return (
+    <IpAssetProvider ipId={"0xbbf08a30b9ff0f717a024a75963d3196aaf0f0dd"}>
+      <IpGraph />
+    </IpAssetProvider>
+  );
+};
+```
+
+### The IpWidget
+
+The IpAssetProvider is already included in the IpWidget
+
+```typescript
+import { IpWidget } from "@storyprotocol/storykit"
+
+const ExamplePage = () => {
+  return (
+    <IpWidget ipId={"0xbbf08a30b9ff0f717a024a75963d3196aaf0f0dd"} />
+  )
+}
+
+```
+
+See [the github repo](https://github.com/storyprotocol/storykit) and [the example app](https://github.com/storyprotocol/storykit/tree/main/examples/next-app).
