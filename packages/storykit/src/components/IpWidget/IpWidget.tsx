@@ -6,12 +6,13 @@ import { SiOpensea } from "react-icons/si"
 import { TbLicense } from "react-icons/tb"
 import { Address } from "viem"
 
-// import "../../global.css"
+import "../../global.css"
 import { cn, shortenAddress } from "../../lib/utils"
 import { IpAssetProvider, useIpAssetContext } from "../../providers"
 import { IpGraph } from "../IpGraph"
 import { IpPolicyAccordion } from "../IpPolicyAccordion"
 import { IpRoyaltyPieChart } from "../IpRoyaltyPieChart"
+import "./styles.css"
 
 export type IpWidgetProps = {
   ipId: Address
@@ -33,228 +34,24 @@ function IPAssetCardWrapper({ ipId, isBottomNav = true }: { ipId: Address; isBot
   const [activeTab, setActiveTab] = useState(IPA_CARD_TABS[0].id)
 
   const _Tabs = () => (
-    <div className={cn("w-full px-2", isBottomNav ? "pb-2" : "pt-2")}>
+    <div className={cn("skIpWidget__tabs", isBottomNav && "skIpWidget__tabs--bottom")}>
       <Tabs ipId={ipId} activeTab={activeTab} setActiveTab={setActiveTab} />
     </div>
   )
 
   const _Card = () => (
-    <div className="flex size-full flex-auto flex-col p-2">
+    <div className="skIpWidget__card">
       <IPAssetCard isBottomNav={isBottomNav} activeTab={activeTab} />
     </div>
   )
 
   return (
     <IpAssetProvider ipId={ipId} key={ipId}>
-      <div className="flex min-h-[410px] w-[390px] flex-col items-start justify-between gap-0 rounded-xl border-2 bg-white shadow-lg">
+      <div className="skIpWidget">
         {isBottomNav ? <_Card /> : <_Tabs />}
         {isBottomNav ? <_Tabs /> : <_Card />}
       </div>
     </IpAssetProvider>
-  )
-}
-
-function IPAssetLayout({ children, isBottomNav }: { children: React.ReactNode; isBottomNav?: boolean }) {
-  return (
-    <div className={cn("flex gap-2", isBottomNav ? "flex-col" : "flex-col-reverse justify-between h-full flex-auto")}>
-      <IPAssetHeader />
-      {children}
-    </div>
-  )
-}
-
-function IPAssetDropdownMenu() {
-  const { assetData } = useIpAssetContext()
-  return (
-    <Menu as="div" className="relative inline-block text-left">
-      <div>
-        <Menu.Button className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white p-2 text-sm font-semibold text-gray-900 hover:bg-gray-100 hover:shadow-sm">
-          <svg
-            className="size-4 flex-none text-gray-600"
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <circle cx="12" cy="12" r="1" />
-            <circle cx="12" cy="5" r="1" />
-            <circle cx="12" cy="19" r="1" />
-          </svg>
-        </Menu.Button>
-      </div>
-
-      <Transition
-        as={Fragment}
-        enter="transition ease-out duration-100"
-        enterFrom="transform opacity-0 scale-95"
-        enterTo="transform opacity-100 scale-100"
-        leave="transition ease-in duration-75"
-        leaveFrom="transform opacity-100 scale-100"
-        leaveTo="transform opacity-0 scale-95"
-      >
-        <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black/5 focus:outline-none">
-          {assetData?.rootIpIds?.[0]?.id && (
-            <div className="px-4 py-2">
-              <p className="text-xs text-slate-400">Root IP</p>
-              <div className="flex items-center">
-                <img
-                  className="relative z-10 mr-3 inline-block size-5 rounded-full ring-2 ring-white "
-                  src={`https://cdn.stamp.fyi/avatar/eth:${assetData?.rootIpIds?.[0]?.id}?s=300`}
-                  alt={assetData?.rootIpIds?.[0]?.id as Address}
-                ></img>
-                <p className="truncate text-sm text-gray-900">
-                  {shortenAddress(assetData?.rootIpIds?.[0]?.id as Address)}
-                </p>
-              </div>
-            </div>
-          )}
-          {assetData?.parentIpIds && assetData?.parentIpIds?.length > 0 && (
-            <div className="px-4 py-2">
-              <p className="text-xs text-slate-400">Parent IPs</p>
-              <div className="flex items-center">
-                <div className="mr-3 -space-x-3">
-                  {assetData?.parentIpIds
-                    ?.slice(0, 5)
-                    .map((asset, index) => (
-                      <img
-                        key={index}
-                        className={cn(
-                          "relative inline-block h-5 w-5 rounded-full ring-2 ring-white",
-                          `z-${((assetData?.parentIpIds?.length as number) - index) * 10}`
-                        )}
-                        src={`https://cdn.stamp.fyi/avatar/eth:${asset.id}?s=300`}
-                        alt={asset.id}
-                      />
-                    ))}
-                </div>
-                <p className=" truncate text-sm text-gray-900">
-                  {assetData?.parentIpIds?.length === 1
-                    ? shortenAddress(assetData?.parentIpIds?.[0]?.id as Address)
-                    : `${assetData?.parentIpIds?.length} total `}
-                </p>
-              </div>
-            </div>
-          )}
-          {assetData?.childIpIds && assetData?.childIpIds?.length > 0 && (
-            <div className="px-4 py-2">
-              <p className="text-xs text-slate-400">Child IPs</p>
-              <div className="flex items-center">
-                <div className="mr-3 -space-x-3">
-                  {assetData?.childIpIds
-                    ?.slice(0, 5)
-                    .map((asset, index) => (
-                      <img
-                        key={index}
-                        className={cn(
-                          "relative inline-block h-5 w-5 rounded-full ring-2 ring-white",
-                          `z-${((assetData?.childIpIds?.length as number) - index) * 5}`
-                        )}
-                        src={`https://cdn.stamp.fyi/avatar/eth:${asset.id}?s=300`}
-                        alt={asset.id}
-                      />
-                    ))}
-                </div>
-                <p className=" truncate text-sm text-gray-900">
-                  {assetData?.childIpIds?.length === 1
-                    ? shortenAddress(assetData?.childIpIds?.[0]?.id as Address)
-                    : `${assetData?.childIpIds?.length} total `}
-                </p>
-              </div>
-            </div>
-          )}
-          <div className="py-1">
-            <Menu.Item>
-              {({ active }) => (
-                <a
-                  href="#"
-                  className={cn(
-                    active ? "bg-gray-100 text-gray-900" : "text-gray-700",
-                    "group flex items-center px-4 py-2 text-sm"
-                  )}
-                >
-                  <FaWandMagicSparkles
-                    className="mr-3 size-5 text-gray-400 group-hover:text-gray-500"
-                    aria-hidden="true"
-                  />
-                  Remix
-                </a>
-              )}
-            </Menu.Item>
-
-            <Menu.Item>
-              {({ active }) => (
-                <a
-                  href="#"
-                  className={cn(
-                    active ? "bg-gray-100 text-gray-900" : "text-gray-700",
-                    "group flex items-center px-4 py-2 text-sm"
-                  )}
-                >
-                  <SiOpensea className="mr-3 size-5 text-gray-400 group-hover:text-gray-500" aria-hidden="true" />
-                  View on Opensea
-                </a>
-              )}
-            </Menu.Item>
-            <Menu.Item>
-              {({ active }) => (
-                <a
-                  href="#"
-                  className={cn(
-                    active ? "bg-gray-100 text-gray-900" : "text-gray-700",
-                    "group flex items-center px-4 py-2 text-sm"
-                  )}
-                >
-                  <TbLicense className="mr-3 size-5 text-gray-400 group-hover:text-gray-500" aria-hidden="true" />
-                  Buy License
-                </a>
-              )}
-            </Menu.Item>
-            <Menu.Item>
-              {({ active }) => (
-                <a
-                  href="#"
-                  className={cn(
-                    active ? "bg-gray-100 text-gray-900" : "text-gray-700",
-                    "group flex items-center px-4 py-2 text-sm"
-                  )}
-                >
-                  <IoIosShareAlt className="mr-3 size-5 text-gray-400 group-hover:text-gray-500" aria-hidden="true" />
-                  Share
-                </a>
-              )}
-            </Menu.Item>
-          </div>
-        </Menu.Items>
-      </Transition>
-    </Menu>
-  )
-}
-
-function IPAssetHeader({ hideImage }: { hideImage?: boolean }) {
-  const { nftData, assetData } = useIpAssetContext()
-  return (
-    <div className="flex w-full flex-row justify-between">
-      <div className="flex w-full flex-row justify-start gap-2">
-        <div className={cn("", hideImage ? "hidden" : "")}>
-          <img src={nftData?.image_url} className="size-10 rounded-md object-cover" />
-        </div>
-        <div>
-          <div>
-            <h1 className="font-semibold">{assetData?.nftMetadata.name || nftData?.name || "Untitled"}</h1>
-            <h2 className="text-xs">
-              Owned by{" "}
-              <span className="text-slate-400">{shortenAddress(nftData?.owners[0].owner_address as string)}</span>
-            </h2>
-          </div>
-        </div>
-      </div>
-      <IPAssetDropdownMenu />
-    </div>
   )
 }
 
@@ -268,22 +65,18 @@ function Tabs({
   setActiveTab: (tab: string) => void
 }) {
   return (
-    <div className="flex space-x-1" id={ipId}>
-      <div className="flex w-full justify-between">
+    <div className="skIpWidget__tabsContainer" id={ipId}>
+      <div className="skIpWidget__tabsInner">
         {IPA_CARD_TABS.map((tab) => (
           <button
             key={`${ipId}-${tab.id}`}
             onClick={() => setActiveTab(tab.id)}
-            className={`${
-              activeTab === tab.id ? "" : "hover:text-black/60"
-            } relative rounded-full px-2.5 py-1.5 text-sm font-medium text-black outline-gray-400 transition focus-visible:outline-2`}
+            className={cn("skIpWidget__tab", activeTab !== tab.id && "skIpWidget__tab--active")}
             style={{
               WebkitTapHighlightColor: "transparent",
             }}
           >
-            {activeTab === tab.id && (
-              <span className="absolute inset-0 z-10 bg-white mix-blend-difference rounded-full" />
-            )}
+            {activeTab === tab.id && <span className="skIpWidget__activeTab" />}
             {tab.label}
           </button>
         ))}
@@ -327,7 +120,7 @@ function IPAssetCard({ isBottomNav, activeTab }: { isBottomNav?: boolean; active
     case "licensing":
       return (
         <IPAssetLayout isBottomNav={isBottomNav}>
-          <div className="p-2">
+          <div className="skIpWidget__policyContainer">
             <IpPolicyAccordion size="small" />
           </div>
         </IPAssetLayout>
@@ -349,6 +142,203 @@ function IPAssetCard({ isBottomNav, activeTab }: { isBottomNav?: boolean; active
   }
 }
 
+function IPAssetLayout({ children, isBottomNav }: { children: React.ReactNode; isBottomNav?: boolean }) {
+  return (
+    <div className={cn("skIpWidget__ipAssetLayout", !isBottomNav && "skIpWidget__ipAssetLayout--topNav")}>
+      <IPAssetHeader />
+      {children}
+    </div>
+  )
+}
+
+function IPAssetDropdownMenu() {
+  const { assetData } = useIpAssetContext()
+  return (
+    <Menu as="div" className="skIpWidget__ipAssetDropdownMenu">
+      <div>
+        <Menu.Button className="skIpWidget__ipAssetDropdownMenu__button">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <circle cx="12" cy="12" r="1" />
+            <circle cx="12" cy="5" r="1" />
+            <circle cx="12" cy="19" r="1" />
+          </svg>
+        </Menu.Button>
+      </div>
+
+      <Transition
+        as={Fragment}
+        enter="transition ease-out duration-100"
+        enterFrom="transform opacity-0 scale-95"
+        enterTo="transform opacity-100 scale-100"
+        leave="transition ease-in duration-75"
+        leaveFrom="transform opacity-100 scale-100"
+        leaveTo="transform opacity-0 scale-95"
+      >
+        <Menu.Items className="skIpWidget__ipAssetDropdownMenu__items">
+          {assetData?.rootIpIds?.[0]?.id && (
+            <div className="skIpWidget__ipAssetDropdownMenu__rootIp">
+              <p className="skIpWidget__ipAssetDropdownMenu__rootIp__title">Root IP</p>
+              <div className="skIpWidget__ipAssetDropdownMenu__rootIp__item">
+                <img
+                  src={`https://cdn.stamp.fyi/avatar/eth:${assetData?.rootIpIds?.[0]?.id}?s=300`}
+                  alt={assetData?.rootIpIds?.[0]?.id as Address}
+                ></img>
+                <p>{shortenAddress(assetData?.rootIpIds?.[0]?.id as Address)}</p>
+              </div>
+            </div>
+          )}
+          {assetData?.parentIpIds && assetData?.parentIpIds?.length > 0 && (
+            <div className="skIpWidget__ipAssetDropdownMenu__parentIp">
+              <p className="skIpWidget__ipAssetDropdownMenu__parentIp__title">Parent IPs</p>
+              <div className="skIpWidget__ipAssetDropdownMenu__parentIp__item">
+                <div className="skIpWidget__ipAssetDropdownMenu__parentIp__avatars">
+                  {[...assetData?.parentIpIds, ...assetData?.parentIpIds]?.slice(0, 5).map((asset, index) => (
+                    <img
+                      key={index}
+                      style={{
+                        zIndex: ((assetData?.parentIpIds?.length as number) - index) * 10,
+                      }}
+                      src={`https://cdn.stamp.fyi/avatar/eth:${asset.id}?s=300`}
+                      alt={asset.id}
+                    />
+                  ))}
+                </div>
+                <p className="skIpWidget__ipAssetDropdownMenu__parentIp__addresses">
+                  {assetData?.parentIpIds?.length === 1
+                    ? shortenAddress(assetData?.parentIpIds?.[0]?.id as Address)
+                    : `${assetData?.parentIpIds?.length} total `}
+                </p>
+              </div>
+            </div>
+          )}
+          {assetData?.childIpIds && assetData?.childIpIds?.length > 0 && (
+            <div className="skIpWidget__ipAssetDropdownMenu__childIp">
+              <p className="skIpWidget__ipAssetDropdownMenu__childIp__title">Child IPs</p>
+              <div className="skIpWidget__ipAssetDropdownMenu__childIp__container">
+                <div className="skIpWidget__ipAssetDropdownMenu__childIp__avatars">
+                  {assetData?.childIpIds?.slice(0, 5).map((asset, index) => (
+                    <img
+                      key={index}
+                      style={{
+                        zIndex: ((assetData?.childIpIds?.length as number) - index) * 5,
+                      }}
+                      src={`https://cdn.stamp.fyi/avatar/eth:${asset.id}?s=300`}
+                      alt={asset.id}
+                    />
+                  ))}
+                </div>
+                <p className="skIpWidget__ipAssetDropdownMenu__childIp__addresses">
+                  {assetData?.childIpIds?.length === 1
+                    ? shortenAddress(assetData?.childIpIds?.[0]?.id as Address)
+                    : `${assetData?.childIpIds?.length} total `}
+                </p>
+              </div>
+            </div>
+          )}
+          <div className="skIpWidget__ipAssetDropdownMenu__menu">
+            <Menu.Item>
+              {({ active }) => (
+                <a
+                  href="#"
+                  className={cn(
+                    "skIpWidget__ipAssetDropdownMenu__menu__link",
+                    active ? "skIpWidget__ipAssetDropdownMenu__menu__link--active" : ""
+                  )}
+                >
+                  <FaWandMagicSparkles className="skIpWidget__ipAssetDropdownMenu__menu__icon" aria-hidden="true" />
+                  Remix
+                </a>
+              )}
+            </Menu.Item>
+
+            <Menu.Item>
+              {({ active }) => (
+                <a
+                  href="#"
+                  className={cn(
+                    "skIpWidget__ipAssetDropdownMenu__menu__link",
+                    active ? "skIpWidget__ipAssetDropdownMenu__menu__link--active" : ""
+                  )}
+                >
+                  <SiOpensea className="skIpWidget__ipAssetDropdownMenu__menu__icon" aria-hidden="true" />
+                  View on Opensea
+                </a>
+              )}
+            </Menu.Item>
+            <Menu.Item>
+              {({ active }) => (
+                <a
+                  href="#"
+                  className={cn(
+                    "skIpWidget__ipAssetDropdownMenu__menu__link",
+                    active ? "skIpWidget__ipAssetDropdownMenu__menu__link--active" : ""
+                  )}
+                >
+                  <TbLicense className="skIpWidget__ipAssetDropdownMenu__menu__icon" aria-hidden="true" />
+                  Buy License
+                </a>
+              )}
+            </Menu.Item>
+            <Menu.Item>
+              {({ active }) => (
+                <a
+                  href="#"
+                  className={cn(
+                    "skIpWidget__ipAssetDropdownMenu__menu__link",
+                    active ? "skIpWidget__ipAssetDropdownMenu__menu__link--active" : ""
+                  )}
+                >
+                  <IoIosShareAlt className="skIpWidget__ipAssetDropdownMenu__menu__icon" aria-hidden="true" />
+                  Share
+                </a>
+              )}
+            </Menu.Item>
+          </div>
+        </Menu.Items>
+      </Transition>
+    </Menu>
+  )
+}
+
+function IPAssetHeader({ hideImage }: { hideImage?: boolean }) {
+  const { nftData, assetData } = useIpAssetContext()
+  return (
+    <div className="skIpWidget__ipAssetHeader">
+      <div className="skIpWidget__ipAssetHeader__inner">
+        <div
+          className={cn("skIpWidget__ipAssetHeader__image", hideImage && "skIpWidget__ipAssetHeader__image--hidden")}
+        >
+          <img src={nftData?.image_url} />
+        </div>
+        <div>
+          <div>
+            <h1 className="skIpWidget__ipAssetHeader__name">
+              {assetData?.nftMetadata.name || nftData?.name || "Untitled"}
+            </h1>
+            <h2 className="skIpWidget__ipAssetHeader__owner">
+              Owned by{" "}
+              <span className="skIpWidget__ipAssetHeader__owner__address">
+                {shortenAddress(nftData?.owners[0].owner_address as string)}
+              </span>
+            </h2>
+          </div>
+        </div>
+      </div>
+      <IPAssetDropdownMenu />
+    </div>
+  )
+}
+
 function IPAssetOverview({ isBottomNav }: { isBottomNav?: boolean }) {
   const { nftData, isAssetDataLoading, isNftDataLoading } = useIpAssetContext()
 
@@ -356,9 +346,9 @@ function IPAssetOverview({ isBottomNav }: { isBottomNav?: boolean }) {
 
   const Title = () =>
     isLoading ? (
-      <div className="flex animate-pulse flex-col gap-2">
-        <div className="h-4 w-20 rounded bg-slate-200"></div>
-        <div className="h-3 w-32 rounded bg-slate-200"></div>
+      <div className="skIpWidget__ipAssetOverview__titleLoading">
+        <div></div>
+        <div></div>
       </div>
     ) : (
       <IPAssetHeader hideImage />
@@ -366,33 +356,32 @@ function IPAssetOverview({ isBottomNav }: { isBottomNav?: boolean }) {
 
   const AssetImage = () =>
     isLoading ? (
-      <div className="w-full animate-pulse py-1">
-        <div className="flex h-64 items-center justify-center rounded bg-slate-200 dark:bg-slate-700">
-          <svg
-            className="size-10 text-slate-100 dark:text-slate-600"
-            aria-hidden="true"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="currentColor"
-            viewBox="0 0 20 18"
-          >
+      <div className="skIpWidget__ipAssetOverview__assetImage__loading">
+        <div>
+          <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18">
             <path d="M18 0H2a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2Zm-5.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm4.376 10.481A1 1 0 0 1 16 15H4a1 1 0 0 1-.895-1.447l3.5-7A1 1 0 0 1 7.468 6a.965.965 0 0 1 .9.5l2.775 4.757 1.546-1.887a1 1 0 0 1 1.618.1l2.541 4a1 1 0 0 1 .028 1.011Z" />
           </svg>
         </div>
       </div>
     ) : (
-      <div className="flex w-full justify-center text-center">
-        <img src={nftData?.image_url} className="rounded-md object-contain" />
+      <div className="skIpWidget__ipAssetOverview__assetImage">
+        <img src={nftData?.image_url} />
       </div>
     )
 
   const TitleBar = () => (
-    <div className={cn("flex w-full flex-row justify-between", isBottomNav ? "pb-1" : "pt-1")}>
+    <div
+      className={cn(
+        "skIpWidget__ipAssetOverview__titleBar",
+        isBottomNav && "skIpWidget__ipAssetOverview__titleBar--bottom"
+      )}
+    >
       <Title />
     </div>
   )
 
   return (
-    <div className="flex w-full flex-col items-start justify-start">
+    <div className="skIpWidget__ipAssetOverview">
       {isBottomNav && <TitleBar />}
       <AssetImage />
       {!isBottomNav && <TitleBar />}
