@@ -1,5 +1,6 @@
 export * from "./Button"
 export * from "./IpWidget"
 export * from "./IpGraph"
+export * from "./LicenseTerms"
 export * from "./IpPolicyAccordion"
 export * from "./IpRoyaltyPieChart"

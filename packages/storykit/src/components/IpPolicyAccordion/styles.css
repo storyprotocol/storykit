@@ -10,58 +10,15 @@
   }
 
   .skIpPolicyAccordion__item-list {
-    @apply flex w-full items-center justify-between overflow-hidden h-0;
+    @apply flex w-full overflow-hidden h-0;
 
     &.skIpPolicyAccordion__item-list--expanded {
       @apply h-auto;
     }
   }
 
-  .skIpPolicyAccordion__properties {
-    @apply flex flex-col pt-2 gap-2;
-  }
-
-  .skIpPolicyAccordion__item-list-title {
-    @apply font-bold;
-  }
-
-  .skIpPolicyAccordion__list {
-    @apply flex flex-col;
-  }
-
-  .skIpPolicyAccordion__property {
-    @apply flex w-full items-center gap-2;
-
-    &.skIpPolicyAccordion__property--can > svg {
-      @apply text-green-500;
-    }
-
-    &.skIpPolicyAccordion__property--cannot > svg {
-      @apply text-red-500;
-    }
-  }
-
   .skIpPolicyAccordion__divider {
     @apply border-b border-gray-200 w-full my-2;
-  }
-
-  &.skIpPolicyAccordion--small {
-    @apply text-sm;
-  }
-
-  &.skIpPolicyAccordion--medium {
-    @apply text-base;
-
-    .policy-list {
-      @apply gap-1;
-    }
-  }
-
-  &.skIpPolicyAccordion--large {
-    @apply text-lg;
-    .policy-list {
-      @apply gap-2;
-    }
   }
 
   &.skIpPolicyAccordion--no-policy {

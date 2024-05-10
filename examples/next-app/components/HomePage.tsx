@@ -1,6 +1,6 @@
 "use client"
 
-import { IpProvider, useIpContext, IpWidget, IpPolicyAccordion, IpRoyaltyPieChart, IpGraph, Button } from "@storyprotocol/storykit"
+import { IpProvider, useIpContext, IpWidget, IpPolicyAccordion, IpRoyaltyPieChart, IpGraph } from "@storyprotocol/storykit"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import React from "react"
 

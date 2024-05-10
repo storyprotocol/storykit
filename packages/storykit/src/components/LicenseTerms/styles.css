@@ -1,0 +1,54 @@
+.skLicenseTerms {
+  @apply flex flex-col w-full min-w-48;
+
+  .skLicenseTerms__properties {
+    @apply flex flex-col pt-2 gap-2;
+  }
+
+  .skLicenseTerms__item-list-title {
+    @apply font-bold;
+  }
+
+  .skLicenseTerms__list {
+    @apply flex flex-col;
+  }
+
+  .skLicenseTerms__property {
+    @apply flex w-full items-center gap-2;
+
+    &.skLicenseTerms__property--can > svg {
+      @apply text-green-500;
+    }
+
+    &.skLicenseTerms__property--cannot > svg {
+      @apply text-red-500;
+    }
+  }
+
+  .skLicenseTerms__divider {
+    @apply border-b border-gray-200 w-full my-2;
+  }
+
+  &.skLicenseTerms--small {
+    @apply text-sm;
+  }
+
+  &.skLicenseTerms--medium {
+    @apply text-base;
+
+    .policy-list {
+      @apply gap-1;
+    }
+  }
+
+  &.skLicenseTerms--large {
+    @apply text-lg;
+    .policy-list {
+      @apply gap-2;
+    }
+  }
+
+  &.skLicenseTerms--no-policy {
+    @apply text-slate-400;
+  }
+}

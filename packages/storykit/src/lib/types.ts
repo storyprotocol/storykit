@@ -1,12 +1,27 @@
 import { Address } from "viem"
 
-export const POLICY_TYPE = {
-  NON_COMMERCIAL_SOCIAL_REMIXING: "Non-Commercial Social Remixing",
-  COMMERCIAL_USE: "Commercial Use",
-  COMMERCIAL_REMIX: "Commercial Remix",
-  OPEN_DOMAIN: "Open Domain",
-  NO_DERIVATIVE: "No Derivative",
+export enum POLICY_TYPE {
+  NON_COMMERCIAL_SOCIAL_REMIXING = "Non-Commercial Social Remixing",
+  COMMERCIAL_USE = "Commercial Use",
+  COMMERCIAL_REMIX = "Commercial Remix",
+  OPEN_DOMAIN = "Open Domain",
+  NO_DERIVATIVE = "No Derivative",
 }
+
+// export const POLICY_TYPE = {
+//   NON_COMMERCIAL_SOCIAL_REMIXING: "Non-Commercial Social Remixing",
+//   COMMERCIAL_USE: "Commercial Use",
+//   COMMERCIAL_REMIX: "Commercial Remix",
+//   OPEN_DOMAIN: "Open Domain",
+//   NO_DERIVATIVE: "No Derivative",
+// }
+
+export type PolicyType =
+  | POLICY_TYPE.NON_COMMERCIAL_SOCIAL_REMIXING
+  | POLICY_TYPE.COMMERCIAL_USE
+  | POLICY_TYPE.COMMERCIAL_REMIX
+  | POLICY_TYPE.OPEN_DOMAIN
+  | POLICY_TYPE.NO_DERIVATIVE
 
 export enum RESOURCE_TYPE {
   ASSET = "assets",
