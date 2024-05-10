@@ -1,14 +1,10 @@
-import { Meta } from "@storybook/blocks"
-
-<Meta title="Introduction" />
-
 # Storykit
 
 Plug-and-play React components for Story Protocol.
 
 ## Installation
 
-_Storykit is currently a private github package so you need repo access and a personal access token to use_
+_Storykit is currently a private github package so you will need repo access and a personal access token to use_
 
 1 . Create a personal access token: [github.com/settings/tokens](https://github.com/settings/tokens)
 
@@ -29,7 +25,7 @@ The first line authenticates you with the github package registry, the second li
 npm install @storyprotocol/storykit @tanstack/react-query
 ```
 
-5 . Currently Story Protocol api credetials must be defined in the environment variables, add them to your `.env.local`:
+5 . Story Protocol api credentials must be defined in your environment variables, add them to the `.env.local`:
 
 ```bash
 NEXT_PUBLIC_API_BASE_URL="https://edge.stg.storyprotocol.net"
@@ -39,27 +35,18 @@ NEXT_PUBLIC_SIMPLE_HASH_API_KEY="SIMPLEHASH_API_KEY_HERE"
 
 ## Deploying on vercel
 
-To deploy on vercel, you can either include an `.npmrc` file with the following contents (note the curly braces) in the root, and add your access token to the `NPM_TOKEN` vercel environment variable:
-
-```bash
-//npm.pkg.github.com/:_authToken=${NPM_TOKEN}
-@storyprotocol/storykit:registry=https://npm.pkg.github.com
-```
-
-#### OR...
-
-You can add all the content of the `.npmrc` file, including your personal access token, to a `NPM_RC` vercel environment variable.
+Add all the content of the `.npmrc` file, including your personal access token, to a `NPM_RC` vercel environment variable.
 
 See the [vercel docs](https://vercel.com/guides/using-private-dependencies-with-vercel) for more information.
 
 ## Dependencies
 
-Storkykit requires [@tanstack/react-query](https://tanstack.com/query/latest), some components have additional dependencies including:
+Storykit requires [@tanstack/react-query](https://tanstack.com/query/latest), some components have additional dependencies including:
 
 - [react-apexcharts](https://www.npmjs.com/package/react-apexcharts)
 - [react-force-graph-2d](https://www.npmjs.com/package/react-force-graph-2d)
 
-See the individual component docs ro see if they require an additional dependency or install them all at once with:
+See the component docs to see if they require an additional dependency or install them all at once with:
 
 ```bash
 npm install @storyprotocol/storykit @tanstack/react-query react-apexcharts react-force-graph-2d
@@ -180,6 +167,8 @@ const ExampleComponent = () => {
 Some components require the IpProvider to supply asset data
 
 ```typescript
+"use client"
+
 import { IpProvider, IpGraph } from "@storyprotocol/storykit"
 
 const ExamplePage = () => {
@@ -196,6 +185,8 @@ const ExamplePage = () => {
 The IpProvider is already included in the IpWidget
 
 ```typescript
+"use client"
+
 import { IpWidget } from "@storyprotocol/storykit"
 
 const ExamplePage = () => {
