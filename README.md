@@ -1,6 +1,6 @@
 # Storykit
 
-Plug-and-play React components for Story Protocol.
+Plug-and-play Next.js components for Story Protocol.
 
 ## Installation
 
@@ -8,14 +8,14 @@ _Storykit is currently a private github package so you will need repo access and
 
 1 . Create a personal access token: [github.com/settings/tokens](https://github.com/settings/tokens)
 
-2 . Create an `.npmrc` file in the root of your project and add the following, replacing `NPM_TOKEN` with yout access token:
+2 . Create an `.npmrc` file in the root of your project and add the following, replacing `NPM_TOKEN` with your access token:
 
 ```bash
 //npm.pkg.github.com/:_authToken=NPM_TOKEN
 @storyprotocol/storykit:registry=https://npm.pkg.github.com
 ```
 
-The first line authenticates you with the github package registry, the second line tells npm to use the Storykit package from the Story Protocol github registry.
+The first line authenticates you with the github package registry, the second line tells npm to use the Storykit package from the github registry.
 
 3 . Add `.npmrc` to your `.gitignore` to keep your access token private.
 
@@ -25,10 +25,10 @@ The first line authenticates you with the github package registry, the second li
 npm install @storyprotocol/storykit @tanstack/react-query
 ```
 
-5 . Story Protocol api credentials must be defined in your environment variables, add them to the `.env.local`:
+5 . Story Protocol api credentials must be defined in your environment variables, add them to the `.env.local`. For the Story Protocol api you can use the token provided below, although note that you may be required to change it in the future. For SimpleHash you can generate an api token for free at [simplehash.com](https://simplehash.com/).
 
 ```bash
-NEXT_PUBLIC_STORY_PROTOCOL_X_API_KEY="SP_API_KEY_HERE"
+NEXT_PUBLIC_STORY_PROTOCOL_X_API_KEY="l0YkL0VIBK6-nfb7SGake4s3ctg="
 NEXT_PUBLIC_SIMPLE_HASH_API_KEY="SIMPLEHASH_API_KEY_HERE"
 ```
 
@@ -136,6 +136,8 @@ export default function Providers({ children }) {
 The IpProvider provides IP Asset data to child components.
 
 ```typescript
+"use client"
+
 import { IpProvider, useIpContext } from "@storyprotocol/storykit"
 
 const ExamplePage = () => {

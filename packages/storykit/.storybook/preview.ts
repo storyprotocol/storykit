@@ -9,7 +9,7 @@ const preview: Preview = {
     options: {
       theme,
       storySort: {
-        order: ["Introduction", "*", "Example"],
+        order: ["Introduction", "Providers", "*", "Example"],
       },
     },
     backgrounds: { disable: true },
