@@ -1,4 +1,4 @@
-import { POLICY_TYPE, PolicyType } from "@/index"
+import { POLICY_TYPE, PolicyType } from "@/types"
 import type { Meta, StoryObj } from "@storybook/react"
 
 import Example from "../LicenseTerms"

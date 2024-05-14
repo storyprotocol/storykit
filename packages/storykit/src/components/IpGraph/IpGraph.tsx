@@ -1,11 +1,11 @@
-import { NFTMetadata } from "@/lib/simplehash/types/simplehash"
+import { NFTMetadata } from "@/types/simplehash"
 import { useQuery } from "@tanstack/react-query"
 import React, { useEffect, useState } from "react"
 
 import "../../global.css"
 import { convertAssetToGraphFormat } from "../../lib/graph"
-import { Asset } from "../../lib/types"
 import { useIpContext } from "../../providers"
+import { Asset } from "../../types"
 import "./styles.css"
 
 export type IpGraphProps = {

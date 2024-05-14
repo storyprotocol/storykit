@@ -1,9 +1,9 @@
-import { Asset } from "@/lib/types"
 import { shortenAddress } from "@/lib/utils"
+import { Asset } from "@/types/assets"
+import { NFTMetadata } from "@/types/simplehash"
 import { Address } from "viem"
 
 import { getNFTByTokenId } from "./simplehash"
-import { NFTMetadata } from "./simplehash/types/simplehash"
 
 export interface GraphNode {
   id: string

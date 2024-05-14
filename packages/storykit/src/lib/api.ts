@@ -1,5 +1,5 @@
+import { QueryOptions, ResourceType } from "../types/api"
 import { API_BASE_URL } from "./constants"
-import { QueryOptions, ResourceType } from "./types"
 
 const API_KEY =
   process.env.STORYBOOK_STORY_PROTOCOL_X_API_KEY ||

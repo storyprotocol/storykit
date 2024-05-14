@@ -4,9 +4,10 @@ import { Address } from "viem"
 
 import { getResource, listResource } from "../../lib/api"
 import { getNFTByTokenId } from "../../lib/simplehash"
-import { NFTMetadata } from "../../lib/simplehash/types/simplehash"
-import { Asset, IPAPolicy, License, Policy, RESOURCE_TYPE, RoyaltyPolicy } from "../../lib/types"
 import { camelize } from "../../lib/utils"
+import { RESOURCE_TYPE } from "../../types/api"
+import { Asset, IPAPolicy, License, Policy, RoyaltyPolicy } from "../../types/assets"
+import { NFTMetadata } from "../../types/simplehash"
 
 const IpContext = React.createContext<{
   // activeTab: string

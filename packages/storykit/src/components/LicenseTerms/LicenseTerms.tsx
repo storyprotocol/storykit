@@ -1,5 +1,5 @@
-import { POLICY_TYPE, PolicyType } from "@/lib/types"
 import { cn } from "@/lib/utils"
+import { POLICY_TYPE, PolicyType } from "@/types"
 import { cva } from "class-variance-authority"
 import { CircleCheck, CircleMinus } from "lucide-react"
 

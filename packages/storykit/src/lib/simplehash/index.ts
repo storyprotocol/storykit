@@ -1,6 +1,6 @@
 import { Address } from "viem"
 
-import { CollectionMetadata, NFTMetadata, NFTWalletResponse } from "./types/simplehash"
+import { CollectionMetadata, NFTMetadata, NFTWalletResponse } from "../../types/simplehash"
 
 const createRequestOptions = (): RequestInit => ({
   method: "GET",

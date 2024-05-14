@@ -1,7 +1,6 @@
+import { PILType, POLICY_TYPE, PolicyType } from "@/types"
 import { type ClassValue, clsx } from "clsx"
 import { twMerge } from "tailwind-merge"
-
-import { PILType, POLICY_TYPE, PolicyType } from "./types"
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
