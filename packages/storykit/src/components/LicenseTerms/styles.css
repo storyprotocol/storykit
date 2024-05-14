@@ -14,14 +14,14 @@
   }
 
   .skLicenseTerms__property {
-    @apply flex w-full items-center gap-2;
+    @apply flex w-full items-start justify-start gap-2 shrink-0;
 
     &.skLicenseTerms__property--can > svg {
-      @apply text-green-500;
+      @apply text-green-500 items-start justify-start shrink-0;
     }
 
     &.skLicenseTerms__property--cannot > svg {
-      @apply text-red-500;
+      @apply text-red-500 items-start justify-start shrink-0;
     }
   }
 

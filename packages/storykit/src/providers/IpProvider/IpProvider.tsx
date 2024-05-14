@@ -53,19 +53,21 @@ export const IpProvider = ({ children, ipId }: { children: React.ReactNode; ipId
     const requests = uniquePolicies.map((item) => getResource(RESOURCE_TYPE.POLICY, item.licenseTermsId))
     const results = await Promise.all(requests)
 
-    return results.map((result) => {
-      return {
-        ...result.data,
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        licenseTerms: result.data.licenseTerms.reduce((acc: any, option: any) => {
-          return {
-            ...acc,
-            [camelize(option.trait_type)]:
-              option.value === "true" ? true : option.value === "false" ? false : option.value,
-          }
-        }, {}),
-      }
-    })
+    return results
+      .filter((value) => !!value)
+      .map((result) => {
+        return {
+          ...result.data,
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          licenseTerms: result.data.licenseTerms.reduce((acc: any, option: any) => {
+            return {
+              ...acc,
+              [camelize(option.trait_type)]:
+                option.value === "true" ? true : option.value === "false" ? false : option.value,
+            }
+          }, {}),
+        }
+      })
   }
 
   const { isLoading: isPolicyDataLoading, data: policyData } = useQuery({
