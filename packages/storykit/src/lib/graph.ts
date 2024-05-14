@@ -1,14 +1,26 @@
 import { Asset } from "@/lib/types"
+import { shortenAddress } from "@/lib/utils"
 import { Address } from "viem"
+
+import { getNFTByTokenId } from "./simplehash"
+import { NFTMetadata } from "./simplehash/types/simplehash"
 
 export interface GraphNode {
   id: string
   name: string
+  details: any
   val: number
   tokenContract?: string | Address
   tokenId?: string
   level?: number
   isRoot?: boolean
+  imageUrl?: string
+  imageProperties?: {
+    height: number
+    mime_type: string
+    size: number
+    width: number
+  }
 }
 
 interface Link {
@@ -21,47 +33,7 @@ export interface GraphData {
   links: Link[]
 }
 
-export function convertJsonToGraphFormat(ipAssets: Asset[]): GraphData {
-  const nodes: GraphNode[] = []
-  const links: Link[] = []
-
-  // Map ids to their corresponding objects for quick access
-  const idToObjectMap: { [id: string]: Asset } = {}
-  for (const obj of ipAssets) {
-    idToObjectMap[obj.id] = obj
-  }
-
-  // Create nodes
-  for (const asset of ipAssets) {
-    const nodeName = asset.nftMetadata.name || "Untitled"
-    const node: GraphNode = {
-      id: asset.id,
-      name: nodeName,
-      val: 1,
-      tokenContract: asset.nftMetadata.tokenContract,
-    }
-    nodes.push(node)
-
-    // Create links
-    if (asset.childIpIds) {
-      for (const childId of asset.childIpIds) {
-        const childObj = idToObjectMap[childId.id]
-        if (childObj && childObj.parentIpIds) {
-          for (const parentObj of childObj.parentIpIds) {
-            links.push({
-              source: parentObj.id,
-              target: childObj.id,
-            })
-          }
-        }
-      }
-    }
-  }
-
-  return { nodes, links }
-}
-
-export function convertAssetToGraphFormat(jsonData: Asset): GraphData {
+export async function convertAssetToGraphFormat(jsonData: Asset, nftData: NFTMetadata): Promise<GraphData> {
   const rootIpId = jsonData.rootIpIds?.[0]?.id
   const nodes: GraphNode[] = []
   const links: Link[] = []
@@ -69,11 +41,35 @@ export function convertAssetToGraphFormat(jsonData: Asset): GraphData {
   // Create node for the main object
   const mainNode: GraphNode = {
     id: jsonData.id,
-    name: jsonData.nftMetadata.name || "Untitled",
+    // name: jsonData.nftMetadata.name || "Untitled",
+    name: nftData.name || jsonData.nftMetadata.name || "Untitled",
+    // details: `asdad<br />dwfadas<br />asdads`,
+    details: `
+        <div class="graph-content">
+          <div>
+            <span class="graph-content-label">Name:</span> 
+            <span>${nftData.name || jsonData.nftMetadata.name || "Untitled"}</span>
+          </div>
+          <div>
+            <span class="graph-content-label">Chain:</span> 
+            <span>${nftData.chain}</span>
+          </div>
+          <div>
+            <span class="graph-content-label">Contact:</span> 
+            <span>${shortenAddress(nftData.contract_address)}</span>
+          </div>
+          <div>
+            <span class="graph-content-label">Token ID:</span> 
+            <span>${nftData.token_id}</span>
+          </div>
+        </div>
+      `,
     tokenContract: jsonData.nftMetadata.tokenContract,
     tokenId: jsonData.nftMetadata.tokenId,
     val: 1,
     level: 0,
+    imageUrl: nftData.previews.image_small_url || nftData.image_url,
+    imageProperties: nftData.image_properties,
     isRoot: rootIpId === undefined,
   }
   nodes.push(mainNode)
@@ -81,11 +77,35 @@ export function convertAssetToGraphFormat(jsonData: Asset): GraphData {
   // Add all childIpIds to nodes array and create links
   if (jsonData.childIpIds) {
     for (const child of jsonData.childIpIds) {
+      const childNftData = await getNFTByTokenId(child.nftMetadata.tokenContract, child.nftMetadata.tokenId)
+
       const childNode: GraphNode = {
         id: child.id,
-        name: child.nftMetadata.name || "Untitled",
+        name: childNftData.name || child.nftMetadata.name || "Untitled",
+        details: `
+        <div class="graph-content">
+          <div>
+            <span class="graph-content-label">Name:</span> 
+            <span>${nftData.name || jsonData.nftMetadata.name || "Untitled"}</span>
+          </div>
+          <div>
+            <span class="graph-content-label">Chain:</span> 
+            <span>${nftData.chain}</span>
+          </div>
+          <div>
+            <span class="graph-content-label">Contact:</span> 
+            <span>${shortenAddress(nftData.contract_address)}</span>
+          </div>
+          <div>
+            <span class="graph-content-label">Token ID:</span> 
+            <span>${nftData.token_id}</span>
+          </div>
+        </div>
+      `,
         tokenContract: child.nftMetadata.tokenContract,
         tokenId: child.nftMetadata.tokenId,
+        imageUrl: childNftData.previews.image_small_url || childNftData.image_url,
+        imageProperties: childNftData.image_properties,
         val: 1,
         level: 1,
       }
@@ -104,6 +124,7 @@ export function convertAssetToGraphFormat(jsonData: Asset): GraphData {
       const parentNode: GraphNode = {
         id: parent.id,
         name: parent.nftMetadata.name || "Untitled",
+        details: "asdad\ndwfadas\nasdads",
         tokenContract: parent.nftMetadata.tokenContract,
         tokenId: parent.nftMetadata.tokenId,
         val: 1,

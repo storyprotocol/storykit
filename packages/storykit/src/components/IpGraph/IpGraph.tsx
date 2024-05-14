@@ -1,4 +1,6 @@
-import React, { useEffect, useMemo, useState } from "react"
+import { NFTMetadata } from "@/lib/simplehash/types/simplehash"
+import { useQuery } from "@tanstack/react-query"
+import React, { useEffect, useState } from "react"
 
 import "../../global.css"
 import { convertAssetToGraphFormat } from "../../lib/graph"
@@ -12,8 +14,29 @@ export type IpGraphProps = {
 }
 
 function IpGraph({ width = 500, height = 500 }: IpGraphProps) {
-  const { assetData } = useIpContext()
-  const formattedGraphData = useMemo(() => assetData && convertAssetToGraphFormat(assetData as Asset), [assetData])
+  const { assetData, nftData } = useIpContext()
+
+  const { isLoading, data: formattedGraphData } = useQuery({
+    queryKey: ["FORMAT_GRAPH_DATA", assetData?.id],
+    queryFn: () => convertAssetToGraphFormat(assetData as Asset, nftData as NFTMetadata),
+    enabled: !!(assetData && nftData),
+  })
+
+  // preload images
+
+  // const [preloadedImages, setPreloadedImages] = useState<{ [key: string]: HTMLImageElement }>({})
+
+  // useEffect(() => {
+  //   if (formattedGraphData?.nodes) {
+  //     for (const node of formattedGraphData.nodes) {
+  //       if (node.imageUrl) {
+  //         const img = new Image()
+  //         img.src = node.imageUrl
+  //         setPreloadedImages((prev) => ({ ...prev, [node.id as string]: img }))
+  //       }
+  //     }
+  //   }
+  // }, [formattedGraphData])
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [ForceGraph, setForceGraph] = useState<any>(null)
@@ -50,7 +73,7 @@ function IpGraph({ width = 500, height = 500 }: IpGraphProps) {
     }
 
     const fontSize = 12 / globalScale
-    const circleRadius = isSelf ? 6 : 3 // Radius of the circle
+    const circleRadius = isSelf ? 8 : 5 // Radius of the circle
 
     // Set the font for the text
     ctx.font = `${fontSize}px Sans-Serif`
@@ -58,6 +81,7 @@ function IpGraph({ width = 500, height = 500 }: IpGraphProps) {
     // Draw the circle
     ctx.beginPath()
     ctx.arc(node.x, node.y, circleRadius, 0, 2 * Math.PI, false)
+
     if (isSelf) {
       ctx.fillStyle = "black" // Color of the circle
     } else if (isParent) {
@@ -67,19 +91,57 @@ function IpGraph({ width = 500, height = 500 }: IpGraphProps) {
     }
 
     ctx.fill()
-    if (isSelf) {
-      ctx.strokeStyle = "lightblue" // Border color of the circle
-      ctx.stroke()
-    }
 
+    // if (preloadedImages[node.id]) {
+    //   ctx.beginPath()
+    //   ctx.rect(node.x - circleRadius, node.y - circleRadius, circleRadius * 2, circleRadius * 2)
+    //   if (isSelf) {
+    //     ctx.strokeStyle = "black" // Color of the circle
+    //   } else if (isParent) {
+    //     ctx.strokeStyle = "grey" // Color of the circle
+    //   } else {
+    //     ctx.strokeStyle = "lightgrey" // Color of the circle
+    //   }
+
+    //   ctx.stroke()
+
+    //   ctx.drawImage(
+    //     preloadedImages[node.id],
+    //     node.x - circleRadius,
+    //     node.y - circleRadius,
+    //     circleRadius * 2,
+    //     circleRadius * 2
+    //   )
+    // } else {
+    //   ctx.beginPath()
+    //   ctx.arc(node.x, node.y, circleRadius, 0, 2 * Math.PI, false)
+
+    //   if (isSelf) {
+    //     ctx.fillStyle = "black" // Color of the circle
+    //   } else if (isParent) {
+    //     ctx.fillStyle = "grey" // Color of the circle
+    //   } else {
+    //     ctx.fillStyle = "lightgrey" // Color of the circle
+    //   }
+
+    //   ctx.fill()
+    // }
+
+    ctx.fillStyle = "black"
     // Draw the text next to the circle
-    ctx.fillText(label, node.x, node.y + 10)
+    ctx.fillText(label, node.x, node.y + 12)
   }
 
   return (
     <div className="skIpGraph">
       {ForceGraph ? (
-        <ForceGraph width={width} height={height} graphData={formattedGraphData} nodeCanvasObject={nodeCanvasObject} />
+        <ForceGraph
+          nodeLabel={"details"}
+          width={width}
+          height={height}
+          graphData={formattedGraphData}
+          nodeCanvasObject={nodeCanvasObject}
+        />
       ) : null}
     </div>
   )
