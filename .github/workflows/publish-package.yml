@@ -1,4 +1,4 @@
-name: publish on github on npm
+name: publish on github on npm p2
 
 on:
   push:
