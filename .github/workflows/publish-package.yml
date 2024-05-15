@@ -6,6 +6,9 @@ on:
       - main
 
 jobs:
+  Timestamp:
+    uses: storyprotocol/gha-workflows/.github/workflows/reusable-timestamp.yml@main
+
   publish-gpr:
     runs-on: ubuntu-latest
     steps:
@@ -25,6 +28,9 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
+      - name: Test
+        run: pnpm test
+        
       - name: Build
         run: pnpm build
 
