@@ -41,9 +41,7 @@ export async function convertAssetToGraphFormat(jsonData: Asset, nftData: NFTMet
   // Create node for the main object
   const mainNode: GraphNode = {
     id: jsonData.id,
-    // name: jsonData.nftMetadata.name || "Untitled",
     name: nftData.name || jsonData.nftMetadata.name || "Untitled",
-    // details: `asdad<br />dwfadas<br />asdads`,
     details: `
         <div class="graph-content">
           <div>
@@ -81,24 +79,24 @@ export async function convertAssetToGraphFormat(jsonData: Asset, nftData: NFTMet
 
       const childNode: GraphNode = {
         id: child.id,
-        name: childNftData.name || child.nftMetadata.name || "Untitled",
+        name: childNftData.name || "Untitled",
         details: `
         <div class="graph-content">
           <div>
             <span class="graph-content-label">Name:</span> 
-            <span>${nftData.name || jsonData.nftMetadata.name || "Untitled"}</span>
+            <span>${childNftData.name || "Untitled"}</span>
           </div>
           <div>
             <span class="graph-content-label">Chain:</span> 
-            <span>${nftData.chain}</span>
+            <span>${childNftData.chain}</span>
           </div>
           <div>
             <span class="graph-content-label">Contact:</span> 
-            <span>${shortenAddress(nftData.contract_address)}</span>
+            <span>${shortenAddress(childNftData.contract_address)}</span>
           </div>
           <div>
             <span class="graph-content-label">Token ID:</span> 
-            <span>${nftData.token_id}</span>
+            <span>${childNftData.token_id}</span>
           </div>
         </div>
       `,
@@ -121,10 +119,31 @@ export async function convertAssetToGraphFormat(jsonData: Asset, nftData: NFTMet
   // Add all parentIpIds to nodes array and create links
   if (jsonData.parentIpIds) {
     for (const parent of jsonData.parentIpIds) {
+      const parentNftData = await getNFTByTokenId(parent.nftMetadata.tokenContract, parent.nftMetadata.tokenId)
+
       const parentNode: GraphNode = {
         id: parent.id,
-        name: parent.nftMetadata.name || "Untitled",
-        details: "asdad\ndwfadas\nasdads",
+        name: parentNftData.name || "Untitled",
+        details: `
+        <div class="graph-content">
+          <div>
+            <span class="graph-content-label">Name:</span> 
+            <span>${parentNftData.name || "Untitled"}</span>
+          </div>
+          <div>
+            <span class="graph-content-label">Chain:</span> 
+            <span>${parentNftData.chain}</span>
+          </div>
+          <div>
+            <span class="graph-content-label">Contact:</span> 
+            <span>${shortenAddress(parentNftData.contract_address)}</span>
+          </div>
+          <div>
+            <span class="graph-content-label">Token ID:</span> 
+            <span>${parentNftData.token_id}</span>
+          </div>
+        </div>
+      `,
         tokenContract: parent.nftMetadata.tokenContract,
         tokenId: parent.nftMetadata.tokenId,
         val: 1,
