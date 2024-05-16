@@ -1,30 +1,34 @@
-import { POLICY_TYPE } from "@/types"
 import type { Meta, StoryObj } from "@storybook/react"
 
-import Example from "../LicenseTerms"
-import { exampleData } from "@/lib/example-data"
+import LicenseTerms from "../LicenseTerms"
+import { noLicenseTerms, nonCommercialSocialRemixingLicenseTerms } from "@/lib/example-data"
 
-const meta = {
+const meta: Meta = {
   title: "UI/LicenseTerms",
-  component: Example,
+  component: LicenseTerms,
   parameters: {
     layout: "centered",
   },
   argTypes: {
     selectedLicenseTerms: {
-      options: Object.values(POLICY_TYPE),
+      control: {
+        type: 'select',
+      },
+      options: ['NonCommercialSocialRemixing', 'No License'],
+      mapping: {
+        'NonCommercialSocialRemixing': nonCommercialSocialRemixingLicenseTerms,
+        'No License': noLicenseTerms,
+      },
     },
   },
   args: {},
-} satisfies Meta<typeof Example>
+}
 
 export default meta
-type Story = StoryObj<typeof meta>
 
-export const Select: Story = {
-  argTypes: {},
+export const Select: StoryObj = {
   args: {
     size: "medium",
-    selectedLicenseTerms: exampleData,
+    selectedLicenseTerms: 'NonCommercialSocialRemixing', // Default option
   },
 }

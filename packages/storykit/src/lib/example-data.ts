@@ -2,6 +2,10 @@ import { PILTerms } from "@/types";
 import { zeroAddress } from "viem";
 
 export const nonCommercialSocialRemixingLicenseTerms: PILTerms = {
+    // transferable: true,
+    // royaltyPolicy: zeroAddress,
+    // mintingFee: 0,
+    // commercializerCheckData: 
     commercialAttribution: false,
     commercialRevenueCelling: 0,
     commercialRevenueShare: 0,

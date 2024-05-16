@@ -2,7 +2,7 @@ import { cn } from "@/lib/utils"
 import { PILTerms } from "@/types"
 import { cva } from "class-variance-authority"
 import { CircleCheck, CircleMinus, Info } from "lucide-react"
-
+import React from 'react';
 import "../../global.css"
 import "./styles.css"
 import { useQuery } from "@tanstack/react-query"
@@ -20,7 +20,7 @@ const DESCRIPTIONS: {[key: string]: string} = {
 }
 
 const convertExpiration = (expiration: string): string => {
-  if (expiration == 'never') {
+  if (expiration == 'never' || expiration == '0') {
     return 'This license never expires'
   }
   return expiration;

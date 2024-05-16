@@ -4,7 +4,8 @@
   "compilerOptions": {
     "paths": {
       "@/*": ["./src/*"]
-    }
+    },
+    "jsx": "react" // or "react-jsx" if using React 17+
   },
   "exclude": ["dist", "build", "node_modules"]
 }
