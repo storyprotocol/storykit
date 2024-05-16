@@ -1,6 +1,6 @@
-import { PILType, POLICY_TYPE, PolicyType } from "@/types"
 import { type ClassValue, clsx } from "clsx"
 import { twMerge } from "tailwind-merge"
+import { PILTerms, POLICY_TYPE, PolicyType } from "@/types"
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
@@ -27,8 +27,8 @@ export function camelize(str: string) {
   })
 }
 
-export function getPolicyTypeByPILData(pilData: PILType): PolicyType {
-  const { derivativesAttribution, derivativesAllowed, commercialUse, derivativesReciprocal } = pilData
+export function getPolicyTypeByPILData(pilTerms: PILTerms): PolicyType {
+  const { derivativesAttribution, derivativesAllowed, commercialUse, derivativesReciprocal } = pilTerms
 
   if (commercialUse) {
     if (!derivativesReciprocal) {

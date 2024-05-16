@@ -46,6 +46,22 @@ export type License = {
   blockTime: string
 }
 
+export type PILTerms = {
+  commercialAttribution: boolean
+  commercialRevenueCelling: number
+  commercialRevenueShare: number 
+  commercialUse: boolean
+  commercializerCheck: Address
+  currency: Address
+  derivativesAllowed: boolean
+  derivativesApproval: boolean
+  derivativesAttribution: boolean
+  derivativesReciprocal: boolean
+  derivativesRevenueCelling: number
+  expiration: string
+  uRI: string
+}
+
 export type PolicyFramework = {
   id: string
   name: string
@@ -164,22 +180,6 @@ export type Policy = {
   licenseTemplate: Address
   blockNumber: string
   blockTime: string
-}
-
-export type PILType = {
-  commercialAttribution: boolean
-  commercialRevenueCelling: number
-  commercialRevenueShare: number
-  commercialUse: boolean
-  commercializerCheck: Address
-  currency: Address
-  derivativesAllowed: boolean
-  derivativesApproval: boolean
-  derivativesAttribution: boolean
-  derivativesReciprocal: boolean
-  derivativesRevenueCelling: number
-  expiration: string
-  URI: string
 }
 
 export type RoyaltySplit = {

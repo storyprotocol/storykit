@@ -45,7 +45,8 @@ function IpPolicyAccordion({ size = "medium" }: IpPolicyAccordionProps) {
               expanded === index && "skIpPolicyAccordion__item-list--expanded"
             )}
           >
-            <LicenseTerms size={size} type={getPolicyTypeByPILData(policy.licenseTerms)} />
+            {/* <LicenseTerms size={size} selectedLicenseTerms={policy.licenseTerms} /> */}
+             <LicenseTerms size={size} selectedLicenseTermsId="1" />
           </div>
 
           {index < policyData.length - 1 && <div className="skIpPolicyAccordion__divider" />}

@@ -4,10 +4,10 @@ import { Address } from "viem"
 
 import { getResource, listResource } from "../../lib/api"
 import { getNFTByTokenId } from "../../lib/simplehash"
-import { camelize } from "../../lib/utils"
 import { RESOURCE_TYPE } from "../../types/api"
 import { Asset, IPAPolicy, License, Policy, RoyaltyPolicy } from "../../types/assets"
 import { NFTMetadata } from "../../types/simplehash"
+import { convertLicenseTermObject } from "@/lib/functions/convertLicenseTermObject"
 
 const IpContext = React.createContext<{
   // activeTab: string
@@ -33,6 +33,8 @@ export const IpProvider = ({ children, ipId }: { children: React.ReactNode; ipId
     queryFn: () => getResource(RESOURCE_TYPE.ASSET, ipId),
   })
 
+  console.log({isAssetDataLoading, assetData})
+
   const ipaPolicyQueryOptions = {
     pagination: {
       limit: 0,
@@ -48,6 +50,8 @@ export const IpProvider = ({ children, ipId }: { children: React.ReactNode; ipId
     queryFn: () => listResource(RESOURCE_TYPE.IPA_POLICY, ipaPolicyQueryOptions),
   })
 
+  console.log({isIPAPolicyDataLoading, ipPolicyData})
+
   async function fetchPolicyDetails(data: IPAPolicy[]) {
     const uniquePolicies = data.filter((item) => item.ipId.toLowerCase() === ipId.toLowerCase())
 
@@ -60,13 +64,7 @@ export const IpProvider = ({ children, ipId }: { children: React.ReactNode; ipId
         return {
           ...result.data,
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          licenseTerms: result.data.licenseTerms.reduce((acc: any, option: any) => {
-            return {
-              ...acc,
-              [camelize(option.trait_type)]:
-                option.value === "true" ? true : option.value === "false" ? false : option.value,
-            }
-          }, {}),
+          licenseTerms: convertLicenseTermObject(result.data.licenseTerms)
         }
       })
   }
@@ -76,6 +74,8 @@ export const IpProvider = ({ children, ipId }: { children: React.ReactNode; ipId
     queryFn: () => fetchPolicyDetails(ipPolicyData?.data),
     enabled: Boolean(ipPolicyData) && Boolean(ipPolicyData.data),
   })
+
+  console.log({isPolicyDataLoading, policyData})
 
   const licenseQueryOptions = {
     pagination: {
@@ -91,6 +91,8 @@ export const IpProvider = ({ children, ipId }: { children: React.ReactNode; ipId
     queryKey: [RESOURCE_TYPE.LICENSE, licenseQueryOptions],
     queryFn: () => listResource(RESOURCE_TYPE.LICENSE, licenseQueryOptions),
   })
+
+  console.log({isLicenseDataLoading, licenseData})
 
   // Fetch Royalty Data
   const { isLoading: isRoyaltyDataLoading, data: royaltyData } = useQuery({
