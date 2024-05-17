@@ -38,12 +38,12 @@ jobs:
       - name: Get version to publish
         id: get_version_to_publish
         run: |
-          LAST_PATCH=${{needs.fetch_latest_version.outputs.LATEST_VERSION}}
+          LAST_PATCH=${{ needs.fetch_latest_version.outputs.LATEST_VERSION }}
           IFS='.' read -r major minor patch <<< "$LAST_PATCH"
           major=$((major))
           minor=$((minor))
           patch=$((patch))
-          case ${{github.event.inputs.patch_desc}} in
+          case ${{ github.event.inputs.patch_desc }} in
             "major")
               ((major += 1))
               ;;
@@ -91,4 +91,4 @@ jobs:
           cd packages/storykit
           npm publish
         env:
-          NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
