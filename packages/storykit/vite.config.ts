@@ -7,5 +7,6 @@ export default defineConfig({
     globals: true,
     environment: 'jsdom',
     css: true,
+    setupFiles: ['dotenv/config'],
   },
 })
