@@ -17,8 +17,6 @@ export interface IpProviderOptions {
 }
 
 const IpContext = React.createContext<{
-  // activeTab: string
-  // setActiveTab: React.Dispatch<React.SetStateAction<string>>
   assetData: Asset | undefined
   nftData: NFTMetadata | undefined
   isNftDataLoading: boolean
@@ -135,11 +133,6 @@ export const IpProvider = ({
     enabled: queryOptions.royaltyData,
   })
 
-  // const { isLoading: isNftDataLoading, data: nftData } = useQuery({
-  //   queryKey: ["getNFTByTokenId", assetData?.data?.tokenContract, assetData?.data?.tokenId],
-  //   queryFn: () => getNFTByTokenId(assetData.data.tokenContract, assetData.data.tokenId),
-  //   enabled: Boolean(assetData) && Boolean(assetData.data.tokenContract) && Boolean(assetData.data.tokenId),
-  // })
   const { isLoading: isNftDataLoading, data: nftData } = useQuery({
     queryKey: ["getNFTByTokenId", assetData?.data?.nftMetadata?.tokenContract, assetData?.data?.nftMetadata?.tokenId],
     queryFn: () => getNFTByTokenId(assetData.data.nftMetadata.tokenContract, assetData.data.nftMetadata.tokenId),
@@ -153,8 +146,6 @@ export const IpProvider = ({
   return (
     <IpContext.Provider
       value={{
-        // activeTab,
-        // setActiveTab,
         nftData,
         isNftDataLoading,
         assetData: assetData?.data,
