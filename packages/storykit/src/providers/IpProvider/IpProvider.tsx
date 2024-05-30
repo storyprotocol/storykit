@@ -9,6 +9,13 @@ import { RESOURCE_TYPE } from "../../types/api"
 import { Asset, IPAPolicy, License, Policy, RoyaltyPolicy } from "../../types/assets"
 import { NFTMetadata } from "../../types/simplehash"
 
+export interface IpProviderOptions {
+  assetData?: boolean
+  policyData?: boolean
+  licenseData?: boolean
+  royaltyData?: boolean
+}
+
 const IpContext = React.createContext<{
   // activeTab: string
   // setActiveTab: React.Dispatch<React.SetStateAction<string>>
@@ -26,11 +33,27 @@ const IpContext = React.createContext<{
   isRoyaltyDataLoading: boolean
 } | null>(null)
 
-export const IpProvider = ({ children, ipId }: { children: React.ReactNode; ipId: Address }) => {
+export const IpProvider = ({
+  children,
+  ipId,
+  options = {},
+}: {
+  children: React.ReactNode
+  ipId: Address
+  options?: IpProviderOptions
+}) => {
+  const queryOptions = {
+    assetData: true,
+    policyData: true,
+    licenseData: true,
+    royaltyData: true,
+    ...options,
+  }
   // Fetch asset data
   const { isLoading: isAssetDataLoading, data: assetData } = useQuery({
     queryKey: [RESOURCE_TYPE.ASSET, ipId],
     queryFn: () => getResource(RESOURCE_TYPE.ASSET, ipId),
+    enabled: queryOptions.assetData,
   })
 
   const ipaPolicyQueryOptions = {
@@ -46,6 +69,7 @@ export const IpProvider = ({ children, ipId }: { children: React.ReactNode; ipId
   const { isLoading: isIPAPolicyDataLoading, data: ipPolicyData } = useQuery({
     queryKey: [RESOURCE_TYPE.IPA_POLICY, ipaPolicyQueryOptions],
     queryFn: () => listResource(RESOURCE_TYPE.IPA_POLICY, ipaPolicyQueryOptions),
+    enabled: queryOptions.policyData,
   })
 
   async function fetchPolicyDetails(data: IPAPolicy[]) {
@@ -74,7 +98,7 @@ export const IpProvider = ({ children, ipId }: { children: React.ReactNode; ipId
   const { isLoading: isPolicyDataLoading, data: policyData } = useQuery({
     queryKey: ["fetchPolicyDetails", ipPolicyData?.data],
     queryFn: () => fetchPolicyDetails(ipPolicyData?.data),
-    enabled: Boolean(ipPolicyData) && Boolean(ipPolicyData.data),
+    enabled: Boolean(ipPolicyData) && Boolean(ipPolicyData.data) && queryOptions.policyData,
   })
 
   const licenseQueryOptions = {
@@ -90,6 +114,7 @@ export const IpProvider = ({ children, ipId }: { children: React.ReactNode; ipId
   const { isLoading: isLicenseDataLoading, data: licenseData } = useQuery({
     queryKey: [RESOURCE_TYPE.LICENSE, licenseQueryOptions],
     queryFn: () => listResource(RESOURCE_TYPE.LICENSE, licenseQueryOptions),
+    enabled: queryOptions.licenseData,
   })
 
   // Fetch Royalty Data
@@ -107,6 +132,7 @@ export const IpProvider = ({ children, ipId }: { children: React.ReactNode; ipId
       },
     ],
     queryFn: () => getResource(RESOURCE_TYPE.ROYALTY_POLICY, ipId),
+    enabled: queryOptions.royaltyData,
   })
 
   // const { isLoading: isNftDataLoading, data: nftData } = useQuery({
@@ -118,6 +144,7 @@ export const IpProvider = ({ children, ipId }: { children: React.ReactNode; ipId
     queryKey: ["getNFTByTokenId", assetData?.data?.nftMetadata?.tokenContract, assetData?.data?.nftMetadata?.tokenId],
     queryFn: () => getNFTByTokenId(assetData.data.nftMetadata.tokenContract, assetData.data.nftMetadata.tokenId),
     enabled:
+      queryOptions.assetData &&
       Boolean(assetData) &&
       Boolean(assetData.data.nftMetadata.tokenContract) &&
       Boolean(assetData.data.nftMetadata.tokenId),
