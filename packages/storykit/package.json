@@ -24,7 +24,8 @@
     "format": "prettier --write --parser typescript '**/*.{ts,tsx}'",
     "dev": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "build": "rollup -c --bundleConfigAsCjs --inlineDynamicImports"
+    "build": "rollup -c --bundleConfigAsCjs --inlineDynamicImports",
+    "test-storybook": "test-storybook"
   },
   "prettier": "@storykit/prettier-config",
   "dependencies": {
@@ -59,6 +60,7 @@
     "@storybook/react": "^8.0.4",
     "@storybook/react-webpack5": "^8.0.4",
     "@storybook/test": "^8.0.4",
+    "@storybook/test-runner": "^0.18.2",
     "@storybook/theming": "^8.0.4",
     "@storykit/eslint-config": "workspace:*",
     "@storykit/prettier-config": "workspace:*",
