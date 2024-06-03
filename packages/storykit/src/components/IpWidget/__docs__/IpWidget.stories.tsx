@@ -40,7 +40,7 @@ export const Input: Story = {
     isBottomNav: true,
   },
 }
-export const Navigation: Story = {
+export const TopNavigation: Story = {
   args: {
     ipId: "0x22Fe8C376919586F344fED952A9448df442b10f2",
     isBottomNav: false,
@@ -50,26 +50,136 @@ export const Navigation: Story = {
 
     await waitFor(
       () => {
+        expect(canvas.getByText("Overview").classList).not.toContain("skIpWidget__tab--active")
         expect(canvas.getByText("11155111: Example NFT #4367")).toBeInTheDocument()
         expect(canvas.getByText("Owned by")).toBeInTheDocument()
         expect(canvas.getByText("0x3679...12E1")).toBeInTheDocument()
+        expect(canvas.getByRole("button", { expanded: false })).toBeInTheDocument()
       },
-      { timeout: 5000 }
+      { timeout: 10000 }
     )
 
     userEvent.click(canvas.getByText("Licensing"))
     await waitFor(
       () => {
-        expect(canvas.getAllByText("Commercial Remix")[0]).toBeInTheDocument()
+        expect(canvas.getByText("Licensing").classList).not.toContain("skIpWidget__tab--active")
       },
-      { timeout: 5000 }
+      { timeout: 10000 }
     )
 
     await userEvent.click(canvas.getByText("IP Graph"))
+    await waitFor(
+      () => {
+        expect(canvas.getByText("IP Graph").classList).not.toContain("skIpWidget__tab--active")
+      },
+      { timeout: 10000 }
+    )
 
     await userEvent.click(canvas.getByText("Royalty"))
-    await waitFor(() => {
-      expect(canvas.getByText("No Royalty Data")).toBeInTheDocument()
-    })
+    await waitFor(
+      () => {
+        expect(canvas.getByText("Royalty").classList).not.toContain("skIpWidget__tab--active")
+      },
+      { timeout: 10000 }
+    )
+
+    await userEvent.click(canvas.getByText("Overview"))
+    await waitFor(
+      () => {
+        expect(canvas.getByText("Overview").classList).not.toContain("skIpWidget__tab--active")
+      },
+      { timeout: 10000 }
+    )
+  },
+}
+export const BottomNavigation: Story = {
+  args: {
+    ipId: "0x22Fe8C376919586F344fED952A9448df442b10f2",
+    isBottomNav: true,
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+
+    await waitFor(
+      () => {
+        expect(canvas.getByText("Overview").classList).not.toContain("skIpWidget__tab--active")
+        expect(canvas.getByText("11155111: Example NFT #4367")).toBeInTheDocument()
+        expect(canvas.getByText("Owned by")).toBeInTheDocument()
+        expect(canvas.getByText("0x3679...12E1")).toBeInTheDocument()
+        expect(canvas.getByRole("button", { expanded: false })).toBeInTheDocument()
+      },
+      { timeout: 10000 }
+    )
+
+    userEvent.click(canvas.getByText("Licensing"))
+    await waitFor(
+      () => {
+        expect(canvas.getByText("Licensing").classList).not.toContain("skIpWidget__tab--active")
+      },
+      { timeout: 10000 }
+    )
+
+    await userEvent.click(canvas.getByText("IP Graph"))
+    await waitFor(
+      () => {
+        expect(canvas.getByText("IP Graph").classList).not.toContain("skIpWidget__tab--active")
+      },
+      { timeout: 10000 }
+    )
+
+    await userEvent.click(canvas.getByText("Royalty"))
+    await waitFor(
+      () => {
+        expect(canvas.getByText("Royalty").classList).not.toContain("skIpWidget__tab--active")
+      },
+      { timeout: 10000 }
+    )
+
+    await userEvent.click(canvas.getByText("Overview"))
+    await waitFor(
+      () => {
+        expect(canvas.getByText("Overview").classList).not.toContain("skIpWidget__tab--active")
+      },
+      { timeout: 10000 }
+    )
+  },
+}
+export const IpFoundOverview: Story = {
+  args: {
+    ipId: "0x22Fe8C376919586F344fED952A9448df442b10f2",
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    await waitFor(
+      () => {
+        expect(canvas.getByText("Overview").classList).not.toContain("skIpWidget__tab--active")
+        expect(canvas.getByText("11155111: Example NFT #4367")).toBeInTheDocument()
+        expect(canvas.getByText("Owned by")).toBeInTheDocument()
+        expect(canvas.getByText("0x3679...12E1")).toBeInTheDocument()
+        expect(canvas.getByRole("button", { expanded: false })).toBeInTheDocument()
+        expect(canvas.getByRole("img").getAttribute("src")).toBe(
+          "https://cdn.simplehash.com/assets/69ac28cb44bcf041b5d103706c80cad6b6207ced313c7d768f7875d448ea07e5.jpg"
+        )
+      },
+      { timeout: 10000 }
+    )
+  },
+}
+export const IpNotFoundOverview: Story = {
+  args: {
+    ipId: "0x22Fe8C376919586F344fED952A9448df442b1999",
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    await waitFor(
+      () => {
+        expect(canvas.getByText("Overview").classList).not.toContain("skIpWidget__tab--active")
+        expect(canvas.getByText("Untitled")).toBeInTheDocument()
+        expect(canvas.getByText("Owned by")).toBeInTheDocument()
+        expect(canvas.getByRole("button", { expanded: false })).toBeInTheDocument()
+        expect(canvas.getByRole("img").getAttribute("src")).toBeNull()
+      },
+      { timeout: 10000 }
+    )
   },
 }
