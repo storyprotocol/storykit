@@ -1,0 +1,44 @@
+{
+  "data": [
+      {
+          "id": "0x195A5B433bbFb6481490cA12d1C95e5594Fb54C4:0x260B6CB6284c89dbE660c0004233f7bB99B5edE7:77",
+          "ipId": "0x195A5B433bbFb6481490cA12d1C95e5594Fb54C4",
+          "licenseTemplate": "0x260B6CB6284c89dbE660c0004233f7bB99B5edE7",
+          "licenseTermsId": "77",
+          "blockNumber": "6041837",
+          "blockTime": "1717558740"
+      },
+      {
+          "id": "0x195A5B433bbFb6481490cA12d1C95e5594Fb54C4:0x260B6CB6284c89dbE660c0004233f7bB99B5edE7:7",
+          "ipId": "0x195A5B433bbFb6481490cA12d1C95e5594Fb54C4",
+          "licenseTemplate": "0x260B6CB6284c89dbE660c0004233f7bB99B5edE7",
+          "licenseTermsId": "7",
+          "blockNumber": "6041832",
+          "blockTime": "1717558668"
+      },
+      {
+          "id": "0x195A5B433bbFb6481490cA12d1C95e5594Fb54C4:0x260B6CB6284c89dbE660c0004233f7bB99B5edE7:76",
+          "ipId": "0x195A5B433bbFb6481490cA12d1C95e5594Fb54C4",
+          "licenseTemplate": "0x260B6CB6284c89dbE660c0004233f7bB99B5edE7",
+          "licenseTermsId": "76",
+          "blockNumber": "6041832",
+          "blockTime": "1717558668"
+      },
+      {
+          "id": "0x195A5B433bbFb6481490cA12d1C95e5594Fb54C4:0x260B6CB6284c89dbE660c0004233f7bB99B5edE7:2",
+          "ipId": "0x195A5B433bbFb6481490cA12d1C95e5594Fb54C4",
+          "licenseTemplate": "0x260B6CB6284c89dbE660c0004233f7bB99B5edE7",
+          "licenseTermsId": "2",
+          "blockNumber": "6041832",
+          "blockTime": "1717558668"
+      },
+      {
+          "id": "0x195A5B433bbFb6481490cA12d1C95e5594Fb54C4:0x260B6CB6284c89dbE660c0004233f7bB99B5edE7:57",
+          "ipId": "0x195A5B433bbFb6481490cA12d1C95e5594Fb54C4",
+          "licenseTemplate": "0x260B6CB6284c89dbE660c0004233f7bB99B5edE7",
+          "licenseTermsId": "57",
+          "blockNumber": "6041281",
+          "blockTime": "1717551228"
+      }
+  ]
+}

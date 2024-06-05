@@ -1,0 +1,134 @@
+{
+  "nft_id": "ethereum-sepolia.0x7ee32b8b515dee0ba2f25f612a04a731eec24f49.6494",
+  "chain": "ethereum-sepolia",
+  "contract_address": "0x7ee32b8B515dEE0Ba2F25f612A04a731eEc24F49",
+  "token_id": "6494",
+  "name": "Example NFT #6494",
+  "description": "Example NFT!",
+  "previews": {
+    "image_small_url": "https://lh3.googleusercontent.com/75hIsI46X3QiSnmq_0fYET6Y60T6AGInh8gQT64zoF2wRKERWiRexUGYWcB8YKg96X1aLl4Gu-HfJFMPSZs5UAC7QPgVsgGkQA=s250",
+    "image_medium_url": "https://lh3.googleusercontent.com/75hIsI46X3QiSnmq_0fYET6Y60T6AGInh8gQT64zoF2wRKERWiRexUGYWcB8YKg96X1aLl4Gu-HfJFMPSZs5UAC7QPgVsgGkQA",
+    "image_large_url": "https://lh3.googleusercontent.com/75hIsI46X3QiSnmq_0fYET6Y60T6AGInh8gQT64zoF2wRKERWiRexUGYWcB8YKg96X1aLl4Gu-HfJFMPSZs5UAC7QPgVsgGkQA=s1000",
+    "image_opengraph_url": "https://lh3.googleusercontent.com/75hIsI46X3QiSnmq_0fYET6Y60T6AGInh8gQT64zoF2wRKERWiRexUGYWcB8YKg96X1aLl4Gu-HfJFMPSZs5UAC7QPgVsgGkQA=k-w1200-s2400-rj",
+    "blurhash": "UFM@itt7_3xu?bofxuRj00ofM{WB~qIURj%M",
+    "predominant_color": "#dadada"
+  },
+  "image_url": "https://cdn.simplehash.com/assets/69ac28cb44bcf041b5d103706c80cad6b6207ced313c7d768f7875d448ea07e5.jpg",
+  "image_properties": {
+    "width": 720,
+    "height": 576,
+    "size": 279189,
+    "mime_type": "image/jpeg"
+  },
+  "video_url": null,
+  "video_properties": null,
+  "audio_url": null,
+  "audio_properties": null,
+  "model_url": null,
+  "model_properties": null,
+  "other_url": null,
+  "other_properties": null,
+  "background_color": null,
+  "external_url": null,
+  "created_date": "2024-05-16T07:38:48",
+  "status": "minted",
+  "token_count": 1,
+  "owner_count": 1,
+  "owners": [
+    {
+      "owner_address": "0xC7Fffc7bA56026b471AE5f792A012E5a29c37a82",
+      "quantity": 1,
+      "quantity_string": "1",
+      "first_acquired_date": "2024-05-16T07:38:48",
+      "last_acquired_date": "2024-05-16T07:38:48"
+    }
+  ],
+  "contract": {
+    "type": "ERC721",
+    "name": "Example NFT",
+    "symbol": "ENFT",
+    "deployed_by": "0xf398C12A45Bc409b6C652E25bb0a3e702492A4ab",
+    "deployed_via_contract": null,
+    "owned_by": null,
+    "has_multiple_collections": false
+  },
+  "collection": {
+    "collection_id": "3eb0dfade3c5f4bed80d4ef85e69e8e5",
+    "name": "Example NFT",
+    "description": null,
+    "image_url": "https://lh3.googleusercontent.com/yRu5vHEP2U_PlGVDT0rHh_Ul4f44okUvhbs3Rb_0ZAh77pi1P669Kc9nLxHaWJeAUMn_4Brro6y4qlI1wb1-clLhd9w5hTecEr0",
+    "image_properties": {
+      "width": 512,
+      "height": 410,
+      "mime_type": "image/png"
+    },
+    "banner_image_url": null,
+    "category": null,
+    "is_nsfw": false,
+    "external_url": null,
+    "twitter_username": null,
+    "discord_url": null,
+    "instagram_username": null,
+    "medium_username": null,
+    "telegram_url": null,
+    "marketplace_pages": [
+      {
+        "marketplace_id": "opensea",
+        "marketplace_name": "OpenSea",
+        "marketplace_collection_id": "example-nft-12",
+        "nft_url": "https://testnets.opensea.io/assets/sepolia/0x7ee32b8b515dee0ba2f25f612a04a731eec24f49/6494",
+        "collection_url": "https://testnets.opensea.io/collection/example-nft-12",
+        "verified": false
+      }
+    ],
+    "metaplex_mint": null,
+    "metaplex_candy_machine": null,
+    "metaplex_first_verified_creator": null,
+    "floor_prices": [],
+    "top_bids": [],
+    "distinct_owner_count": 2966,
+    "distinct_nft_count": 7061,
+    "total_quantity": 7061,
+    "chains": [
+      "ethereum-sepolia"
+    ],
+    "top_contracts": [
+      "ethereum-sepolia.0x7ee32b8b515dee0ba2f25f612a04a731eec24f49"
+    ],
+    "collection_royalties": [
+      {
+        "source": "opensea",
+        "total_creator_fee_basis_points": 0,
+        "recipients": []
+      }
+    ]
+  },
+  "last_sale": null,
+  "first_created": {
+    "minted_to": "0xC7Fffc7bA56026b471AE5f792A012E5a29c37a82",
+    "quantity": 1,
+    "quantity_string": "1",
+    "timestamp": "2024-05-16T07:38:48",
+    "block_number": 5913207,
+    "transaction": "0x7f5d8a1c858e68f331065ce700533cd7612799bf6f6a0601574808a4cea475ae",
+    "transaction_initiator": "0xC7Fffc7bA56026b471AE5f792A012E5a29c37a82"
+  },
+  "rarity": {
+    "rank": null,
+    "score": null,
+    "unique_attributes": null
+  },
+  "royalty": [
+    {
+      "source": "opensea",
+      "total_creator_fee_basis_points": 0,
+      "recipients": []
+    }
+  ],
+  "extra_metadata": {
+    "attributes": [],
+    "image_original_url": "https://cloudflare-ipfs.com/ipfs/QmRibyKgMy5iK2VmhgNYwdhDJBr795ji3eozk9nPYmU9oU/steamboat-willie.jpg",
+    "animation_original_url": null,
+    "metadata_original_url": "{\"name\": \"Example NFT #6494\", \"description\": \"Example NFT!\", \"image\": \"https://cloudflare-ipfs.com/ipfs/QmRibyKgMy5iK2VmhgNYwdhDJBr795ji3eozk9nPYmU9oU/steamboat-willie.jpg\"}"
+  }
+}
