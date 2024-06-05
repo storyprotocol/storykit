@@ -40,6 +40,7 @@ export const Select: Story = {
     ipId: {
       options: PREVIEW_IP_ASSETS,
     },
+    children: { control: false },
   },
   args: {
     ipId: PREVIEW_IP_ASSETS[0] as `0x${string}`,
@@ -48,6 +49,7 @@ export const Select: Story = {
 export const Input: Story = {
   argTypes: {
     ipId: { control: "text" },
+    children: { control: false },
   },
   args: {
     ipId: PREVIEW_IP_ASSETS[0] as `0x${string}`,
@@ -58,6 +60,7 @@ export const NFTData: Story = {
     ipId: {
       options: ["0x7907Cec258B28638FCA15d533800B2A13bd1f140"],
     },
+    children: { control: false },
   },
   args: {
     ipId: "0x7907Cec258B28638FCA15d533800B2A13bd1f140",
@@ -89,6 +92,7 @@ export const AssetData: Story = {
     ipId: {
       options: ["0x7907Cec258B28638FCA15d533800B2A13bd1f140"],
     },
+    children: { control: false },
   },
   args: {
     ipId: "0x7907Cec258B28638FCA15d533800B2A13bd1f140",
@@ -127,6 +131,7 @@ export const IPAPolicyData: Story = {
     ipId: {
       options: ["0x195A5B433bbFb6481490cA12d1C95e5594Fb54C4"],
     },
+    children: { control: false },
   },
   args: {
     ipId: "0x195A5B433bbFb6481490cA12d1C95e5594Fb54C4",
@@ -160,6 +165,7 @@ export const PolicyData: Story = {
     ipId: {
       options: ["0x195A5B433bbFb6481490cA12d1C95e5594Fb54C4"],
     },
+    children: { control: false },
   },
   args: {
     ipId: "0x195A5B433bbFb6481490cA12d1C95e5594Fb54C4",
