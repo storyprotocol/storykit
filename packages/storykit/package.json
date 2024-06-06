@@ -44,6 +44,7 @@
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^1.2.25",
+    "@playwright/test": "^1.44.1",
     "@rollup/plugin-commonjs": "^25.0.7",
     "@rollup/plugin-node-resolve": "^15.2.3",
     "@rollup/plugin-terser": "^0.4.4",
