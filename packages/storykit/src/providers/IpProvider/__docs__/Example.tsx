@@ -230,5 +230,106 @@ const PolicyComponent = () => {
   )
 }
 
+const LicenseComponent = () => {
+  const { licenseData, isLicenseDataLoading } = useIpContext()
+  return (
+    <>
+      {isLicenseDataLoading && <div>Fetching License...</div>}
+      {licenseData && !isLicenseDataLoading ? (
+        <div>
+          <>
+            <ul>
+              {licenseData?.map((obj) => (
+                <li key={obj.id} className="grid grid-cols-4 gap-4">
+                  <p className="col-span-1 text-xs text-gray-600">License Id</p>
+                  <p className="col-span-3 text-sm" data-testid="license-id">
+                    {obj.id}
+                  </p>
+                  <p className="col-span-1 text-xs text-gray-600">licensorIpId</p>
+                  <p className="col-span-3 text-sm" data-testid="license-ipid">
+                    {obj.licensorIpId}
+                  </p>
+                  <p className="col-span-1 text-xs text-gray-600">licenseTemplate</p>
+                  <p className="col-span-3 text-sm" data-testid="license-template">
+                    {obj.licenseTemplate}
+                  </p>
+                  <p className="col-span-1 text-xs text-gray-600">licenseTermsId</p>
+                  <p className="col-span-3 text-sm" data-testid="license-terms">
+                    {obj.licenseTermsId}
+                  </p>
+                  <p className="col-span-1 text-xs text-gray-600">transferable</p>
+                  <p className="col-span-3 text-sm" data-testid="license-transfer">
+                    {obj.transferable.toString()}
+                  </p>
+                  <p className="col-span-1 text-xs text-gray-600">owner</p>
+                  <p className="col-span-3 text-sm" data-testid="license-owner">
+                    {obj.owner}
+                  </p>
+                  <p className="col-span-1 text-xs text-gray-600">expiresAt</p>
+                  <p className="col-span-3 text-sm" data-testid="license-expires">
+                    {obj.expiresAt}
+                  </p>
+                  <p className="col-span-1 text-xs text-gray-600">mintedAt</p>
+                  <p className="col-span-3 text-sm" data-testid="license-minted">
+                    {obj.mintedAt}
+                  </p>
+                  <p className="col-span-1 text-xs text-gray-600">burntAt</p>
+                  <p className="col-span-3 text-sm" data-testid="license-burnt">
+                    {obj.burntAt}
+                  </p>
+                  <p />
+                </li>
+              ))}
+            </ul>
+          </>
+        </div>
+      ) : null}
+    </>
+  )
+}
+
+const RoyaltyComponent = () => {
+  const { royaltyData, isRoyaltyDataLoading } = useIpContext()
+  return (
+    <>
+      {isRoyaltyDataLoading && <div>Fetching Royalty...</div>}
+      {royaltyData && !isRoyaltyDataLoading ? (
+        <div className="grid grid-cols-4 gap-4">
+          <>
+            <div className="col-span-1 text-xs text-gray-600">id</div>
+            <div className="col-span-3 text-sm" data-testid="royalty-id">
+              {royaltyData.id}
+            </div>
+            <div className="col-span-1 text-xs text-gray-600">ipRoyaltyVault</div>
+            <div className="col-span-3 text-sm" data-testid="royalty-vault">
+              {royaltyData.ipRoyaltyVault}
+            </div>
+            <div className="col-span-1 text-xs text-gray-600">royaltyStack</div>
+            <div className="col-span-3 text-sm" data-testid="royalty-stack">
+              {royaltyData.royaltyStack}
+            </div>
+            <div className="col-span-1 text-xs text-gray-600">targetAncestors</div>
+            <ul className="col-span-3 text-sm">
+              {royaltyData.targetAncestors.map((obj) => (
+                <li data-testid="royalty-ancestors" key={obj}>
+                  {obj}
+                </li>
+              ))}
+            </ul>
+            <div className="col-span-1 text-xs text-gray-600">targetRoyaltyAmount</div>
+            <ul className="col-span-3 text-sm">
+              {royaltyData.targetRoyaltyAmount.map((obj) => (
+                <li data-testid="royalty-amount" key={obj}>
+                  {obj}
+                </li>
+              ))}
+            </ul>
+          </>
+        </div>
+      ) : null}
+    </>
+  )
+}
+
 export default Example
-export { AssetComponent, IPAPolicyComponent, PolicyComponent }
+export { AssetComponent, IPAPolicyComponent, PolicyComponent, LicenseComponent, RoyaltyComponent }

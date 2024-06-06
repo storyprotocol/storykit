@@ -1,13 +1,20 @@
 import { PREVIEW_IP_ASSETS } from "@/stories/data"
+import licenseData from "@/tests/data/0x5FCeDadBbDF710Ac3C528F6Aac9D1bD9ac18D9a8-license.json"
+import ipaPolicyData from "@/tests/data/0x195A5B433bbFb6481490cA12d1C95e5594Fb54C4-ipapolicy.json"
+import policyData from "@/tests/data/0x195A5B433bbFb6481490cA12d1C95e5594Fb54C4-policy.json"
+import royaltyData from "@/tests/data/0x6510c5487312cfEd3e1b9939C6Cad33b5F47358F-royalty.json"
+import assetData from "@/tests/data/0x7907Cec258B28638FCA15d533800B2A13bd1f140-asset.json"
+import nftData from "@/tests/data/0x7907Cec258B28638FCA15d533800B2A13bd1f140-nft.json"
 import type { Meta, StoryObj } from "@storybook/react"
 import { expect, waitFor, within } from "@storybook/test"
 
-import ipaPolicyData from "../../../tests/data/0x195A5B433bbFb6481490cA12d1C95e5594Fb54C4-ipapolicy.json"
-import policyData from "../../../tests/data/0x195A5B433bbFb6481490cA12d1C95e5594Fb54C4-policy.json"
-import assetData from "../../../tests/data/0x7907Cec258B28638FCA15d533800B2A13bd1f140-asset.json"
-import nftData from "../../../tests/data/0x7907Cec258B28638FCA15d533800B2A13bd1f140-nft.json"
-import Example from "./Example"
-import { AssetComponent, IPAPolicyComponent, PolicyComponent } from "./Example"
+import Example, {
+  AssetComponent,
+  IPAPolicyComponent,
+  LicenseComponent,
+  PolicyComponent,
+  RoyaltyComponent,
+} from "./Example"
 
 const meta = {
   title: "Providers/IpProvider",
@@ -118,9 +125,15 @@ export const AssetData: Story = {
         expect(canvas.getByTestId("asset-nft-token-id").textContent).toBe(assetData.data.nftMetadata.tokenId)
         expect(canvas.getByTestId("asset-token-uri").textContent).toBe(assetData.data.nftMetadata.tokenUri)
         expect(canvas.getByTestId("asset-nft-image-url").textContent).toBe(assetData.data.nftMetadata.imageUrl)
-        expect(canvas.getByTestId("asset-root-ip").textContent).toBe(assetData.data.rootIpIds[0].id)
-        expect(canvas.getByTestId("asset-parent-ip").textContent).toBe(assetData.data.parentIpIds[0].id)
-        expect(canvas.getByTestId("asset-child-ip").textContent).toBe(assetData.data.childIpIds[0].id)
+        const rootIps = canvas.getAllByTestId("asset-root-ip").map((el) => el.textContent)
+        const expctedRootIps = assetData.data.rootIpIds.map((rootIp) => rootIp.id)
+        expect(rootIps).toStrictEqual(expctedRootIps)
+        const parentIps = canvas.getAllByTestId("asset-parent-ip").map((el) => el.textContent)
+        const expctedParentIps = assetData.data.parentIpIds.map((parentIp) => parentIp.id)
+        expect(parentIps).toStrictEqual(expctedParentIps)
+        const childIps = canvas.getAllByTestId("asset-child-ip").map((el) => el.textContent)
+        const expctedChildIps = assetData.data.childIpIds.map((childIp) => childIp.id)
+        expect(childIps).toStrictEqual(expctedChildIps)
       },
       { timeout: 10000 }
     )
@@ -149,6 +162,7 @@ export const IPAPolicyData: Story = {
     await waitFor(
       () => {
         const elements = canvas.getAllByTestId("ipapolicy-id")
+        expect(elements.length, "Number of IPAPolicies should be equal to the API's").toBe(ipaPolicyData.data.length)
         for (let i = 0; i < elements.length; i++) {
           expect(elements[i].textContent).toBe(ipaPolicyData.data[i].id)
           expect(canvas.getAllByTestId("ipapolicy-ip-id")[i].textContent).toBe(ipaPolicyData.data[i].ipId)
@@ -183,6 +197,7 @@ export const PolicyData: Story = {
     await waitFor(
       () => {
         const elements = canvas.getAllByTestId("policy-id")
+        expect(elements.length, "Number of policies should be equal to the API's").toBe(policyData.data.length)
         for (let i = 0; i < elements.length; i++) {
           expect(elements[i].textContent).toBe(policyData.data[i].id)
           expect(canvas.getAllByTestId("policy-template")[i].textContent).toBe(policyData.data[i].licenseTemplate)
@@ -196,6 +211,81 @@ export const PolicyData: Story = {
           expect(canvas.getAllByTestId("policy-comm-share")[i].textContent).toBe(commShare)
           expect(canvas.getAllByTestId("policy-deriv-allow")[i].textContent).toBe(derivAllow)
         }
+      },
+      { timeout: 10000 }
+    )
+  },
+}
+export const LicenseData: Story = {
+  argTypes: {
+    ipId: {
+      options: ["0x5FCeDadBbDF710Ac3C528F6Aac9D1bD9ac18D9a8"],
+    },
+    children: { control: false },
+  },
+  args: {
+    ipId: "0x5FCeDadBbDF710Ac3C528F6Aac9D1bD9ac18D9a8",
+    children: <LicenseComponent />,
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    await waitFor(
+      () => {
+        expect(canvas.getByText("Fetching License...")).toBeInTheDocument()
+      },
+      { timeout: 10000 }
+    )
+
+    await waitFor(
+      () => {
+        const elements = canvas.getAllByTestId("license-id")
+        expect(elements.length, "Number of licenses should be equal to the API's").toBe(licenseData.data.length)
+        for (let i = 0; i < elements.length; i++) {
+          expect(elements[i].textContent).toBe(licenseData.data[i].id)
+          expect(canvas.getAllByTestId("license-ipid")[i].textContent).toBe(licenseData.data[i].licensorIpId)
+          expect(canvas.getAllByTestId("license-template")[i].textContent).toBe(licenseData.data[i].licenseTemplate)
+          expect(canvas.getAllByTestId("license-terms")[i].textContent).toBe(licenseData.data[i].licenseTermsId)
+          expect(canvas.getAllByTestId("license-transfer")[i].textContent).toBe(licenseData.data[i].transferable)
+          expect(canvas.getAllByTestId("license-owner")[i].textContent).toBe(licenseData.data[i].owner)
+          expect(canvas.getAllByTestId("license-expires")[i].textContent).toBe(licenseData.data[i].expiresAt)
+          expect(canvas.getAllByTestId("license-minted")[i].textContent).toBe(licenseData.data[i].mintedAt)
+          expect(canvas.getAllByTestId("license-burnt")[i].textContent).toBe(licenseData.data[i].burntAt)
+        }
+      },
+      { timeout: 10000 }
+    )
+  },
+}
+
+export const RoyaltyData: Story = {
+  argTypes: {
+    ipId: {
+      options: ["0x6510c5487312cfEd3e1b9939C6Cad33b5F47358F"],
+    },
+    children: { control: false },
+  },
+  args: {
+    ipId: "0x6510c5487312cfEd3e1b9939C6Cad33b5F47358F",
+    children: <RoyaltyComponent />,
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    await waitFor(
+      () => {
+        expect(canvas.getByText("Fetching Royalty...")).toBeInTheDocument()
+      },
+      { timeout: 10000 }
+    )
+
+    await waitFor(
+      () => {
+        expect(canvas.getByTestId("royalty-id").textContent).toBe(royaltyData.data.id)
+        expect(canvas.getByTestId("royalty-vault").textContent).toBe(royaltyData.data.ipRoyaltyVault)
+        expect(canvas.getByTestId("royalty-stack").textContent).toBe(royaltyData.data.royaltyStack)
+        const ancestors = canvas.getAllByTestId("royalty-ancestors").map((el) => el.textContent)
+        expect(ancestors).toStrictEqual(royaltyData.data.targetAncestors)
+        const amount = canvas.getAllByTestId("royalty-amount").map((el) => el.textContent)
+        expect(amount).toStrictEqual(royaltyData.data.targetRoyaltyAmount)
       },
       { timeout: 10000 }
     )

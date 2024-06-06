@@ -1,0 +1,43 @@
+{
+  "data": [
+    {
+      "id": "0",
+      "licensorIpId": "0x5FCeDadBbDF710Ac3C528F6Aac9D1bD9ac18D9a8",
+      "licenseTemplate": "0x6B63194E3E1a0bC80104db44Cb2b42c5DB448a57",
+      "licenseTermsId": "2",
+      "transferable": "true",
+      "owner": "0x0000000000000000000000000000000000000000",
+      "mintedAt": "1712693520",
+      "expiresAt": "0",
+      "burntAt": "1712693520",
+      "blockNumber": "5663375",
+      "blockTime": "1712693520"
+    },
+    {
+      "id": "1",
+      "licensorIpId": "0x5FCeDadBbDF710Ac3C528F6Aac9D1bD9ac18D9a8",
+      "licenseTemplate": "0x6B63194E3E1a0bC80104db44Cb2b42c5DB448a57",
+      "licenseTermsId": "2",
+      "transferable": "true",
+      "owner": "0x0000000000000000000000000000000000000000",
+      "mintedAt": "1712693520",
+      "expiresAt": "0",
+      "burntAt": "1712693520",
+      "blockNumber": "5663375",
+      "blockTime": "1712693520"
+    },
+    {
+      "id": "2",
+      "licensorIpId": "0x5FCeDadBbDF710Ac3C528F6Aac9D1bD9ac18D9a8",
+      "licenseTemplate": "0x6B63194E3E1a0bC80104db44Cb2b42c5DB448a57",
+      "licenseTermsId": "2",
+      "transferable": "true",
+      "owner": "0x0000000000000000000000000000000000000000",
+      "mintedAt": "1712693520",
+      "expiresAt": "0",
+      "burntAt": "1712693520",
+      "blockNumber": "5663375",
+      "blockTime": "1712693520"
+    }
+  ]
+}
