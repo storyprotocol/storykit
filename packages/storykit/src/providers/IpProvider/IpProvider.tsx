@@ -105,9 +105,10 @@ export const IpProvider = ({
       offset: 0,
     },
     where: {
-      licensorIpdId: ipId,
+      licensorIpId: ipId,
     },
   }
+
   // Fetch License Data
   const { isLoading: isLicenseDataLoading, data: licenseData } = useQuery({
     queryKey: [RESOURCE_TYPE.LICENSE, licenseQueryOptions],
