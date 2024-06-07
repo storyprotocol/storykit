@@ -25,5 +25,6 @@ export const Select: Story = {
   args: {
     size: "medium",
     type: POLICY_TYPE.COMMERCIAL_REMIX as PolicyType,
+    direction: "column",
   },
 }

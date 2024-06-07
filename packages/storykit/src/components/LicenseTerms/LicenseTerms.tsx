@@ -74,20 +74,29 @@ const policiesStyles = cva("", {
   },
 })
 
+const directionStyles = cva("", {
+  variants: {
+    direction: {
+      row: "skLicenseTerms--row",
+      column: "skLicenseTerms--col",
+    },
+  },
+})
+
 export type LicenseTermsProps = {
-  size?: "small" | "medium" | "large"
   type: PolicyType
   direction?: "row" | "column"
+  size?: "small" | "medium" | "large"
 }
 
-function LicenseTerms({ size = "medium", type, direction = "column" }: LicenseTermsProps) {
+function LicenseTerms({ type, direction = "column", size = "medium" }: LicenseTermsProps) {
   const iconWidth = size === "small" ? 16 : size === "medium" ? 20 : 24
 
   return (
-    <div className={cn("skLicenseTerms", policiesStyles({ size }), direction === "column" ? "flex-col" : "flex-row")}>
-      <div className="skLicenseTerms__properties">
+    <div className={cn("skLicenseTerms", policiesStyles({ size }))}>
+      <div className={cn("skLicenseTerms__properties", directionStyles({ direction }))}>
         {ShowCans({ type }).length ? (
-          <>
+          <div>
             <div className="skLicenseTerms__item-list-title">Others Can</div>
             <div className="skLicenseTerms__list">
               {ShowCans({ type }).map((can, index) => (
@@ -97,16 +106,18 @@ function LicenseTerms({ size = "medium", type, direction = "column" }: LicenseTe
                 </div>
               ))}
             </div>
-          </>
+          </div>
         ) : null}
-        <div className="skLicenseTerms__item-list-title">Others Cannot</div>
-        <div className="skLicenseTerms__list">
-          {ShowCannots({ type }).map((can, index) => (
-            <div key={index} className="skLicenseTerms__property skLicenseTerms__property--cannot">
-              <CircleMinus width={iconWidth} />
-              <span>{can}</span>
-            </div>
-          ))}
+        <div>
+          <div className="skLicenseTerms__item-list-title">Others Cannot</div>
+          <div className="skLicenseTerms__list">
+            {ShowCannots({ type }).map((can, index) => (
+              <div key={index} className="skLicenseTerms__property skLicenseTerms__property--cannot">
+                <CircleMinus width={iconWidth} />
+                <span>{can}</span>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </div>
