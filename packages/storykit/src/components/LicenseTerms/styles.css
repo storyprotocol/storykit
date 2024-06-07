@@ -3,6 +3,14 @@
 
   .skLicenseTerms__properties {
     @apply flex flex-col pt-2 gap-2;
+
+    &.skLicenseTerms--row {
+      @apply flex flex-row;
+    }
+
+    &.skLicenseTerms--col {
+      @apply flex flex-col;
+    }
   }
 
   .skLicenseTerms__item-list-title {
