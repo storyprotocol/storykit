@@ -77,7 +77,7 @@ const policiesStyles = cva("", {
 export type LicenseTermsProps = {
   size?: "small" | "medium" | "large"
   type: PolicyType
-  direction: "row" | "column"
+  direction?: "row" | "column"
 }
 
 function LicenseTerms({ size = "medium", type, direction = "column" }: LicenseTermsProps) {
