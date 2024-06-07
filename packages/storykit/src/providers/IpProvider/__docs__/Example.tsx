@@ -2,9 +2,12 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import React, { FC } from "react"
 import { Address } from "viem"
 
-import { IpProvider, useIpContext } from "../IpProvider"
+import { IpProvider, IpProviderOptions, useIpContext } from "../IpProvider"
 
-const Example: FC<{ ipId: Address }> = ({ ipId = "0xbbf08a30b9ff0f717a024a75963d3196aaf0f0dd" }) => {
+const Example: FC<{ ipId: Address; options: IpProviderOptions }> = ({
+  ipId = "0xbbf08a30b9ff0f717a024a75963d3196aaf0f0dd",
+  options = { assetData: true, policyData: true, licenseData: true, royaltyData: true },
+}) => {
   const queryClient = new QueryClient()
   return (
     <QueryClientProvider client={queryClient}>
