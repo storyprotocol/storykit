@@ -77,13 +77,14 @@ const policiesStyles = cva("", {
 export type LicenseTermsProps = {
   size?: "small" | "medium" | "large"
   type: PolicyType
+  direction: "row" | "column"
 }
 
-function LicenseTerms({ size = "medium", type }: LicenseTermsProps) {
+function LicenseTerms({ size = "medium", type, direction = "column" }: LicenseTermsProps) {
   const iconWidth = size === "small" ? 16 : size === "medium" ? 20 : 24
 
   return (
-    <div className={cn("skLicenseTerms", policiesStyles({ size }))}>
+    <div className={cn("skLicenseTerms", policiesStyles({ size }), direction === "column" ? "flex-col" : "flex-row")}>
       <div className="skLicenseTerms__properties">
         {ShowCans({ type }).length ? (
           <>
