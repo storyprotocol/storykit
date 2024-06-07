@@ -2,11 +2,12 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import React, { FC } from "react"
 import { Address } from "viem"
 
-import { IpProvider, useIpContext } from "../IpProvider"
+import { IpProvider, IpProviderOptions, useIpContext } from "../IpProvider"
 
-const Example: FC<{ ipId: Address; children?: React.ReactNode }> = ({
+const Example: FC<{ ipId: Address; children?: React.ReactNode; options?: IpProviderOptions }> = ({
   ipId = "0xbbf08a30b9ff0f717a024a75963d3196aaf0f0dd",
   children = <ExampleComponent />,
+  options = {},
 }) => {
   const queryClient = new QueryClient()
   return (
@@ -19,7 +20,9 @@ const Example: FC<{ ipId: Address; children?: React.ReactNode }> = ({
           height: "100%",
         }}
       >
-        <IpProvider ipId={ipId}>{children}</IpProvider>
+        <IpProvider ipId={ipId} options={options}>
+          {children}
+        </IpProvider>
       </div>
     </QueryClientProvider>
   )
@@ -330,6 +333,67 @@ const RoyaltyComponent = () => {
     </>
   )
 }
+const ProviderOptionsComponent = () => {
+  const {
+    assetData,
+    isAssetDataLoading,
+    nftData,
+    isNftDataLoading,
+    ipPolicyData,
+    isIPAPolicyDataLoading,
+    policyData,
+    isPolicyDataLoading,
+    licenseData,
+    isLicenseDataLoading,
+    royaltyData,
+    isRoyaltyDataLoading,
+  } = useIpContext()
+  return (
+    <>
+      <div>
+        {isAssetDataLoading && <div>Fetching Asset...</div>}
+        {isNftDataLoading && <div>Fetching NFT...</div>}
+        {isIPAPolicyDataLoading && <div>Fetching IPAPolicy...</div>}
+        {isPolicyDataLoading && <div>Fetching Policy...</div>}
+        {isLicenseDataLoading && <div>Fetching License...</div>}
+        {isRoyaltyDataLoading && <div>Fetching Royalty...</div>}
+        <div className="grid grid-cols-4 gap-4">
+          <div className="col-span-1 text-xs text-gray-600">Asset</div>
+          <div className="col-span-3 text-sm" data-testid="asset-id">
+            {assetData?.id}
+          </div>
+          <div className="col-span-1 text-xs text-gray-600">NFT</div>
+          <div className="col-span-3 text-sm" data-testid="nft-id">
+            {nftData?.nft_id}
+          </div>
+          <div className="col-span-1 text-xs text-gray-600">IPAPolicy count</div>
+          <div className="col-span-3 text-sm" data-testid="ipap-count">
+            {ipPolicyData?.length}
+          </div>
+          <div className="col-span-1 text-xs text-gray-600">Policy count</div>
+          <div className="col-span-3 text-sm" data-testid="policy-count">
+            {policyData?.length}
+          </div>
+          <div className="col-span-1 text-xs text-gray-600">License count</div>
+          <div className="col-span-3 text-sm" data-testid="license-count">
+            {licenseData?.length}
+          </div>
+          <div className="col-span-1 text-xs text-gray-600">Royalty</div>
+          <div className="col-span-3 text-sm" data-testid="royalty-id">
+            {royaltyData?.id}
+          </div>
+        </div>
+      </div>
+    </>
+  )
+}
 
 export default Example
-export { AssetComponent, IPAPolicyComponent, PolicyComponent, LicenseComponent, RoyaltyComponent }
+export {
+  AssetComponent,
+  IPAPolicyComponent,
+  PolicyComponent,
+  LicenseComponent,
+  RoyaltyComponent,
+  ProviderOptionsComponent,
+}

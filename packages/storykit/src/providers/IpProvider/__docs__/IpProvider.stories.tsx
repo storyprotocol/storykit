@@ -13,6 +13,7 @@ import Example, {
   IPAPolicyComponent,
   LicenseComponent,
   PolicyComponent,
+  ProviderOptionsComponent,
   RoyaltyComponent,
 } from "./Example"
 
@@ -68,6 +69,7 @@ export const NFTData: Story = {
       options: ["0x7907Cec258B28638FCA15d533800B2A13bd1f140"],
     },
     children: { control: false },
+    options: { control: false },
   },
   args: {
     ipId: "0x7907Cec258B28638FCA15d533800B2A13bd1f140",
@@ -100,6 +102,7 @@ export const AssetData: Story = {
       options: ["0x7907Cec258B28638FCA15d533800B2A13bd1f140"],
     },
     children: { control: false },
+    options: { control: false },
   },
   args: {
     ipId: "0x7907Cec258B28638FCA15d533800B2A13bd1f140",
@@ -145,6 +148,7 @@ export const IPAPolicyData: Story = {
       options: ["0x195A5B433bbFb6481490cA12d1C95e5594Fb54C4"],
     },
     children: { control: false },
+    options: { control: false },
   },
   args: {
     ipId: "0x195A5B433bbFb6481490cA12d1C95e5594Fb54C4",
@@ -180,6 +184,7 @@ export const PolicyData: Story = {
       options: ["0x195A5B433bbFb6481490cA12d1C95e5594Fb54C4"],
     },
     children: { control: false },
+    options: { control: false },
   },
   args: {
     ipId: "0x195A5B433bbFb6481490cA12d1C95e5594Fb54C4",
@@ -222,6 +227,7 @@ export const LicenseData: Story = {
       options: ["0x5FCeDadBbDF710Ac3C528F6Aac9D1bD9ac18D9a8"],
     },
     children: { control: false },
+    options: { control: false },
   },
   args: {
     ipId: "0x5FCeDadBbDF710Ac3C528F6Aac9D1bD9ac18D9a8",
@@ -263,6 +269,7 @@ export const RoyaltyData: Story = {
       options: ["0x6510c5487312cfEd3e1b9939C6Cad33b5F47358F"],
     },
     children: { control: false },
+    options: { control: false },
   },
   args: {
     ipId: "0x6510c5487312cfEd3e1b9939C6Cad33b5F47358F",
@@ -286,6 +293,199 @@ export const RoyaltyData: Story = {
         expect(ancestors).toStrictEqual(royaltyData.data.targetAncestors)
         const amount = canvas.getAllByTestId("royalty-amount").map((el) => el.textContent)
         expect(amount).toStrictEqual(royaltyData.data.targetRoyaltyAmount)
+      },
+      { timeout: 10000 }
+    )
+  },
+}
+export const NotLoadAsset: Story = {
+  argTypes: {
+    ipId: {
+      options: ["0x7907Cec258B28638FCA15d533800B2A13bd1f140"],
+    },
+    children: { control: false },
+    options: { control: false },
+  },
+  args: {
+    ipId: "0x7907Cec258B28638FCA15d533800B2A13bd1f140",
+    children: <ProviderOptionsComponent />,
+    options: { assetData: false },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+
+    await waitFor(
+      () => {
+        expect(canvas.queryByText("Fetching Asset...")).toBeNull()
+        expect(canvas.queryByText("Fetching NFT...")).toBeNull()
+      },
+      { timeout: 10000 }
+    )
+
+    await waitFor(
+      () => {
+        expect(canvas.getByTestId("asset-id").textContent).toBe("")
+        expect(canvas.getByTestId("nft-id").textContent).toBe("")
+        expect(canvas.getByTestId("ipap-count").textContent).toBe("0")
+        expect(canvas.getByTestId("policy-count").textContent).toBe("0")
+        expect(canvas.getByTestId("license-count").textContent).toBe("0")
+        expect(canvas.getByTestId("royalty-id").textContent).toBe("0x7907Cec258B28638FCA15d533800B2A13bd1f140")
+      },
+      { timeout: 10000 }
+    )
+  },
+}
+export const NotLoadPolicy: Story = {
+  argTypes: {
+    ipId: {
+      options: ["0x7907Cec258B28638FCA15d533800B2A13bd1f140"],
+    },
+    children: { control: false },
+    options: { control: false },
+  },
+  args: {
+    ipId: "0x7907Cec258B28638FCA15d533800B2A13bd1f140",
+    children: <ProviderOptionsComponent />,
+    options: { policyData: false },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+
+    await waitFor(
+      () => {
+        expect(canvas.queryByText("Fetching IPAPolicy...")).toBeNull()
+        expect(canvas.queryByText("Fetching Policy...")).toBeNull()
+      },
+      { timeout: 10000 }
+    )
+
+    await waitFor(
+      () => {
+        expect(canvas.getByTestId("asset-id").textContent).toBe("0x7907Cec258B28638FCA15d533800B2A13bd1f140")
+        expect(canvas.getByTestId("nft-id").textContent).toBe(
+          "ethereum-sepolia.0x7ee32b8b515dee0ba2f25f612a04a731eec24f49.6494"
+        )
+        expect(canvas.getByTestId("ipap-count").textContent).toBe("")
+        expect(canvas.getByTestId("policy-count").textContent).toBe("")
+        expect(canvas.getByTestId("license-count").textContent).toBe("0")
+        expect(canvas.getByTestId("royalty-id").textContent).toBe("0x7907Cec258B28638FCA15d533800B2A13bd1f140")
+      },
+      { timeout: 10000 }
+    )
+  },
+}
+export const NotLoadLicense: Story = {
+  argTypes: {
+    ipId: {
+      options: ["0x7907Cec258B28638FCA15d533800B2A13bd1f140"],
+    },
+    children: { control: false },
+    options: { control: false },
+  },
+  args: {
+    ipId: "0x7907Cec258B28638FCA15d533800B2A13bd1f140",
+    children: <ProviderOptionsComponent />,
+    options: { licenseData: false },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+
+    await waitFor(
+      () => {
+        expect(canvas.queryByText("Fetching License...")).toBeNull()
+      },
+      { timeout: 10000 }
+    )
+
+    await waitFor(
+      () => {
+        expect(canvas.getByTestId("asset-id").textContent).toBe("0x7907Cec258B28638FCA15d533800B2A13bd1f140")
+        expect(canvas.getByTestId("nft-id").textContent).toBe(
+          "ethereum-sepolia.0x7ee32b8b515dee0ba2f25f612a04a731eec24f49.6494"
+        )
+        expect(canvas.getByTestId("ipap-count").textContent).toBe("0")
+        expect(canvas.getByTestId("policy-count").textContent).toBe("0")
+        expect(canvas.getByTestId("license-count").textContent).toBe("")
+        expect(canvas.getByTestId("royalty-id").textContent).toBe("0x7907Cec258B28638FCA15d533800B2A13bd1f140")
+      },
+      { timeout: 10000 }
+    )
+  },
+}
+export const NotLoadRoyalty: Story = {
+  argTypes: {
+    ipId: {
+      options: ["0x7907Cec258B28638FCA15d533800B2A13bd1f140"],
+    },
+    children: { control: false },
+    options: { control: false },
+  },
+  args: {
+    ipId: "0x7907Cec258B28638FCA15d533800B2A13bd1f140",
+    children: <ProviderOptionsComponent />,
+    options: { royaltyData: false },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+
+    await waitFor(
+      () => {
+        expect(canvas.queryByText("Fetching Royalty...")).toBeNull()
+      },
+      { timeout: 10000 }
+    )
+
+    await waitFor(
+      () => {
+        expect(canvas.getByTestId("asset-id").textContent).toBe("0x7907Cec258B28638FCA15d533800B2A13bd1f140")
+        expect(canvas.getByTestId("nft-id").textContent).toBe(
+          "ethereum-sepolia.0x7ee32b8b515dee0ba2f25f612a04a731eec24f49.6494"
+        )
+        expect(canvas.getByTestId("ipap-count").textContent).toBe("0")
+        expect(canvas.getByTestId("policy-count").textContent).toBe("0")
+        expect(canvas.getByTestId("license-count").textContent).toBe("0")
+        expect(canvas.getByTestId("royalty-id").textContent).toBe("")
+      },
+      { timeout: 10000 }
+    )
+  },
+}
+export const NotLoadAll: Story = {
+  argTypes: {
+    ipId: {
+      options: ["0x7907Cec258B28638FCA15d533800B2A13bd1f140"],
+    },
+    children: { control: false },
+    options: { control: false },
+  },
+  args: {
+    ipId: "0x7907Cec258B28638FCA15d533800B2A13bd1f140",
+    children: <ProviderOptionsComponent />,
+    options: { assetData: false, policyData: false, licenseData: false, royaltyData: false },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+
+    await waitFor(
+      () => {
+        expect(canvas.queryByText("Fetching Asset...")).toBeNull()
+        expect(canvas.queryByText("Fetching NFT...")).toBeNull()
+        expect(canvas.queryByText("Fetching IPAPolicy...")).toBeNull()
+        expect(canvas.queryByText("Fetching Policy...")).toBeNull()
+        expect(canvas.queryByText("Fetching License...")).toBeNull()
+        expect(canvas.queryByText("Fetching Royalty...")).toBeNull()
+      },
+      { timeout: 10000 }
+    )
+
+    await waitFor(
+      () => {
+        expect(canvas.getByTestId("asset-id").textContent).toBe("")
+        expect(canvas.getByTestId("nft-id").textContent).toBe("")
+        expect(canvas.getByTestId("ipap-count").textContent).toBe("")
+        expect(canvas.getByTestId("policy-count").textContent).toBe("")
+        expect(canvas.getByTestId("license-count").textContent).toBe("")
+        expect(canvas.getByTestId("royalty-id").textContent).toBe("")
       },
       { timeout: 10000 }
     )
