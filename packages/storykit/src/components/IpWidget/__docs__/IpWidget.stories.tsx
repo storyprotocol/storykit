@@ -41,6 +41,10 @@ export const Input: Story = {
   },
 }
 export const TopNavigation: Story = {
+  argTypes: {
+    ipId: { options: ["0x22Fe8C376919586F344fED952A9448df442b10f2"] },
+    isBottomNav: { control: false },
+  },
   args: {
     ipId: "0x22Fe8C376919586F344fED952A9448df442b10f2",
     isBottomNav: false,
@@ -59,7 +63,7 @@ export const TopNavigation: Story = {
       { timeout: 10000 }
     )
 
-    userEvent.click(canvas.getByText("Licensing"))
+    await userEvent.click(canvas.getByText("Licensing"))
     await waitFor(
       () => {
         expect(canvas.getByText("Licensing").classList).not.toContain("skIpWidget__tab--active")
@@ -93,6 +97,10 @@ export const TopNavigation: Story = {
   },
 }
 export const BottomNavigation: Story = {
+  argTypes: {
+    ipId: { options: ["0x22Fe8C376919586F344fED952A9448df442b10f2"] },
+    isBottomNav: { control: false },
+  },
   args: {
     ipId: "0x22Fe8C376919586F344fED952A9448df442b10f2",
     isBottomNav: true,
@@ -111,7 +119,7 @@ export const BottomNavigation: Story = {
       { timeout: 10000 }
     )
 
-    userEvent.click(canvas.getByText("Licensing"))
+    await userEvent.click(canvas.getByText("Licensing"))
     await waitFor(
       () => {
         expect(canvas.getByText("Licensing").classList).not.toContain("skIpWidget__tab--active")
@@ -145,8 +153,12 @@ export const BottomNavigation: Story = {
   },
 }
 export const IpFoundOverview: Story = {
+  argTypes: {
+    ipId: { options: ["0x22Fe8C376919586F344fED952A9448df442b10f2"] },
+  },
   args: {
     ipId: "0x22Fe8C376919586F344fED952A9448df442b10f2",
+    isBottomNav: true,
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement)
@@ -166,8 +178,12 @@ export const IpFoundOverview: Story = {
   },
 }
 export const IpNotFoundOverview: Story = {
+  argTypes: {
+    ipId: { options: ["0x22Fe8C376919586F344fED952A9448df442b1999"] },
+  },
   args: {
     ipId: "0x22Fe8C376919586F344fED952A9448df442b1999",
+    isBottomNav: true,
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement)
@@ -178,6 +194,42 @@ export const IpNotFoundOverview: Story = {
         expect(canvas.getByText("Owned by")).toBeInTheDocument()
         expect(canvas.getByRole("button", { expanded: false })).toBeInTheDocument()
         expect(canvas.getByRole("img").getAttribute("src")).toBeNull()
+      },
+      { timeout: 10000 }
+    )
+
+    await userEvent.click(canvas.getByRole("button", { expanded: false }))
+  },
+}
+export const MenuOpenAndClose: Story = {
+  argTypes: {
+    ipId: { options: ["0x22Fe8C376919586F344fED952A9448df442b10f2"] },
+  },
+  args: {
+    ipId: "0x22Fe8C376919586F344fED952A9448df442b10f2",
+    isBottomNav: true,
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    await waitFor(
+      () => {
+        expect(canvas.getByText("11155111: Example NFT #4367")).toBeInTheDocument()
+      },
+      { timeout: 10000 }
+    )
+
+    await userEvent.click(canvas.getByRole("button", { expanded: false }))
+    await waitFor(
+      () => {
+        expect(canvas.getByRole("menu").getAttribute("data-headlessui-state")).toBe("open")
+      },
+      { timeout: 10000 }
+    )
+
+    await userEvent.click(canvas.getByRole("button", { expanded: true }))
+    await waitFor(
+      () => {
+        expect(canvas.queryByRole("menu")).toBeNull()
       },
       { timeout: 10000 }
     )
