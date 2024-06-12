@@ -40,10 +40,7 @@ export const Input: Story = {
     await waitFor(
       () => {
         const canvas = canvasElement.querySelector("canvas")
-        expect(canvas).toHaveAttribute(
-          "style",
-          `width: ${args.width ? args.width : 400}px; height: ${args.height ? args.height : 300}px;`
-        )
+        expect(canvas).toHaveAttribute("style", `width: ${args.width || 400}px; height: ${args.height || 300}px;`)
       },
       { timeout: 10000 }
     )
