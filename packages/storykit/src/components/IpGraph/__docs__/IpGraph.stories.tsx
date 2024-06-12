@@ -1,5 +1,6 @@
 import { PREVIEW_IP_ASSETS } from "@/stories/data"
 import type { Meta, StoryObj } from "@storybook/react"
+import { expect, waitFor } from "@storybook/test"
 
 import Example from "./Example"
 
@@ -34,5 +35,14 @@ export const Input: Story = {
   },
   args: {
     ipId: PREVIEW_IP_ASSETS[0] as `0x${string}`,
+  },
+  play: async ({ args, canvasElement }) => {
+    await waitFor(
+      () => {
+        const canvas = canvasElement.querySelector("canvas")
+        expect(canvas).toHaveAttribute("style", `width: ${args.width || 400}px; height: ${args.height || 300}px;`)
+      },
+      { timeout: 10000 }
+    )
   },
 }
