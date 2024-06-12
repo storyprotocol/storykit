@@ -17,19 +17,35 @@ const stakeButton = cva("skStakeButton", {
       medium: "skStakeButton--medium",
       large: "skStakeButton--large",
     },
-    buttonState: {
-      walletConfirmation: "skStakeButton--walletConfirmation",
-      txPending: "skStakeButton--txPending",
-      loading: "skStakeButton--loading",
-      success: "skStakeButton--success",
-      normal: "skStakeButton--normal",
-      error: "skStakeButton--error",
+    isLoading: {
+      true: "skStakeButton--loading",
+      false: "skStakeButton--normal",
+    },
+    isError: {
+      true: "skStakeButton--error",
+      false: "skStakeButton--normal",
+    },
+    isSuccess: {
+      true: "skStakeButton--success",
+      false: "skStakeButton--normal",
+    },
+    isTxPending: {
+      true: "skStakeButton--txPending",
+      false: "skStakeButton--normal",
+    },
+    isWalletConfirmationPending: {
+      true: "skStakeButton--walletConfirmation",
+      false: "skStakeButton--normal",
     }
   },
   defaultVariants: {
     variant: "primary",
     size: "medium",
-    buttonState: "normal"
+    isLoading: false,
+    isError: false,
+    isSuccess: false,
+    isTxPending: false,
+    isWalletConfirmationPending: false
   },
 })
 
@@ -37,19 +53,28 @@ export type StakeButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> &
   VariantProps<typeof stakeButton> & {
     variant?: "primary" | "secondary"
     size?: "small" | "medium" | "large"
-    buttonState?: "walletConfirmation" | "txPending" | "loading" | "success" | "normal" | "error";
+    isLoading?: boolean
+    isError?: boolean
+    isSuccess?: boolean
+    isTxPending?: boolean
+    isWalletConfirmationPending?: boolean
+    displayText?: {
+      loading: string
+      error: string
+      success: string
+    }
   }
 
 type StakeButtonRef = React.ForwardedRef<HTMLButtonElement>
 
-const StakeButton = React.forwardRef(({ buttonState, children, className, variant, size, ...rest }: StakeButtonProps, ref: StakeButtonRef) => {
+const StakeButton = React.forwardRef(({ isLoading, isError, isSuccess, isTxPending, isWalletConfirmationPending, displayText={loading: "Waiting for signature", error: "Something went wrong", success: "Success"}, onClick = () => {}, children, className, variant, size, ...rest }: StakeButtonProps, ref: StakeButtonRef) => {
 
   let buttonText;
-  if (buttonState == "walletConfirmation") {
+  if (isWalletConfirmationPending == true) {
     buttonText = "Confirm transaction in wallet...";
-  } else if (buttonState == "txPending") {
+  } else if (isTxPending == true) {
     buttonText = "Transaction pending...";
-  } else if (buttonState == "success") {
+  } else if (isSuccess == true) {
     buttonText = "Staked!";
   } else {
     buttonText = "Stake IP";
@@ -58,11 +83,12 @@ const StakeButton = React.forwardRef(({ buttonState, children, className, varian
   return (
     <button
           type="submit"
-          className={cn(stakeButton({ variant, size, buttonState, className }))}
-            disabled={buttonState == "txPending" || buttonState == "walletConfirmation"}
+          className={cn(stakeButton({ variant, size, isLoading, isError, isSuccess, isTxPending, isWalletConfirmationPending, className }))}
+            disabled={isTxPending || isWalletConfirmationPending}
+            onClick={onClick}
             {...rest}
         >
-          {(buttonState == "txPending" || buttonState == "walletConfirmation") && (
+          {(isTxPending || isWalletConfirmationPending) && (
             <LoaderCircle className="animate-spin" />
           )}
           {buttonText}
@@ -70,6 +96,6 @@ const StakeButton = React.forwardRef(({ buttonState, children, className, varian
   )
 })
 
-StakeButton.displayName = "Button"
+StakeButton.displayName = "StakeButton"
 
 export default StakeButton
