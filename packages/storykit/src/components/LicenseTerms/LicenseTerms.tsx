@@ -6,7 +6,7 @@ import { CircleCheck, CircleMinus } from "lucide-react"
 import "../../global.css"
 import "./styles.css"
 
-const CANS = {
+export const CANS = {
   REMIX: "Remix this work",
   INCLUDE: "Include this work in their own work(s)",
   CREDIT: "Credit you appropriately",
@@ -36,7 +36,7 @@ const ShowCans = ({ type }: { type: string }) => {
   }
 }
 
-const CANNOTS = {
+export const CANNOTS = {
   RESELL: "Resell your original work",
   COMMERCIALIZE: "Commercialize the remix",
   CLAIM_AS_ORIGINAL: "Claim credit for the remix (as original work)",
