@@ -1,0 +1,21 @@
+.skStakeButton {
+  @apply rounded-md border focus:outline-none focus:ring focus:ring-gray-300 disabled:pointer-events-none disabled:opacity-50;
+
+  &.primary {
+    @apply w-full font-semibold flex flex-row gap-2 items-center justify-center whitespace-nowrap text-sm ring-offset-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 dark:ring-offset-neutral-950 dark:focus-visible:ring-neutral-300 hover:bg-primary/90 text-white rounded-2xl h-10 px-4 py-2;
+  }
+
+  &.secondary {
+    @apply border-blue-500 text-blue-500 hover:bg-blue-500 hover:text-white;
+  }
+
+  &.small {
+    @apply text-xs px-2 py-1;
+  }
+  &.medium {
+    @apply text-base px-4 py-2;
+  }
+  &.large {
+    @apply text-xl px-6 py-3;
+  }
+}

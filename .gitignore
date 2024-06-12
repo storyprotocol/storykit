@@ -41,3 +41,5 @@ yarn-error.log*
 yalc.lock
 
 __archive
+
+.npmrc
