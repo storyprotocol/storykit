@@ -3,24 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react"
 import { expect, waitFor } from "@storybook/test"
 
 import Example from "../LicenseTerms"
-
-const CANS = {
-  REMIX: "Remix this work",
-  INCLUDE: "Include this work in their own work(s)",
-  CREDIT: "Credit you appropriately",
-  DISTRIBUTE: "Distribute their remix anywhere",
-  PURCHASE_RIGHTS: "Purchase the right to use your creation (for a price you set) and register it into Story Protocol",
-  CREATOR_CREDIT: "Credit you as the creator",
-  PUBLISH: "Display / publish the work in any medium",
-}
-
-const CANNOTS = {
-  RESELL: "Resell your original work",
-  COMMERCIALIZE: "Commercialize the remix",
-  CLAIM_AS_ORIGINAL: "Claim credit for the remix (as original work)",
-  CLAIM: "Claim your work as their own",
-  REMIX: "Create remixes of the commercial use.",
-}
+import { CANS, CANNOTS } from "../LicenseTerms"
 
 const meta = {
   title: "UI/LicenseTerms",
