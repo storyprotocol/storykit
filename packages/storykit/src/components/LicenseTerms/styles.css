@@ -11,6 +11,10 @@
     &.skLicenseTerms--col {
       @apply flex flex-col;
     }
+
+    .skLicenseTerms__group {
+      @apply flex-1;
+    }
   }
 
   .skLicenseTerms__item-list-title {
