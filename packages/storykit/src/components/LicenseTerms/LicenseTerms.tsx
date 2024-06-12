@@ -96,7 +96,7 @@ function LicenseTerms({ type, direction = "column", size = "medium" }: LicenseTe
     <div className={cn("skLicenseTerms", policiesStyles({ size }))}>
       <div className={cn("skLicenseTerms__properties", directionStyles({ direction }))}>
         {ShowCans({ type }).length ? (
-          <div>
+          <div className="skLicenseTerms__group">
             <div className="skLicenseTerms__item-list-title">Others Can</div>
             <div className="skLicenseTerms__list">
               {ShowCans({ type }).map((can, index) => (
@@ -108,7 +108,7 @@ function LicenseTerms({ type, direction = "column", size = "medium" }: LicenseTe
             </div>
           </div>
         ) : null}
-        <div>
+        <div className="skLicenseTerms__group">
           <div className="skLicenseTerms__item-list-title">Others Cannot</div>
           <div className="skLicenseTerms__list">
             {ShowCannots({ type }).map((can, index) => (
