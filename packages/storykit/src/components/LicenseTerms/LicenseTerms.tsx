@@ -1,45 +1,50 @@
-import { cn } from "@/lib/utils"
-import { PILTerms } from "@/types"
-import { cva } from "class-variance-authority"
-import { CircleCheck, CircleMinus, Info } from "lucide-react"
-import React from 'react';
-import "../../global.css"
-import "./styles.css"
-import { useQuery } from "@tanstack/react-query"
-import { RESOURCE_TYPE } from "@/types/api"
 import { getResource } from "@/lib/api"
 import { noLicenseTerms } from "@/lib/example-data"
 import { convertLicenseTermObject } from "@/lib/functions/convertLicenseTermObject"
+import { cn } from "@/lib/utils"
+import { PILTerms } from "@/types"
+import { RESOURCE_TYPE } from "@/types/api"
+import { useQuery } from "@tanstack/react-query"
+import { cva } from "class-variance-authority"
+import { CircleCheck, CircleMinus, Info } from "lucide-react"
+import React from "react"
 
-const DESCRIPTIONS: {[key: string]: string} = {
-  DERIVATIVES_ALLOWED: 'Remix this work',
-  ATTRIBUTION: 'Credit you appropriately',
-  COMMERCIAL_USE: 'Commercialize the remix',
-  DERIVATIVES_APPROVAL: 'Enforce that derivatives are first approved by you',
-  DERIVATIVES_RECIPROCAL: 'Enforce that derivatives have the same License Terms that you provide them'
+import "../../global.css"
+import "./styles.css"
+
+const DESCRIPTIONS: { [key: string]: string } = {
+  DERIVATIVES_ALLOWED: "Remix this work",
+  ATTRIBUTION: "Credit you appropriately",
+  COMMERCIAL_USE: "Commercialize the remix",
+  DERIVATIVES_APPROVAL: "Enforce that derivatives are first approved by you",
+  DERIVATIVES_RECIPROCAL: "Enforce that derivatives have the same License Terms that you provide them",
 }
 
 const convertExpiration = (expiration: string): string => {
-  if (expiration == 'never' || expiration == '0') {
-    return 'This license never expires'
+  if (expiration == "never" || expiration == "0") {
+    return "This license never expires"
   }
-  return expiration;
+  return expiration
 }
 
 const DescribeTerms = (selectedLicenseTerms: PILTerms) => {
-  let cans = [];
-  let cannots = [];
-  let extras = [];
+  let cans = []
+  let cannots = []
+  let extras = []
 
   // commercial use
   if (selectedLicenseTerms.commercialUse) {
     cans.push(DESCRIPTIONS.COMMERCIAL_USE)
     if (selectedLicenseTerms.commercialRevenueShare) {
-      extras.push(`Anyone who creates a remix will share ${selectedLicenseTerms.commercialRevenueShare}% of their revenue with you`)
+      extras.push(
+        `Anyone who creates a remix will share ${selectedLicenseTerms.commercialRevenueShare}% of their revenue with you`
+      )
     }
     // cannot make more than the minimum between commercial rev ceiling and derivative rev ceiling
     if (selectedLicenseTerms.commercialRevenueCelling || selectedLicenseTerms.derivativesRevenueCelling) {
-      extras.push(`Anyone who creates a remix cannot make more than $${Math.min(selectedLicenseTerms.commercialRevenueCelling, selectedLicenseTerms.derivativesRevenueCelling)}`)
+      extras.push(
+        `Anyone who creates a remix cannot make more than $${Math.min(selectedLicenseTerms.commercialRevenueCelling, selectedLicenseTerms.derivativesRevenueCelling)}`
+      )
     }
   } else {
     cannots.push(DESCRIPTIONS.COMMERCIAL_USE)
@@ -47,13 +52,15 @@ const DescribeTerms = (selectedLicenseTerms: PILTerms) => {
 
   // if commercial use or derivatives alowed, give attribution?
   if (
-    (selectedLicenseTerms.commercialUse && selectedLicenseTerms.commercialAttribution) || 
+    (selectedLicenseTerms.commercialUse && selectedLicenseTerms.commercialAttribution) ||
     (selectedLicenseTerms.derivativesAllowed && selectedLicenseTerms.derivativesAttribution)
   ) {
     cans.push(DESCRIPTIONS.ATTRIBUTION)
   } else if (
-    (selectedLicenseTerms.commercialUse && !selectedLicenseTerms.commercialAttribution) && 
-    (selectedLicenseTerms.derivativesAllowed && !selectedLicenseTerms.derivativesAttribution)
+    selectedLicenseTerms.commercialUse &&
+    !selectedLicenseTerms.commercialAttribution &&
+    selectedLicenseTerms.derivativesAllowed &&
+    !selectedLicenseTerms.derivativesAttribution
   ) {
     cannots.push(DESCRIPTIONS.ATTRIBUTION)
   }
@@ -75,7 +82,7 @@ const DescribeTerms = (selectedLicenseTerms: PILTerms) => {
   if (selectedLicenseTerms.expiration) {
     extras.push(convertExpiration(selectedLicenseTerms.expiration))
   }
-  return {cans, cannots, extras};
+  return { cans, cannots, extras }
 }
 
 const policiesStyles = cva("", {
@@ -95,19 +102,19 @@ export type LicenseTermsProps = {
 }
 
 function LicenseTerms({ size = "medium", selectedLicenseTerms, selectedLicenseTermsId }: LicenseTermsProps) {
-  let licenseTerms: PILTerms = selectedLicenseTerms || noLicenseTerms;
+  let licenseTerms: PILTerms = selectedLicenseTerms || noLicenseTerms
   if (licenseTerms == noLicenseTerms && selectedLicenseTermsId) {
     const { isLoading, data: licenseTermsData } = useQuery({
       queryKey: [RESOURCE_TYPE.POLICY, selectedLicenseTermsId],
       queryFn: () => getResource(RESOURCE_TYPE.POLICY, selectedLicenseTermsId),
     })
     if (!isLoading) {
-      licenseTerms = convertLicenseTermObject(licenseTermsData.data.licenseTerms);
+      licenseTerms = convertLicenseTermObject(licenseTermsData.data.licenseTerms)
     }
   }
 
   const iconWidth = size === "small" ? 16 : size === "medium" ? 20 : 24
-  let { cans, cannots, extras } = DescribeTerms(licenseTerms as PILTerms);
+  let { cans, cannots, extras } = DescribeTerms(licenseTerms as PILTerms)
 
   return (
     <div className={cn("skLicenseTerms", policiesStyles({ size }))}>
@@ -125,7 +132,7 @@ function LicenseTerms({ size = "medium", selectedLicenseTerms, selectedLicenseTe
             </div>
           </>
         ) : null}
-        {cannots.length ? 
+        {cannots.length ? (
           <>
             <div className="skLicenseTerms__item-list-title">Others Cannot</div>
             <div className="skLicenseTerms__list">
@@ -137,20 +144,20 @@ function LicenseTerms({ size = "medium", selectedLicenseTerms, selectedLicenseTe
               ))}
             </div>
           </>
-          : null}
-        {extras.length ? 
-        <>
-          <div className="skLicenseTerms__item-list-title">Additional Notes</div>
-          <div className="skLicenseTerms__list">
-            {extras.map((term, index) => (
-              <div key={index} className="skLicenseTerms__property">
-                <Info width={iconWidth} />
-                <span>{term}</span>
-              </div>
-            ))}
-          </div>
-        </>
-        : null}
+        ) : null}
+        {extras.length ? (
+          <>
+            <div className="skLicenseTerms__item-list-title">Additional Notes</div>
+            <div className="skLicenseTerms__list">
+              {extras.map((term, index) => (
+                <div key={index} className="skLicenseTerms__property">
+                  <Info width={iconWidth} />
+                  <span>{term}</span>
+                </div>
+              ))}
+            </div>
+          </>
+        ) : null}
       </div>
     </div>
   )
