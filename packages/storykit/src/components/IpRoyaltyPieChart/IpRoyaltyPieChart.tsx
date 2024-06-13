@@ -1,6 +1,7 @@
 import { shortenAddress } from "@/lib/utils"
 import { useIpContext } from "@/providers"
 import { useEffect, useState } from "react"
+import React from "react"
 import { Address } from "viem"
 
 import "../../global.css"

@@ -2,6 +2,7 @@ import { cn, getPolicyTypeByPILData } from "@/lib/utils"
 import { useIpContext } from "@/providers"
 import { cva } from "class-variance-authority"
 import { useState } from "react"
+import React from "react"
 import { FaCaretDown, FaCaretUp } from "react-icons/fa6"
 
 import "../../global.css"
@@ -46,7 +47,7 @@ function IpPolicyAccordion({ size = "medium" }: IpPolicyAccordionProps) {
             )}
           >
             {/* <LicenseTerms size={size} selectedLicenseTerms={policy.licenseTerms} /> */}
-             <LicenseTerms size={size} selectedLicenseTermsId="1" />
+            <LicenseTerms size={size} selectedLicenseTermsId="1" />
           </div>
 
           {index < policyData.length - 1 && <div className="skIpPolicyAccordion__divider" />}
