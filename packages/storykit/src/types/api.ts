@@ -94,7 +94,7 @@ export type ModuleFilterOptions = {
 }
 
 export type LicenseFilterOptions = {
-  licensorIpdId?: Address
+  licensorIpId?: Address
   policyId?: string
 }
 

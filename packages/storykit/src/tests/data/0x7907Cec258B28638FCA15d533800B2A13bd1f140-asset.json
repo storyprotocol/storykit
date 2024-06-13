@@ -1,0 +1,69 @@
+{
+  "data": {
+      "id": "0x7907Cec258B28638FCA15d533800B2A13bd1f140",
+      "parentIpIds": [
+          {
+              "id": "0x73C86A6Aa13BcB8295dFEdF083a1571036AfF0aD",
+              "parentIpIds": null,
+              "childIpIds": null,
+              "rootIpIds": null,
+              "nftMetadata": {
+                  "name": "11155111: Example NFT #6493",
+                  "chainId": "11155111",
+                  "tokenContract": "0x7ee32b8B515dEE0Ba2F25f612A04a731eEc24F49",
+                  "tokenId": "6493",
+                  "tokenUri": "{\"name\": \"Example NFT #6493\", \"description\": \"Example NFT!\", \"image\": \"https://cloudflare-ipfs.com/ipfs/QmRibyKgMy5iK2VmhgNYwdhDJBr795ji3eozk9nPYmU9oU/steamboat-willie.jpg\"}",
+                  "imageUrl": ""
+              },
+              "blockNumber": "5913205",
+              "blockTimestamp": "1715845104"
+          }
+      ],
+      "childIpIds": [
+          {
+              "id": "0x3cb7f768eb66A7093746C1286FE5C0f4E15CF5a6",
+              "parentIpIds": null,
+              "childIpIds": null,
+              "rootIpIds": null,
+              "nftMetadata": {
+                  "name": "11155111: Example NFT #6495",
+                  "chainId": "11155111",
+                  "tokenContract": "0x7ee32b8B515dEE0Ba2F25f612A04a731eEc24F49",
+                  "tokenId": "6495",
+                  "tokenUri": "{\"name\": \"Example NFT #6495\", \"description\": \"Example NFT!\", \"image\": \"https://cloudflare-ipfs.com/ipfs/QmRibyKgMy5iK2VmhgNYwdhDJBr795ji3eozk9nPYmU9oU/steamboat-willie.jpg\"}",
+                  "imageUrl": ""
+              },
+              "blockNumber": "5913211",
+              "blockTimestamp": "1715845176"
+          }
+      ],
+      "rootIpIds": [
+          {
+              "id": "0x73C86A6Aa13BcB8295dFEdF083a1571036AfF0aD",
+              "parentIpIds": null,
+              "childIpIds": null,
+              "rootIpIds": null,
+              "nftMetadata": {
+                  "name": "11155111: Example NFT #6493",
+                  "chainId": "11155111",
+                  "tokenContract": "0x7ee32b8B515dEE0Ba2F25f612A04a731eEc24F49",
+                  "tokenId": "6493",
+                  "tokenUri": "{\"name\": \"Example NFT #6493\", \"description\": \"Example NFT!\", \"image\": \"https://cloudflare-ipfs.com/ipfs/QmRibyKgMy5iK2VmhgNYwdhDJBr795ji3eozk9nPYmU9oU/steamboat-willie.jpg\"}",
+                  "imageUrl": ""
+              },
+              "blockNumber": "5913205",
+              "blockTimestamp": "1715845104"
+          }
+      ],
+      "nftMetadata": {
+          "name": "11155111: Example NFT #6494",
+          "chainId": "11155111",
+          "tokenContract": "0x7ee32b8B515dEE0Ba2F25f612A04a731eEc24F49",
+          "tokenId": "6494",
+          "tokenUri": "{\"name\": \"Example NFT #6494\", \"description\": \"Example NFT!\", \"image\": \"https://cloudflare-ipfs.com/ipfs/QmRibyKgMy5iK2VmhgNYwdhDJBr795ji3eozk9nPYmU9oU/steamboat-willie.jpg\"}",
+          "imageUrl": ""
+      },
+      "blockNumber": "5913208",
+      "blockTimestamp": "1715845140"
+  }
+}

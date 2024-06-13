@@ -95,13 +95,28 @@ const policiesStyles = cva("", {
   },
 })
 
+const directionStyles = cva("", {
+  variants: {
+    direction: {
+      row: "skLicenseTerms--row",
+      column: "skLicenseTerms--col",
+    },
+  },
+})
+
 export type LicenseTermsProps = {
   size?: "small" | "medium" | "large"
+  direction?: "row" | "column"
   selectedLicenseTerms?: PILTerms
   selectedLicenseTermsId?: string
 }
 
-function LicenseTerms({ size = "medium", selectedLicenseTerms, selectedLicenseTermsId }: LicenseTermsProps) {
+function LicenseTerms({
+  size = "medium",
+  direction = "column",
+  selectedLicenseTerms,
+  selectedLicenseTermsId,
+}: LicenseTermsProps) {
   const { data: licenseTermsData } = useQuery({
     queryKey: [RESOURCE_TYPE.POLICY, selectedLicenseTermsId],
     queryFn: () => getResource(RESOURCE_TYPE.POLICY, selectedLicenseTermsId as string),
@@ -123,7 +138,7 @@ function LicenseTerms({ size = "medium", selectedLicenseTerms, selectedLicenseTe
 
   return (
     <div className={cn("skLicenseTerms", policiesStyles({ size }))}>
-      <div className="skLicenseTerms__properties">
+      <div className={cn("skLicenseTerms__properties", directionStyles({ direction }))}>
         {cans.length ? (
           <>
             <div className="skLicenseTerms__item-list-title">Others Can</div>

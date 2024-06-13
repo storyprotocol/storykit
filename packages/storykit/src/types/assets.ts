@@ -140,7 +140,7 @@ export type Royalty = {
 
 export type RoyaltyPolicy = {
   id: Address
-  ancestorsVault: Address
+  ipRoyaltyVault: Address
   splitClone: Address
   royaltyStack: string
   targetAncestors: Address[]

@@ -2,7 +2,19 @@
   @apply flex flex-col w-full min-w-48;
 
   .skLicenseTerms__properties {
-    @apply flex flex-col pt-2 gap-2;
+    @apply flex flex-col pt-2 gap-2 w-full;
+
+    &.skLicenseTerms--row {
+      @apply flex flex-row;
+    }
+
+    &.skLicenseTerms--col {
+      @apply flex flex-col;
+    }
+
+    .skLicenseTerms__group {
+      @apply flex-1;
+    }
   }
 
   .skLicenseTerms__item-list-title {
