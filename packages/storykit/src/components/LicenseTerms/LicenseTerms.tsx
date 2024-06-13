@@ -18,11 +18,12 @@ export const DESCRIPTIONS: { [key: string]: string } = {
   COMMERCIAL_USE: "Commercialize the remix",
   DERIVATIVES_APPROVAL: "Enforce that derivatives are first approved by you",
   DERIVATIVES_RECIPROCAL: "Enforce that derivatives have the same License Terms that you provide them",
+  NEVER_EXPIRES: "This license never expires",
 }
 
 const convertExpiration = (expiration: string): string => {
   if (expiration == "never" || expiration == "0") {
-    return "This license never expires"
+    return DESCRIPTIONS.NEVER_EXPIRES
   }
   return expiration
 }
@@ -170,7 +171,7 @@ function LicenseTerms({
             <div className="skLicenseTerms__item-list-title">Additional Notes</div>
             <div className="skLicenseTerms__list">
               {extras.map((term, index) => (
-                <div key={index} className="skLicenseTerms__property">
+                <div key={index} className="skLicenseTerms__property skLicenseTerms__property--note">
                   <Info width={iconWidth} />
                   <span>{term}</span>
                 </div>

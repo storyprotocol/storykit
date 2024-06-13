@@ -12,6 +12,17 @@ const meta = {
     layout: "centered",
     controls: { sort: "requiredFirst" },
   },
+  argTypes: {},
+  args: {
+    direction: "column",
+    size: "medium",
+  },
+} satisfies Meta<typeof Example>
+
+export default meta
+type Story = StoryObj<typeof meta>
+
+export const Select: Story = {
   argTypes: {
     selectedLicenseTerms: {
       control: {
@@ -24,53 +35,42 @@ const meta = {
       },
     },
   },
-  args: {
-    direction: "column",
-    size: "medium",
-  },
-} satisfies Meta<typeof Example>
-
-export default meta
-type Story = StoryObj<typeof meta>
-
-export const Select: Story = {
-  argTypes: {},
 }
-// export const Select: Story = {
-//   argTypes: {
-//     selectedLicenseTerms: {
-//       options: ["NonCommercialSocialRemixing", "No License"],
-//     },
-//   },
-// }
 
-// export const nonCommercialSocalRemixTerms: Story = {
-//   args: {
-//     type: POLICY_TYPE.NON_COMMERCIAL_SOCIAL_REMIXING as PolicyType,
-//     direction: "column",
-//     size: "small",
-//   },
-//   play: async ({ canvasElement }) => {
-//     const renderredListTitle = canvasElement.querySelectorAll(".skLicenseTerms__item-list-title")
-//     const renderredCanList = canvasElement.querySelectorAll(".skLicenseTerms__property--can")
-//     const renderredCannotList = canvasElement.querySelectorAll(".skLicenseTerms__property--cannot")
+export const nonCommercialSocalRemixTerms: Story = {
+  args: {
+    selectedLicenseTerms: nonCommercialSocialRemixingLicenseTerms,
+  },
+  play: async ({ canvasElement }) => {
+    const renderredListTitle = canvasElement.querySelectorAll(".skLicenseTerms__item-list-title")
+    const renderredCanList = canvasElement.querySelectorAll(".skLicenseTerms__property--can")
+    const renderredCannotList = canvasElement.querySelectorAll(".skLicenseTerms__property--cannot")
+    const renderredNotesList = canvasElement.querySelectorAll(".skLicenseTerms__property--note")
 
-//     const canList = Array.from(renderredCanList).map((item) => item.textContent)
-//     const cannotList = Array.from(renderredCannotList).map((item) => item.textContent)
+    const canList = Array.from(renderredCanList).map((item) => item.textContent)
+    const cannotList = Array.from(renderredCannotList).map((item) => item.textContent)
+    const notesList = Array.from(renderredNotesList).map((item) => item.textContent)
 
-//     const expectCanList = [CANS.REMIX, CANS.INCLUDE, CANS.CREDIT, CANS.DISTRIBUTE]
-//     const expectCannotList = [CANNOTS.RESELL, CANNOTS.COMMERCIALIZE, CANNOTS.CLAIM_AS_ORIGINAL]
+    const expectCanList = [
+      DESCRIPTIONS.ATTRIBUTION,
+      DESCRIPTIONS.DERIVATIVES_ALLOWED,
+      DESCRIPTIONS.DERIVATIVES_RECIPROCAL,
+    ]
+    const expectCannotList = [DESCRIPTIONS.COMMERCIAL_USE]
+    const expectNotesList = [DESCRIPTIONS.NEVER_EXPIRES]
 
-//     await waitFor(() => {
-//       expect(canvasElement.getElementsByClassName(".skLicenseTerms--column")).toBeTruthy()
-//       expect(renderredListTitle.length).toBe(2)
-//       expect(renderredListTitle[0].textContent).toBe("Others Can")
-//       expect(renderredListTitle[1].textContent).toBe("Others Cannot")
-//       expect(canList).toEqual(expectCanList)
-//       expect(cannotList).toEqual(expectCannotList)
-//     })
-//   },
-// }
+    await waitFor(() => {
+      expect(canvasElement.getElementsByClassName(".skLicenseTerms--column")).toBeTruthy()
+      expect(renderredListTitle.length).toBe(3)
+      expect(renderredListTitle[0].textContent).toBe("Others Can")
+      expect(renderredListTitle[1].textContent).toBe("Others Cannot")
+      expect(renderredListTitle[2].textContent).toBe("Additional Notes")
+      expect(canList).toEqual(expectCanList)
+      expect(cannotList).toEqual(expectCannotList)
+      expect(notesList).toEqual(expectNotesList)
+    })
+  },
+}
 
 // export const commercialUseTerms: Story = {
 //   args: {
