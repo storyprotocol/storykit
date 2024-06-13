@@ -21,6 +21,11 @@ const Example = () => {
       <StakeButton
         size="small"
         variant="primary"
+        isLoading: ("true" | "false")
+        isError: ("true" | "false")
+        isSuccess: ("true" | "false")
+        isTxPending: ("true" | "false")
+        isWalletConfirmationPending: ("true" | "false")
         onClick={()=> console.log("Clicked")}
       >hello</StakeButton>
   );
@@ -34,4 +39,9 @@ export default Example;
 - **children** - The content of the button. It can be a string, a ReactNode, or an array of ReactNodes.
 - **variant** - A string, 'primary' or 'secondary', that defines the color scheme of the button.
 - **size** - A string with one of three possible values: "small," "medium," or "large." It defines the size or dimensions of the button.
+- **isLoading** - A string, 'true' or 'false', that indicates if the button should show the loading state.
+- **isError** - A string, 'true' or 'false', that indicates if the button should show the error state.
+- **isSuccess** - A string, 'true' or 'false', that indicates if the button should show the success state.
+- **isTxPending** - A string, 'true' or 'false', that indicates if the button should show the transaction pending state.
+- **isWalletConfirmationPending** - A string, 'true' or 'false', that indicates if the button should show the wallet confirmation pending state.
 - Other normal button props, such as `onClick`, `disabled`, etc.
