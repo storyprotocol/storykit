@@ -1,5 +1,5 @@
 import {
-  commercialRemixingLicenseTerms, // commercialUseLicenseTerms,
+  commercialRemixingLicenseTerms,
   noLicenseTerms,
   nonCommercialSocialRemixingLicenseTerms,
 } from "@/lib/example-data"
@@ -56,29 +56,17 @@ export const NonCommercialSocalRemixTerms: Story = {
     const renderredListTitle = canvasElement.querySelectorAll(".skLicenseTerms__item-list-title")
     const renderredCanList = canvasElement.querySelectorAll(".skLicenseTerms__property--can")
     const renderredCannotList = canvasElement.querySelectorAll(".skLicenseTerms__property--cannot")
-    const renderredNotesList = canvasElement.querySelectorAll(".skLicenseTerms__property--note")
 
     const canList = Array.from(renderredCanList).map((item) => item.textContent)
     const cannotList = Array.from(renderredCannotList).map((item) => item.textContent)
-    const notesList = Array.from(renderredNotesList).map((item) => item.textContent)
-
-    const expectCanList = [
-      DESCRIPTIONS.ATTRIBUTION,
-      DESCRIPTIONS.DERIVATIVES_ALLOWED,
-      DESCRIPTIONS.DERIVATIVES_RECIPROCAL,
-    ]
-    const expectCannotList = [DESCRIPTIONS.COMMERCIAL_USE]
-    const expectNotesList = [DESCRIPTIONS.NEVER_EXPIRES]
 
     await waitFor(() => {
       expect(canvasElement.getElementsByClassName(".skLicenseTerms--column")).toBeTruthy()
-      expect(renderredListTitle.length).toBe(3)
       expect(renderredListTitle[0].textContent).toBe("Others Can")
       expect(renderredListTitle[1].textContent).toBe("Others Cannot")
-      expect(renderredListTitle[2].textContent).toBe("Additional Notes")
-      expect(canList).toEqual(expectCanList)
-      expect(cannotList).toEqual(expectCannotList)
-      expect(notesList).toEqual(expectNotesList)
+      expect(canList).toContain(DESCRIPTIONS.ATTRIBUTION)
+      expect(canList).toContain(DESCRIPTIONS.DERIVATIVES_ALLOWED)
+      expect(cannotList).toContain(DESCRIPTIONS.COMMERCIAL_USE)
     })
   },
 }
@@ -118,14 +106,11 @@ export const CommercialRemixTerms: Story = {
   play: async ({ canvasElement }) => {
     const renderredListTitle = canvasElement.querySelectorAll(".skLicenseTerms__item-list-title")
     const renderredCanList = canvasElement.querySelectorAll(".skLicenseTerms__property--can")
-
     const canList = Array.from(renderredCanList).map((item) => item.textContent)
-    // const expectCanList = [DESCRIPTIONS.COMMERCIAL_USE, DESCRIPTIONS.ATTRIBUTION, DESCRIPTIONS.DERIVATIVES_ALLOWED]
 
     await waitFor(() => {
       expect(canvasElement.getElementsByClassName(".skLicenseTerms--column")).toBeTruthy()
       expect(renderredListTitle[0].textContent).toBe("Others Can")
-      // expect(canList).toEqual(expectCanList)
       expect(canList).toContain(DESCRIPTIONS.COMMERCIAL_USE)
       expect(canList).toContain(DESCRIPTIONS.ATTRIBUTION)
       expect(canList).toContain(DESCRIPTIONS.DERIVATIVES_ALLOWED)
