@@ -12,7 +12,7 @@ import React, { useMemo } from "react"
 import "../../global.css"
 import "./styles.css"
 
-const DESCRIPTIONS: { [key: string]: string } = {
+export const DESCRIPTIONS: { [key: string]: string } = {
   DERIVATIVES_ALLOWED: "Remix this work",
   ATTRIBUTION: "Credit you appropriately",
   COMMERCIAL_USE: "Commercialize the remix",
@@ -140,7 +140,7 @@ function LicenseTerms({
     <div className={cn("skLicenseTerms", policiesStyles({ size }))}>
       <div className={cn("skLicenseTerms__properties", directionStyles({ direction }))}>
         {cans.length ? (
-          <>
+          <div className="skLicenseTerms__group">
             <div className="skLicenseTerms__item-list-title">Others Can</div>
             <div className="skLicenseTerms__list">
               {cans.map((term, index) => (
@@ -150,10 +150,10 @@ function LicenseTerms({
                 </div>
               ))}
             </div>
-          </>
+          </div>
         ) : null}
         {cannots.length ? (
-          <>
+          <div className="skLicenseTerms__group">
             <div className="skLicenseTerms__item-list-title">Others Cannot</div>
             <div className="skLicenseTerms__list">
               {cannots.map((term, index) => (
@@ -163,10 +163,10 @@ function LicenseTerms({
                 </div>
               ))}
             </div>
-          </>
+          </div>
         ) : null}
         {extras.length ? (
-          <>
+          <div className="skLicenseTerms__group">
             <div className="skLicenseTerms__item-list-title">Additional Notes</div>
             <div className="skLicenseTerms__list">
               {extras.map((term, index) => (
@@ -176,7 +176,7 @@ function LicenseTerms({
                 </div>
               ))}
             </div>
-          </>
+          </div>
         ) : null}
       </div>
     </div>
