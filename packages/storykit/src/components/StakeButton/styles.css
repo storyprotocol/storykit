@@ -2,11 +2,11 @@
   @apply rounded-md border text-white focus:outline-none focus:ring focus:ring-gray-300 disabled:pointer-events-none disabled:opacity-50;
 
   &.skStakeButton--primary {
-    @apply rounded-md border text-white focus:outline-none focus:ring focus:ring-gray-300 disabled:pointer-events-none disabled:opacity-50;
+    @apply bg-primary hover:bg-primary/90;
   }
 
   &.skStakeButton--secondary {
-    @apply border-blue-500 text-blue-500 hover:bg-blue-500 hover:text-white;
+    @apply bg-secondary hover:bg-secondary/90 text-black outline-1 outline-black border-black;
   }
 
   &.skStakeButton--small {
@@ -19,19 +19,15 @@
     @apply text-xl px-6 py-3;
   }
   &.skStakeButton--walletConfirmation {
-    @apply bg-primary hover:bg-primary/90;
   }
   &.skStakeButton--txPending {
-    @apply bg-primary hover:bg-primary/90;
   }
   &.skStakeButton--loading {
-    @apply bg-primary hover:bg-primary/90;
   }
   &.skStakeButton--success {
     @apply bg-green-500 hover:bg-green-500/90 text-white;
   }
   &.skStakeButton--normal {
-    @apply bg-primary hover:bg-primary/90;
   }
   &.skStakeButton--error {
     @apply bg-red-500 hover:bg-red-500/90 text-white;
