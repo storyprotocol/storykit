@@ -37,7 +37,7 @@ export const Select: Story = {
   },
 }
 
-export const nonCommercialSocalRemixTerms: Story = {
+export const NonCommercialSocalRemixTerms: Story = {
   args: {
     selectedLicenseTerms: nonCommercialSocialRemixingLicenseTerms,
   },
