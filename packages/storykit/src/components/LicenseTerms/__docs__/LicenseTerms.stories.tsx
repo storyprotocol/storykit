@@ -1,4 +1,8 @@
-import { noLicenseTerms, nonCommercialSocialRemixingLicenseTerms } from "@/lib/example-data"
+import {
+  commercialRemixingLicenseTerms, // commercialUseLicenseTerms,
+  noLicenseTerms,
+  nonCommercialSocialRemixingLicenseTerms,
+} from "@/lib/example-data"
 import type { Meta, StoryObj } from "@storybook/react"
 import { expect, waitFor } from "@storybook/test"
 
@@ -28,9 +32,16 @@ export const Select: Story = {
       control: {
         type: "select",
       },
-      options: ["NonCommercialSocialRemixing", "No License"],
+      options: [
+        "NonCommercialSocialRemixing",
+        "CommercialRemixingLicenseTerms",
+        // "CommercialUseLicenseTerms",
+        "No License",
+      ],
       mapping: {
         NonCommercialSocialRemixing: nonCommercialSocialRemixingLicenseTerms,
+        CommercialRemixingLicenseTerms: commercialRemixingLicenseTerms,
+        // CommercialUseLicenseTerms: commercialUseLicenseTerms,
         "No License": noLicenseTerms,
       },
     },
@@ -100,33 +111,27 @@ export const NonCommercialSocalRemixTerms: Story = {
 //   },
 // }
 
-// export const commercialRemixTerms: Story = {
-//   args: {
-//     type: POLICY_TYPE.COMMERCIAL_REMIX as PolicyType,
-//     direction: "column",
-//     size: "large",
-//   },
-//   play: async ({ canvasElement }) => {
-//     const renderredListTitle = canvasElement.querySelectorAll(".skLicenseTerms__item-list-title")
-//     const renderredCanList = canvasElement.querySelectorAll(".skLicenseTerms__property--can")
-//     const renderredCannotList = canvasElement.querySelectorAll(".skLicenseTerms__property--cannot")
+export const CommercialRemixTerms: Story = {
+  args: {
+    selectedLicenseTerms: commercialRemixingLicenseTerms,
+  },
+  play: async ({ canvasElement }) => {
+    const renderredListTitle = canvasElement.querySelectorAll(".skLicenseTerms__item-list-title")
+    const renderredCanList = canvasElement.querySelectorAll(".skLicenseTerms__property--can")
 
-//     const canList = Array.from(renderredCanList).map((item) => item.textContent)
-//     const cannotList = Array.from(renderredCannotList).map((item) => item.textContent)
+    const canList = Array.from(renderredCanList).map((item) => item.textContent)
+    // const expectCanList = [DESCRIPTIONS.COMMERCIAL_USE, DESCRIPTIONS.ATTRIBUTION, DESCRIPTIONS.DERIVATIVES_ALLOWED]
 
-//     const expectCanList = [CANS.REMIX, CANS.INCLUDE, CANS.CREDIT, CANS.DISTRIBUTE]
-//     const expectCannotList = [CANNOTS.RESELL, CANNOTS.COMMERCIALIZE, CANNOTS.CLAIM_AS_ORIGINAL]
-
-//     await waitFor(() => {
-//       expect(canvasElement.getElementsByClassName(".skLicenseTerms--column")).toBeTruthy()
-//       expect(renderredListTitle.length).toBe(2)
-//       expect(renderredListTitle[0].textContent).toBe("Others Can")
-//       expect(renderredListTitle[1].textContent).toBe("Others Cannot")
-//       expect(canList).toEqual(expectCanList)
-//       expect(cannotList).toEqual(expectCannotList)
-//     })
-//   },
-// }
+    await waitFor(() => {
+      expect(canvasElement.getElementsByClassName(".skLicenseTerms--column")).toBeTruthy()
+      expect(renderredListTitle[0].textContent).toBe("Others Can")
+      // expect(canList).toEqual(expectCanList)
+      expect(canList).toContain(DESCRIPTIONS.COMMERCIAL_USE)
+      expect(canList).toContain(DESCRIPTIONS.ATTRIBUTION)
+      expect(canList).toContain(DESCRIPTIONS.DERIVATIVES_ALLOWED)
+    })
+  },
+}
 
 // export const openDomainTerms: Story = {
 //   args: {
