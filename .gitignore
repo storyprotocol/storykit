@@ -42,4 +42,5 @@ yalc.lock
 
 __archive
 
-.npmrc
+# anima
+.anima
