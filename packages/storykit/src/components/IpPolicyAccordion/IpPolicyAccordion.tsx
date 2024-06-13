@@ -36,7 +36,10 @@ function IpPolicyAccordion({ size = "medium" }: IpPolicyAccordionProps) {
             className="skIpPolicyAccordion__item-header"
             onClick={() => setExpanded(expanded === index ? null : index)}
           >
-            {getPolicyTypeByPILData(policy.licenseTerms)}
+            <span>
+              {getPolicyTypeByPILData(policy.licenseTerms)}{" "}
+              <span className="skIpPolicyAccordion__item-termsId">(#{policy.id})</span>
+            </span>
             {expanded === index ? <FaCaretUp width={12} /> : <FaCaretDown width={12} />}
           </div>
 
