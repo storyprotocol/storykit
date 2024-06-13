@@ -1,6 +1,6 @@
 import { camelize } from "../utils"
 
-export function convertLicenseTermObject(licenseTerms) {
+export function convertLicenseTermObject(licenseTerms: any) {
     console.log(licenseTerms)
     return licenseTerms.reduce((acc: any, option: any) => {
         return {
