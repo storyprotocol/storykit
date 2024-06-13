@@ -7,7 +7,7 @@ import { RESOURCE_TYPE } from "@/types/api"
 import { useQuery } from "@tanstack/react-query"
 import { cva } from "class-variance-authority"
 import { CircleCheck, CircleMinus, Info } from "lucide-react"
-import React from "react"
+import React, { useMemo } from "react"
 
 import "../../global.css"
 import "./styles.css"
@@ -102,16 +102,21 @@ export type LicenseTermsProps = {
 }
 
 function LicenseTerms({ size = "medium", selectedLicenseTerms, selectedLicenseTermsId }: LicenseTermsProps) {
-  let licenseTerms: PILTerms = selectedLicenseTerms || noLicenseTerms
-  if (licenseTerms == noLicenseTerms && selectedLicenseTermsId) {
-    const { isLoading, data: licenseTermsData } = useQuery({
-      queryKey: [RESOURCE_TYPE.POLICY, selectedLicenseTermsId],
-      queryFn: () => getResource(RESOURCE_TYPE.POLICY, selectedLicenseTermsId),
-    })
-    if (!isLoading) {
-      licenseTerms = convertLicenseTermObject(licenseTermsData.data.licenseTerms)
+  const { data: licenseTermsData } = useQuery({
+    queryKey: [RESOURCE_TYPE.POLICY, selectedLicenseTermsId],
+    queryFn: () => getResource(RESOURCE_TYPE.POLICY, selectedLicenseTermsId),
+    enabled: !!selectedLicenseTermsId,
+  })
+
+  const licenseTerms: PILTerms = useMemo(() => {
+    // default to selectedLicenseTerms or noLicenseTerms
+    let terms: PILTerms = selectedLicenseTerms || noLicenseTerms
+    // if selectedLicenseTermsId is provided, use the data from the query
+    if (licenseTermsData?.data?.licenseTerms) {
+      terms = convertLicenseTermObject(licenseTermsData.data.licenseTerms)
     }
-  }
+    return terms
+  }, [selectedLicenseTerms, licenseTermsData])
 
   const iconWidth = size === "small" ? 16 : size === "medium" ? 20 : 24
   let { cans, cannots, extras } = DescribeTerms(licenseTerms as PILTerms)
