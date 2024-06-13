@@ -9,6 +9,10 @@
     @apply flex w-full items-center justify-between cursor-pointer;
   }
 
+  .skIpPolicyAccordion__item-termsId {
+    @apply text-slate-400 text-xs;
+  }
+
   .skIpPolicyAccordion__item-list {
     @apply flex w-full overflow-hidden h-0;
 
