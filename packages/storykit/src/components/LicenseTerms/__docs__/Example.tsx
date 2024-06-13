@@ -6,6 +6,9 @@ import LicenseTerms, { LicenseTermsProps } from "../LicenseTerms"
 const Example: FC<LicenseTermsProps> = ({
   size = "medium",
   direction = "column",
+  showCans = true,
+  showCannots = true,
+  showExtras = true,
   selectedLicenseTerms,
   selectedLicenseTermsId,
 }) => {
@@ -16,6 +19,9 @@ const Example: FC<LicenseTermsProps> = ({
         <LicenseTerms
           size={size}
           direction={direction}
+          showCans={showCans}
+          showCannots={showCannots}
+          showExtras={showExtras}
           selectedLicenseTerms={selectedLicenseTerms}
           selectedLicenseTermsId={selectedLicenseTermsId}
         />

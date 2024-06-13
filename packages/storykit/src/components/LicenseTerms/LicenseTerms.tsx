@@ -108,6 +108,9 @@ const directionStyles = cva("", {
 export type LicenseTermsProps = {
   size?: "small" | "medium" | "large"
   direction?: "row" | "column"
+  showCans?: boolean
+  showCannots?: boolean
+  showExtras?: boolean
   selectedLicenseTerms?: PILTerms
   selectedLicenseTermsId?: string
 }
@@ -115,6 +118,9 @@ export type LicenseTermsProps = {
 function LicenseTerms({
   size = "medium",
   direction = "column",
+  showCans = true,
+  showCannots = true,
+  showExtras = true,
   selectedLicenseTerms,
   selectedLicenseTermsId,
 }: LicenseTermsProps) {
@@ -140,7 +146,7 @@ function LicenseTerms({
   return (
     <div className={cn("skLicenseTerms", policiesStyles({ size }))}>
       <div className={cn("skLicenseTerms__properties", directionStyles({ direction }))}>
-        {cans.length ? (
+        {cans.length && showCans ? (
           <div className="skLicenseTerms__group">
             <div className="skLicenseTerms__item-list-title">Others Can</div>
             <div className="skLicenseTerms__list">
@@ -153,7 +159,7 @@ function LicenseTerms({
             </div>
           </div>
         ) : null}
-        {cannots.length ? (
+        {cannots.length && showCannots ? (
           <div className="skLicenseTerms__group">
             <div className="skLicenseTerms__item-list-title">Others Cannot</div>
             <div className="skLicenseTerms__list">
@@ -166,7 +172,7 @@ function LicenseTerms({
             </div>
           </div>
         ) : null}
-        {extras.length ? (
+        {extras.length && showExtras ? (
           <div className="skLicenseTerms__group">
             <div className="skLicenseTerms__item-list-title">Additional Notes</div>
             <div className="skLicenseTerms__list">

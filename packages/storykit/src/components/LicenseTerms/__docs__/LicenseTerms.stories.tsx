@@ -46,6 +46,11 @@ export const Select: Story = {
       },
     },
   },
+  args: {
+    showCans: true,
+    showCannots: true,
+    showExtras: true,
+  },
 }
 
 export const NonCommercialSocalRemixTerms: Story = {
