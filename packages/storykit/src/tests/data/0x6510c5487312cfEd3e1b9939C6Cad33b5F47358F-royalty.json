@@ -1,0 +1,19 @@
+{
+  "data": {
+      "id": "0x6510c5487312cfEd3e1b9939C6Cad33b5F47358F",
+      "ipRoyaltyVault": "0x09a374B18627e22d3f49b8E482a69eA3f5da76D7",
+      "royaltyStack": "60000000",
+      "targetAncestors": [
+          "0x76cfcb1e454c3d2574c99849b254e8c5649389f5",
+          "0x88D0AbE1e9E17862a9786693282c41c107A9bb91",
+          "0xA80508bb45DA7c2828e646d9A724167f1bBF7b47"
+      ],
+      "targetRoyaltyAmount": [
+          "20000000",
+          "20000000",
+          "20000000"
+      ],
+      "blockNumber": "6042312",
+      "blockTimestamp": "1717564908"
+  }
+}

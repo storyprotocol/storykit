@@ -1,0 +1,309 @@
+{
+  "data": [
+    {
+      "id": "77",
+      "licenseTerms": [
+        {
+          "trait_type": "Expiration",
+          "value": "never"
+        },
+        {
+          "trait_type": "Currency",
+          "value": "0xb132a6b7ae652c974ee1557a3521d53d18f6739f"
+        },
+        {
+          "trait_type": "URI",
+          "value": ""
+        },
+        {
+          "trait_type": "Commercial Use",
+          "value": "true"
+        },
+        {
+          "trait_type": "Commercial Attribution",
+          "value": "true"
+        },
+        {
+          "max_value": 1000,
+          "trait_type": "Commercial Revenue Share",
+          "value": 20000000
+        },
+        {
+          "trait_type": "Commercial Revenue Celling",
+          "value": 0
+        },
+        {
+          "trait_type": "Commercializer Check",
+          "value": "0x0000000000000000000000000000000000000000"
+        },
+        {
+          "trait_type": "Derivatives Allowed",
+          "value": "true"
+        },
+        {
+          "trait_type": "Derivatives Attribution",
+          "value": "true"
+        },
+        {
+          "trait_type": "Derivatives Revenue Celling",
+          "value": 0
+        },
+        {
+          "trait_type": "Derivatives Approval",
+          "value": "false"
+        },
+        {
+          "trait_type": "Derivatives Reciprocal",
+          "value": "true"
+        }
+      ],
+      "licenseTemplate": "0x260B6CB6284c89dbE660c0004233f7bB99B5edE7",
+      "blockNumber": "6041278",
+      "blockTime": "1717551180"
+    },
+    {
+      "id": "7",
+      "licenseTerms": [
+        {
+          "trait_type": "Expiration",
+          "value": "never"
+        },
+        {
+          "trait_type": "Currency",
+          "value": "0xb132a6b7ae652c974ee1557a3521d53d18f6739f"
+        },
+        {
+          "trait_type": "URI",
+          "value": ""
+        },
+        {
+          "trait_type": "Commercial Use",
+          "value": "true"
+        },
+        {
+          "trait_type": "Commercial Attribution",
+          "value": "true"
+        },
+        {
+          "max_value": 1000,
+          "trait_type": "Commercial Revenue Share",
+          "value": 0
+        },
+        {
+          "trait_type": "Commercial Revenue Celling",
+          "value": 0
+        },
+        {
+          "trait_type": "Commercializer Check",
+          "value": "0x0000000000000000000000000000000000000000"
+        },
+        {
+          "trait_type": "Derivatives Allowed",
+          "value": "true"
+        },
+        {
+          "trait_type": "Derivatives Attribution",
+          "value": "true"
+        },
+        {
+          "trait_type": "Derivatives Revenue Celling",
+          "value": 0
+        },
+        {
+          "trait_type": "Derivatives Approval",
+          "value": "false"
+        },
+        {
+          "trait_type": "Derivatives Reciprocal",
+          "value": "false"
+        }
+      ],
+      "licenseTemplate": "0x260B6CB6284c89dbE660c0004233f7bB99B5edE7",
+      "blockNumber": "5778816",
+      "blockTime": "1714101228"
+    },
+    {
+      "id": "76",
+      "licenseTerms": [
+        {
+          "trait_type": "Expiration",
+          "value": "never"
+        },
+        {
+          "trait_type": "Currency",
+          "value": "0xb132a6b7ae652c974ee1557a3521d53d18f6739f"
+        },
+        {
+          "trait_type": "URI",
+          "value": ""
+        },
+        {
+          "trait_type": "Commercial Use",
+          "value": "true"
+        },
+        {
+          "trait_type": "Commercial Attribution",
+          "value": "true"
+        },
+        {
+          "max_value": 1000,
+          "trait_type": "Commercial Revenue Share",
+          "value": 0
+        },
+        {
+          "trait_type": "Commercial Revenue Celling",
+          "value": 0
+        },
+        {
+          "trait_type": "Commercializer Check",
+          "value": "0x0000000000000000000000000000000000000000"
+        },
+        {
+          "trait_type": "Derivatives Allowed",
+          "value": "true"
+        },
+        {
+          "trait_type": "Derivatives Attribution",
+          "value": "true"
+        },
+        {
+          "trait_type": "Derivatives Revenue Celling",
+          "value": 0
+        },
+        {
+          "trait_type": "Derivatives Approval",
+          "value": "false"
+        },
+        {
+          "trait_type": "Derivatives Reciprocal",
+          "value": "false"
+        }
+      ],
+      "licenseTemplate": "0x260B6CB6284c89dbE660c0004233f7bB99B5edE7",
+      "blockNumber": "6041277",
+      "blockTime": "1717551168"
+    },
+    {
+      "id": "2",
+      "licenseTerms": [
+        {
+          "trait_type": "Expiration",
+          "value": "never"
+        },
+        {
+          "trait_type": "Currency",
+          "value": "0x0000000000000000000000000000000000000000"
+        },
+        {
+          "trait_type": "URI",
+          "value": ""
+        },
+        {
+          "trait_type": "Commercial Use",
+          "value": "false"
+        },
+        {
+          "trait_type": "Commercial Attribution",
+          "value": "false"
+        },
+        {
+          "max_value": 1000,
+          "trait_type": "Commercial Revenue Share",
+          "value": 0
+        },
+        {
+          "trait_type": "Commercial Revenue Celling",
+          "value": 0
+        },
+        {
+          "trait_type": "Commercializer Check",
+          "value": "0x0000000000000000000000000000000000000000"
+        },
+        {
+          "trait_type": "Derivatives Allowed",
+          "value": "true"
+        },
+        {
+          "trait_type": "Derivatives Attribution",
+          "value": "true"
+        },
+        {
+          "trait_type": "Derivatives Revenue Celling",
+          "value": 0
+        },
+        {
+          "trait_type": "Derivatives Approval",
+          "value": "false"
+        },
+        {
+          "trait_type": "Derivatives Reciprocal",
+          "value": "true"
+        }
+      ],
+      "licenseTemplate": "0x260B6CB6284c89dbE660c0004233f7bB99B5edE7",
+      "blockNumber": "5772737",
+      "blockTime": "1714027908"
+    },
+    {
+      "id": "57",
+      "licenseTerms": [
+        {
+          "trait_type": "Expiration",
+          "value": "never"
+        },
+        {
+          "trait_type": "Currency",
+          "value": "0xb132a6b7ae652c974ee1557a3521d53d18f6739f"
+        },
+        {
+          "trait_type": "URI",
+          "value": ""
+        },
+        {
+          "trait_type": "Commercial Use",
+          "value": "true"
+        },
+        {
+          "trait_type": "Commercial Attribution",
+          "value": "true"
+        },
+        {
+          "max_value": 1000,
+          "trait_type": "Commercial Revenue Share",
+          "value": 10000000
+        },
+        {
+          "trait_type": "Commercial Revenue Celling",
+          "value": 0
+        },
+        {
+          "trait_type": "Commercializer Check",
+          "value": "0x0000000000000000000000000000000000000000"
+        },
+        {
+          "trait_type": "Derivatives Allowed",
+          "value": "true"
+        },
+        {
+          "trait_type": "Derivatives Attribution",
+          "value": "true"
+        },
+        {
+          "trait_type": "Derivatives Revenue Celling",
+          "value": 0
+        },
+        {
+          "trait_type": "Derivatives Approval",
+          "value": "false"
+        },
+        {
+          "trait_type": "Derivatives Reciprocal",
+          "value": "true"
+        }
+      ],
+      "licenseTemplate": "0x260B6CB6284c89dbE660c0004233f7bB99B5edE7",
+      "blockNumber": "5902994",
+      "blockTime": "1715713884"
+    }
+  ]
+}

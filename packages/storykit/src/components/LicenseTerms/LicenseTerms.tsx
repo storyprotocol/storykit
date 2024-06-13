@@ -88,13 +88,23 @@ const policiesStyles = cva("", {
   },
 })
 
+const directionStyles = cva("", {
+  variants: {
+    direction: {
+      row: "skLicenseTerms--row",
+      column: "skLicenseTerms--col",
+    },
+  },
+})
+
 export type LicenseTermsProps = {
+  direction?: "row" | "column"
   size?: "small" | "medium" | "large"
   selectedLicenseTerms?: PILTerms
   selectedLicenseTermsId?: string
 }
 
-function LicenseTerms({ size = "medium", selectedLicenseTerms, selectedLicenseTermsId }: LicenseTermsProps) {
+function LicenseTerms({ direction = "column", size = "medium", selectedLicenseTerms, selectedLicenseTermsId }: LicenseTermsProps) {
   let licenseTerms: PILTerms = selectedLicenseTerms || noLicenseTerms;
   if (licenseTerms == noLicenseTerms && selectedLicenseTermsId) {
     const { isLoading, data: licenseTermsData } = useQuery({
@@ -111,7 +121,7 @@ function LicenseTerms({ size = "medium", selectedLicenseTerms, selectedLicenseTe
 
   return (
     <div className={cn("skLicenseTerms", policiesStyles({ size }))}>
-      <div className="skLicenseTerms__properties">
+      <div className={cn("skLicenseTerms__properties", directionStyles({ direction }))}>
         {cans.length ? (
           <>
             <div className="skLicenseTerms__item-list-title">Others Can</div>

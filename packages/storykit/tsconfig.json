@@ -5,7 +5,8 @@
     "paths": {
       "@/*": ["./src/*"]
     },
-    "jsx": "react" // or "react-jsx" if using React 17+
+    "jsx": "react", // or "react-jsx" if using React 17+
+    "resolveJsonModule": true,
   },
   "exclude": ["dist", "build", "node_modules"]
 }
