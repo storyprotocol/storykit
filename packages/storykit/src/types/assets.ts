@@ -49,7 +49,7 @@ export type License = {
 export type PILTerms = {
   commercialAttribution: boolean
   commercialRevenueCelling: number
-  commercialRevenueShare: number 
+  commercialRevenueShare: number
   commercialUse: boolean
   commercializerCheck: Address
   currency: Address
@@ -174,9 +174,16 @@ export type Collection = {
   blockTimestamp: string
 }
 
+export interface Trait {
+  trait_type: string
+  value: string | number
+  max_value?: number
+}
+
 export type Policy = {
   id: string
-  json: string
+  // json: string
+  licenseTerms: Trait[]
   licenseTemplate: Address
   blockNumber: string
   blockTime: string

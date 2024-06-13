@@ -1,12 +1,14 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { PILTerms, Trait } from "@/types"
+
 import { camelize } from "../utils"
 
-export function convertLicenseTermObject(licenseTerms) {
-    console.log(licenseTerms)
-    return licenseTerms.reduce((acc: any, option: any) => {
-        return {
-          ...acc,
-          [camelize(option.trait_type)]:
-            option.value === "true" ? true : option.value === "false" ? false : option.value,
-        }
-      }, {})
+type LicenseTerms = Partial<PILTerms>
+
+export function convertLicenseTermObject(licenseTerms: Trait[]): LicenseTerms {
+  return licenseTerms.reduce((acc: LicenseTerms, option: Trait): LicenseTerms => {
+    const key = camelize(option.trait_type) as keyof PILTerms
+    acc[key] = option.value === "true" ? true : option.value === "false" ? false : (option.value as any)
+    return acc
+  }, {})
 }

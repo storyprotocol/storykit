@@ -28,9 +28,9 @@ const convertExpiration = (expiration: string): string => {
 }
 
 const DescribeTerms = (selectedLicenseTerms: PILTerms) => {
-  let cans = []
-  let cannots = []
-  let extras = []
+  const cans = []
+  const cannots = []
+  const extras = []
 
   // commercial use
   if (selectedLicenseTerms.commercialUse) {
@@ -104,13 +104,13 @@ export type LicenseTermsProps = {
 function LicenseTerms({ size = "medium", selectedLicenseTerms, selectedLicenseTermsId }: LicenseTermsProps) {
   const { data: licenseTermsData } = useQuery({
     queryKey: [RESOURCE_TYPE.POLICY, selectedLicenseTermsId],
-    queryFn: () => getResource(RESOURCE_TYPE.POLICY, selectedLicenseTermsId),
+    queryFn: () => getResource(RESOURCE_TYPE.POLICY, selectedLicenseTermsId as string),
     enabled: !!selectedLicenseTermsId,
   })
 
-  const licenseTerms: PILTerms = useMemo(() => {
+  const licenseTerms: Partial<PILTerms> = useMemo(() => {
     // default to selectedLicenseTerms or noLicenseTerms
-    let terms: PILTerms = selectedLicenseTerms || noLicenseTerms
+    let terms: Partial<PILTerms> = selectedLicenseTerms || noLicenseTerms
     // if selectedLicenseTermsId is provided, use the data from the query
     if (licenseTermsData?.data?.licenseTerms) {
       terms = convertLicenseTermObject(licenseTermsData.data.licenseTerms)
@@ -119,7 +119,7 @@ function LicenseTerms({ size = "medium", selectedLicenseTerms, selectedLicenseTe
   }, [selectedLicenseTerms, licenseTermsData])
 
   const iconWidth = size === "small" ? 16 : size === "medium" ? 20 : 24
-  let { cans, cannots, extras } = DescribeTerms(licenseTerms as PILTerms)
+  const { cans, cannots, extras } = DescribeTerms(licenseTerms as PILTerms)
 
   return (
     <div className={cn("skLicenseTerms", policiesStyles({ size }))}>
