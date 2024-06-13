@@ -7,6 +7,7 @@ import assetData from "@/tests/data/0x7907Cec258B28638FCA15d533800B2A13bd1f140-a
 import nftData from "@/tests/data/0x7907Cec258B28638FCA15d533800B2A13bd1f140-nft.json"
 import type { Meta, StoryObj } from "@storybook/react"
 import { expect, waitFor, within } from "@storybook/test"
+import React from "react"
 
 import Example, {
   AssetComponent,
