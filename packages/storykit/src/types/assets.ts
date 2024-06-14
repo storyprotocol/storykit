@@ -84,7 +84,7 @@ export type PILTerms = {
 //   uri: ''
 // })
 
-export type PolicyFramework = {
+export type LicenseTermsFramework = {
   id: string
   name: string
   metadataUri: string
