@@ -1,5 +1,5 @@
 import { PREVIEW_IP_ASSETS } from "@/stories/data"
-import { POLICY_TYPE } from "@/types/assets"
+import { PIL_FLAVOR } from "@/types/assets"
 import type { Meta, StoryObj } from "@storybook/react"
 import { expect, userEvent, waitFor, within } from "@storybook/test"
 
@@ -71,25 +71,25 @@ export const IpOfCommercialRemix: Story = {
     const canvas = within(canvasElement)
     await waitFor(
       () => {
-        expect(canvas.getByText(POLICY_TYPE.COMMERCIAL_REMIX)).toBeInTheDocument()
+        expect(canvas.getByText(PIL_FLAVOR.COMMERCIAL_REMIX)).toBeInTheDocument()
       },
       { timeout: 10000 }
     )
 
-    await userEvent.click(canvas.getByText(POLICY_TYPE.COMMERCIAL_REMIX))
+    await userEvent.click(canvas.getByText(PIL_FLAVOR.COMMERCIAL_REMIX))
     await waitFor(
       () => {
         expect(
-          canvas.getByText(POLICY_TYPE.COMMERCIAL_REMIX).parentElement?.nextElementSibling?.classList
+          canvas.getByText(PIL_FLAVOR.COMMERCIAL_REMIX).parentElement?.nextElementSibling?.classList
         ).not.toContain("skIpPolicyAccordion__item-list--expanded")
       },
       { timeout: 10000 }
     )
 
-    await userEvent.click(canvas.getByText(POLICY_TYPE.COMMERCIAL_REMIX))
+    await userEvent.click(canvas.getByText(PIL_FLAVOR.COMMERCIAL_REMIX))
     await waitFor(
       () => {
-        expect(canvas.getByText(POLICY_TYPE.COMMERCIAL_REMIX).parentElement?.nextElementSibling?.classList).toContain(
+        expect(canvas.getByText(PIL_FLAVOR.COMMERCIAL_REMIX).parentElement?.nextElementSibling?.classList).toContain(
           "skIpPolicyAccordion__item-list--expanded"
         )
       },
@@ -112,25 +112,25 @@ export const IpOfCommercialUse: Story = {
     const canvas = within(canvasElement)
     await waitFor(
       () => {
-        expect(canvas.getByText(POLICY_TYPE.COMMERCIAL_USE)).toBeInTheDocument()
+        expect(canvas.getByText(PIL_FLAVOR.COMMERCIAL_USE)).toBeInTheDocument()
       },
       { timeout: 10000 }
     )
 
-    await userEvent.click(canvas.getByText(POLICY_TYPE.COMMERCIAL_USE))
+    await userEvent.click(canvas.getByText(PIL_FLAVOR.COMMERCIAL_USE))
     await waitFor(
       () => {
-        expect(canvas.getByText(POLICY_TYPE.COMMERCIAL_USE).parentElement?.nextElementSibling?.classList).not.toContain(
+        expect(canvas.getByText(PIL_FLAVOR.COMMERCIAL_USE).parentElement?.nextElementSibling?.classList).not.toContain(
           "skIpPolicyAccordion__item-list--expanded"
         )
       },
       { timeout: 10000 }
     )
 
-    await userEvent.click(canvas.getByText(POLICY_TYPE.COMMERCIAL_USE))
+    await userEvent.click(canvas.getByText(PIL_FLAVOR.COMMERCIAL_USE))
     await waitFor(
       () => {
-        expect(canvas.getByText(POLICY_TYPE.COMMERCIAL_USE).parentElement?.nextElementSibling?.classList).toContain(
+        expect(canvas.getByText(PIL_FLAVOR.COMMERCIAL_USE).parentElement?.nextElementSibling?.classList).toContain(
           "skIpPolicyAccordion__item-list--expanded"
         )
       },
@@ -153,26 +153,26 @@ export const IpOfNonCommercialSocialRemixing: Story = {
     const canvas = within(canvasElement)
     await waitFor(
       () => {
-        expect(canvas.getByText(POLICY_TYPE.NON_COMMERCIAL_SOCIAL_REMIXING)).toBeInTheDocument()
+        expect(canvas.getByText(PIL_FLAVOR.NON_COMMERCIAL_SOCIAL_REMIXING)).toBeInTheDocument()
       },
       { timeout: 10000 }
     )
 
-    await userEvent.click(canvas.getByText(POLICY_TYPE.NON_COMMERCIAL_SOCIAL_REMIXING))
+    await userEvent.click(canvas.getByText(PIL_FLAVOR.NON_COMMERCIAL_SOCIAL_REMIXING))
     await waitFor(
       () => {
         expect(
-          canvas.getByText(POLICY_TYPE.NON_COMMERCIAL_SOCIAL_REMIXING).parentElement?.nextElementSibling?.classList
+          canvas.getByText(PIL_FLAVOR.NON_COMMERCIAL_SOCIAL_REMIXING).parentElement?.nextElementSibling?.classList
         ).not.toContain("skIpPolicyAccordion__item-list--expanded")
       },
       { timeout: 10000 }
     )
 
-    await userEvent.click(canvas.getByText(POLICY_TYPE.NON_COMMERCIAL_SOCIAL_REMIXING))
+    await userEvent.click(canvas.getByText(PIL_FLAVOR.NON_COMMERCIAL_SOCIAL_REMIXING))
     await waitFor(
       () => {
         expect(
-          canvas.getByText(POLICY_TYPE.NON_COMMERCIAL_SOCIAL_REMIXING).parentElement?.nextElementSibling?.classList
+          canvas.getByText(PIL_FLAVOR.NON_COMMERCIAL_SOCIAL_REMIXING).parentElement?.nextElementSibling?.classList
         ).toContain("skIpPolicyAccordion__item-list--expanded")
       },
       { timeout: 10000 }
@@ -193,53 +193,53 @@ export const IpOfMultiplePolicies: Story = {
     const canvas = within(canvasElement)
     await waitFor(
       () => {
-        expect(canvas.getByText(POLICY_TYPE.COMMERCIAL_REMIX)).toBeInTheDocument()
-        expect(canvas.getByText(POLICY_TYPE.COMMERCIAL_USE)).toBeInTheDocument()
-        expect(canvas.getByText(POLICY_TYPE.NON_COMMERCIAL_SOCIAL_REMIXING)).toBeInTheDocument()
+        expect(canvas.getByText(PIL_FLAVOR.COMMERCIAL_REMIX)).toBeInTheDocument()
+        expect(canvas.getByText(PIL_FLAVOR.COMMERCIAL_USE)).toBeInTheDocument()
+        expect(canvas.getByText(PIL_FLAVOR.NON_COMMERCIAL_SOCIAL_REMIXING)).toBeInTheDocument()
 
-        expect(canvas.getByText(POLICY_TYPE.COMMERCIAL_REMIX).parentElement?.nextElementSibling?.classList).toContain(
+        expect(canvas.getByText(PIL_FLAVOR.COMMERCIAL_REMIX).parentElement?.nextElementSibling?.classList).toContain(
           "skIpPolicyAccordion__item-list--expanded"
         )
-        expect(canvas.getByText(POLICY_TYPE.COMMERCIAL_USE).parentElement?.nextElementSibling?.classList).not.toContain(
+        expect(canvas.getByText(PIL_FLAVOR.COMMERCIAL_USE).parentElement?.nextElementSibling?.classList).not.toContain(
           "skIpPolicyAccordion__item-list--expanded"
         )
         expect(
-          canvas.getByText(POLICY_TYPE.NON_COMMERCIAL_SOCIAL_REMIXING).parentElement?.nextElementSibling?.classList
+          canvas.getByText(PIL_FLAVOR.NON_COMMERCIAL_SOCIAL_REMIXING).parentElement?.nextElementSibling?.classList
         ).not.toContain("skIpPolicyAccordion__item-list--expanded")
       },
       { timeout: 10000 }
     )
 
-    await userEvent.click(canvas.getByText(POLICY_TYPE.NON_COMMERCIAL_SOCIAL_REMIXING))
+    await userEvent.click(canvas.getByText(PIL_FLAVOR.NON_COMMERCIAL_SOCIAL_REMIXING))
     await waitFor(
       () => {
         expect(
-          canvas.getByText(POLICY_TYPE.NON_COMMERCIAL_SOCIAL_REMIXING).parentElement?.nextElementSibling?.classList
+          canvas.getByText(PIL_FLAVOR.NON_COMMERCIAL_SOCIAL_REMIXING).parentElement?.nextElementSibling?.classList
         ).toContain("skIpPolicyAccordion__item-list--expanded")
         expect(
-          canvas.getByText(POLICY_TYPE.COMMERCIAL_REMIX).parentElement?.nextElementSibling?.classList
+          canvas.getByText(PIL_FLAVOR.COMMERCIAL_REMIX).parentElement?.nextElementSibling?.classList
         ).not.toContain("skIpPolicyAccordion__item-list--expanded")
-        expect(canvas.getByText(POLICY_TYPE.COMMERCIAL_USE).parentElement?.nextElementSibling?.classList).not.toContain(
+        expect(canvas.getByText(PIL_FLAVOR.COMMERCIAL_USE).parentElement?.nextElementSibling?.classList).not.toContain(
           "skIpPolicyAccordion__item-list--expanded"
         )
       },
       { timeout: 10000 }
     )
 
-    await userEvent.click(canvas.getByText(POLICY_TYPE.NON_COMMERCIAL_SOCIAL_REMIXING))
+    await userEvent.click(canvas.getByText(PIL_FLAVOR.NON_COMMERCIAL_SOCIAL_REMIXING))
     await waitFor(
       () => {
         expect(
-          canvas.getByText(POLICY_TYPE.NON_COMMERCIAL_SOCIAL_REMIXING).parentElement?.nextElementSibling?.classList
+          canvas.getByText(PIL_FLAVOR.NON_COMMERCIAL_SOCIAL_REMIXING).parentElement?.nextElementSibling?.classList
         ).not.toContain("skIpPolicyAccordion__item-list--expanded")
       },
       { timeout: 10000 }
     )
 
-    await userEvent.click(canvas.getByText(POLICY_TYPE.COMMERCIAL_USE))
+    await userEvent.click(canvas.getByText(PIL_FLAVOR.COMMERCIAL_USE))
     await waitFor(
       () => {
-        expect(canvas.getByText(POLICY_TYPE.COMMERCIAL_USE).parentElement?.nextElementSibling?.classList).toContain(
+        expect(canvas.getByText(PIL_FLAVOR.COMMERCIAL_USE).parentElement?.nextElementSibling?.classList).toContain(
           "skIpPolicyAccordion__item-list--expanded"
         )
       },

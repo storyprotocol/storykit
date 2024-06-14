@@ -1,6 +1,6 @@
 import { Address } from "viem"
 
-export enum POLICY_TYPE {
+export enum PIL_FLAVOR {
   NON_COMMERCIAL_SOCIAL_REMIXING = "Non-Commercial Social Remixing",
   COMMERCIAL_USE = "Commercial Use",
   COMMERCIAL_REMIX = "Commercial Remix",
@@ -9,11 +9,11 @@ export enum POLICY_TYPE {
   // NO_DERIVATIVE = "No Derivative",
 }
 
-export type PolicyType =
-  | POLICY_TYPE.NON_COMMERCIAL_SOCIAL_REMIXING
-  | POLICY_TYPE.COMMERCIAL_USE
-  | POLICY_TYPE.COMMERCIAL_REMIX
-  | POLICY_TYPE.CUSTOM
+export type PilFlavor =
+  | PIL_FLAVOR.NON_COMMERCIAL_SOCIAL_REMIXING
+  | PIL_FLAVOR.COMMERCIAL_USE
+  | PIL_FLAVOR.COMMERCIAL_REMIX
+  | PIL_FLAVOR.CUSTOM
 
 export type Asset = {
   id: Address
