@@ -1,6 +1,5 @@
 import { shortenAddress } from "@/lib/utils"
-import { Asset } from "@/types/assets"
-import { NFTMetadata } from "@/types/simplehash"
+import { Asset, NFTMetadata } from "@/types"
 import { Address } from "viem"
 
 import { getNFTByTokenId } from "./simplehash"

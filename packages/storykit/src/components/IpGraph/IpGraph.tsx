@@ -1,4 +1,4 @@
-import { NFTMetadata } from "@/types/simplehash"
+import { NFTMetadata } from "@/types"
 import { useQuery } from "@tanstack/react-query"
 import React, { useEffect, useState } from "react"
 
