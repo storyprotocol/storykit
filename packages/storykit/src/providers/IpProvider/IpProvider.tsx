@@ -24,7 +24,7 @@ const IpContext = React.createContext<{
   ipLicenseTermsData: IPLicenseTerms[] | undefined
   isIpLicenseTermsDataLoading: boolean
   licenseTermsData: LicenseTerms[] | undefined
-  isPolicyDataLoading: boolean
+  isLicenseTermsDataLoading: boolean
   licenseData: License[] | undefined
   isLicenseDataLoading: boolean
   royaltyData: RoyaltyPolicy | undefined
@@ -87,7 +87,7 @@ export const IpProvider = ({
       })
   }
 
-  const { isLoading: isPolicyDataLoading, data: licenseTermsData } = useQuery({
+  const { isLoading: isLicenseTermsDataLoading, data: licenseTermsData } = useQuery({
     queryKey: ["fetchPolicyDetails", ipLicenseTermsData?.data],
     queryFn: () => fetchPolicyDetails(ipLicenseTermsData?.data),
     enabled: Boolean(ipLicenseTermsData) && Boolean(ipLicenseTermsData.data) && queryOptions.licenseTermsData,
@@ -148,7 +148,7 @@ export const IpProvider = ({
         ipLicenseTermsData: ipLicenseTermsData?.data,
         isIpLicenseTermsDataLoading,
         licenseTermsData: licenseTermsData,
-        isPolicyDataLoading,
+        isLicenseTermsDataLoading,
         licenseData: licenseData?.data,
         isLicenseDataLoading,
         royaltyData: royaltyData?.data,

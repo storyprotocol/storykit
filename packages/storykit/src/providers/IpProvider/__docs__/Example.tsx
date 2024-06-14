@@ -187,11 +187,11 @@ const IPAPolicyComponent = () => {
 }
 
 const PolicyComponent = () => {
-  const { licenseTermsData, isPolicyDataLoading } = useIpContext()
+  const { licenseTermsData, isLicenseTermsDataLoading } = useIpContext()
   return (
     <>
-      {isPolicyDataLoading && <div>Fetching Policy...</div>}
-      {licenseTermsData && !isPolicyDataLoading ? (
+      {isLicenseTermsDataLoading && <div>Fetching Policy...</div>}
+      {licenseTermsData && !isLicenseTermsDataLoading ? (
         <div>
           <>
             <ul>
@@ -342,7 +342,7 @@ const ProviderOptionsComponent = () => {
     ipLicenseTermsData,
     isIpLicenseTermsDataLoading,
     licenseTermsData,
-    isPolicyDataLoading,
+    isLicenseTermsDataLoading,
     licenseData,
     isLicenseDataLoading,
     royaltyData,
@@ -354,7 +354,7 @@ const ProviderOptionsComponent = () => {
         {isAssetDataLoading && <div>Fetching Asset...</div>}
         {isNftDataLoading && <div>Fetching NFT...</div>}
         {isIpLicenseTermsDataLoading && <div>Fetching IPAPolicy...</div>}
-        {isPolicyDataLoading && <div>Fetching Policy...</div>}
+        {isLicenseTermsDataLoading && <div>Fetching Policy...</div>}
         {isLicenseDataLoading && <div>Fetching License...</div>}
         {isRoyaltyDataLoading && <div>Fetching Royalty...</div>}
         <div className="grid grid-cols-4 gap-4">
