@@ -356,8 +356,8 @@ export const NotLoadPolicy: Story = {
 
     await waitFor(
       () => {
-        expect(canvas.queryByText("Fetching IPAPolicy...")).toBeNull()
-        expect(canvas.queryByText("Fetching Policy...")).toBeNull()
+        expect(canvas.queryByText("Fetching IPLicense...")).toBeNull()
+        expect(canvas.queryByText("Fetching License Terms...")).toBeNull()
       },
       { timeout: 10000 }
     )
@@ -473,8 +473,8 @@ export const NotLoadAll: Story = {
       () => {
         expect(canvas.queryByText("Fetching Asset...")).toBeNull()
         expect(canvas.queryByText("Fetching NFT...")).toBeNull()
-        expect(canvas.queryByText("Fetching IPAPolicy...")).toBeNull()
-        expect(canvas.queryByText("Fetching Policy...")).toBeNull()
+        expect(canvas.queryByText("Fetching IPLicense...")).toBeNull()
+        expect(canvas.queryByText("Fetching License Terms...")).toBeNull()
         expect(canvas.queryByText("Fetching License...")).toBeNull()
         expect(canvas.queryByText("Fetching Royalty...")).toBeNull()
       },

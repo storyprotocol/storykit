@@ -197,7 +197,7 @@ const LicenseTermsComponent = () => {
             <ul>
               {(licenseTermsData as unknown as any[])?.map((license) => (
                 <li className="grid grid-cols-4 gap-6" key={license.id}>
-                  <p className="col-span-1 text-xs text-gray-600">Policy Id</p>
+                  <p className="col-span-1 text-xs text-gray-600">License Id</p>
                   <p className="col-span-3 text-sm" data-testid="license-id">
                     {license.id}
                   </p>
@@ -353,8 +353,8 @@ const ProviderOptionsComponent = () => {
       <div>
         {isAssetDataLoading && <div>Fetching Asset...</div>}
         {isNftDataLoading && <div>Fetching NFT...</div>}
-        {isIpLicenseTermsDataLoading && <div>Fetching IPAPolicy...</div>}
-        {isLicenseTermsDataLoading && <div>Fetching Policy...</div>}
+        {isIpLicenseTermsDataLoading && <div>Fetching IPLicense...</div>}
+        {isLicenseTermsDataLoading && <div>Fetching License Terms...</div>}
         {isLicenseDataLoading && <div>Fetching License...</div>}
         {isRoyaltyDataLoading && <div>Fetching Royalty...</div>}
         <div className="grid grid-cols-4 gap-4">
@@ -366,11 +366,11 @@ const ProviderOptionsComponent = () => {
           <div className="col-span-3 text-sm" data-testid="nft-id">
             {nftData?.nft_id}
           </div>
-          <div className="col-span-1 text-xs text-gray-600">IPAPolicy count</div>
+          <div className="col-span-1 text-xs text-gray-600">IPLicense count</div>
           <div className="col-span-3 text-sm" data-testid="ipap-count">
             {ipLicenseTermsData?.length}
           </div>
-          <div className="col-span-1 text-xs text-gray-600">Policy count</div>
+          <div className="col-span-1 text-xs text-gray-600">License Terms count</div>
           <div className="col-span-3 text-sm" data-testid="license-terms-count">
             {licenseTermsData?.length}
           </div>
