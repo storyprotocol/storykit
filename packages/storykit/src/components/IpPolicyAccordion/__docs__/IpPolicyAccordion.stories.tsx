@@ -79,9 +79,9 @@ export const IpOfCommercialRemix: Story = {
     await userEvent.click(canvas.getByText(POLICY_TYPE.COMMERCIAL_REMIX))
     await waitFor(
       () => {
-        expect(canvas.getByText(POLICY_TYPE.COMMERCIAL_REMIX).nextElementSibling?.classList).not.toContain(
-          "skIpPolicyAccordion__item-list--expanded"
-        )
+        expect(
+          canvas.getByText(POLICY_TYPE.COMMERCIAL_REMIX).parentElement?.nextElementSibling?.classList
+        ).not.toContain("skIpPolicyAccordion__item-list--expanded")
       },
       { timeout: 10000 }
     )
@@ -89,7 +89,7 @@ export const IpOfCommercialRemix: Story = {
     await userEvent.click(canvas.getByText(POLICY_TYPE.COMMERCIAL_REMIX))
     await waitFor(
       () => {
-        expect(canvas.getByText(POLICY_TYPE.COMMERCIAL_REMIX).nextElementSibling?.classList).toContain(
+        expect(canvas.getByText(POLICY_TYPE.COMMERCIAL_REMIX).parentElement?.nextElementSibling?.classList).toContain(
           "skIpPolicyAccordion__item-list--expanded"
         )
       },
@@ -97,6 +97,7 @@ export const IpOfCommercialRemix: Story = {
     )
   },
 }
+
 export const IpOfCommercialUse: Story = {
   argTypes: {
     ipId: {
@@ -119,7 +120,7 @@ export const IpOfCommercialUse: Story = {
     await userEvent.click(canvas.getByText(POLICY_TYPE.COMMERCIAL_USE))
     await waitFor(
       () => {
-        expect(canvas.getByText(POLICY_TYPE.COMMERCIAL_USE).nextElementSibling?.classList).not.toContain(
+        expect(canvas.getByText(POLICY_TYPE.COMMERCIAL_USE).parentElement?.nextElementSibling?.classList).not.toContain(
           "skIpPolicyAccordion__item-list--expanded"
         )
       },
@@ -129,7 +130,7 @@ export const IpOfCommercialUse: Story = {
     await userEvent.click(canvas.getByText(POLICY_TYPE.COMMERCIAL_USE))
     await waitFor(
       () => {
-        expect(canvas.getByText(POLICY_TYPE.COMMERCIAL_USE).nextElementSibling?.classList).toContain(
+        expect(canvas.getByText(POLICY_TYPE.COMMERCIAL_USE).parentElement?.nextElementSibling?.classList).toContain(
           "skIpPolicyAccordion__item-list--expanded"
         )
       },
@@ -137,6 +138,7 @@ export const IpOfCommercialUse: Story = {
     )
   },
 }
+
 export const IpOfNonCommercialSocialRemixing: Story = {
   argTypes: {
     ipId: {
@@ -160,7 +162,7 @@ export const IpOfNonCommercialSocialRemixing: Story = {
     await waitFor(
       () => {
         expect(
-          canvas.getByText(POLICY_TYPE.NON_COMMERCIAL_SOCIAL_REMIXING).nextElementSibling?.classList
+          canvas.getByText(POLICY_TYPE.NON_COMMERCIAL_SOCIAL_REMIXING).parentElement?.nextElementSibling?.classList
         ).not.toContain("skIpPolicyAccordion__item-list--expanded")
       },
       { timeout: 10000 }
@@ -169,9 +171,9 @@ export const IpOfNonCommercialSocialRemixing: Story = {
     await userEvent.click(canvas.getByText(POLICY_TYPE.NON_COMMERCIAL_SOCIAL_REMIXING))
     await waitFor(
       () => {
-        expect(canvas.getByText(POLICY_TYPE.NON_COMMERCIAL_SOCIAL_REMIXING).nextElementSibling?.classList).toContain(
-          "skIpPolicyAccordion__item-list--expanded"
-        )
+        expect(
+          canvas.getByText(POLICY_TYPE.NON_COMMERCIAL_SOCIAL_REMIXING).parentElement?.nextElementSibling?.classList
+        ).toContain("skIpPolicyAccordion__item-list--expanded")
       },
       { timeout: 10000 }
     )
@@ -194,14 +196,15 @@ export const IpOfMultiplePolicies: Story = {
         expect(canvas.getByText(POLICY_TYPE.COMMERCIAL_REMIX)).toBeInTheDocument()
         expect(canvas.getByText(POLICY_TYPE.COMMERCIAL_USE)).toBeInTheDocument()
         expect(canvas.getByText(POLICY_TYPE.NON_COMMERCIAL_SOCIAL_REMIXING)).toBeInTheDocument()
-        expect(canvas.getByText(POLICY_TYPE.COMMERCIAL_REMIX).nextElementSibling?.classList).toContain(
+
+        expect(canvas.getByText(POLICY_TYPE.COMMERCIAL_REMIX).parentElement?.nextElementSibling?.classList).toContain(
           "skIpPolicyAccordion__item-list--expanded"
         )
-        expect(canvas.getByText(POLICY_TYPE.COMMERCIAL_USE).nextElementSibling?.classList).not.toContain(
+        expect(canvas.getByText(POLICY_TYPE.COMMERCIAL_USE).parentElement?.nextElementSibling?.classList).not.toContain(
           "skIpPolicyAccordion__item-list--expanded"
         )
         expect(
-          canvas.getByText(POLICY_TYPE.NON_COMMERCIAL_SOCIAL_REMIXING).nextElementSibling?.classList
+          canvas.getByText(POLICY_TYPE.NON_COMMERCIAL_SOCIAL_REMIXING).parentElement?.nextElementSibling?.classList
         ).not.toContain("skIpPolicyAccordion__item-list--expanded")
       },
       { timeout: 10000 }
@@ -210,10 +213,13 @@ export const IpOfMultiplePolicies: Story = {
     await userEvent.click(canvas.getByText(POLICY_TYPE.NON_COMMERCIAL_SOCIAL_REMIXING))
     await waitFor(
       () => {
-        expect(canvas.getByText(POLICY_TYPE.NON_COMMERCIAL_SOCIAL_REMIXING).nextElementSibling?.classList).toContain(
-          "skIpPolicyAccordion__item-list--expanded"
-        )
-        expect(canvas.getByText(POLICY_TYPE.COMMERCIAL_REMIX).nextElementSibling?.classList).not.toContain(
+        expect(
+          canvas.getByText(POLICY_TYPE.NON_COMMERCIAL_SOCIAL_REMIXING).parentElement?.nextElementSibling?.classList
+        ).toContain("skIpPolicyAccordion__item-list--expanded")
+        expect(
+          canvas.getByText(POLICY_TYPE.COMMERCIAL_REMIX).parentElement?.nextElementSibling?.classList
+        ).not.toContain("skIpPolicyAccordion__item-list--expanded")
+        expect(canvas.getByText(POLICY_TYPE.COMMERCIAL_USE).parentElement?.nextElementSibling?.classList).not.toContain(
           "skIpPolicyAccordion__item-list--expanded"
         )
       },
@@ -224,7 +230,7 @@ export const IpOfMultiplePolicies: Story = {
     await waitFor(
       () => {
         expect(
-          canvas.getByText(POLICY_TYPE.NON_COMMERCIAL_SOCIAL_REMIXING).nextElementSibling?.classList
+          canvas.getByText(POLICY_TYPE.NON_COMMERCIAL_SOCIAL_REMIXING).parentElement?.nextElementSibling?.classList
         ).not.toContain("skIpPolicyAccordion__item-list--expanded")
       },
       { timeout: 10000 }
@@ -233,7 +239,7 @@ export const IpOfMultiplePolicies: Story = {
     await userEvent.click(canvas.getByText(POLICY_TYPE.COMMERCIAL_USE))
     await waitFor(
       () => {
-        expect(canvas.getByText(POLICY_TYPE.COMMERCIAL_USE).nextElementSibling?.classList).toContain(
+        expect(canvas.getByText(POLICY_TYPE.COMMERCIAL_USE).parentElement?.nextElementSibling?.classList).toContain(
           "skIpPolicyAccordion__item-list--expanded"
         )
       },

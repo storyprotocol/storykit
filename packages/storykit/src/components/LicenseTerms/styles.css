@@ -13,7 +13,7 @@
     }
 
     .skLicenseTerms__group {
-      @apply flex-1;
+      @apply flex flex-col gap-0.5 flex-1;
     }
   }
 
@@ -48,14 +48,20 @@
   &.skLicenseTerms--medium {
     @apply text-base;
 
-    .policy-list {
+    .skLicenseTerms__properties {
+      @apply gap-3;
+    }
+    .skLicenseTerms__group {
       @apply gap-1;
     }
   }
 
   &.skLicenseTerms--large {
     @apply text-lg;
-    .policy-list {
+    .skLicenseTerms__properties {
+      @apply gap-4;
+    }
+    .skLicenseTerms__group {
       @apply gap-2;
     }
   }

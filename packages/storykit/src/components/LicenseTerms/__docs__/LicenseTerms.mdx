@@ -18,11 +18,11 @@ Displays the License Terms cans and cannots for specified license type.
 
 ```ts
 
-import { LicenseTerms, POLICY_TYPE } from "@storyprotocol/storykit"
+import { LicenseTerms } from "@storyprotocol/storykit"
 
 const ExamplePage = () => {
   return (
-    <LicenseTerms type={POLICY_TYPE.NON_COMMERCIAL_SOCIAL_REMIXING} />
+    <LicenseTerms size='medium' selectedLicenseTermsId={'1'} />
   );
 };
 

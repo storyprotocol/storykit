@@ -2,6 +2,7 @@ import { cn, getPolicyTypeByPILData } from "@/lib/utils"
 import { useIpContext } from "@/providers"
 import { cva } from "class-variance-authority"
 import { useState } from "react"
+import React from "react"
 import { FaCaretDown, FaCaretUp } from "react-icons/fa6"
 
 import "../../global.css"
@@ -35,7 +36,10 @@ function IpPolicyAccordion({ size = "medium" }: IpPolicyAccordionProps) {
             className="skIpPolicyAccordion__item-header"
             onClick={() => setExpanded(expanded === index ? null : index)}
           >
-            {getPolicyTypeByPILData(policy.licenseTerms)}
+            <span>
+              {getPolicyTypeByPILData(policy.licenseTerms)}{" "}
+              <span className="skIpPolicyAccordion__item-termsId">(#{policy.id})</span>
+            </span>
             {expanded === index ? <FaCaretUp width={12} /> : <FaCaretDown width={12} />}
           </div>
 
@@ -45,7 +49,7 @@ function IpPolicyAccordion({ size = "medium" }: IpPolicyAccordionProps) {
               expanded === index && "skIpPolicyAccordion__item-list--expanded"
             )}
           >
-            <LicenseTerms size={size} type={getPolicyTypeByPILData(policy.licenseTerms)} />
+            <LicenseTerms size={size} selectedLicenseTerms={policy.licenseTerms} />
           </div>
 
           {index < policyData.length - 1 && <div className="skIpPolicyAccordion__divider" />}

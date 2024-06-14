@@ -1,10 +1,10 @@
+import { convertLicenseTermObject } from "@/lib/functions/convertLicenseTermObject"
 import { useQuery } from "@tanstack/react-query"
 import React from "react"
 import { Address } from "viem"
 
 import { getResource, listResource } from "../../lib/api"
 import { getNFTByTokenId } from "../../lib/simplehash"
-import { camelize } from "../../lib/utils"
 import { RESOURCE_TYPE } from "../../types/api"
 import { Asset, IPAPolicy, License, Policy, RoyaltyPolicy } from "../../types/assets"
 import { NFTMetadata } from "../../types/simplehash"
@@ -82,13 +82,7 @@ export const IpProvider = ({
         return {
           ...result.data,
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          licenseTerms: result.data.licenseTerms.reduce((acc: any, option: any) => {
-            return {
-              ...acc,
-              [camelize(option.trait_type)]:
-                option.value === "true" ? true : option.value === "false" ? false : option.value,
-            }
-          }, {}),
+          licenseTerms: convertLicenseTermObject(result.data.licenseTerms),
         }
       })
   }

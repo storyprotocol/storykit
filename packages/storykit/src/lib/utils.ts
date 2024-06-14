@@ -1,4 +1,4 @@
-import { PILType, POLICY_TYPE, PolicyType } from "@/types"
+import { PILTerms, POLICY_TYPE, PolicyType } from "@/types"
 import { type ClassValue, clsx } from "clsx"
 import { twMerge } from "tailwind-merge"
 
@@ -27,24 +27,21 @@ export function camelize(str: string) {
   })
 }
 
-export function getPolicyTypeByPILData(pilData: PILType): PolicyType {
-  const { derivativesAttribution, derivativesAllowed, commercialUse, derivativesReciprocal } = pilData
+export function getPolicyTypeByPILData(pilTerms: PILTerms): PolicyType {
+  const { commercialUse, derivativesAllowed, derivativesAttribution, commercialRevenueShare } = pilTerms
 
-  if (commercialUse) {
-    if (!derivativesReciprocal) {
-      return POLICY_TYPE.COMMERCIAL_USE
-    } else {
-      return POLICY_TYPE.COMMERCIAL_REMIX
-    }
-  } else {
-    if (!derivativesAllowed) {
-      return POLICY_TYPE.NO_DERIVATIVE
-    } else {
-      if (derivativesAttribution) {
-        return POLICY_TYPE.NON_COMMERCIAL_SOCIAL_REMIXING
-      } else {
-        return POLICY_TYPE.OPEN_DOMAIN
-      }
-    }
+  if (!commercialUse && derivativesAllowed && derivativesAttribution) {
+    return POLICY_TYPE.NON_COMMERCIAL_SOCIAL_REMIXING
   }
+
+  if (commercialUse && derivativesAllowed && derivativesAttribution && commercialRevenueShare === 0) {
+    // TODO: commercial use should check that mintingFee is set, currently not received from the API
+    return POLICY_TYPE.COMMERCIAL_USE
+  }
+
+  if (commercialUse && derivativesAllowed && derivativesAttribution && commercialRevenueShare > 0) {
+    return POLICY_TYPE.COMMERCIAL_REMIX
+  }
+
+  return POLICY_TYPE.CUSTOM
 }
