@@ -1,31 +1,31 @@
-.skIpPolicyAccordion {
+.skIpLicenseAccordion {
   @apply flex flex-col w-full min-w-48;
 
-  .skIpPolicyAccordion__item {
+  .skIpLicenseAccordion__item {
     @apply flex flex-col w-full;
   }
 
-  .skIpPolicyAccordion__item-header {
+  .skIpLicenseAccordion__item-header {
     @apply flex w-full items-center justify-between cursor-pointer;
   }
 
-  .skIpPolicyAccordion__item-termsId {
+  .skIpLicenseAccordion__item-termsId {
     @apply text-slate-400 text-xs;
   }
 
-  .skIpPolicyAccordion__item-list {
+  .skIpLicenseAccordion__item-list {
     @apply flex w-full overflow-hidden h-0;
 
-    &.skIpPolicyAccordion__item-list--expanded {
+    &.skIpLicenseAccordion__item-list--expanded {
       @apply h-auto;
     }
   }
 
-  .skIpPolicyAccordion__divider {
+  .skIpLicenseAccordion__divider {
     @apply border-b border-gray-200 w-full my-2;
   }
 
-  &.skIpPolicyAccordion--no-policy {
+  &.skIpLicenseAccordion--no-policy {
     @apply text-slate-400;
   }
 }

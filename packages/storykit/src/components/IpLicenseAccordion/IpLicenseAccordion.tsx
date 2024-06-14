@@ -12,9 +12,9 @@ import "./styles.css"
 const licensesStyles = cva("", {
   variants: {
     size: {
-      small: "skIpPolicyAccordion--small",
-      medium: "skIpPolicyAccordion--medium",
-      large: "skIpPolicyAccordion--large",
+      small: "skIpLicenseAccordion--small",
+      medium: "skIpLicenseAccordion--medium",
+      large: "skIpLicenseAccordion--large",
     },
   },
 })
@@ -28,36 +28,36 @@ function IpLicenseAccordion({ size = "medium" }: IpLicenseAccordionProps) {
   const [expanded, setExpanded] = useState<number | null>(0)
 
   return licenseTermsData?.length ? (
-    <div className={cn("skIpPolicyAccordion", licensesStyles({ size }))}>
+    <div className={cn("skIpLicenseAccordion", licensesStyles({ size }))}>
       {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
       {(licenseTermsData as unknown as any[])?.map((license, index) => (
-        <div key={license.id} className="skIpPolicyAccordion__item">
+        <div key={license.id} className="skIpLicenseAccordion__item">
           <div
-            className="skIpPolicyAccordion__item-header"
+            className="skIpLicenseAccordion__item-header"
             onClick={() => setExpanded(expanded === index ? null : index)}
           >
             <span>
               {getPilFlavorByLicenseTerms(license.licenseTerms)}{" "}
-              <span className="skIpPolicyAccordion__item-termsId">(#{license.id})</span>
+              <span className="skIpLicenseAccordion__item-termsId">(#{license.id})</span>
             </span>
             {expanded === index ? <FaCaretUp width={12} /> : <FaCaretDown width={12} />}
           </div>
 
           <div
             className={cn(
-              "skIpPolicyAccordion__item-list",
-              expanded === index && "skIpPolicyAccordion__item-list--expanded"
+              "skIpLicenseAccordion__item-list",
+              expanded === index && "skIpLicenseAccordion__item-list--expanded"
             )}
           >
             <LicenseTermsList size={size} selectedLicenseTerms={license.licenseTerms} />
           </div>
 
-          {index < licenseTermsData.length - 1 && <div className="skIpPolicyAccordion__divider" />}
+          {index < licenseTermsData.length - 1 && <div className="skIpLicenseAccordion__divider" />}
         </div>
       ))}
     </div>
   ) : (
-    <div className="skIpPolicyAccordion skIpPolicyAccordion--no-policy">No License</div>
+    <div className="skIpLicenseAccordion skIpLicenseAccordion--no-policy">No License</div>
   )
 }
 

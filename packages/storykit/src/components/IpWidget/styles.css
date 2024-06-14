@@ -36,7 +36,7 @@
   .skIpWidget__policyContainer {
     @apply p-2;
 
-    .skIpPolicyAccordion--no-policy {
+    .skIpLicenseAccordion--no-policy {
       @apply w-full items-center py-32;
     }
   }

@@ -81,7 +81,7 @@ export const IpOfCommercialRemix: Story = {
       () => {
         expect(
           canvas.getByText(PIL_FLAVOR.COMMERCIAL_REMIX).parentElement?.nextElementSibling?.classList
-        ).not.toContain("skIpPolicyAccordion__item-list--expanded")
+        ).not.toContain("skIpLicenseAccordion__item-list--expanded")
       },
       { timeout: 10000 }
     )
@@ -90,7 +90,7 @@ export const IpOfCommercialRemix: Story = {
     await waitFor(
       () => {
         expect(canvas.getByText(PIL_FLAVOR.COMMERCIAL_REMIX).parentElement?.nextElementSibling?.classList).toContain(
-          "skIpPolicyAccordion__item-list--expanded"
+          "skIpLicenseAccordion__item-list--expanded"
         )
       },
       { timeout: 10000 }
@@ -121,7 +121,7 @@ export const IpOfCommercialUse: Story = {
     await waitFor(
       () => {
         expect(canvas.getByText(PIL_FLAVOR.COMMERCIAL_USE).parentElement?.nextElementSibling?.classList).not.toContain(
-          "skIpPolicyAccordion__item-list--expanded"
+          "skIpLicenseAccordion__item-list--expanded"
         )
       },
       { timeout: 10000 }
@@ -131,7 +131,7 @@ export const IpOfCommercialUse: Story = {
     await waitFor(
       () => {
         expect(canvas.getByText(PIL_FLAVOR.COMMERCIAL_USE).parentElement?.nextElementSibling?.classList).toContain(
-          "skIpPolicyAccordion__item-list--expanded"
+          "skIpLicenseAccordion__item-list--expanded"
         )
       },
       { timeout: 10000 }
@@ -163,7 +163,7 @@ export const IpOfNonCommercialSocialRemixing: Story = {
       () => {
         expect(
           canvas.getByText(PIL_FLAVOR.NON_COMMERCIAL_SOCIAL_REMIXING).parentElement?.nextElementSibling?.classList
-        ).not.toContain("skIpPolicyAccordion__item-list--expanded")
+        ).not.toContain("skIpLicenseAccordion__item-list--expanded")
       },
       { timeout: 10000 }
     )
@@ -173,7 +173,7 @@ export const IpOfNonCommercialSocialRemixing: Story = {
       () => {
         expect(
           canvas.getByText(PIL_FLAVOR.NON_COMMERCIAL_SOCIAL_REMIXING).parentElement?.nextElementSibling?.classList
-        ).toContain("skIpPolicyAccordion__item-list--expanded")
+        ).toContain("skIpLicenseAccordion__item-list--expanded")
       },
       { timeout: 10000 }
     )
@@ -198,14 +198,14 @@ export const IpOfMultiplePolicies: Story = {
         expect(canvas.getByText(PIL_FLAVOR.NON_COMMERCIAL_SOCIAL_REMIXING)).toBeInTheDocument()
 
         expect(canvas.getByText(PIL_FLAVOR.COMMERCIAL_REMIX).parentElement?.nextElementSibling?.classList).toContain(
-          "skIpPolicyAccordion__item-list--expanded"
+          "skIpLicenseAccordion__item-list--expanded"
         )
         expect(canvas.getByText(PIL_FLAVOR.COMMERCIAL_USE).parentElement?.nextElementSibling?.classList).not.toContain(
-          "skIpPolicyAccordion__item-list--expanded"
+          "skIpLicenseAccordion__item-list--expanded"
         )
         expect(
           canvas.getByText(PIL_FLAVOR.NON_COMMERCIAL_SOCIAL_REMIXING).parentElement?.nextElementSibling?.classList
-        ).not.toContain("skIpPolicyAccordion__item-list--expanded")
+        ).not.toContain("skIpLicenseAccordion__item-list--expanded")
       },
       { timeout: 10000 }
     )
@@ -215,12 +215,12 @@ export const IpOfMultiplePolicies: Story = {
       () => {
         expect(
           canvas.getByText(PIL_FLAVOR.NON_COMMERCIAL_SOCIAL_REMIXING).parentElement?.nextElementSibling?.classList
-        ).toContain("skIpPolicyAccordion__item-list--expanded")
+        ).toContain("skIpLicenseAccordion__item-list--expanded")
         expect(
           canvas.getByText(PIL_FLAVOR.COMMERCIAL_REMIX).parentElement?.nextElementSibling?.classList
-        ).not.toContain("skIpPolicyAccordion__item-list--expanded")
+        ).not.toContain("skIpLicenseAccordion__item-list--expanded")
         expect(canvas.getByText(PIL_FLAVOR.COMMERCIAL_USE).parentElement?.nextElementSibling?.classList).not.toContain(
-          "skIpPolicyAccordion__item-list--expanded"
+          "skIpLicenseAccordion__item-list--expanded"
         )
       },
       { timeout: 10000 }
@@ -231,7 +231,7 @@ export const IpOfMultiplePolicies: Story = {
       () => {
         expect(
           canvas.getByText(PIL_FLAVOR.NON_COMMERCIAL_SOCIAL_REMIXING).parentElement?.nextElementSibling?.classList
-        ).not.toContain("skIpPolicyAccordion__item-list--expanded")
+        ).not.toContain("skIpLicenseAccordion__item-list--expanded")
       },
       { timeout: 10000 }
     )
@@ -240,7 +240,7 @@ export const IpOfMultiplePolicies: Story = {
     await waitFor(
       () => {
         expect(canvas.getByText(PIL_FLAVOR.COMMERCIAL_USE).parentElement?.nextElementSibling?.classList).toContain(
-          "skIpPolicyAccordion__item-list--expanded"
+          "skIpLicenseAccordion__item-list--expanded"
         )
       },
       { timeout: 10000 }
