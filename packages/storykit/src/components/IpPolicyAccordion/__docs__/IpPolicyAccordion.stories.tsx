@@ -79,9 +79,9 @@ export const IpOfCommercialRemix: Story = {
     await userEvent.click(canvas.getByText(POLICY_TYPE.COMMERCIAL_REMIX))
     await waitFor(
       () => {
-        expect(canvas.getByText(POLICY_TYPE.COMMERCIAL_REMIX).nextElementSibling?.classList).not.toContain(
-          "skIpPolicyAccordion__item-list--expanded"
-        )
+        expect(
+          canvas.getByText(POLICY_TYPE.COMMERCIAL_REMIX).parentElement?.nextElementSibling?.classList
+        ).not.toContain("skIpPolicyAccordion__item-list--expanded")
       },
       { timeout: 10000 }
     )
@@ -89,7 +89,7 @@ export const IpOfCommercialRemix: Story = {
     await userEvent.click(canvas.getByText(POLICY_TYPE.COMMERCIAL_REMIX))
     await waitFor(
       () => {
-        expect(canvas.getByText(POLICY_TYPE.COMMERCIAL_REMIX).nextElementSibling?.classList).toContain(
+        expect(canvas.getByText(POLICY_TYPE.COMMERCIAL_REMIX).parentElement?.nextElementSibling?.classList).toContain(
           "skIpPolicyAccordion__item-list--expanded"
         )
       },
@@ -98,46 +98,46 @@ export const IpOfCommercialRemix: Story = {
   },
 }
 
-// export const IpOfCommercialUse: Story = {
-//   argTypes: {
-//     ipId: {
-//       options: ["0x86Fd9B1abbF0BeCBdA6F50e39dEfb5D4b50392D7"],
-//     },
-//   },
-//   args: {
-//     ipId: "0x86Fd9B1abbF0BeCBdA6F50e39dEfb5D4b50392D7",
-//     size: "small",
-//   },
-//   play: async ({ canvasElement }) => {
-//     const canvas = within(canvasElement)
-//     await waitFor(
-//       () => {
-//         expect(canvas.getByText(POLICY_TYPE.COMMERCIAL_USE)).toBeInTheDocument()
-//       },
-//       { timeout: 10000 }
-//     )
+export const IpOfCommercialUse: Story = {
+  argTypes: {
+    ipId: {
+      options: ["0x86Fd9B1abbF0BeCBdA6F50e39dEfb5D4b50392D7"],
+    },
+  },
+  args: {
+    ipId: "0x86Fd9B1abbF0BeCBdA6F50e39dEfb5D4b50392D7",
+    size: "small",
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    await waitFor(
+      () => {
+        expect(canvas.getByText(POLICY_TYPE.COMMERCIAL_USE)).toBeInTheDocument()
+      },
+      { timeout: 10000 }
+    )
 
-//     await userEvent.click(canvas.getByText(POLICY_TYPE.COMMERCIAL_USE))
-//     await waitFor(
-//       () => {
-//         expect(canvas.getByText(POLICY_TYPE.COMMERCIAL_USE).nextElementSibling?.classList).not.toContain(
-//           "skIpPolicyAccordion__item-list--expanded"
-//         )
-//       },
-//       { timeout: 10000 }
-//     )
+    await userEvent.click(canvas.getByText(POLICY_TYPE.COMMERCIAL_USE))
+    await waitFor(
+      () => {
+        expect(canvas.getByText(POLICY_TYPE.COMMERCIAL_USE).parentElement?.nextElementSibling?.classList).not.toContain(
+          "skIpPolicyAccordion__item-list--expanded"
+        )
+      },
+      { timeout: 10000 }
+    )
 
-//     await userEvent.click(canvas.getByText(POLICY_TYPE.COMMERCIAL_USE))
-//     await waitFor(
-//       () => {
-//         expect(canvas.getByText(POLICY_TYPE.COMMERCIAL_USE).nextElementSibling?.classList).toContain(
-//           "skIpPolicyAccordion__item-list--expanded"
-//         )
-//       },
-//       { timeout: 10000 }
-//     )
-//   },
-// }
+    await userEvent.click(canvas.getByText(POLICY_TYPE.COMMERCIAL_USE))
+    await waitFor(
+      () => {
+        expect(canvas.getByText(POLICY_TYPE.COMMERCIAL_USE).parentElement?.nextElementSibling?.classList).toContain(
+          "skIpPolicyAccordion__item-list--expanded"
+        )
+      },
+      { timeout: 10000 }
+    )
+  },
+}
 
 export const IpOfNonCommercialSocialRemixing: Story = {
   argTypes: {
@@ -162,7 +162,7 @@ export const IpOfNonCommercialSocialRemixing: Story = {
     await waitFor(
       () => {
         expect(
-          canvas.getByText(POLICY_TYPE.NON_COMMERCIAL_SOCIAL_REMIXING).nextElementSibling?.classList
+          canvas.getByText(POLICY_TYPE.NON_COMMERCIAL_SOCIAL_REMIXING).parentElement?.nextElementSibling?.classList
         ).not.toContain("skIpPolicyAccordion__item-list--expanded")
       },
       { timeout: 10000 }
@@ -171,9 +171,9 @@ export const IpOfNonCommercialSocialRemixing: Story = {
     await userEvent.click(canvas.getByText(POLICY_TYPE.NON_COMMERCIAL_SOCIAL_REMIXING))
     await waitFor(
       () => {
-        expect(canvas.getByText(POLICY_TYPE.NON_COMMERCIAL_SOCIAL_REMIXING).nextElementSibling?.classList).toContain(
-          "skIpPolicyAccordion__item-list--expanded"
-        )
+        expect(
+          canvas.getByText(POLICY_TYPE.NON_COMMERCIAL_SOCIAL_REMIXING).parentElement?.nextElementSibling?.classList
+        ).toContain("skIpPolicyAccordion__item-list--expanded")
       },
       { timeout: 10000 }
     )
@@ -193,53 +193,57 @@ export const IpOfMultiplePolicies: Story = {
     const canvas = within(canvasElement)
     await waitFor(
       () => {
-        expect(canvas.getAllByText(POLICY_TYPE.COMMERCIAL_REMIX)[0]).toBeInTheDocument()
-        // expect(canvas.getByText(POLICY_TYPE.COMMERCIAL_USE)).toBeInTheDocument()
-        expect(canvas.getAllByText(POLICY_TYPE.NON_COMMERCIAL_SOCIAL_REMIXING)[0]).toBeInTheDocument()
-        expect(canvas.getAllByText(POLICY_TYPE.COMMERCIAL_REMIX)[0].nextElementSibling?.classList).toContain(
+        expect(canvas.getByText(POLICY_TYPE.COMMERCIAL_REMIX)).toBeInTheDocument()
+        expect(canvas.getByText(POLICY_TYPE.COMMERCIAL_USE)).toBeInTheDocument()
+        expect(canvas.getByText(POLICY_TYPE.NON_COMMERCIAL_SOCIAL_REMIXING)).toBeInTheDocument()
+
+        expect(canvas.getByText(POLICY_TYPE.COMMERCIAL_REMIX).parentElement?.nextElementSibling?.classList).toContain(
           "skIpPolicyAccordion__item-list--expanded"
         )
-        // expect(canvas.getByText(POLICY_TYPE.COMMERCIAL_USE).nextElementSibling?.classList).not.toContain(
-        //   "skIpPolicyAccordion__item-list--expanded"
-        // )
+        expect(canvas.getByText(POLICY_TYPE.COMMERCIAL_USE).parentElement?.nextElementSibling?.classList).not.toContain(
+          "skIpPolicyAccordion__item-list--expanded"
+        )
         expect(
-          canvas.getAllByText(POLICY_TYPE.NON_COMMERCIAL_SOCIAL_REMIXING)[0].nextElementSibling?.classList
+          canvas.getByText(POLICY_TYPE.NON_COMMERCIAL_SOCIAL_REMIXING).parentElement?.nextElementSibling?.classList
         ).not.toContain("skIpPolicyAccordion__item-list--expanded")
       },
       { timeout: 10000 }
     )
 
-    await userEvent.click(canvas.getAllByText(POLICY_TYPE.NON_COMMERCIAL_SOCIAL_REMIXING)[0])
+    await userEvent.click(canvas.getByText(POLICY_TYPE.NON_COMMERCIAL_SOCIAL_REMIXING))
     await waitFor(
       () => {
         expect(
-          canvas.getAllByText(POLICY_TYPE.NON_COMMERCIAL_SOCIAL_REMIXING)[0].nextElementSibling?.classList
+          canvas.getByText(POLICY_TYPE.NON_COMMERCIAL_SOCIAL_REMIXING).parentElement?.nextElementSibling?.classList
         ).toContain("skIpPolicyAccordion__item-list--expanded")
-        expect(canvas.getAllByText(POLICY_TYPE.COMMERCIAL_REMIX)[0].nextElementSibling?.classList).not.toContain(
+        expect(
+          canvas.getByText(POLICY_TYPE.COMMERCIAL_REMIX).parentElement?.nextElementSibling?.classList
+        ).not.toContain("skIpPolicyAccordion__item-list--expanded")
+        expect(canvas.getByText(POLICY_TYPE.COMMERCIAL_USE).parentElement?.nextElementSibling?.classList).not.toContain(
           "skIpPolicyAccordion__item-list--expanded"
         )
       },
       { timeout: 10000 }
     )
 
-    await userEvent.click(canvas.getAllByText(POLICY_TYPE.NON_COMMERCIAL_SOCIAL_REMIXING)[0])
+    await userEvent.click(canvas.getByText(POLICY_TYPE.NON_COMMERCIAL_SOCIAL_REMIXING))
     await waitFor(
       () => {
         expect(
-          canvas.getAllByText(POLICY_TYPE.NON_COMMERCIAL_SOCIAL_REMIXING)[0].nextElementSibling?.classList
+          canvas.getByText(POLICY_TYPE.NON_COMMERCIAL_SOCIAL_REMIXING).parentElement?.nextElementSibling?.classList
         ).not.toContain("skIpPolicyAccordion__item-list--expanded")
       },
       { timeout: 10000 }
     )
 
-    // await userEvent.click(canvas.getByText(POLICY_TYPE.COMMERCIAL_USE))
-    // await waitFor(
-    //   () => {
-    //     expect(canvas.getByText(POLICY_TYPE.COMMERCIAL_USE).nextElementSibling?.classList).toContain(
-    //       "skIpPolicyAccordion__item-list--expanded"
-    //     )
-    //   },
-    //   { timeout: 10000 }
-    // )
+    await userEvent.click(canvas.getByText(POLICY_TYPE.COMMERCIAL_USE))
+    await waitFor(
+      () => {
+        expect(canvas.getByText(POLICY_TYPE.COMMERCIAL_USE).parentElement?.nextElementSibling?.classList).toContain(
+          "skIpPolicyAccordion__item-list--expanded"
+        )
+      },
+      { timeout: 10000 }
+    )
   },
 }
