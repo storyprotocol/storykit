@@ -4,7 +4,7 @@ export enum RESOURCE_TYPE {
   ASSET = "assets",
   COLLECTION = "collections",
   DISPUTE = "disputes",
-  IPA_POLICY = "licenses/ip/terms",
+  IP_TERMS = "licenses/ip/terms",
   LICENSE = "licenses/tokens",
   LICENSE_MINT_FEES = "licenses/mintingfees",
   LICENSE_OWNER = "licenses/owners",
@@ -32,7 +32,7 @@ export type ResourceType =
   | RESOURCE_TYPE.PERMISSION
   | RESOURCE_TYPE.POLICY_FRAMEWORK
   | RESOURCE_TYPE.TAGS
-  | RESOURCE_TYPE.IPA_POLICY
+  | RESOURCE_TYPE.IP_TERMS
   | RESOURCE_TYPE.ROYALTY
   | RESOURCE_TYPE.ROYALTY_PAY
   | RESOURCE_TYPE.ROYALTY_POLICY
