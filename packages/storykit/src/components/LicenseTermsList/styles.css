@@ -70,7 +70,7 @@
     }
   }
 
-  &.skLicenseTermsList--no-policy {
+  &.skLicenseTermsList--no-license {
     @apply text-slate-400;
   }
 }
