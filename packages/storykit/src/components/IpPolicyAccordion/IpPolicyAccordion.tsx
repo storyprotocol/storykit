@@ -24,13 +24,13 @@ export type IpPolicyAccordionProps = {
 }
 
 function IpPolicyAccordion({ size = "medium" }: IpPolicyAccordionProps) {
-  const { policyData } = useIpContext()
+  const { licenseTermsData } = useIpContext()
   const [expanded, setExpanded] = useState<number | null>(0)
 
-  return policyData?.length ? (
+  return licenseTermsData?.length ? (
     <div className={cn("skIpPolicyAccordion", policiesStyles({ size }))}>
       {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-      {(policyData as unknown as any[])?.map((policy, index) => (
+      {(licenseTermsData as unknown as any[])?.map((policy, index) => (
         <div key={policy.id} className="skIpPolicyAccordion__item">
           <div
             className="skIpPolicyAccordion__item-header"
@@ -52,7 +52,7 @@ function IpPolicyAccordion({ size = "medium" }: IpPolicyAccordionProps) {
             <LicenseTerms size={size} selectedLicenseTerms={policy.licenseTerms} />
           </div>
 
-          {index < policyData.length - 1 && <div className="skIpPolicyAccordion__divider" />}
+          {index < licenseTermsData.length - 1 && <div className="skIpPolicyAccordion__divider" />}
         </div>
       ))}
     </div>

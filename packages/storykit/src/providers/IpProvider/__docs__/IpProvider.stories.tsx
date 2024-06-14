@@ -347,7 +347,7 @@ export const NotLoadPolicy: Story = {
   args: {
     ipId: "0x7907Cec258B28638FCA15d533800B2A13bd1f140",
     children: <ProviderOptionsComponent />,
-    options: { policyData: false },
+    options: { licenseTermsData: false },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement)
@@ -462,7 +462,7 @@ export const NotLoadAll: Story = {
   args: {
     ipId: "0x7907Cec258B28638FCA15d533800B2A13bd1f140",
     children: <ProviderOptionsComponent />,
-    options: { assetData: false, policyData: false, licenseData: false, royaltyData: false },
+    options: { assetData: false, licenseTermsData: false, licenseData: false, royaltyData: false },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement)

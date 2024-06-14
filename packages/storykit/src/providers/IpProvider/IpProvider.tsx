@@ -11,7 +11,7 @@ import { NFTMetadata } from "../../types/simplehash"
 
 export interface IpProviderOptions {
   assetData?: boolean
-  policyData?: boolean
+  licenseTermsData?: boolean
   licenseData?: boolean
   royaltyData?: boolean
 }
@@ -23,7 +23,7 @@ const IpContext = React.createContext<{
   isAssetDataLoading: boolean
   ipPolicyData: IPAPolicy[] | undefined
   isIPAPolicyDataLoading: boolean
-  policyData: Policy[] | undefined
+  licenseTermsData: Policy[] | undefined
   isPolicyDataLoading: boolean
   licenseData: License[] | undefined
   isLicenseDataLoading: boolean
@@ -42,7 +42,7 @@ export const IpProvider = ({
 }) => {
   const queryOptions = {
     assetData: true,
-    policyData: true,
+    licenseTermsData: true,
     licenseData: true,
     royaltyData: true,
     ...options,
@@ -67,7 +67,7 @@ export const IpProvider = ({
   const { isLoading: isIPAPolicyDataLoading, data: ipPolicyData } = useQuery({
     queryKey: [RESOURCE_TYPE.IP_LICENSE_TERMS, ipaPolicyQueryOptions],
     queryFn: () => listResource(RESOURCE_TYPE.IP_LICENSE_TERMS, ipaPolicyQueryOptions),
-    enabled: queryOptions.policyData,
+    enabled: queryOptions.licenseTermsData,
   })
 
   async function fetchPolicyDetails(data: IPAPolicy[]) {
@@ -87,10 +87,10 @@ export const IpProvider = ({
       })
   }
 
-  const { isLoading: isPolicyDataLoading, data: policyData } = useQuery({
+  const { isLoading: isPolicyDataLoading, data: licenseTermsData } = useQuery({
     queryKey: ["fetchPolicyDetails", ipPolicyData?.data],
     queryFn: () => fetchPolicyDetails(ipPolicyData?.data),
-    enabled: Boolean(ipPolicyData) && Boolean(ipPolicyData.data) && queryOptions.policyData,
+    enabled: Boolean(ipPolicyData) && Boolean(ipPolicyData.data) && queryOptions.licenseTermsData,
   })
 
   const licenseQueryOptions = {
@@ -147,7 +147,7 @@ export const IpProvider = ({
         isAssetDataLoading,
         ipPolicyData: ipPolicyData?.data,
         isIPAPolicyDataLoading,
-        policyData: policyData,
+        licenseTermsData: licenseTermsData,
         isPolicyDataLoading,
         licenseData: licenseData?.data,
         isLicenseDataLoading,

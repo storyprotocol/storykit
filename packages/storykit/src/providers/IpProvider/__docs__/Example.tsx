@@ -187,15 +187,15 @@ const IPAPolicyComponent = () => {
 }
 
 const PolicyComponent = () => {
-  const { policyData, isPolicyDataLoading } = useIpContext()
+  const { licenseTermsData, isPolicyDataLoading } = useIpContext()
   return (
     <>
       {isPolicyDataLoading && <div>Fetching Policy...</div>}
-      {policyData && !isPolicyDataLoading ? (
+      {licenseTermsData && !isPolicyDataLoading ? (
         <div>
           <>
             <ul>
-              {(policyData as unknown as any[])?.map((policy) => (
+              {(licenseTermsData as unknown as any[])?.map((policy) => (
                 <li className="grid grid-cols-4 gap-6" key={policy.id}>
                   <p className="col-span-1 text-xs text-gray-600">Policy Id</p>
                   <p className="col-span-3 text-sm" data-testid="policy-id">
@@ -341,7 +341,7 @@ const ProviderOptionsComponent = () => {
     isNftDataLoading,
     ipPolicyData,
     isIPAPolicyDataLoading,
-    policyData,
+    licenseTermsData,
     isPolicyDataLoading,
     licenseData,
     isLicenseDataLoading,
@@ -372,7 +372,7 @@ const ProviderOptionsComponent = () => {
           </div>
           <div className="col-span-1 text-xs text-gray-600">Policy count</div>
           <div className="col-span-3 text-sm" data-testid="policy-count">
-            {policyData?.length}
+            {licenseTermsData?.length}
           </div>
           <div className="col-span-1 text-xs text-gray-600">License count</div>
           <div className="col-span-3 text-sm" data-testid="license-count">
