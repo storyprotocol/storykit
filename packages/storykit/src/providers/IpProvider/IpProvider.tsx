@@ -54,7 +54,7 @@ export const IpProvider = ({
     enabled: queryOptions.assetData,
   })
 
-  const ipaPolicyQueryOptions = {
+  const ipLicenseTermsQueryOptions = {
     pagination: {
       limit: 0,
       offset: 0,
@@ -65,8 +65,8 @@ export const IpProvider = ({
   }
   // Fetch IPPolicy data
   const { isLoading: isIpLicenseTermsDataLoading, data: ipLicenseTermsData } = useQuery({
-    queryKey: [RESOURCE_TYPE.IP_LICENSE_TERMS, ipaPolicyQueryOptions],
-    queryFn: () => listResource(RESOURCE_TYPE.IP_LICENSE_TERMS, ipaPolicyQueryOptions),
+    queryKey: [RESOURCE_TYPE.IP_LICENSE_TERMS, ipLicenseTermsQueryOptions],
+    queryFn: () => listResource(RESOURCE_TYPE.IP_LICENSE_TERMS, ipLicenseTermsQueryOptions),
     enabled: queryOptions.licenseTermsData,
   })
 
