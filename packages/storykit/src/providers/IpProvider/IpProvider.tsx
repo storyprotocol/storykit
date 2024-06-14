@@ -63,14 +63,14 @@ export const IpProvider = ({
       ipId,
     },
   }
-  // Fetch IPPolicy data
+  // Fetch IP License Terms data
   const { isLoading: isIpLicenseTermsDataLoading, data: ipLicenseTermsData } = useQuery({
     queryKey: [RESOURCE_TYPE.IP_LICENSE_TERMS, ipLicenseTermsQueryOptions],
     queryFn: () => listResource(RESOURCE_TYPE.IP_LICENSE_TERMS, ipLicenseTermsQueryOptions),
     enabled: queryOptions.licenseTermsData,
   })
 
-  async function fetchPolicyDetails(data: IPLicenseTerms[]) {
+  async function fetchLicenseTermsDetails(data: IPLicenseTerms[]) {
     const uniquePolicies = data.filter((item) => item.ipId.toLowerCase() === ipId.toLowerCase())
 
     const requests = uniquePolicies.map((item) => getResource(RESOURCE_TYPE.LICENSE_TERMS, item.licenseTermsId))
@@ -88,8 +88,8 @@ export const IpProvider = ({
   }
 
   const { isLoading: isLicenseTermsDataLoading, data: licenseTermsData } = useQuery({
-    queryKey: ["fetchPolicyDetails", ipLicenseTermsData?.data],
-    queryFn: () => fetchPolicyDetails(ipLicenseTermsData?.data),
+    queryKey: ["fetchLicenseTermsDetails", ipLicenseTermsData?.data],
+    queryFn: () => fetchLicenseTermsDetails(ipLicenseTermsData?.data),
     enabled: Boolean(ipLicenseTermsData) && Boolean(ipLicenseTermsData.data) && queryOptions.licenseTermsData,
   })
 
