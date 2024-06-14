@@ -1,0 +1,30 @@
+import { Canvas, Controls, Meta } from "@storybook/blocks"
+
+import * as LicenseTermsListStory from "./LicenseTermsList.stories"
+
+<Meta of={LicenseTermsListStory} />
+
+# LicenseTermsList
+
+Displays the License Terms cans and cannots for specified license type.
+
+#### Example
+
+<Canvas of={LicenseTermsListStory.Select} />
+
+<Controls sort="requiredFirst" />
+
+## Usage
+
+```ts
+
+import { LicenseTermsList } from "@storyprotocol/storykit"
+
+const ExamplePage = () => {
+  return (
+    <LicenseTermsList size='medium' selectedLicenseTermsId={'1'} />
+  );
+};
+
+export default ExamplePage;
+```

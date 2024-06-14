@@ -1,76 +1,76 @@
-.skLicenseTerms {
+.skLicenseTermsList {
   @apply flex flex-col w-full min-w-48;
 
-  .skLicenseTerms__properties {
+  .skLicenseTermsList__properties {
     @apply flex flex-col pt-2 gap-2 w-full;
 
-    &.skLicenseTerms--row {
+    &.skLicenseTermsList--row {
       @apply flex flex-row;
     }
 
-    &.skLicenseTerms--col {
+    &.skLicenseTermsList--col {
       @apply flex flex-col;
     }
 
-    .skLicenseTerms__group {
+    .skLicenseTermsList__group {
       @apply flex flex-col gap-0.5 flex-1;
     }
   }
 
-  .skLicenseTerms__item-list-title {
+  .skLicenseTermsList__item-list-title {
     @apply font-bold;
   }
 
-  .skLicenseTerms__list {
+  .skLicenseTermsList__list {
     @apply flex flex-col;
   }
 
-  .skLicenseTerms__property {
+  .skLicenseTermsList__property {
     @apply flex w-full items-start justify-start gap-2 shrink-0;
 
     > svg {
       @apply items-start justify-start shrink-0;
     }
 
-    &.skLicenseTerms__property--can > svg {
+    &.skLicenseTermsList__property--can > svg {
       @apply text-green-500;
     }
 
-    &.skLicenseTerms__property--cannot > svg {
+    &.skLicenseTermsList__property--cannot > svg {
       @apply text-red-500;
     }
   }
 
-  .skLicenseTerms__divider {
+  .skLicenseTermsList__divider {
     @apply border-b border-gray-200 w-full my-2;
   }
 
-  &.skLicenseTerms--small {
+  &.skLicenseTermsList--small {
     @apply text-sm;
   }
 
-  &.skLicenseTerms--medium {
+  &.skLicenseTermsList--medium {
     @apply text-base;
 
-    .skLicenseTerms__properties {
+    .skLicenseTermsList__properties {
       @apply gap-3;
     }
-    .skLicenseTerms__group {
+    .skLicenseTermsList__group {
       @apply gap-1;
     }
   }
 
-  &.skLicenseTerms--large {
+  &.skLicenseTermsList--large {
     @apply text-lg;
-    .skLicenseTerms__properties {
+    .skLicenseTermsList__properties {
       @apply gap-4;
     }
-    .skLicenseTerms__group {
+    .skLicenseTermsList__group {
       @apply gap-2;
     }
   }
 
-  &.skLicenseTerms--no-policy {
+  &.skLicenseTermsList--no-policy {
     @apply text-slate-400;
   }
 }

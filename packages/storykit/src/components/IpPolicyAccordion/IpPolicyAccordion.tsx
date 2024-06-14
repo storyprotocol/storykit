@@ -6,7 +6,7 @@ import React from "react"
 import { FaCaretDown, FaCaretUp } from "react-icons/fa6"
 
 import "../../global.css"
-import LicenseTerms from "../LicenseTerms/LicenseTerms"
+import LicenseTermsList from "../LicenseTermsList/LicenseTermsList"
 import "./styles.css"
 
 const policiesStyles = cva("", {
@@ -49,7 +49,7 @@ function IpPolicyAccordion({ size = "medium" }: IpPolicyAccordionProps) {
               expanded === index && "skIpPolicyAccordion__item-list--expanded"
             )}
           >
-            <LicenseTerms size={size} selectedLicenseTerms={policy.licenseTerms} />
+            <LicenseTermsList size={size} selectedLicenseTerms={policy.licenseTerms} />
           </div>
 
           {index < licenseTermsData.length - 1 && <div className="skIpPolicyAccordion__divider" />}
