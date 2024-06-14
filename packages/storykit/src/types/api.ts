@@ -64,6 +64,7 @@ export type PermissionFilterOptions = {
 }
 
 export type PolicyFilterOptions = {
+  // TODO: check if this has changed
   policyFrameworkManager?: string
 }
 
@@ -95,6 +96,7 @@ export type ModuleFilterOptions = {
 
 export type LicenseFilterOptions = {
   licensorIpId?: Address
+  // TODO: check if this has changed
   policyId?: string
 }
 
@@ -109,6 +111,7 @@ export type LicenseOwnerFilterOptions = {
 export type IPAPolicyFilterOptions = {
   active?: string
   inherited?: string
+  // TODO: check if this has changed
   policyId?: string
 }
 
