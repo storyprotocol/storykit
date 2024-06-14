@@ -6,7 +6,7 @@ import { Address } from "viem"
 import { getResource, listResource } from "../../lib/api"
 import { getNFTByTokenId } from "../../lib/simplehash"
 import { RESOURCE_TYPE } from "../../types/api"
-import { Asset, IPAPolicy, License, Policy, RoyaltyPolicy } from "../../types/assets"
+import { Asset, IPLicenseTerms, License, Policy, RoyaltyPolicy } from "../../types/assets"
 import { NFTMetadata } from "../../types/simplehash"
 
 export interface IpProviderOptions {
@@ -21,7 +21,7 @@ const IpContext = React.createContext<{
   nftData: NFTMetadata | undefined
   isNftDataLoading: boolean
   isAssetDataLoading: boolean
-  ipPolicyData: IPAPolicy[] | undefined
+  ipPolicyData: IPLicenseTerms[] | undefined
   isIPAPolicyDataLoading: boolean
   licenseTermsData: Policy[] | undefined
   isPolicyDataLoading: boolean
@@ -70,7 +70,7 @@ export const IpProvider = ({
     enabled: queryOptions.licenseTermsData,
   })
 
-  async function fetchPolicyDetails(data: IPAPolicy[]) {
+  async function fetchPolicyDetails(data: IPLicenseTerms[]) {
     const uniquePolicies = data.filter((item) => item.ipId.toLowerCase() === ipId.toLowerCase())
 
     const requests = uniquePolicies.map((item) => getResource(RESOURCE_TYPE.LICENSE_TERMS, item.licenseTermsId))

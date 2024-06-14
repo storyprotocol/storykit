@@ -131,7 +131,7 @@ export type Tag = {
   blockTimestamp: string
 }
 
-export type IPAPolicy = {
+export type IPLicenseTerms = {
   id: string
   ipId: Address
   licenseTemplate: string
