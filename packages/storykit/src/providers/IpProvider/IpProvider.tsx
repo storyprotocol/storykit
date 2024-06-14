@@ -21,7 +21,7 @@ const IpContext = React.createContext<{
   nftData: NFTMetadata | undefined
   isNftDataLoading: boolean
   isAssetDataLoading: boolean
-  ipPolicyData: IPLicenseTerms[] | undefined
+  ipLicenseTermsData: IPLicenseTerms[] | undefined
   isIPAPolicyDataLoading: boolean
   licenseTermsData: LicenseTerms[] | undefined
   isPolicyDataLoading: boolean
@@ -64,7 +64,7 @@ export const IpProvider = ({
     },
   }
   // Fetch IPPolicy data
-  const { isLoading: isIPAPolicyDataLoading, data: ipPolicyData } = useQuery({
+  const { isLoading: isIPAPolicyDataLoading, data: ipLicenseTermsData } = useQuery({
     queryKey: [RESOURCE_TYPE.IP_LICENSE_TERMS, ipaPolicyQueryOptions],
     queryFn: () => listResource(RESOURCE_TYPE.IP_LICENSE_TERMS, ipaPolicyQueryOptions),
     enabled: queryOptions.licenseTermsData,
@@ -88,9 +88,9 @@ export const IpProvider = ({
   }
 
   const { isLoading: isPolicyDataLoading, data: licenseTermsData } = useQuery({
-    queryKey: ["fetchPolicyDetails", ipPolicyData?.data],
-    queryFn: () => fetchPolicyDetails(ipPolicyData?.data),
-    enabled: Boolean(ipPolicyData) && Boolean(ipPolicyData.data) && queryOptions.licenseTermsData,
+    queryKey: ["fetchPolicyDetails", ipLicenseTermsData?.data],
+    queryFn: () => fetchPolicyDetails(ipLicenseTermsData?.data),
+    enabled: Boolean(ipLicenseTermsData) && Boolean(ipLicenseTermsData.data) && queryOptions.licenseTermsData,
   })
 
   const licenseQueryOptions = {
@@ -145,7 +145,7 @@ export const IpProvider = ({
         isNftDataLoading,
         assetData: assetData?.data,
         isAssetDataLoading,
-        ipPolicyData: ipPolicyData?.data,
+        ipLicenseTermsData: ipLicenseTermsData?.data,
         isIPAPolicyDataLoading,
         licenseTermsData: licenseTermsData,
         isPolicyDataLoading,

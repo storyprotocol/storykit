@@ -149,15 +149,15 @@ const AssetComponent = () => {
 }
 
 const IPAPolicyComponent = () => {
-  const { ipPolicyData, isIPAPolicyDataLoading } = useIpContext()
+  const { ipLicenseTermsData, isIPAPolicyDataLoading } = useIpContext()
   return (
     <>
       {isIPAPolicyDataLoading && <div>Fetching IPAPolicy...</div>}
-      {ipPolicyData && !isIPAPolicyDataLoading ? (
+      {ipLicenseTermsData && !isIPAPolicyDataLoading ? (
         <div>
           <>
             <ul>
-              {ipPolicyData?.map((obj) => (
+              {ipLicenseTermsData?.map((obj) => (
                 <li key={obj.id} className="grid grid-cols-4 gap-4">
                   <p className="col-span-1 text-xs text-gray-600">IPAPolicy Id</p>
                   <p className="col-span-3 text-sm" data-testid="ipapolicy-id">
@@ -339,7 +339,7 @@ const ProviderOptionsComponent = () => {
     isAssetDataLoading,
     nftData,
     isNftDataLoading,
-    ipPolicyData,
+    ipLicenseTermsData,
     isIPAPolicyDataLoading,
     licenseTermsData,
     isPolicyDataLoading,
@@ -368,7 +368,7 @@ const ProviderOptionsComponent = () => {
           </div>
           <div className="col-span-1 text-xs text-gray-600">IPAPolicy count</div>
           <div className="col-span-3 text-sm" data-testid="ipap-count">
-            {ipPolicyData?.length}
+            {ipLicenseTermsData?.length}
           </div>
           <div className="col-span-1 text-xs text-gray-600">Policy count</div>
           <div className="col-span-3 text-sm" data-testid="policy-count">
