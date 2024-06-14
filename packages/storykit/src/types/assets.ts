@@ -4,16 +4,16 @@ export enum POLICY_TYPE {
   NON_COMMERCIAL_SOCIAL_REMIXING = "Non-Commercial Social Remixing",
   COMMERCIAL_USE = "Commercial Use",
   COMMERCIAL_REMIX = "Commercial Remix",
-  OPEN_DOMAIN = "Open Domain",
-  NO_DERIVATIVE = "No Derivative",
+  CUSTOM = "Custom",
+  // OPEN_DOMAIN = "Open Domain",
+  // NO_DERIVATIVE = "No Derivative",
 }
 
 export type PolicyType =
   | POLICY_TYPE.NON_COMMERCIAL_SOCIAL_REMIXING
   | POLICY_TYPE.COMMERCIAL_USE
   | POLICY_TYPE.COMMERCIAL_REMIX
-  | POLICY_TYPE.OPEN_DOMAIN
-  | POLICY_TYPE.NO_DERIVATIVE
+  | POLICY_TYPE.CUSTOM
 
 export type Asset = {
   id: Address
@@ -61,6 +61,28 @@ export type PILTerms = {
   expiration: string
   uRI: string
 }
+
+// TODO: PILTerms is pending an api update
+// on-chain PIL terms, for reference
+// PILTerms({
+//   transferable: true,
+//   royaltyPolicy: zeroAddress,
+//   mintingFee: 0,
+//   expiration: 0,
+//   commercialUse: false,
+//   commercialAttribution: false,
+//   commercializerChecker: zeroAddress,
+//   commercializerCheckerData: EMPTY_BYTES,
+//   commercialRevShare: 0,
+//   commercialRevCelling: 0,
+//   derivativesAllowed: true,
+//   derivativesAttribution: true,
+//   derivativesApproval: false,
+//   derivativesReciprocal: true,
+//   derivativeRevCelling: 0,
+//   currency: zeroAddress,
+//   uri: ''
+// })
 
 export type PolicyFramework = {
   id: string

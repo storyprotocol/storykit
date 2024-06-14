@@ -28,23 +28,20 @@ export function camelize(str: string) {
 }
 
 export function getPolicyTypeByPILData(pilTerms: PILTerms): PolicyType {
-  const { derivativesAttribution, derivativesAllowed, commercialUse } = pilTerms
+  const { commercialUse, derivativesAllowed, derivativesAttribution, commercialRevenueShare } = pilTerms
 
-  if (commercialUse) {
-    if (!derivativesAllowed) {
-      return POLICY_TYPE.COMMERCIAL_USE
-    } else {
-      return POLICY_TYPE.COMMERCIAL_REMIX
-    }
-  } else {
-    if (!derivativesAllowed) {
-      return POLICY_TYPE.NO_DERIVATIVE
-    } else {
-      if (derivativesAttribution) {
-        return POLICY_TYPE.NON_COMMERCIAL_SOCIAL_REMIXING
-      } else {
-        return POLICY_TYPE.OPEN_DOMAIN
-      }
-    }
+  if (!commercialUse && derivativesAllowed && derivativesAttribution) {
+    return POLICY_TYPE.NON_COMMERCIAL_SOCIAL_REMIXING
   }
+
+  if (commercialUse && derivativesAllowed && derivativesAttribution && commercialRevenueShare === 0) {
+    // TODO: commercial use should check that mintingFee is set, currently not received from the API
+    return POLICY_TYPE.COMMERCIAL_USE
+  }
+
+  if (commercialUse && derivativesAllowed && derivativesAttribution && commercialRevenueShare > 0) {
+    return POLICY_TYPE.COMMERCIAL_REMIX
+  }
+
+  return POLICY_TYPE.CUSTOM
 }
