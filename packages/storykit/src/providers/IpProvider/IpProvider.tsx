@@ -71,9 +71,9 @@ export const IpProvider = ({
   })
 
   async function fetchLicenseTermsDetails(data: IPLicenseTerms[]) {
-    const uniquePolicies = data.filter((item) => item.ipId.toLowerCase() === ipId.toLowerCase())
+    const uniqueLicenses = data.filter((item) => item.ipId.toLowerCase() === ipId.toLowerCase())
 
-    const requests = uniquePolicies.map((item) => getResource(RESOURCE_TYPE.LICENSE_TERMS, item.licenseTermsId))
+    const requests = uniqueLicenses.map((item) => getResource(RESOURCE_TYPE.LICENSE_TERMS, item.licenseTermsId))
     const results = await Promise.all(requests)
 
     return results

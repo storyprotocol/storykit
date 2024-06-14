@@ -179,7 +179,7 @@ export const IpOfNonCommercialSocialRemixing: Story = {
     )
   },
 }
-export const IpOfMultiplePolicies: Story = {
+export const IpOfMultipleLicenses: Story = {
   argTypes: {
     ipId: {
       options: ["0x2CFc4F2F086cf9a859d87119dA0d54bB88173516"],

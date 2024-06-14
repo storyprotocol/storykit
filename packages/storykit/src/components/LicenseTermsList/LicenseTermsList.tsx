@@ -86,7 +86,7 @@ const DescribeTerms = (selectedLicenseTerms: PILTerms) => {
   return { cans, cannots, extras }
 }
 
-const policiesStyles = cva("", {
+const licenseStyles = cva("", {
   variants: {
     size: {
       small: "skLicenseTermsList--small",
@@ -144,7 +144,7 @@ function LicenseTermsList({
   const { cans, cannots, extras } = DescribeTerms(licenseTerms as PILTerms)
 
   return (
-    <div className={cn("skLicenseTermsList", policiesStyles({ size }))}>
+    <div className={cn("skLicenseTermsList", licenseStyles({ size }))}>
       <div className={cn("skLicenseTermsList__properties", directionStyles({ direction }))}>
         {cans.length && showCans ? (
           <div className="skLicenseTermsList__group">

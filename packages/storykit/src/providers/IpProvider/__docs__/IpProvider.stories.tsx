@@ -205,7 +205,7 @@ export const LicenseTermsData: Story = {
     await waitFor(
       () => {
         const elements = canvas.getAllByTestId("license-id")
-        expect(elements.length, "Number of policies should be equal to the API's").toBe(policyData.data.length)
+        expect(elements.length, "Number of licenses should be equal to the API's").toBe(policyData.data.length)
         for (let i = 0; i < elements.length; i++) {
           expect(elements[i].textContent).toBe(policyData.data[i].id)
           expect(canvas.getAllByTestId("license-template")[i].textContent).toBe(policyData.data[i].licenseTemplate)
