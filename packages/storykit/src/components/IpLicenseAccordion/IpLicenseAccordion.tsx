@@ -9,7 +9,7 @@ import "../../global.css"
 import LicenseTermsList from "../LicenseTermsList/LicenseTermsList"
 import "./styles.css"
 
-const policiesStyles = cva("", {
+const licensesStyles = cva("", {
   variants: {
     size: {
       small: "skIpPolicyAccordion--small",
@@ -19,26 +19,26 @@ const policiesStyles = cva("", {
   },
 })
 
-export type IpPolicyAccordionProps = {
+export type IpLicenseAccordionProps = {
   size?: "small" | "medium" | "large"
 }
 
-function IpPolicyAccordion({ size = "medium" }: IpPolicyAccordionProps) {
+function IpLicenseAccordion({ size = "medium" }: IpLicenseAccordionProps) {
   const { licenseTermsData } = useIpContext()
   const [expanded, setExpanded] = useState<number | null>(0)
 
   return licenseTermsData?.length ? (
-    <div className={cn("skIpPolicyAccordion", policiesStyles({ size }))}>
+    <div className={cn("skIpPolicyAccordion", licensesStyles({ size }))}>
       {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-      {(licenseTermsData as unknown as any[])?.map((policy, index) => (
-        <div key={policy.id} className="skIpPolicyAccordion__item">
+      {(licenseTermsData as unknown as any[])?.map((license, index) => (
+        <div key={license.id} className="skIpPolicyAccordion__item">
           <div
             className="skIpPolicyAccordion__item-header"
             onClick={() => setExpanded(expanded === index ? null : index)}
           >
             <span>
-              {getPilFlavorByLicenseTerms(policy.licenseTerms)}{" "}
-              <span className="skIpPolicyAccordion__item-termsId">(#{policy.id})</span>
+              {getPilFlavorByLicenseTerms(license.licenseTerms)}{" "}
+              <span className="skIpPolicyAccordion__item-termsId">(#{license.id})</span>
             </span>
             {expanded === index ? <FaCaretUp width={12} /> : <FaCaretDown width={12} />}
           </div>
@@ -49,7 +49,7 @@ function IpPolicyAccordion({ size = "medium" }: IpPolicyAccordionProps) {
               expanded === index && "skIpPolicyAccordion__item-list--expanded"
             )}
           >
-            <LicenseTermsList size={size} selectedLicenseTerms={policy.licenseTerms} />
+            <LicenseTermsList size={size} selectedLicenseTerms={license.licenseTerms} />
           </div>
 
           {index < licenseTermsData.length - 1 && <div className="skIpPolicyAccordion__divider" />}
@@ -57,8 +57,8 @@ function IpPolicyAccordion({ size = "medium" }: IpPolicyAccordionProps) {
       ))}
     </div>
   ) : (
-    <div className="skIpPolicyAccordion skIpPolicyAccordion--no-policy">No Policy</div>
+    <div className="skIpPolicyAccordion skIpPolicyAccordion--no-policy">No License</div>
   )
 }
 
-export default IpPolicyAccordion
+export default IpLicenseAccordion

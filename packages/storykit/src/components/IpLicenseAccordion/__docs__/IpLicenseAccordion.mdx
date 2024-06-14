@@ -1,16 +1,16 @@
 import { Canvas, Controls, Meta } from "@storybook/blocks"
 
-import * as IpPolicyAccordionStory from "./IpPolicyAccordion.stories"
+import * as IpLicenseAccordionStory from "./IpLicenseAccordion.stories"
 
-<Meta of={IpPolicyAccordionStory} />
+<Meta of={IpLicenseAccordionStory} />
 
-# IpPolicyAccordion
+# IpLicenseAccordion
 
 Displays the IP Asset policies in a readable format (cans & cannots).
 
 #### Example
 
-<Canvas of={IpPolicyAccordionStory.Select} />
+<Canvas of={IpLicenseAccordionStory.Select} />
 
 <Controls />
 
@@ -18,12 +18,12 @@ Displays the IP Asset policies in a readable format (cans & cannots).
 
 ```ts
 import { IpProvider } from "@storyprotocol/storykit"
-import { IpPolicyAccordion } from "@storyprotocol/storykit"
+import { IpLicenseAccordion } from "@storyprotocol/storykit"
 
 const ExamplePage = () => {
   return (
     <IpProvider ipId={"0xbbf08a30b9ff0f717a024a75963d3196aaf0f0dd"}>
-      <IpPolicyAccordion />
+      <IpLicenseAccordion />
     </IpProvider>
   );
 };

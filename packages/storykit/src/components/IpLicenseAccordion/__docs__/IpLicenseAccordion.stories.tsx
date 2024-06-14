@@ -6,7 +6,7 @@ import { expect, userEvent, waitFor, within } from "@storybook/test"
 import Example from "./Example"
 
 const meta = {
-  title: "IP Assets/IpPolicyAccordion",
+  title: "IP Assets/IpLicenseAccordion",
   component: Example,
   parameters: {
     layout: "centered",
@@ -40,7 +40,7 @@ export const Input: Story = {
     size: "medium",
   },
 }
-export const IpNoPolicy: Story = {
+export const IpNoLicense: Story = {
   argTypes: {
     ipId: {
       options: ["0x0aEcA721aDceb65fbE81F450a1C59978fF903124"],
@@ -53,7 +53,7 @@ export const IpNoPolicy: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement)
     await waitFor(() => {
-      expect(canvas.getByText("No Policy")).toBeInTheDocument()
+      expect(canvas.getByText("No License")).toBeInTheDocument()
     })
   },
 }

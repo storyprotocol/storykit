@@ -195,32 +195,32 @@ const PolicyComponent = () => {
         <div>
           <>
             <ul>
-              {(licenseTermsData as unknown as any[])?.map((policy) => (
-                <li className="grid grid-cols-4 gap-6" key={policy.id}>
+              {(licenseTermsData as unknown as any[])?.map((license) => (
+                <li className="grid grid-cols-4 gap-6" key={license.id}>
                   <p className="col-span-1 text-xs text-gray-600">Policy Id</p>
                   <p className="col-span-3 text-sm" data-testid="policy-id">
-                    {policy.id}
+                    {license.id}
                   </p>
                   <p className="col-span-1 text-xs text-gray-600">licenseTemplate</p>
                   <p className="col-span-3 text-sm" data-testid="policy-template">
-                    {policy.licenseTemplate}
+                    {license.licenseTemplate}
                   </p>
                   <p className="col-span-4 text-xs text-gray-600">licenseTerms</p>
                   <p className="col-span-1 text-xs text-gray-600">commercialUse</p>
                   <p className="col-span-3 text-sm" data-testid="policy-comm-use">
-                    {policy.licenseTerms.commercialUse.toString()}
+                    {license.licenseTerms.commercialUse.toString()}
                   </p>
                   <p className="col-span-1 text-xs text-gray-600">commercialAttribution</p>
                   <p className="col-span-3 text-sm" data-testid="policy-comm-attr">
-                    {policy.licenseTerms.commercialAttribution.toString()}
+                    {license.licenseTerms.commercialAttribution.toString()}
                   </p>
                   <p className="col-span-1 text-xs text-gray-600">commercialRevenueShare</p>
                   <p className="col-span-3 text-sm" data-testid="policy-comm-share">
-                    {policy.licenseTerms.commercialRevenueShare}
+                    {license.licenseTerms.commercialRevenueShare}
                   </p>
                   <p className="col-span-1 text-xs text-gray-600">derivativesAllowed</p>
                   <p className="col-span-3 text-sm" data-testid="policy-deriv-allow">
-                    {policy.licenseTerms.derivativesAllowed.toString()}
+                    {license.licenseTerms.derivativesAllowed.toString()}
                   </p>
                   <p />
                 </li>

@@ -10,7 +10,7 @@ import "../../global.css"
 import { cn, shortenAddress } from "../../lib/utils"
 import { IpProvider, useIpContext } from "../../providers"
 import { IpGraph } from "../IpGraph"
-import { IpPolicyAccordion } from "../IpPolicyAccordion"
+import { IpLicenseAccordion } from "../IpLicenseAccordion"
 import { IpRoyaltyPieChart } from "../IpRoyaltyPieChart"
 import "./styles.css"
 
@@ -121,7 +121,7 @@ function IPAssetCard({ isBottomNav, activeTab }: { isBottomNav?: boolean; active
       return (
         <IPAssetLayout isBottomNav={isBottomNav}>
           <div className="skIpWidget__policyContainer">
-            <IpPolicyAccordion size="small" />
+            <IpLicenseAccordion size="small" />
           </div>
         </IPAssetLayout>
       )
