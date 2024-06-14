@@ -17,12 +17,10 @@ const Example: FC<{ ipId: Address; width?: number; height?: number }> = ({
 
   useEffect(() => {
     const fetch = async () => {
-      const result = await getCollectionByAddress("0x7ee32b8B515dEE0Ba2F25f612A04a731eEc24F49")
-      setCollections(result)
-      console.log("result", result)
-      const result2 = await getNFTByWallet("0xC7Fffc7bA56026b471AE5f792A012E5a29c37a82")
-      setNfts(result2)
-      console.log("result2", result2)
+      const collectionMetadata = await getCollectionByAddress("0x7ee32b8B515dEE0Ba2F25f612A04a731eEc24F49")
+      setCollections(collectionMetadata)
+      const nftWalletResponse = await getNFTByWallet("0xB1918E7d6CB67d027F6aBc66DC3273D6ECAD6dE5")
+      setNfts(nftWalletResponse)
     }
     fetch()
   }, [])
