@@ -50,6 +50,9 @@ export const TopNavigation: Story = {
     isBottomNav: false,
   },
   play: async ({ canvasElement }) => {
+    const wait = (timeout: number) => new Promise(resolve => setTimeout(resolve, timeout));
+    await wait(10000);
+    
     const canvas = within(canvasElement)
 
     await waitFor(
