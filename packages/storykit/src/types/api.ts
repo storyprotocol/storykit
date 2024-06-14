@@ -51,26 +51,8 @@ export type AssetFilterOptions = {
   tokenId?: string
 }
 
-export type DisputeFilterOptions = {
-  currentTag?: string
-  initiator?: string
-  targetIpId?: string
-  targetTag?: string
-}
-
-export type PermissionFilterOptions = {
-  signer?: string
-  to?: string
-}
-
-export type PolicyFilterOptions = {
-  // TODO: check if this has changed
-  policyFrameworkManager?: string
-}
-
-export type PolicyFrameworkFilterOptions = {
-  address?: string
-  name?: string
+export type LicenseTermsFilterOptions = {
+  licenseTemplate?: string
 }
 
 export type RoyaltyFilterOptions = {
@@ -78,63 +60,24 @@ export type RoyaltyFilterOptions = {
   royaltyPolicy?: string | null
 }
 
-export type TagFilterOptions = {
-  ipId?: string
-  tag?: string
-}
-export type RoyaltyPayFilterOptions = {
-  ipId?: string
-  payerIpId?: string
-  receiverIpId?: string
-  sender?: string
-  token?: string
-}
-
-export type ModuleFilterOptions = {
-  name?: string
-}
-
 export type LicenseFilterOptions = {
   licensorIpId?: Address
-  // TODO: check if this has changed
   policyId?: string
+  transferable?: boolean
 }
 
-export type LicenseFrameworkFilterOptions = {
-  creator?: string
-}
-
-export type LicenseOwnerFilterOptions = {
-  owner?: string
-}
-
-export type IPAPolicyFilterOptions = {
-  active?: string
-  inherited?: string
-  // TODO: check if this has changed
-  policyId?: string
-}
-
-export type TransactionFilterOptions = {
-  actionType?: string
-  resourceId?: string
+export type IPLicenseTermsFilterOptions = {
+  ipId: string
+  licenseTemplate: string
+  licenseTermsID: string
 }
 
 export type FilterOptions =
   | AssetFilterOptions
-  | DisputeFilterOptions
-  | PermissionFilterOptions
-  | PolicyFilterOptions
-  | PolicyFrameworkFilterOptions
+  | LicenseTermsFilterOptions
   | RoyaltyFilterOptions
-  | TagFilterOptions
-  | RoyaltyPayFilterOptions
-  | ModuleFilterOptions
   | LicenseFilterOptions
-  | LicenseFrameworkFilterOptions
-  | LicenseOwnerFilterOptions
-  | IPAPolicyFilterOptions
-  | TransactionFilterOptions
+  | IPLicenseTermsFilterOptions
 
 export type QueryOptions = {
   pagination: PaginationOptions
