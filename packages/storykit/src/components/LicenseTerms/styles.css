@@ -28,12 +28,16 @@
   .skLicenseTerms__property {
     @apply flex w-full items-start justify-start gap-2 shrink-0;
 
+    > svg {
+      @apply items-start justify-start shrink-0;
+    }
+
     &.skLicenseTerms__property--can > svg {
-      @apply text-green-500 items-start justify-start shrink-0;
+      @apply text-green-500;
     }
 
     &.skLicenseTerms__property--cannot > svg {
-      @apply text-red-500 items-start justify-start shrink-0;
+      @apply text-red-500;
     }
   }
 
