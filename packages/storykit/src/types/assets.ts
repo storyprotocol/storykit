@@ -202,7 +202,7 @@ export interface Trait {
   max_value?: number
 }
 
-export type Policy = {
+export type LicenseTerms = {
   id: string
   // json: string
   licenseTerms: Trait[]

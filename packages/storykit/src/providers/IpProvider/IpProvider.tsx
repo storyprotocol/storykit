@@ -6,7 +6,7 @@ import { Address } from "viem"
 import { getResource, listResource } from "../../lib/api"
 import { getNFTByTokenId } from "../../lib/simplehash"
 import { RESOURCE_TYPE } from "../../types/api"
-import { Asset, IPLicenseTerms, License, Policy, RoyaltyPolicy } from "../../types/assets"
+import { Asset, IPLicenseTerms, License, LicenseTerms, RoyaltyPolicy } from "../../types/assets"
 import { NFTMetadata } from "../../types/simplehash"
 
 export interface IpProviderOptions {
@@ -23,7 +23,7 @@ const IpContext = React.createContext<{
   isAssetDataLoading: boolean
   ipPolicyData: IPLicenseTerms[] | undefined
   isIPAPolicyDataLoading: boolean
-  licenseTermsData: Policy[] | undefined
+  licenseTermsData: LicenseTerms[] | undefined
   isPolicyDataLoading: boolean
   licenseData: License[] | undefined
   isLicenseDataLoading: boolean
