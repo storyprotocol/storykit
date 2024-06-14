@@ -371,7 +371,7 @@ const ProviderOptionsComponent = () => {
             {ipLicenseTermsData?.length}
           </div>
           <div className="col-span-1 text-xs text-gray-600">Policy count</div>
-          <div className="col-span-3 text-sm" data-testid="license-count">
+          <div className="col-span-3 text-sm" data-testid="license-terms-count">
             {licenseTermsData?.length}
           </div>
           <div className="col-span-1 text-xs text-gray-600">License count</div>

@@ -330,7 +330,7 @@ export const NotLoadAsset: Story = {
         expect(canvas.getByTestId("asset-id").textContent).toBe("")
         expect(canvas.getByTestId("nft-id").textContent).toBe("")
         expect(canvas.getByTestId("ipap-count").textContent).toBe("0")
-        expect(canvas.getByTestId("license-count").textContent).toBe("0")
+        expect(canvas.getByTestId("license-terms-count").textContent).toBe("0")
         expect(canvas.getByTestId("license-count").textContent).toBe("0")
         expect(canvas.getByTestId("royalty-id").textContent).toBe("0x7907Cec258B28638FCA15d533800B2A13bd1f140")
       },
@@ -369,7 +369,7 @@ export const NotLoadPolicy: Story = {
           "ethereum-sepolia.0x7ee32b8b515dee0ba2f25f612a04a731eec24f49.6494"
         )
         expect(canvas.getByTestId("ipap-count").textContent).toBe("")
-        expect(canvas.getByTestId("license-count").textContent).toBe("")
+        expect(canvas.getByTestId("license-terms-count").textContent).toBe("")
         expect(canvas.getByTestId("license-count").textContent).toBe("0")
         expect(canvas.getByTestId("royalty-id").textContent).toBe("0x7907Cec258B28638FCA15d533800B2A13bd1f140")
       },
@@ -407,7 +407,7 @@ export const NotLoadLicense: Story = {
           "ethereum-sepolia.0x7ee32b8b515dee0ba2f25f612a04a731eec24f49.6494"
         )
         expect(canvas.getByTestId("ipap-count").textContent).toBe("0")
-        expect(canvas.getByTestId("license-count").textContent).toBe("0")
+        expect(canvas.getByTestId("license-terms-count").textContent).toBe("0")
         expect(canvas.getByTestId("license-count").textContent).toBe("")
         expect(canvas.getByTestId("royalty-id").textContent).toBe("0x7907Cec258B28638FCA15d533800B2A13bd1f140")
       },
@@ -445,7 +445,7 @@ export const NotLoadRoyalty: Story = {
           "ethereum-sepolia.0x7ee32b8b515dee0ba2f25f612a04a731eec24f49.6494"
         )
         expect(canvas.getByTestId("ipap-count").textContent).toBe("0")
-        expect(canvas.getByTestId("license-count").textContent).toBe("0")
+        expect(canvas.getByTestId("license-terms-count").textContent).toBe("0")
         expect(canvas.getByTestId("license-count").textContent).toBe("0")
         expect(canvas.getByTestId("royalty-id").textContent).toBe("")
       },
@@ -486,7 +486,7 @@ export const NotLoadAll: Story = {
         expect(canvas.getByTestId("asset-id").textContent).toBe("")
         expect(canvas.getByTestId("nft-id").textContent).toBe("")
         expect(canvas.getByTestId("ipap-count").textContent).toBe("")
-        expect(canvas.getByTestId("license-count").textContent).toBe("")
+        expect(canvas.getByTestId("license-terms-count").textContent).toBe("")
         expect(canvas.getByTestId("license-count").textContent).toBe("")
         expect(canvas.getByTestId("royalty-id").textContent).toBe("")
       },
