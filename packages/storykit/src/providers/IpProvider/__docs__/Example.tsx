@@ -149,11 +149,11 @@ const AssetComponent = () => {
 }
 
 const IPAPolicyComponent = () => {
-  const { ipLicenseTermsData, isIPAPolicyDataLoading } = useIpContext()
+  const { ipLicenseTermsData, isIpLicenseTermsDataLoading } = useIpContext()
   return (
     <>
-      {isIPAPolicyDataLoading && <div>Fetching IPAPolicy...</div>}
-      {ipLicenseTermsData && !isIPAPolicyDataLoading ? (
+      {isIpLicenseTermsDataLoading && <div>Fetching IPAPolicy...</div>}
+      {ipLicenseTermsData && !isIpLicenseTermsDataLoading ? (
         <div>
           <>
             <ul>
@@ -340,7 +340,7 @@ const ProviderOptionsComponent = () => {
     nftData,
     isNftDataLoading,
     ipLicenseTermsData,
-    isIPAPolicyDataLoading,
+    isIpLicenseTermsDataLoading,
     licenseTermsData,
     isPolicyDataLoading,
     licenseData,
@@ -353,7 +353,7 @@ const ProviderOptionsComponent = () => {
       <div>
         {isAssetDataLoading && <div>Fetching Asset...</div>}
         {isNftDataLoading && <div>Fetching NFT...</div>}
-        {isIPAPolicyDataLoading && <div>Fetching IPAPolicy...</div>}
+        {isIpLicenseTermsDataLoading && <div>Fetching IPAPolicy...</div>}
         {isPolicyDataLoading && <div>Fetching Policy...</div>}
         {isLicenseDataLoading && <div>Fetching License...</div>}
         {isRoyaltyDataLoading && <div>Fetching Royalty...</div>}
