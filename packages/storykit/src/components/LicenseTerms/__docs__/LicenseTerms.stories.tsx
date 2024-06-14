@@ -1,5 +1,6 @@
 import {
   commercialRemixingLicenseTerms,
+  commercialUseLicenseTerms,
   noLicenseTerms,
   nonCommercialSocialRemixingLicenseTerms,
 } from "@/lib/example-data"
@@ -35,13 +36,13 @@ export const Select: Story = {
       options: [
         "NonCommercialSocialRemixing",
         "CommercialRemixingLicenseTerms",
-        // "CommercialUseLicenseTerms",
+        "CommercialUseLicenseTerms",
         "No License",
       ],
       mapping: {
         NonCommercialSocialRemixing: nonCommercialSocialRemixingLicenseTerms,
         CommercialRemixingLicenseTerms: commercialRemixingLicenseTerms,
-        // CommercialUseLicenseTerms: commercialUseLicenseTerms,
+        CommercialUseLicenseTerms: commercialUseLicenseTerms,
         "No License": noLicenseTerms,
       },
     },
@@ -69,8 +70,12 @@ export const NonCommercialSocalRemixTerms: Story = {
     const canList = Array.from(renderedCanList).map((item) => item.textContent)
     const cannotList = Array.from(renderedCannotList).map((item) => item.textContent)
 
-    const expectCanList = [ DESCRIPTIONS.ATTRIBUTION, DESCRIPTIONS.DERIVATIVES_ALLOWED, DESCRIPTIONS.DERIVATIVES_RECIPROCAL ]
-    const expectCannotList = [ DESCRIPTIONS.COMMERCIAL_USE ]
+    const expectCanList = [
+      DESCRIPTIONS.ATTRIBUTION,
+      DESCRIPTIONS.DERIVATIVES_ALLOWED,
+      DESCRIPTIONS.DERIVATIVES_RECIPROCAL,
+    ]
+    const expectCannotList = [DESCRIPTIONS.COMMERCIAL_USE]
 
     await waitFor(() => {
       expect(canvasElement.getElementsByClassName(".skLicenseTerms--column")).toBeTruthy()
@@ -90,7 +95,7 @@ export const NonCommercialSocalRemixTerms: Story = {
       expect(renderedCannotIconList.length).toBe(1)
       renderedCannotIconList.forEach((element) => {
         expect(element).toHaveClass("lucide-circle-minus")
-      })        
+      })
       expect(cannotList).toEqual(expectCannotList)
 
       expect(renderedNoteList.length).toBe(1)
@@ -118,7 +123,12 @@ export const CommercialRemixTerms: Story = {
     const renderedNoteIconList = canvasElement.querySelectorAll(".skLicenseTerms__property--note > svg")
 
     const canList = Array.from(renderedCanList).map((item) => item.textContent)
-    const expectCanList = [ DESCRIPTIONS.COMMERCIAL_USE, DESCRIPTIONS.ATTRIBUTION, DESCRIPTIONS.DERIVATIVES_ALLOWED ]
+    const expectCanList = [
+      DESCRIPTIONS.COMMERCIAL_USE,
+      DESCRIPTIONS.ATTRIBUTION,
+      DESCRIPTIONS.DERIVATIVES_ALLOWED,
+      DESCRIPTIONS.DERIVATIVES_RECIPROCAL,
+    ]
 
     await waitFor(() => {
       expect(canvasElement.querySelector("#storybook-root > div > div")).toHaveClass("skLicenseTerms--large")
@@ -127,28 +137,73 @@ export const CommercialRemixTerms: Story = {
       expect(renderedTitleList[0].textContent).toBe("Others Can")
       expect(renderedTitleList[1].textContent).toBe("Additional Notes")
 
-      expect(renderedCanList.length).toBe(3)
-      expect(renderedCanIconList.length).toBe(3)
+      expect(renderedCanList.length).toBe(4)
+      expect(renderedCanIconList.length).toBe(4)
       renderedCanIconList.forEach((element) => {
         expect(element).toHaveClass("lucide-circle-check")
       })
       expect(canList).toEqual(expectCanList)
 
-      expect(renderedCannotList).not.toBeInTheDocument()      
+      expect(renderedCannotList).not.toBeInTheDocument()
 
-      expect(renderedNoteList.length).toBe(1)
-      expect(renderedNoteIconList.length).toBe(1)
-      expect(renderedNoteList[0].textContent).toBe("This license never expires")
+      expect(renderedNoteList.length).toBe(2)
+      expect(renderedNoteIconList.length).toBe(2)
+      expect(renderedNoteList[1].textContent).toBe("This license never expires")
       renderedNoteIconList.forEach((element) => {
         expect(element).toHaveClass("lucide-info")
       })
-    })  
+    })
   },
 }
 
 export const CommercialUseTerms: StoryObj = {
   args: {
-    selectedLicenseTerms: 'No License',
+    selectedLicenseTerms: commercialUseLicenseTerms,
+    direction: "column",
+    size: "medium",
+  },
+  play: async ({ canvasElement }) => {
+    await waitFor(
+      () => {
+        const renderedTitleList = canvasElement.querySelectorAll(".skLicenseTerms__item-list-title")
+        const renderedCanList = canvasElement.querySelectorAll(".skLicenseTerms__property--can")
+        const renderedCanIconList = canvasElement.querySelectorAll(".skLicenseTerms__property--can > svg")
+        const renderedCannotList = canvasElement.querySelectorAll(".skLicenseTerms__property--cannot")
+        const renderedNotelList = canvasElement.querySelectorAll(".skLicenseTerms__property--note")
+        const renderedNoteIconList = canvasElement.querySelectorAll(".skLicenseTerms__property--note > svg")
+
+        const canList = Array.from(renderedCanList).map((item) => item.textContent)
+
+        const expectCanList = [DESCRIPTIONS.COMMERCIAL_USE, DESCRIPTIONS.ATTRIBUTION, DESCRIPTIONS.DERIVATIVES_ALLOWED]
+
+        expect(canvasElement.querySelector("#storybook-root > div > div")).toHaveClass("skLicenseTerms--medium")
+        expect(canvasElement.querySelector("#storybook-root > div > div > div")).toHaveClass("skLicenseTerms--col")
+        expect(renderedTitleList.length).toBe(2)
+        expect(renderedTitleList[0].textContent).toBe("Others Can")
+        expect(renderedTitleList[1].textContent).toBe("Additional Notes")
+        expect(renderedCanList.length).toBe(3)
+        expect(renderedCanIconList.length).toBe(3)
+        renderedCanIconList.forEach((element) => {
+          expect(element).toHaveClass("lucide-circle-check")
+        })
+        expect(canList).toEqual(expectCanList)
+        expect(renderedCannotList.length).toBe(0)
+
+        expect(renderedNotelList.length).toBe(1)
+        expect(renderedNoteIconList.length).toBe(1)
+        expect(renderedNotelList[0].textContent).toBe("This license never expires")
+        renderedNoteIconList.forEach((element) => {
+          expect(element).toHaveClass("lucide-info")
+        })
+      },
+      { timeout: 10000 }
+    )
+  },
+}
+
+export const CommercialUseTermsById: StoryObj = {
+  args: {
+    selectedLicenseTerms: "No License",
     direction: "row",
     size: "small",
     selectedLicenseTermsId: "10",
@@ -163,15 +218,14 @@ export const CommercialUseTerms: StoryObj = {
         const renderedNotelList = canvasElement.querySelectorAll(".skLicenseTerms__property--note")
         const renderedNoteIconList = canvasElement.querySelectorAll(".skLicenseTerms__property--note > svg")
 
-        const canList = Array.from(renderedCanList).map((item) => item.textContent);
+        const canList = Array.from(renderedCanList).map((item) => item.textContent)
 
-        const expectCanList = [ DESCRIPTIONS.COMMERCIAL_USE, DESCRIPTIONS.ATTRIBUTION, DESCRIPTIONS.DERIVATIVES_ALLOWED ]
+        const expectCanList = [DESCRIPTIONS.COMMERCIAL_USE, DESCRIPTIONS.ATTRIBUTION, DESCRIPTIONS.DERIVATIVES_ALLOWED]
 
-      
         expect(canvasElement.querySelector("#storybook-root > div > div")).toHaveClass("skLicenseTerms--small")
         expect(canvasElement.querySelector("#storybook-root > div > div > div")).toHaveClass("skLicenseTerms--row")
         expect(renderedTitleList.length).toBe(2)
-        expect(renderedTitleList[0].textContent).toBe("Others Can")     
+        expect(renderedTitleList[0].textContent).toBe("Others Can")
         expect(renderedTitleList[1].textContent).toBe("Additional Notes")
         expect(renderedCanList.length).toBe(3)
         expect(renderedCanIconList.length).toBe(3)
@@ -180,7 +234,7 @@ export const CommercialUseTerms: StoryObj = {
         })
         expect(canList).toEqual(expectCanList)
         expect(renderedCannotList.length).toBe(0)
-      
+
         expect(renderedNotelList.length).toBe(1)
         expect(renderedNoteIconList.length).toBe(1)
         expect(renderedNotelList[0].textContent).toBe("This license never expires")
@@ -195,7 +249,7 @@ export const CommercialUseTerms: StoryObj = {
 
 export const CommercialRemixingTermsById: StoryObj = {
   args: {
-    selectedLicenseTerms: 'No License',
+    selectedLicenseTerms: "No License",
     direction: "column",
     size: "large",
     selectedLicenseTermsId: "56",
@@ -210,14 +264,19 @@ export const CommercialRemixingTermsById: StoryObj = {
         const renderedNoteList = canvasElement.querySelectorAll(".skLicenseTerms__property--note")
         const renderedNoteIconList = canvasElement.querySelectorAll(".skLicenseTerms__property--note > svg")
 
-        const canList = Array.from(renderedCanList).map((item) => item.textContent);
+        const canList = Array.from(renderedCanList).map((item) => item.textContent)
 
-        const expectCanList = [ DESCRIPTIONS.COMMERCIAL_USE, DESCRIPTIONS.ATTRIBUTION, DESCRIPTIONS.DERIVATIVES_ALLOWED, DESCRIPTIONS.DERIVATIVES_RECIPROCAL ]
-      
+        const expectCanList = [
+          DESCRIPTIONS.COMMERCIAL_USE,
+          DESCRIPTIONS.ATTRIBUTION,
+          DESCRIPTIONS.DERIVATIVES_ALLOWED,
+          DESCRIPTIONS.DERIVATIVES_RECIPROCAL,
+        ]
+
         expect(canvasElement.querySelector("#storybook-root > div > div")).toHaveClass("skLicenseTerms--large")
         expect(canvasElement.querySelector("#storybook-root > div > div > div")).toHaveClass("skLicenseTerms--col")
         expect(renderedTitleList.length).toBe(2)
-        expect(renderedTitleList[0].textContent).toBe("Others Can")    
+        expect(renderedTitleList[0].textContent).toBe("Others Can")
         expect(renderedTitleList[1].textContent).toBe("Additional Notes")
         expect(renderedCanList.length).toBe(4)
         expect(renderedCanIconList.length).toBe(4)
@@ -228,7 +287,9 @@ export const CommercialRemixingTermsById: StoryObj = {
         expect(renderedCannotList.length).toBe(0)
         expect(renderedNoteList.length).toBe(2)
         expect(renderedNoteIconList.length).toBe(2)
-        expect(renderedNoteList[0].textContent).toBe("Anyone who creates a remix will share 33% of their revenue with you")
+        expect(renderedNoteList[0].textContent).toBe(
+          "Anyone who creates a remix will share 33% of their revenue with you"
+        )
         expect(renderedNoteList[1].textContent).toBe("This license never expires")
         renderedNoteIconList.forEach((element) => {
           expect(element).toHaveClass("lucide-info")
