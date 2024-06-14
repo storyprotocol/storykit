@@ -149,15 +149,15 @@ const AssetComponent = () => {
 }
 
 const IPLicenseComponent = () => {
-  const { ipLicenseTermsData, isIpLicenseTermsDataLoading } = useIpContext()
+  const { ipLicenseData, isipLicenseDataLoading } = useIpContext()
   return (
     <>
-      {isIpLicenseTermsDataLoading && <div>Fetching IPLicense...</div>}
-      {ipLicenseTermsData && !isIpLicenseTermsDataLoading ? (
+      {isipLicenseDataLoading && <div>Fetching IPLicense...</div>}
+      {ipLicenseData && !isipLicenseDataLoading ? (
         <div>
           <>
             <ul>
-              {ipLicenseTermsData?.map((obj) => (
+              {ipLicenseData?.map((obj) => (
                 <li key={obj.id} className="grid grid-cols-4 gap-4">
                   <p className="col-span-1 text-xs text-gray-600">IPLicense Id</p>
                   <p className="col-span-3 text-sm" data-testid="ipalicense-id">
@@ -339,8 +339,8 @@ const ProviderOptionsComponent = () => {
     isAssetDataLoading,
     nftData,
     isNftDataLoading,
-    ipLicenseTermsData,
-    isIpLicenseTermsDataLoading,
+    ipLicenseData,
+    isipLicenseDataLoading,
     licenseTermsData,
     isLicenseTermsDataLoading,
     licenseData,
@@ -353,7 +353,7 @@ const ProviderOptionsComponent = () => {
       <div>
         {isAssetDataLoading && <div>Fetching Asset...</div>}
         {isNftDataLoading && <div>Fetching NFT...</div>}
-        {isIpLicenseTermsDataLoading && <div>Fetching IPLicense...</div>}
+        {isipLicenseDataLoading && <div>Fetching IPLicense...</div>}
         {isLicenseTermsDataLoading && <div>Fetching License Terms...</div>}
         {isLicenseDataLoading && <div>Fetching License...</div>}
         {isRoyaltyDataLoading && <div>Fetching Royalty...</div>}
@@ -368,7 +368,7 @@ const ProviderOptionsComponent = () => {
           </div>
           <div className="col-span-1 text-xs text-gray-600">IPLicense count</div>
           <div className="col-span-3 text-sm" data-testid="ipap-count">
-            {ipLicenseTermsData?.length}
+            {ipLicenseData?.length}
           </div>
           <div className="col-span-1 text-xs text-gray-600">License Terms count</div>
           <div className="col-span-3 text-sm" data-testid="license-terms-count">
