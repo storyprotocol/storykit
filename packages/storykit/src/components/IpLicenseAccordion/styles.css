@@ -25,7 +25,7 @@
     @apply border-b border-gray-200 w-full my-2;
   }
 
-  &.skIpLicenseAccordion--no-policy {
+  &.skIpLicenseAccordion--no-license {
     @apply text-slate-400;
   }
 }

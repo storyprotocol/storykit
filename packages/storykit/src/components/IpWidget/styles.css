@@ -33,7 +33,7 @@
     }
   }
 
-  .skIpWidget__policyContainer {
+  .skIpWidget__licenseContainer {
     @apply p-2;
 
     .skIpLicenseAccordion--no-license {

@@ -120,7 +120,7 @@ function IPAssetCard({ isBottomNav, activeTab }: { isBottomNav?: boolean; active
     case "licensing":
       return (
         <IPAssetLayout isBottomNav={isBottomNav}>
-          <div className="skIpWidget__policyContainer">
+          <div className="skIpWidget__licenseContainer">
             <IpLicenseAccordion size="small" />
           </div>
         </IPAssetLayout>
