@@ -65,8 +65,8 @@ export const IpProvider = ({
   }
   // Fetch IPPolicy data
   const { isLoading: isIPAPolicyDataLoading, data: ipPolicyData } = useQuery({
-    queryKey: [RESOURCE_TYPE.IP_TERMS, ipaPolicyQueryOptions],
-    queryFn: () => listResource(RESOURCE_TYPE.IP_TERMS, ipaPolicyQueryOptions),
+    queryKey: [RESOURCE_TYPE.IP_LICENSE_TERMS, ipaPolicyQueryOptions],
+    queryFn: () => listResource(RESOURCE_TYPE.IP_LICENSE_TERMS, ipaPolicyQueryOptions),
     enabled: queryOptions.policyData,
   })
 
