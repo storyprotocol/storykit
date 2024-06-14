@@ -27,7 +27,7 @@ export function camelize(str: string) {
   })
 }
 
-export function getPolicyTypeByPILData(pilTerms: PILTerms): PolicyType {
+export function getPilFlavorByLicenseTerms(pilTerms: PILTerms): PilFlavor {
   const { commercialUse, derivativesAllowed, derivativesAttribution, commercialRevenueShare } = pilTerms
 
   if (!commercialUse && derivativesAllowed && derivativesAttribution) {

@@ -1,4 +1,4 @@
-import { cn, getPolicyTypeByPILData } from "@/lib/utils"
+import { cn, getPilFlavorByLicenseTerms } from "@/lib/utils"
 import { useIpContext } from "@/providers"
 import { cva } from "class-variance-authority"
 import { useState } from "react"
@@ -37,7 +37,7 @@ function IpPolicyAccordion({ size = "medium" }: IpPolicyAccordionProps) {
             onClick={() => setExpanded(expanded === index ? null : index)}
           >
             <span>
-              {getPolicyTypeByPILData(policy.licenseTerms)}{" "}
+              {getPilFlavorByLicenseTerms(policy.licenseTerms)}{" "}
               <span className="skIpPolicyAccordion__item-termsId">(#{policy.id})</span>
             </span>
             {expanded === index ? <FaCaretUp width={12} /> : <FaCaretDown width={12} />}
