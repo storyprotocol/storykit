@@ -11,7 +11,7 @@ export enum RESOURCE_TYPE {
   MODULE = "modules",
   PERMISSION = "permissions",
   POLICY = "licenses/terms",
-  POLICY_FRAMEWORK = "licenses/templates",
+  LICENSE_TEMPLATE = "licenses/templates",
   ROYALTY = "royalties",
   ROYALTY_PAY = "royalties/payments",
   ROYALTY_POLICY = "royalties/policies",
@@ -30,7 +30,7 @@ export type ResourceType =
   | RESOURCE_TYPE.MODULE
   | RESOURCE_TYPE.POLICY
   | RESOURCE_TYPE.PERMISSION
-  | RESOURCE_TYPE.POLICY_FRAMEWORK
+  | RESOURCE_TYPE.LICENSE_TEMPLATE
   | RESOURCE_TYPE.TAGS
   | RESOURCE_TYPE.IP_TERMS
   | RESOURCE_TYPE.ROYALTY
