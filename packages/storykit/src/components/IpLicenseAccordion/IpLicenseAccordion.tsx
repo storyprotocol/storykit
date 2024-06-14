@@ -57,7 +57,7 @@ function IpLicenseAccordion({ size = "medium" }: IpLicenseAccordionProps) {
       ))}
     </div>
   ) : (
-    <div className="skIpLicenseAccordion skIpLicenseAccordion--no-policy">No License</div>
+    <div className="skIpLicenseAccordion skIpLicenseAccordion--no-license">No License</div>
   )
 }
 
