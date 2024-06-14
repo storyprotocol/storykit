@@ -186,11 +186,11 @@ const IPLicenseComponent = () => {
   )
 }
 
-const PolicyComponent = () => {
+const LicenseTermsComponent = () => {
   const { licenseTermsData, isLicenseTermsDataLoading } = useIpContext()
   return (
     <>
-      {isLicenseTermsDataLoading && <div>Fetching Policy...</div>}
+      {isLicenseTermsDataLoading && <div>Fetching License Terms...</div>}
       {licenseTermsData && !isLicenseTermsDataLoading ? (
         <div>
           <>
@@ -392,7 +392,7 @@ export default Example
 export {
   AssetComponent,
   IPLicenseComponent,
-  PolicyComponent,
+  LicenseTermsComponent,
   LicenseComponent,
   RoyaltyComponent,
   ProviderOptionsComponent,

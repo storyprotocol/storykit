@@ -13,7 +13,7 @@ import Example, {
   AssetComponent,
   IPLicenseComponent,
   LicenseComponent,
-  PolicyComponent,
+  LicenseTermsComponent,
   ProviderOptionsComponent,
   RoyaltyComponent,
 } from "./Example"
@@ -181,7 +181,7 @@ export const IPLicenseData: Story = {
     )
   },
 }
-export const PolicyData: Story = {
+export const LicenseTermsData: Story = {
   argTypes: {
     ipId: {
       options: ["0x195A5B433bbFb6481490cA12d1C95e5594Fb54C4"],
@@ -191,13 +191,13 @@ export const PolicyData: Story = {
   },
   args: {
     ipId: "0x195A5B433bbFb6481490cA12d1C95e5594Fb54C4",
-    children: <PolicyComponent />,
+    children: <LicenseTermsComponent />,
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement)
     await waitFor(
       () => {
-        expect(canvas.getByText("Fetching Policy...")).toBeInTheDocument()
+        expect(canvas.getByText("Fetching License Terms...")).toBeInTheDocument()
       },
       { timeout: 10000 }
     )
