@@ -148,18 +148,18 @@ const AssetComponent = () => {
   )
 }
 
-const IPAPolicyComponent = () => {
+const IPLicenseComponent = () => {
   const { ipLicenseTermsData, isIpLicenseTermsDataLoading } = useIpContext()
   return (
     <>
-      {isIpLicenseTermsDataLoading && <div>Fetching IPAPolicy...</div>}
+      {isIpLicenseTermsDataLoading && <div>Fetching IPLicense...</div>}
       {ipLicenseTermsData && !isIpLicenseTermsDataLoading ? (
         <div>
           <>
             <ul>
               {ipLicenseTermsData?.map((obj) => (
                 <li key={obj.id} className="grid grid-cols-4 gap-4">
-                  <p className="col-span-1 text-xs text-gray-600">IPAPolicy Id</p>
+                  <p className="col-span-1 text-xs text-gray-600">IPLicense Id</p>
                   <p className="col-span-3 text-sm" data-testid="ipalicense-id">
                     {obj.id}
                   </p>
@@ -391,7 +391,7 @@ const ProviderOptionsComponent = () => {
 export default Example
 export {
   AssetComponent,
-  IPAPolicyComponent,
+  IPLicenseComponent,
   PolicyComponent,
   LicenseComponent,
   RoyaltyComponent,

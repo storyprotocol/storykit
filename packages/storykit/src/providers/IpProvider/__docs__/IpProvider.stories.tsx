@@ -11,7 +11,7 @@ import React from "react"
 
 import Example, {
   AssetComponent,
-  IPAPolicyComponent,
+  IPLicenseComponent,
   LicenseComponent,
   PolicyComponent,
   ProviderOptionsComponent,
@@ -143,7 +143,7 @@ export const AssetData: Story = {
     )
   },
 }
-export const IPAPolicyData: Story = {
+export const IPLicenseData: Story = {
   argTypes: {
     ipId: {
       options: ["0x195A5B433bbFb6481490cA12d1C95e5594Fb54C4"],
@@ -153,13 +153,13 @@ export const IPAPolicyData: Story = {
   },
   args: {
     ipId: "0x195A5B433bbFb6481490cA12d1C95e5594Fb54C4",
-    children: <IPAPolicyComponent />,
+    children: <IPLicenseComponent />,
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement)
     await waitFor(
       () => {
-        expect(canvas.getByText("Fetching IPAPolicy...")).toBeInTheDocument()
+        expect(canvas.getByText("Fetching IPLicense...")).toBeInTheDocument()
       },
       { timeout: 10000 }
     )
@@ -167,7 +167,7 @@ export const IPAPolicyData: Story = {
     await waitFor(
       () => {
         const elements = canvas.getAllByTestId("ipalicense-id")
-        expect(elements.length, "Number of IPAPolicies should be equal to the API's").toBe(ipaPolicyData.data.length)
+        expect(elements.length, "Number of IPLicense should be equal to the API's").toBe(ipaPolicyData.data.length)
         for (let i = 0; i < elements.length; i++) {
           expect(elements[i].textContent).toBe(ipaPolicyData.data[i].id)
           expect(canvas.getAllByTestId("ipalicense-ip-id")[i].textContent).toBe(ipaPolicyData.data[i].ipId)
