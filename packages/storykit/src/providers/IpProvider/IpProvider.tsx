@@ -73,7 +73,7 @@ export const IpProvider = ({
   async function fetchPolicyDetails(data: IPAPolicy[]) {
     const uniquePolicies = data.filter((item) => item.ipId.toLowerCase() === ipId.toLowerCase())
 
-    const requests = uniquePolicies.map((item) => getResource(RESOURCE_TYPE.POLICY, item.licenseTermsId))
+    const requests = uniquePolicies.map((item) => getResource(RESOURCE_TYPE.LICENSE_TERMS, item.licenseTermsId))
     const results = await Promise.all(requests)
 
     return results

@@ -125,8 +125,8 @@ function LicenseTerms({
   selectedLicenseTermsId,
 }: LicenseTermsProps) {
   const { data: licenseTermsData } = useQuery({
-    queryKey: [RESOURCE_TYPE.POLICY, selectedLicenseTermsId],
-    queryFn: () => getResource(RESOURCE_TYPE.POLICY, selectedLicenseTermsId as string),
+    queryKey: [RESOURCE_TYPE.LICENSE_TERMS, selectedLicenseTermsId],
+    queryFn: () => getResource(RESOURCE_TYPE.LICENSE_TERMS, selectedLicenseTermsId as string),
     enabled: !!selectedLicenseTermsId,
   })
 
