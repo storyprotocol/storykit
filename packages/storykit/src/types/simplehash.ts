@@ -88,18 +88,6 @@ export type NFTMetadata = {
   }
 }
 
-export type SPExtendedNFTMetadata = NFTMetadata & {
-  isRegistered?: boolean
-  ipId?: string
-}
-
-export type CollectionResponse = {
-  next_cursor: string | null
-  next: string | null
-  previous: string | null
-  collections: CollectionMetadata[]
-}
-
 export type CollectionMetadata = {
   collection_id: string
   name: string
@@ -141,3 +129,21 @@ export type CollectionRoyalties = {
   total_creator_fee_basis_points: number
   recipients: any[]
 }
+
+/*
+ ** the following types are not used in the current codebase (v0) so
+ ** have been commented out to avoid cluttering autocompleted imports
+ ** for storykit users
+ */
+
+// export type SPExtendedNFTMetadata = NFTMetadata & {
+//   isRegistered?: boolean
+//   ipId?: string
+// }
+
+// export type CollectionResponse = {
+//   next_cursor: string | null
+//   next: string | null
+//   previous: string | null
+//   collections: CollectionMetadata[]
+// }
