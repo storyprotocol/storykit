@@ -44,5 +44,19 @@ export const Input: Story = {
       },
       { timeout: 10000 }
     )
+    await waitFor(
+      () => {
+        const collections = canvasElement.querySelector("#collections")
+        expect(collections).toHaveTextContent("3eb0dfade3c5f4bed80d4ef85e69e8e5")
+      },
+      { timeout: 10000 }
+    )
+    await waitFor(
+      () => {
+        const nfts = canvasElement.querySelector("#nfts")
+        expect(nfts).toHaveTextContent("0xC7Fffc7bA56026b471AE5f792A012E5a29c37a82")
+      },
+      { timeout: 10000 }
+    )
   },
 }
