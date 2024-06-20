@@ -1,0 +1,32 @@
+import { Canvas, Controls, Meta } from "@storybook/blocks"
+
+import * as IpLicenseAccordionStory from "./IpLicenseAccordion.stories"
+
+<Meta of={IpLicenseAccordionStory} />
+
+# IpLicenseAccordion
+
+Displays the IP Asset Licenses in a readable format (cans & cannots).
+
+#### Example
+
+<Canvas of={IpLicenseAccordionStory.Select} />
+
+<Controls />
+
+## Usage
+
+```ts
+import { IpProvider } from "@storyprotocol/storykit"
+import { IpLicenseAccordion } from "@storyprotocol/storykit"
+
+const ExamplePage = () => {
+  return (
+    <IpProvider ipId={"0xbbf08a30b9ff0f717a024a75963d3196aaf0f0dd"}>
+      <IpLicenseAccordion />
+    </IpProvider>
+  );
+};
+
+export default ExamplePage;
+```

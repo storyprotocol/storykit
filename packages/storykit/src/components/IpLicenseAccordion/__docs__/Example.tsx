@@ -4,7 +4,7 @@ import React, { FC } from "react"
 import { Address } from "viem"
 
 import { IpProvider } from "../../../providers"
-import IpPolicyAccordion from "../IpPolicyAccordion"
+import IpLicenseAccordion from "../IpLicenseAccordion"
 
 type Size = "small" | "medium" | "large"
 
@@ -17,7 +17,7 @@ const Example: FC<{ ipId: Address; size: Size }> = ({
     <QueryClientProvider client={queryClient}>
       <div className="flex h-full w-full items-center justify-center">
         <IpProvider ipId={ipId}>
-          <IpPolicyAccordion size={size} />
+          <IpLicenseAccordion size={size} />
         </IpProvider>
       </div>
     </QueryClientProvider>

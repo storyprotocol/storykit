@@ -7,11 +7,11 @@ import {
 import type { Meta, StoryObj } from "@storybook/react"
 import { expect, waitFor } from "@storybook/test"
 
-import { DESCRIPTIONS } from "../LicenseTerms"
+import { DESCRIPTIONS } from "../LicenseTermsList"
 import Example from "./Example"
 
 const meta = {
-  title: "UI/LicenseTerms",
+  title: "UI/LicenseTermsList",
   component: Example,
   parameters: {
     layout: "centered",
@@ -59,13 +59,13 @@ export const NonCommercialSocalRemixTerms: Story = {
     selectedLicenseTerms: nonCommercialSocialRemixingLicenseTerms,
   },
   play: async ({ canvasElement }) => {
-    const renderedListTitle = canvasElement.querySelectorAll(".skLicenseTerms__item-list-title")
-    const renderedCanList = canvasElement.querySelectorAll(".skLicenseTerms__property--can")
-    const renderedCanIconList = canvasElement.querySelectorAll(".skLicenseTerms__property--can > svg")
-    const renderedCannotList = canvasElement.querySelectorAll(".skLicenseTerms__property--cannot")
-    const renderedCannotIconList = canvasElement.querySelectorAll(".skLicenseTerms__property--cannot > svg")
-    const renderedNoteList = canvasElement.querySelectorAll(".skLicenseTerms__property--note")
-    const renderedNoteIconList = canvasElement.querySelectorAll(".skLicenseTerms__property--note > svg")
+    const renderedListTitle = canvasElement.querySelectorAll(".skLicenseTermsList__item-list-title")
+    const renderedCanList = canvasElement.querySelectorAll(".skLicenseTermsList__property--can")
+    const renderedCanIconList = canvasElement.querySelectorAll(".skLicenseTermsList__property--can > svg")
+    const renderedCannotList = canvasElement.querySelectorAll(".skLicenseTermsList__property--cannot")
+    const renderedCannotIconList = canvasElement.querySelectorAll(".skLicenseTermsList__property--cannot > svg")
+    const renderedNoteList = canvasElement.querySelectorAll(".skLicenseTermsList__property--note")
+    const renderedNoteIconList = canvasElement.querySelectorAll(".skLicenseTermsList__property--note > svg")
 
     const canList = Array.from(renderedCanList).map((item) => item.textContent)
     const cannotList = Array.from(renderedCannotList).map((item) => item.textContent)
@@ -78,7 +78,7 @@ export const NonCommercialSocalRemixTerms: Story = {
     const expectCannotList = [DESCRIPTIONS.COMMERCIAL_USE]
 
     await waitFor(() => {
-      expect(canvasElement.getElementsByClassName(".skLicenseTerms--column")).toBeTruthy()
+      expect(canvasElement.getElementsByClassName(".skLicenseTermsList--column")).toBeTruthy()
       expect(renderedListTitle.length).toBe(3)
       expect(renderedListTitle[0].textContent).toBe("Others Can")
       expect(renderedListTitle[1].textContent).toBe("Others Cannot")
@@ -115,12 +115,12 @@ export const CommercialRemixTerms: Story = {
     size: "large",
   },
   play: async ({ canvasElement }) => {
-    const renderedTitleList = canvasElement.querySelectorAll(".skLicenseTerms__item-list-title")
-    const renderedCanList = canvasElement.querySelectorAll(".skLicenseTerms__property--can")
-    const renderedCanIconList = canvasElement.querySelectorAll(".skLicenseTerms__property--can > svg")
-    const renderedCannotList = canvasElement.querySelector(".skLicenseTerms__property--cannot")
-    const renderedNoteList = canvasElement.querySelectorAll(".skLicenseTerms__property--note")
-    const renderedNoteIconList = canvasElement.querySelectorAll(".skLicenseTerms__property--note > svg")
+    const renderedTitleList = canvasElement.querySelectorAll(".skLicenseTermsList__item-list-title")
+    const renderedCanList = canvasElement.querySelectorAll(".skLicenseTermsList__property--can")
+    const renderedCanIconList = canvasElement.querySelectorAll(".skLicenseTermsList__property--can > svg")
+    const renderedCannotList = canvasElement.querySelector(".skLicenseTermsList__property--cannot")
+    const renderedNoteList = canvasElement.querySelectorAll(".skLicenseTermsList__property--note")
+    const renderedNoteIconList = canvasElement.querySelectorAll(".skLicenseTermsList__property--note > svg")
 
     const canList = Array.from(renderedCanList).map((item) => item.textContent)
     const expectCanList = [
@@ -131,8 +131,8 @@ export const CommercialRemixTerms: Story = {
     ]
 
     await waitFor(() => {
-      expect(canvasElement.querySelector("#storybook-root > div > div")).toHaveClass("skLicenseTerms--large")
-      expect(canvasElement.querySelector("#storybook-root > div > div > div")).toHaveClass("skLicenseTerms--col")
+      expect(canvasElement.querySelector("#storybook-root > div > div")).toHaveClass("skLicenseTermsList--large")
+      expect(canvasElement.querySelector("#storybook-root > div > div > div")).toHaveClass("skLicenseTermsList--col")
       expect(renderedTitleList.length).toBe(2)
       expect(renderedTitleList[0].textContent).toBe("Others Can")
       expect(renderedTitleList[1].textContent).toBe("Additional Notes")
@@ -165,19 +165,19 @@ export const CommercialUseTerms: StoryObj = {
   play: async ({ canvasElement }) => {
     await waitFor(
       () => {
-        const renderedTitleList = canvasElement.querySelectorAll(".skLicenseTerms__item-list-title")
-        const renderedCanList = canvasElement.querySelectorAll(".skLicenseTerms__property--can")
-        const renderedCanIconList = canvasElement.querySelectorAll(".skLicenseTerms__property--can > svg")
-        const renderedCannotList = canvasElement.querySelectorAll(".skLicenseTerms__property--cannot")
-        const renderedNotelList = canvasElement.querySelectorAll(".skLicenseTerms__property--note")
-        const renderedNoteIconList = canvasElement.querySelectorAll(".skLicenseTerms__property--note > svg")
+        const renderedTitleList = canvasElement.querySelectorAll(".skLicenseTermsList__item-list-title")
+        const renderedCanList = canvasElement.querySelectorAll(".skLicenseTermsList__property--can")
+        const renderedCanIconList = canvasElement.querySelectorAll(".skLicenseTermsList__property--can > svg")
+        const renderedCannotList = canvasElement.querySelectorAll(".skLicenseTermsList__property--cannot")
+        const renderedNotelList = canvasElement.querySelectorAll(".skLicenseTermsList__property--note")
+        const renderedNoteIconList = canvasElement.querySelectorAll(".skLicenseTermsList__property--note > svg")
 
         const canList = Array.from(renderedCanList).map((item) => item.textContent)
 
         const expectCanList = [DESCRIPTIONS.COMMERCIAL_USE, DESCRIPTIONS.ATTRIBUTION, DESCRIPTIONS.DERIVATIVES_ALLOWED]
 
-        expect(canvasElement.querySelector("#storybook-root > div > div")).toHaveClass("skLicenseTerms--medium")
-        expect(canvasElement.querySelector("#storybook-root > div > div > div")).toHaveClass("skLicenseTerms--col")
+        expect(canvasElement.querySelector("#storybook-root > div > div")).toHaveClass("skLicenseTermsList--medium")
+        expect(canvasElement.querySelector("#storybook-root > div > div > div")).toHaveClass("skLicenseTermsList--col")
         expect(renderedTitleList.length).toBe(2)
         expect(renderedTitleList[0].textContent).toBe("Others Can")
         expect(renderedTitleList[1].textContent).toBe("Additional Notes")
@@ -211,19 +211,19 @@ export const CommercialUseTermsById: StoryObj = {
   play: async ({ canvasElement }) => {
     await waitFor(
       () => {
-        const renderedTitleList = canvasElement.querySelectorAll(".skLicenseTerms__item-list-title")
-        const renderedCanList = canvasElement.querySelectorAll(".skLicenseTerms__property--can")
-        const renderedCanIconList = canvasElement.querySelectorAll(".skLicenseTerms__property--can > svg")
-        const renderedCannotList = canvasElement.querySelectorAll(".skLicenseTerms__property--cannot")
-        const renderedNotelList = canvasElement.querySelectorAll(".skLicenseTerms__property--note")
-        const renderedNoteIconList = canvasElement.querySelectorAll(".skLicenseTerms__property--note > svg")
+        const renderedTitleList = canvasElement.querySelectorAll(".skLicenseTermsList__item-list-title")
+        const renderedCanList = canvasElement.querySelectorAll(".skLicenseTermsList__property--can")
+        const renderedCanIconList = canvasElement.querySelectorAll(".skLicenseTermsList__property--can > svg")
+        const renderedCannotList = canvasElement.querySelectorAll(".skLicenseTermsList__property--cannot")
+        const renderedNotelList = canvasElement.querySelectorAll(".skLicenseTermsList__property--note")
+        const renderedNoteIconList = canvasElement.querySelectorAll(".skLicenseTermsList__property--note > svg")
 
         const canList = Array.from(renderedCanList).map((item) => item.textContent)
 
         const expectCanList = [DESCRIPTIONS.COMMERCIAL_USE, DESCRIPTIONS.ATTRIBUTION, DESCRIPTIONS.DERIVATIVES_ALLOWED]
 
-        expect(canvasElement.querySelector("#storybook-root > div > div")).toHaveClass("skLicenseTerms--small")
-        expect(canvasElement.querySelector("#storybook-root > div > div > div")).toHaveClass("skLicenseTerms--row")
+        expect(canvasElement.querySelector("#storybook-root > div > div")).toHaveClass("skLicenseTermsList--small")
+        expect(canvasElement.querySelector("#storybook-root > div > div > div")).toHaveClass("skLicenseTermsList--row")
         expect(renderedTitleList.length).toBe(2)
         expect(renderedTitleList[0].textContent).toBe("Others Can")
         expect(renderedTitleList[1].textContent).toBe("Additional Notes")
@@ -257,12 +257,12 @@ export const CommercialRemixingTermsById: StoryObj = {
   play: async ({ canvasElement }) => {
     await waitFor(
       () => {
-        const renderedTitleList = canvasElement.querySelectorAll(".skLicenseTerms__item-list-title")
-        const renderedCanList = canvasElement.querySelectorAll(".skLicenseTerms__property--can")
-        const renderedCanIconList = canvasElement.querySelectorAll(".skLicenseTerms__property--can > svg")
-        const renderedCannotList = canvasElement.querySelectorAll(".skLicenseTerms__property--cannot")
-        const renderedNoteList = canvasElement.querySelectorAll(".skLicenseTerms__property--note")
-        const renderedNoteIconList = canvasElement.querySelectorAll(".skLicenseTerms__property--note > svg")
+        const renderedTitleList = canvasElement.querySelectorAll(".skLicenseTermsList__item-list-title")
+        const renderedCanList = canvasElement.querySelectorAll(".skLicenseTermsList__property--can")
+        const renderedCanIconList = canvasElement.querySelectorAll(".skLicenseTermsList__property--can > svg")
+        const renderedCannotList = canvasElement.querySelectorAll(".skLicenseTermsList__property--cannot")
+        const renderedNoteList = canvasElement.querySelectorAll(".skLicenseTermsList__property--note")
+        const renderedNoteIconList = canvasElement.querySelectorAll(".skLicenseTermsList__property--note > svg")
 
         const canList = Array.from(renderedCanList).map((item) => item.textContent)
 
@@ -273,8 +273,8 @@ export const CommercialRemixingTermsById: StoryObj = {
           DESCRIPTIONS.DERIVATIVES_RECIPROCAL,
         ]
 
-        expect(canvasElement.querySelector("#storybook-root > div > div")).toHaveClass("skLicenseTerms--large")
-        expect(canvasElement.querySelector("#storybook-root > div > div > div")).toHaveClass("skLicenseTerms--col")
+        expect(canvasElement.querySelector("#storybook-root > div > div")).toHaveClass("skLicenseTermsList--large")
+        expect(canvasElement.querySelector("#storybook-root > div > div > div")).toHaveClass("skLicenseTermsList--col")
         expect(renderedTitleList.length).toBe(2)
         expect(renderedTitleList[0].textContent).toBe("Others Can")
         expect(renderedTitleList[1].textContent).toBe("Additional Notes")

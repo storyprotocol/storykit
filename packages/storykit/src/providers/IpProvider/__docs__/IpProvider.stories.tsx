@@ -11,9 +11,9 @@ import React from "react"
 
 import Example, {
   AssetComponent,
-  IPAPolicyComponent,
+  IPLicenseComponent,
   LicenseComponent,
-  PolicyComponent,
+  LicenseTermsComponent,
   ProviderOptionsComponent,
   RoyaltyComponent,
 } from "./Example"
@@ -143,7 +143,7 @@ export const AssetData: Story = {
     )
   },
 }
-export const IPAPolicyData: Story = {
+export const IPLicenseData: Story = {
   argTypes: {
     ipId: {
       options: ["0x195A5B433bbFb6481490cA12d1C95e5594Fb54C4"],
@@ -153,33 +153,35 @@ export const IPAPolicyData: Story = {
   },
   args: {
     ipId: "0x195A5B433bbFb6481490cA12d1C95e5594Fb54C4",
-    children: <IPAPolicyComponent />,
+    children: <IPLicenseComponent />,
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement)
     await waitFor(
       () => {
-        expect(canvas.getByText("Fetching IPAPolicy...")).toBeInTheDocument()
+        expect(canvas.getByText("Fetching IPLicense...")).toBeInTheDocument()
       },
       { timeout: 10000 }
     )
 
     await waitFor(
       () => {
-        const elements = canvas.getAllByTestId("ipapolicy-id")
-        expect(elements.length, "Number of IPAPolicies should be equal to the API's").toBe(ipaPolicyData.data.length)
+        const elements = canvas.getAllByTestId("ipalicense-id")
+        expect(elements.length, "Number of IPLicense should be equal to the API's").toBe(ipaPolicyData.data.length)
         for (let i = 0; i < elements.length; i++) {
           expect(elements[i].textContent).toBe(ipaPolicyData.data[i].id)
-          expect(canvas.getAllByTestId("ipapolicy-ip-id")[i].textContent).toBe(ipaPolicyData.data[i].ipId)
-          expect(canvas.getAllByTestId("ipapolicy-template")[i].textContent).toBe(ipaPolicyData.data[i].licenseTemplate)
-          expect(canvas.getAllByTestId("ipapolicy-terms-id")[i].textContent).toBe(ipaPolicyData.data[i].licenseTermsId)
+          expect(canvas.getAllByTestId("ipalicense-ip-id")[i].textContent).toBe(ipaPolicyData.data[i].ipId)
+          expect(canvas.getAllByTestId("ipalicense-template")[i].textContent).toBe(
+            ipaPolicyData.data[i].licenseTemplate
+          )
+          expect(canvas.getAllByTestId("ipalicense-terms-id")[i].textContent).toBe(ipaPolicyData.data[i].licenseTermsId)
         }
       },
       { timeout: 10000 }
     )
   },
 }
-export const PolicyData: Story = {
+export const LicenseTermsData: Story = {
   argTypes: {
     ipId: {
       options: ["0x195A5B433bbFb6481490cA12d1C95e5594Fb54C4"],
@@ -189,33 +191,33 @@ export const PolicyData: Story = {
   },
   args: {
     ipId: "0x195A5B433bbFb6481490cA12d1C95e5594Fb54C4",
-    children: <PolicyComponent />,
+    children: <LicenseTermsComponent />,
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement)
     await waitFor(
       () => {
-        expect(canvas.getByText("Fetching Policy...")).toBeInTheDocument()
+        expect(canvas.getByText("Fetching License Terms...")).toBeInTheDocument()
       },
       { timeout: 10000 }
     )
 
     await waitFor(
       () => {
-        const elements = canvas.getAllByTestId("policy-id")
-        expect(elements.length, "Number of policies should be equal to the API's").toBe(policyData.data.length)
+        const elements = canvas.getAllByTestId("license-id")
+        expect(elements.length, "Number of licenses should be equal to the API's").toBe(policyData.data.length)
         for (let i = 0; i < elements.length; i++) {
           expect(elements[i].textContent).toBe(policyData.data[i].id)
-          expect(canvas.getAllByTestId("policy-template")[i].textContent).toBe(policyData.data[i].licenseTemplate)
+          expect(canvas.getAllByTestId("license-template")[i].textContent).toBe(policyData.data[i].licenseTemplate)
           const terms = policyData.data[i].licenseTerms
           const commUse = terms.find((term) => term.trait_type === "Commercial Use")?.value
           const commAttr = terms.find((term) => term.trait_type === "Commercial Attribution")?.value
           const commShare = terms.find((term) => term.trait_type === "Commercial Revenue Share")?.value.toString()
           const derivAllow = terms.find((term) => term.trait_type === "Derivatives Allowed")?.value
-          expect(canvas.getAllByTestId("policy-comm-use")[i].textContent).toBe(commUse)
-          expect(canvas.getAllByTestId("policy-comm-attr")[i].textContent).toBe(commAttr)
-          expect(canvas.getAllByTestId("policy-comm-share")[i].textContent).toBe(commShare)
-          expect(canvas.getAllByTestId("policy-deriv-allow")[i].textContent).toBe(derivAllow)
+          expect(canvas.getAllByTestId("license-comm-use")[i].textContent).toBe(commUse)
+          expect(canvas.getAllByTestId("license-comm-attr")[i].textContent).toBe(commAttr)
+          expect(canvas.getAllByTestId("license-comm-share")[i].textContent).toBe(commShare)
+          expect(canvas.getAllByTestId("license-deriv-allow")[i].textContent).toBe(derivAllow)
         }
       },
       { timeout: 10000 }
@@ -328,7 +330,7 @@ export const NotLoadAsset: Story = {
         expect(canvas.getByTestId("asset-id").textContent).toBe("")
         expect(canvas.getByTestId("nft-id").textContent).toBe("")
         expect(canvas.getByTestId("ipap-count").textContent).toBe("0")
-        expect(canvas.getByTestId("policy-count").textContent).toBe("0")
+        expect(canvas.getByTestId("license-terms-count").textContent).toBe("0")
         expect(canvas.getByTestId("license-count").textContent).toBe("0")
         expect(canvas.getByTestId("royalty-id").textContent).toBe("0x7907Cec258B28638FCA15d533800B2A13bd1f140")
       },
@@ -347,15 +349,15 @@ export const NotLoadPolicy: Story = {
   args: {
     ipId: "0x7907Cec258B28638FCA15d533800B2A13bd1f140",
     children: <ProviderOptionsComponent />,
-    options: { policyData: false },
+    options: { licenseTermsData: false },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement)
 
     await waitFor(
       () => {
-        expect(canvas.queryByText("Fetching IPAPolicy...")).toBeNull()
-        expect(canvas.queryByText("Fetching Policy...")).toBeNull()
+        expect(canvas.queryByText("Fetching IPLicense...")).toBeNull()
+        expect(canvas.queryByText("Fetching License Terms...")).toBeNull()
       },
       { timeout: 10000 }
     )
@@ -367,7 +369,7 @@ export const NotLoadPolicy: Story = {
           "ethereum-sepolia.0x7ee32b8b515dee0ba2f25f612a04a731eec24f49.6494"
         )
         expect(canvas.getByTestId("ipap-count").textContent).toBe("")
-        expect(canvas.getByTestId("policy-count").textContent).toBe("")
+        expect(canvas.getByTestId("license-terms-count").textContent).toBe("")
         expect(canvas.getByTestId("license-count").textContent).toBe("0")
         expect(canvas.getByTestId("royalty-id").textContent).toBe("0x7907Cec258B28638FCA15d533800B2A13bd1f140")
       },
@@ -405,7 +407,7 @@ export const NotLoadLicense: Story = {
           "ethereum-sepolia.0x7ee32b8b515dee0ba2f25f612a04a731eec24f49.6494"
         )
         expect(canvas.getByTestId("ipap-count").textContent).toBe("0")
-        expect(canvas.getByTestId("policy-count").textContent).toBe("0")
+        expect(canvas.getByTestId("license-terms-count").textContent).toBe("0")
         expect(canvas.getByTestId("license-count").textContent).toBe("")
         expect(canvas.getByTestId("royalty-id").textContent).toBe("0x7907Cec258B28638FCA15d533800B2A13bd1f140")
       },
@@ -443,7 +445,7 @@ export const NotLoadRoyalty: Story = {
           "ethereum-sepolia.0x7ee32b8b515dee0ba2f25f612a04a731eec24f49.6494"
         )
         expect(canvas.getByTestId("ipap-count").textContent).toBe("0")
-        expect(canvas.getByTestId("policy-count").textContent).toBe("0")
+        expect(canvas.getByTestId("license-terms-count").textContent).toBe("0")
         expect(canvas.getByTestId("license-count").textContent).toBe("0")
         expect(canvas.getByTestId("royalty-id").textContent).toBe("")
       },
@@ -462,7 +464,7 @@ export const NotLoadAll: Story = {
   args: {
     ipId: "0x7907Cec258B28638FCA15d533800B2A13bd1f140",
     children: <ProviderOptionsComponent />,
-    options: { assetData: false, policyData: false, licenseData: false, royaltyData: false },
+    options: { assetData: false, licenseTermsData: false, licenseData: false, royaltyData: false },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement)
@@ -471,8 +473,8 @@ export const NotLoadAll: Story = {
       () => {
         expect(canvas.queryByText("Fetching Asset...")).toBeNull()
         expect(canvas.queryByText("Fetching NFT...")).toBeNull()
-        expect(canvas.queryByText("Fetching IPAPolicy...")).toBeNull()
-        expect(canvas.queryByText("Fetching Policy...")).toBeNull()
+        expect(canvas.queryByText("Fetching IPLicense...")).toBeNull()
+        expect(canvas.queryByText("Fetching License Terms...")).toBeNull()
         expect(canvas.queryByText("Fetching License...")).toBeNull()
         expect(canvas.queryByText("Fetching Royalty...")).toBeNull()
       },
@@ -484,7 +486,7 @@ export const NotLoadAll: Story = {
         expect(canvas.getByTestId("asset-id").textContent).toBe("")
         expect(canvas.getByTestId("nft-id").textContent).toBe("")
         expect(canvas.getByTestId("ipap-count").textContent).toBe("")
-        expect(canvas.getByTestId("policy-count").textContent).toBe("")
+        expect(canvas.getByTestId("license-terms-count").textContent).toBe("")
         expect(canvas.getByTestId("license-count").textContent).toBe("")
         expect(canvas.getByTestId("royalty-id").textContent).toBe("")
       },

@@ -4,14 +4,14 @@ export enum RESOURCE_TYPE {
   ASSET = "assets",
   COLLECTION = "collections",
   DISPUTE = "disputes",
-  IPA_POLICY = "licenses/ip/terms",
+  IP_LICENSE_TERMS = "licenses/ip/terms",
   LICENSE = "licenses/tokens",
   LICENSE_MINT_FEES = "licenses/mintingfees",
   LICENSE_OWNER = "licenses/owners",
   MODULE = "modules",
   PERMISSION = "permissions",
-  POLICY = "licenses/terms",
-  POLICY_FRAMEWORK = "licenses/templates",
+  LICENSE_TERMS = "licenses/terms",
+  LICENSE_TEMPLATE = "licenses/templates",
   ROYALTY = "royalties",
   ROYALTY_PAY = "royalties/payments",
   ROYALTY_POLICY = "royalties/policies",
@@ -28,11 +28,11 @@ export type ResourceType =
   | RESOURCE_TYPE.LICENSE_MINT_FEES
   | RESOURCE_TYPE.LICENSE_OWNER
   | RESOURCE_TYPE.MODULE
-  | RESOURCE_TYPE.POLICY
+  | RESOURCE_TYPE.LICENSE_TERMS
   | RESOURCE_TYPE.PERMISSION
-  | RESOURCE_TYPE.POLICY_FRAMEWORK
+  | RESOURCE_TYPE.LICENSE_TEMPLATE
   | RESOURCE_TYPE.TAGS
-  | RESOURCE_TYPE.IPA_POLICY
+  | RESOURCE_TYPE.IP_LICENSE_TERMS
   | RESOURCE_TYPE.ROYALTY
   | RESOURCE_TYPE.ROYALTY_PAY
   | RESOURCE_TYPE.ROYALTY_POLICY
@@ -51,25 +51,8 @@ export type AssetFilterOptions = {
   tokenId?: string
 }
 
-export type DisputeFilterOptions = {
-  currentTag?: string
-  initiator?: string
-  targetIpId?: string
-  targetTag?: string
-}
-
-export type PermissionFilterOptions = {
-  signer?: string
-  to?: string
-}
-
-export type PolicyFilterOptions = {
-  policyFrameworkManager?: string
-}
-
-export type PolicyFrameworkFilterOptions = {
-  address?: string
-  name?: string
+export type LicenseTermsFilterOptions = {
+  licenseTemplate?: string
 }
 
 export type RoyaltyFilterOptions = {
@@ -77,61 +60,24 @@ export type RoyaltyFilterOptions = {
   royaltyPolicy?: string | null
 }
 
-export type TagFilterOptions = {
-  ipId?: string
-  tag?: string
-}
-export type RoyaltyPayFilterOptions = {
-  ipId?: string
-  payerIpId?: string
-  receiverIpId?: string
-  sender?: string
-  token?: string
-}
-
-export type ModuleFilterOptions = {
-  name?: string
-}
-
 export type LicenseFilterOptions = {
   licensorIpId?: Address
   policyId?: string
+  transferable?: boolean
 }
 
-export type LicenseFrameworkFilterOptions = {
-  creator?: string
-}
-
-export type LicenseOwnerFilterOptions = {
-  owner?: string
-}
-
-export type IPAPolicyFilterOptions = {
-  active?: string
-  inherited?: string
-  policyId?: string
-}
-
-export type TransactionFilterOptions = {
-  actionType?: string
-  resourceId?: string
+export type IPLicenseTermsFilterOptions = {
+  ipId: string
+  licenseTemplate: string
+  licenseTermsID: string
 }
 
 export type FilterOptions =
   | AssetFilterOptions
-  | DisputeFilterOptions
-  | PermissionFilterOptions
-  | PolicyFilterOptions
-  | PolicyFrameworkFilterOptions
+  | LicenseTermsFilterOptions
   | RoyaltyFilterOptions
-  | TagFilterOptions
-  | RoyaltyPayFilterOptions
-  | ModuleFilterOptions
   | LicenseFilterOptions
-  | LicenseFrameworkFilterOptions
-  | LicenseOwnerFilterOptions
-  | IPAPolicyFilterOptions
-  | TransactionFilterOptions
+  | IPLicenseTermsFilterOptions
 
 export type QueryOptions = {
   pagination: PaginationOptions

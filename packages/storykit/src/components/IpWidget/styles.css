@@ -33,10 +33,10 @@
     }
   }
 
-  .skIpWidget__policyContainer {
+  .skIpWidget__licenseContainer {
     @apply p-2;
 
-    .skIpPolicyAccordion--no-policy {
+    .skIpLicenseAccordion--no-license {
       @apply w-full items-center py-32;
     }
   }

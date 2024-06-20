@@ -1,9 +1,9 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import React, { FC } from "react"
 
-import LicenseTerms, { LicenseTermsProps } from "../LicenseTerms"
+import LicenseTermsList, { LicenseTermsListProps } from "../LicenseTermsList"
 
-const Example: FC<LicenseTermsProps> = ({
+const Example: FC<LicenseTermsListProps> = ({
   size = "medium",
   direction = "column",
   showCans = true,
@@ -16,7 +16,7 @@ const Example: FC<LicenseTermsProps> = ({
   return (
     <QueryClientProvider client={queryClient}>
       <div className="flex h-full w-full items-center justify-center">
-        <LicenseTerms
+        <LicenseTermsList
           size={size}
           direction={direction}
           showCans={showCans}

@@ -86,12 +86,12 @@ const DescribeTerms = (selectedLicenseTerms: PILTerms) => {
   return { cans, cannots, extras }
 }
 
-const policiesStyles = cva("", {
+const licenseStyles = cva("", {
   variants: {
     size: {
-      small: "skLicenseTerms--small",
-      medium: "skLicenseTerms--medium",
-      large: "skLicenseTerms--large",
+      small: "skLicenseTermsList--small",
+      medium: "skLicenseTermsList--medium",
+      large: "skLicenseTermsList--large",
     },
   },
 })
@@ -99,13 +99,13 @@ const policiesStyles = cva("", {
 const directionStyles = cva("", {
   variants: {
     direction: {
-      row: "skLicenseTerms--row",
-      column: "skLicenseTerms--col",
+      row: "skLicenseTermsList--row",
+      column: "skLicenseTermsList--col",
     },
   },
 })
 
-export type LicenseTermsProps = {
+export type LicenseTermsListProps = {
   size?: "small" | "medium" | "large"
   direction?: "row" | "column"
   showCans?: boolean
@@ -115,7 +115,7 @@ export type LicenseTermsProps = {
   selectedLicenseTermsId?: string
 }
 
-function LicenseTerms({
+function LicenseTermsList({
   size = "medium",
   direction = "column",
   showCans = true,
@@ -123,10 +123,10 @@ function LicenseTerms({
   showExtras = true,
   selectedLicenseTerms,
   selectedLicenseTermsId,
-}: LicenseTermsProps) {
+}: LicenseTermsListProps) {
   const { data: licenseTermsData } = useQuery({
-    queryKey: [RESOURCE_TYPE.POLICY, selectedLicenseTermsId],
-    queryFn: () => getResource(RESOURCE_TYPE.POLICY, selectedLicenseTermsId as string),
+    queryKey: [RESOURCE_TYPE.LICENSE_TERMS, selectedLicenseTermsId],
+    queryFn: () => getResource(RESOURCE_TYPE.LICENSE_TERMS, selectedLicenseTermsId as string),
     enabled: !!selectedLicenseTermsId,
   })
 
@@ -144,14 +144,14 @@ function LicenseTerms({
   const { cans, cannots, extras } = DescribeTerms(licenseTerms as PILTerms)
 
   return (
-    <div className={cn("skLicenseTerms", policiesStyles({ size }))}>
-      <div className={cn("skLicenseTerms__properties", directionStyles({ direction }))}>
+    <div className={cn("skLicenseTermsList", licenseStyles({ size }))}>
+      <div className={cn("skLicenseTermsList__properties", directionStyles({ direction }))}>
         {cans.length && showCans ? (
-          <div className="skLicenseTerms__group">
-            <div className="skLicenseTerms__item-list-title">Others Can</div>
-            <div className="skLicenseTerms__list">
+          <div className="skLicenseTermsList__group">
+            <div className="skLicenseTermsList__item-list-title">Others Can</div>
+            <div className="skLicenseTermsList__list">
               {cans.map((term, index) => (
-                <div key={index} className="skLicenseTerms__property skLicenseTerms__property--can">
+                <div key={index} className="skLicenseTermsList__property skLicenseTermsList__property--can">
                   <CircleCheck width={iconWidth} />
                   <span>{term}</span>
                 </div>
@@ -160,11 +160,11 @@ function LicenseTerms({
           </div>
         ) : null}
         {cannots.length && showCannots ? (
-          <div className="skLicenseTerms__group">
-            <div className="skLicenseTerms__item-list-title">Others Cannot</div>
-            <div className="skLicenseTerms__list">
+          <div className="skLicenseTermsList__group">
+            <div className="skLicenseTermsList__item-list-title">Others Cannot</div>
+            <div className="skLicenseTermsList__list">
               {cannots.map((term, index) => (
-                <div key={index} className="skLicenseTerms__property skLicenseTerms__property--cannot">
+                <div key={index} className="skLicenseTermsList__property skLicenseTermsList__property--cannot">
                   <CircleMinus width={iconWidth} />
                   <span>{term}</span>
                 </div>
@@ -173,11 +173,11 @@ function LicenseTerms({
           </div>
         ) : null}
         {extras.length && showExtras ? (
-          <div className="skLicenseTerms__group">
-            <div className="skLicenseTerms__item-list-title">Additional Notes</div>
-            <div className="skLicenseTerms__list">
+          <div className="skLicenseTermsList__group">
+            <div className="skLicenseTermsList__item-list-title">Additional Notes</div>
+            <div className="skLicenseTermsList__list">
               {extras.map((term, index) => (
-                <div key={index} className="skLicenseTerms__property skLicenseTerms__property--note">
+                <div key={index} className="skLicenseTermsList__property skLicenseTermsList__property--note">
                   <Info width={iconWidth} />
                   <span>{term}</span>
                 </div>
@@ -190,4 +190,4 @@ function LicenseTerms({
   )
 }
 
-export default LicenseTerms
+export default LicenseTermsList

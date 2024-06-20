@@ -1,4 +1,4 @@
-import { PILTerms, POLICY_TYPE, PolicyType } from "@/types"
+import { PILTerms, PIL_FLAVOR, PilFlavor } from "@/types"
 import { type ClassValue, clsx } from "clsx"
 import { twMerge } from "tailwind-merge"
 
@@ -27,21 +27,21 @@ export function camelize(str: string) {
   })
 }
 
-export function getPolicyTypeByPILData(pilTerms: PILTerms): PolicyType {
+export function getPilFlavorByLicenseTerms(pilTerms: PILTerms): PilFlavor {
   const { commercialUse, derivativesAllowed, derivativesAttribution, commercialRevenueShare } = pilTerms
 
   if (!commercialUse && derivativesAllowed && derivativesAttribution) {
-    return POLICY_TYPE.NON_COMMERCIAL_SOCIAL_REMIXING
+    return PIL_FLAVOR.NON_COMMERCIAL_SOCIAL_REMIXING
   }
 
   if (commercialUse && derivativesAllowed && derivativesAttribution && commercialRevenueShare === 0) {
     // TODO: commercial use should check that mintingFee is set, currently not received from the API
-    return POLICY_TYPE.COMMERCIAL_USE
+    return PIL_FLAVOR.COMMERCIAL_USE
   }
 
   if (commercialUse && derivativesAllowed && derivativesAttribution && commercialRevenueShare > 0) {
-    return POLICY_TYPE.COMMERCIAL_REMIX
+    return PIL_FLAVOR.COMMERCIAL_REMIX
   }
 
-  return POLICY_TYPE.CUSTOM
+  return PIL_FLAVOR.CUSTOM
 }

@@ -6,12 +6,12 @@ import { Address } from "viem"
 import { getResource, listResource } from "../../lib/api"
 import { getNFTByTokenId } from "../../lib/simplehash"
 import { RESOURCE_TYPE } from "../../types/api"
-import { Asset, IPAPolicy, License, Policy, RoyaltyPolicy } from "../../types/assets"
+import { Asset, IPLicenseTerms, License, LicenseTerms, RoyaltyPolicy } from "../../types/assets"
 import { NFTMetadata } from "../../types/simplehash"
 
 export interface IpProviderOptions {
   assetData?: boolean
-  policyData?: boolean
+  licenseTermsData?: boolean
   licenseData?: boolean
   royaltyData?: boolean
 }
@@ -21,10 +21,10 @@ const IpContext = React.createContext<{
   nftData: NFTMetadata | undefined
   isNftDataLoading: boolean
   isAssetDataLoading: boolean
-  ipPolicyData: IPAPolicy[] | undefined
-  isIPAPolicyDataLoading: boolean
-  policyData: Policy[] | undefined
-  isPolicyDataLoading: boolean
+  ipLicenseData: IPLicenseTerms[] | undefined
+  isipLicenseDataLoading: boolean
+  licenseTermsData: LicenseTerms[] | undefined
+  isLicenseTermsDataLoading: boolean
   licenseData: License[] | undefined
   isLicenseDataLoading: boolean
   royaltyData: RoyaltyPolicy | undefined
@@ -42,7 +42,7 @@ export const IpProvider = ({
 }) => {
   const queryOptions = {
     assetData: true,
-    policyData: true,
+    licenseTermsData: true,
     licenseData: true,
     royaltyData: true,
     ...options,
@@ -54,7 +54,7 @@ export const IpProvider = ({
     enabled: queryOptions.assetData,
   })
 
-  const ipaPolicyQueryOptions = {
+  const ipLicenseTermsQueryOptions = {
     pagination: {
       limit: 0,
       offset: 0,
@@ -63,17 +63,17 @@ export const IpProvider = ({
       ipId,
     },
   }
-  // Fetch IPPolicy data
-  const { isLoading: isIPAPolicyDataLoading, data: ipPolicyData } = useQuery({
-    queryKey: [RESOURCE_TYPE.IPA_POLICY, ipaPolicyQueryOptions],
-    queryFn: () => listResource(RESOURCE_TYPE.IPA_POLICY, ipaPolicyQueryOptions),
-    enabled: queryOptions.policyData,
+  // Fetch IP License Terms data
+  const { isLoading: isipLicenseDataLoading, data: ipLicenseData } = useQuery({
+    queryKey: [RESOURCE_TYPE.IP_LICENSE_TERMS, ipLicenseTermsQueryOptions],
+    queryFn: () => listResource(RESOURCE_TYPE.IP_LICENSE_TERMS, ipLicenseTermsQueryOptions),
+    enabled: queryOptions.licenseTermsData,
   })
 
-  async function fetchPolicyDetails(data: IPAPolicy[]) {
-    const uniquePolicies = data.filter((item) => item.ipId.toLowerCase() === ipId.toLowerCase())
+  async function fetchLicenseTermsDetails(data: IPLicenseTerms[]) {
+    const uniqueLicenses = data.filter((item) => item.ipId.toLowerCase() === ipId.toLowerCase())
 
-    const requests = uniquePolicies.map((item) => getResource(RESOURCE_TYPE.POLICY, item.licenseTermsId))
+    const requests = uniqueLicenses.map((item) => getResource(RESOURCE_TYPE.LICENSE_TERMS, item.licenseTermsId))
     const results = await Promise.all(requests)
 
     return results
@@ -87,10 +87,10 @@ export const IpProvider = ({
       })
   }
 
-  const { isLoading: isPolicyDataLoading, data: policyData } = useQuery({
-    queryKey: ["fetchPolicyDetails", ipPolicyData?.data],
-    queryFn: () => fetchPolicyDetails(ipPolicyData?.data),
-    enabled: Boolean(ipPolicyData) && Boolean(ipPolicyData.data) && queryOptions.policyData,
+  const { isLoading: isLicenseTermsDataLoading, data: licenseTermsData } = useQuery({
+    queryKey: ["fetchLicenseTermsDetails", ipLicenseData?.data],
+    queryFn: () => fetchLicenseTermsDetails(ipLicenseData?.data),
+    enabled: Boolean(ipLicenseData) && Boolean(ipLicenseData.data) && queryOptions.licenseTermsData,
   })
 
   const licenseQueryOptions = {
@@ -145,10 +145,10 @@ export const IpProvider = ({
         isNftDataLoading,
         assetData: assetData?.data,
         isAssetDataLoading,
-        ipPolicyData: ipPolicyData?.data,
-        isIPAPolicyDataLoading,
-        policyData: policyData,
-        isPolicyDataLoading,
+        ipLicenseData: ipLicenseData?.data,
+        isipLicenseDataLoading,
+        licenseTermsData: licenseTermsData,
+        isLicenseTermsDataLoading,
         licenseData: licenseData?.data,
         isLicenseDataLoading,
         royaltyData: royaltyData?.data,

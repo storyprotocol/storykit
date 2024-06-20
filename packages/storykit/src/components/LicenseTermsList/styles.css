@@ -1,0 +1,76 @@
+.skLicenseTermsList {
+  @apply flex flex-col w-full min-w-48;
+
+  .skLicenseTermsList__properties {
+    @apply flex flex-col pt-2 gap-2 w-full;
+
+    &.skLicenseTermsList--row {
+      @apply flex flex-row;
+    }
+
+    &.skLicenseTermsList--col {
+      @apply flex flex-col;
+    }
+
+    .skLicenseTermsList__group {
+      @apply flex flex-col gap-0.5 flex-1;
+    }
+  }
+
+  .skLicenseTermsList__item-list-title {
+    @apply font-bold;
+  }
+
+  .skLicenseTermsList__list {
+    @apply flex flex-col;
+  }
+
+  .skLicenseTermsList__property {
+    @apply flex w-full items-start justify-start gap-2 shrink-0;
+
+    > svg {
+      @apply items-start justify-start shrink-0;
+    }
+
+    &.skLicenseTermsList__property--can > svg {
+      @apply text-green-500;
+    }
+
+    &.skLicenseTermsList__property--cannot > svg {
+      @apply text-red-500;
+    }
+  }
+
+  .skLicenseTermsList__divider {
+    @apply border-b border-gray-200 w-full my-2;
+  }
+
+  &.skLicenseTermsList--small {
+    @apply text-sm;
+  }
+
+  &.skLicenseTermsList--medium {
+    @apply text-base;
+
+    .skLicenseTermsList__properties {
+      @apply gap-3;
+    }
+    .skLicenseTermsList__group {
+      @apply gap-1;
+    }
+  }
+
+  &.skLicenseTermsList--large {
+    @apply text-lg;
+    .skLicenseTermsList__properties {
+      @apply gap-4;
+    }
+    .skLicenseTermsList__group {
+      @apply gap-2;
+    }
+  }
+
+  &.skLicenseTermsList--no-license {
+    @apply text-slate-400;
+  }
+}

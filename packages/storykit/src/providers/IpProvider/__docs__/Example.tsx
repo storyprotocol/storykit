@@ -148,31 +148,31 @@ const AssetComponent = () => {
   )
 }
 
-const IPAPolicyComponent = () => {
-  const { ipPolicyData, isIPAPolicyDataLoading } = useIpContext()
+const IPLicenseComponent = () => {
+  const { ipLicenseData, isipLicenseDataLoading } = useIpContext()
   return (
     <>
-      {isIPAPolicyDataLoading && <div>Fetching IPAPolicy...</div>}
-      {ipPolicyData && !isIPAPolicyDataLoading ? (
+      {isipLicenseDataLoading && <div>Fetching IPLicense...</div>}
+      {ipLicenseData && !isipLicenseDataLoading ? (
         <div>
           <>
             <ul>
-              {ipPolicyData?.map((obj) => (
+              {ipLicenseData?.map((obj) => (
                 <li key={obj.id} className="grid grid-cols-4 gap-4">
-                  <p className="col-span-1 text-xs text-gray-600">IPAPolicy Id</p>
-                  <p className="col-span-3 text-sm" data-testid="ipapolicy-id">
+                  <p className="col-span-1 text-xs text-gray-600">IPLicense Id</p>
+                  <p className="col-span-3 text-sm" data-testid="ipalicense-id">
                     {obj.id}
                   </p>
                   <p className="col-span-1 text-xs text-gray-600">ipId</p>
-                  <p className="col-span-3 text-sm" data-testid="ipapolicy-ip-id">
+                  <p className="col-span-3 text-sm" data-testid="ipalicense-ip-id">
                     {obj.ipId}
                   </p>
                   <p className="col-span-1 text-xs text-gray-600">licenseTemplate</p>
-                  <p className="col-span-3 text-sm" data-testid="ipapolicy-template">
+                  <p className="col-span-3 text-sm" data-testid="ipalicense-template">
                     {obj.licenseTemplate}
                   </p>
                   <p className="col-span-1 text-xs text-gray-600">licenseTermsId</p>
-                  <p className="col-span-3 text-sm" data-testid="ipapolicy-terms-id">
+                  <p className="col-span-3 text-sm" data-testid="ipalicense-terms-id">
                     {obj.licenseTermsId}
                   </p>
                   <p />
@@ -186,41 +186,41 @@ const IPAPolicyComponent = () => {
   )
 }
 
-const PolicyComponent = () => {
-  const { policyData, isPolicyDataLoading } = useIpContext()
+const LicenseTermsComponent = () => {
+  const { licenseTermsData, isLicenseTermsDataLoading } = useIpContext()
   return (
     <>
-      {isPolicyDataLoading && <div>Fetching Policy...</div>}
-      {policyData && !isPolicyDataLoading ? (
+      {isLicenseTermsDataLoading && <div>Fetching License Terms...</div>}
+      {licenseTermsData && !isLicenseTermsDataLoading ? (
         <div>
           <>
             <ul>
-              {(policyData as unknown as any[])?.map((policy) => (
-                <li className="grid grid-cols-4 gap-6" key={policy.id}>
-                  <p className="col-span-1 text-xs text-gray-600">Policy Id</p>
-                  <p className="col-span-3 text-sm" data-testid="policy-id">
-                    {policy.id}
+              {(licenseTermsData as unknown as any[])?.map((license) => (
+                <li className="grid grid-cols-4 gap-6" key={license.id}>
+                  <p className="col-span-1 text-xs text-gray-600">License Id</p>
+                  <p className="col-span-3 text-sm" data-testid="license-id">
+                    {license.id}
                   </p>
                   <p className="col-span-1 text-xs text-gray-600">licenseTemplate</p>
-                  <p className="col-span-3 text-sm" data-testid="policy-template">
-                    {policy.licenseTemplate}
+                  <p className="col-span-3 text-sm" data-testid="license-template">
+                    {license.licenseTemplate}
                   </p>
                   <p className="col-span-4 text-xs text-gray-600">licenseTerms</p>
                   <p className="col-span-1 text-xs text-gray-600">commercialUse</p>
-                  <p className="col-span-3 text-sm" data-testid="policy-comm-use">
-                    {policy.licenseTerms.commercialUse.toString()}
+                  <p className="col-span-3 text-sm" data-testid="license-comm-use">
+                    {license.licenseTerms.commercialUse.toString()}
                   </p>
                   <p className="col-span-1 text-xs text-gray-600">commercialAttribution</p>
-                  <p className="col-span-3 text-sm" data-testid="policy-comm-attr">
-                    {policy.licenseTerms.commercialAttribution.toString()}
+                  <p className="col-span-3 text-sm" data-testid="license-comm-attr">
+                    {license.licenseTerms.commercialAttribution.toString()}
                   </p>
                   <p className="col-span-1 text-xs text-gray-600">commercialRevenueShare</p>
-                  <p className="col-span-3 text-sm" data-testid="policy-comm-share">
-                    {policy.licenseTerms.commercialRevenueShare}
+                  <p className="col-span-3 text-sm" data-testid="license-comm-share">
+                    {license.licenseTerms.commercialRevenueShare}
                   </p>
                   <p className="col-span-1 text-xs text-gray-600">derivativesAllowed</p>
-                  <p className="col-span-3 text-sm" data-testid="policy-deriv-allow">
-                    {policy.licenseTerms.derivativesAllowed.toString()}
+                  <p className="col-span-3 text-sm" data-testid="license-deriv-allow">
+                    {license.licenseTerms.derivativesAllowed.toString()}
                   </p>
                   <p />
                 </li>
@@ -339,10 +339,10 @@ const ProviderOptionsComponent = () => {
     isAssetDataLoading,
     nftData,
     isNftDataLoading,
-    ipPolicyData,
-    isIPAPolicyDataLoading,
-    policyData,
-    isPolicyDataLoading,
+    ipLicenseData,
+    isipLicenseDataLoading,
+    licenseTermsData,
+    isLicenseTermsDataLoading,
     licenseData,
     isLicenseDataLoading,
     royaltyData,
@@ -353,8 +353,8 @@ const ProviderOptionsComponent = () => {
       <div>
         {isAssetDataLoading && <div>Fetching Asset...</div>}
         {isNftDataLoading && <div>Fetching NFT...</div>}
-        {isIPAPolicyDataLoading && <div>Fetching IPAPolicy...</div>}
-        {isPolicyDataLoading && <div>Fetching Policy...</div>}
+        {isipLicenseDataLoading && <div>Fetching IPLicense...</div>}
+        {isLicenseTermsDataLoading && <div>Fetching License Terms...</div>}
         {isLicenseDataLoading && <div>Fetching License...</div>}
         {isRoyaltyDataLoading && <div>Fetching Royalty...</div>}
         <div className="grid grid-cols-4 gap-4">
@@ -366,13 +366,13 @@ const ProviderOptionsComponent = () => {
           <div className="col-span-3 text-sm" data-testid="nft-id">
             {nftData?.nft_id}
           </div>
-          <div className="col-span-1 text-xs text-gray-600">IPAPolicy count</div>
+          <div className="col-span-1 text-xs text-gray-600">IPLicense count</div>
           <div className="col-span-3 text-sm" data-testid="ipap-count">
-            {ipPolicyData?.length}
+            {ipLicenseData?.length}
           </div>
-          <div className="col-span-1 text-xs text-gray-600">Policy count</div>
-          <div className="col-span-3 text-sm" data-testid="policy-count">
-            {policyData?.length}
+          <div className="col-span-1 text-xs text-gray-600">License Terms count</div>
+          <div className="col-span-3 text-sm" data-testid="license-terms-count">
+            {licenseTermsData?.length}
           </div>
           <div className="col-span-1 text-xs text-gray-600">License count</div>
           <div className="col-span-3 text-sm" data-testid="license-count">
@@ -391,8 +391,8 @@ const ProviderOptionsComponent = () => {
 export default Example
 export {
   AssetComponent,
-  IPAPolicyComponent,
-  PolicyComponent,
+  IPLicenseComponent,
+  LicenseTermsComponent,
   LicenseComponent,
   RoyaltyComponent,
   ProviderOptionsComponent,

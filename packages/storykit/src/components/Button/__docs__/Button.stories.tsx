@@ -9,6 +9,7 @@ const meta = {
     layout: "centered",
   },
   // tags: ["autodocs"],
+  tags: ["isHidden"],
   argTypes: {},
   args: {},
 } satisfies Meta<typeof Button>
