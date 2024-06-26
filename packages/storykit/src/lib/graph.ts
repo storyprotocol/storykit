@@ -33,7 +33,7 @@ export interface GraphData {
 }
 
 export async function convertAssetToGraphFormat(jsonData: Asset, nftData: NFTMetadata): Promise<GraphData> {
-  const rootIpId = jsonData.rootIpIds?.[0]?.id
+  const rootIpId = jsonData.rootIpIds?.[0]
   const nodes: GraphNode[] = []
   const links: Link[] = []
 
@@ -72,8 +72,8 @@ export async function convertAssetToGraphFormat(jsonData: Asset, nftData: NFTMet
   nodes.push(mainNode)
 
   // Add all childIpIds to nodes array and create links
-  if (jsonData.childIpIds) {
-    for (const child of jsonData.childIpIds) {
+  if (jsonData.childIps) {
+    for (const child of jsonData.childIps) {
       const childNftData = await getNFTByTokenId(child.nftMetadata.tokenContract, child.nftMetadata.tokenId)
 
       const childNode: GraphNode = {
@@ -116,8 +116,8 @@ export async function convertAssetToGraphFormat(jsonData: Asset, nftData: NFTMet
   }
 
   // Add all parentIpIds to nodes array and create links
-  if (jsonData.parentIpIds) {
-    for (const parent of jsonData.parentIpIds) {
+  if (jsonData.parentIps) {
+    for (const parent of jsonData.parentIps) {
       const parentNftData = await getNFTByTokenId(parent.nftMetadata.tokenContract, parent.nftMetadata.tokenId)
 
       const parentNode: GraphNode = {

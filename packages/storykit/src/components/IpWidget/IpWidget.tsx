@@ -185,15 +185,15 @@ function IPAssetDropdownMenu() {
         leaveTo="transform opacity-0 scale-95"
       >
         <Menu.Items className="skIpWidget__ipAssetDropdownMenu__items">
-          {assetData?.rootIpIds?.[0]?.id && (
+          {assetData?.rootIpIds?.[0] && (
             <div className="skIpWidget__ipAssetDropdownMenu__rootIp">
               <p className="skIpWidget__ipAssetDropdownMenu__rootIp__title">Root IP</p>
               <div className="skIpWidget__ipAssetDropdownMenu__rootIp__item">
                 <img
-                  src={`https://cdn.stamp.fyi/avatar/eth:${assetData?.rootIpIds?.[0]?.id}?s=300`}
-                  alt={assetData?.rootIpIds?.[0]?.id as Address}
+                  src={`https://cdn.stamp.fyi/avatar/eth:${assetData?.rootIpIds?.[0]}?s=300`}
+                  alt={assetData?.rootIpIds?.[0] as Address}
                 ></img>
-                <p>{shortenAddress(assetData?.rootIpIds?.[0]?.id as Address)}</p>
+                <p>{shortenAddress(assetData?.rootIpIds?.[0] as Address)}</p>
               </div>
             </div>
           )}
@@ -208,14 +208,14 @@ function IPAssetDropdownMenu() {
                       style={{
                         zIndex: ((assetData?.parentIpIds?.length as number) - index) * 10,
                       }}
-                      src={`https://cdn.stamp.fyi/avatar/eth:${asset.id}?s=300`}
-                      alt={asset.id}
+                      src={`https://cdn.stamp.fyi/avatar/eth:${asset}?s=300`}
+                      alt={asset}
                     />
                   ))}
                 </div>
                 <p className="skIpWidget__ipAssetDropdownMenu__parentIp__addresses">
                   {assetData?.parentIpIds?.length === 1
-                    ? shortenAddress(assetData?.parentIpIds?.[0]?.id as Address)
+                    ? shortenAddress(assetData?.parentIpIds?.[0] as Address)
                     : `${assetData?.parentIpIds?.length} total `}
                 </p>
               </div>
@@ -232,14 +232,14 @@ function IPAssetDropdownMenu() {
                       style={{
                         zIndex: ((assetData?.childIpIds?.length as number) - index) * 5,
                       }}
-                      src={`https://cdn.stamp.fyi/avatar/eth:${asset.id}?s=300`}
-                      alt={asset.id}
+                      src={`https://cdn.stamp.fyi/avatar/eth:${asset}?s=300`}
+                      alt={asset}
                     />
                   ))}
                 </div>
                 <p className="skIpWidget__ipAssetDropdownMenu__childIp__addresses">
                   {assetData?.childIpIds?.length === 1
-                    ? shortenAddress(assetData?.childIpIds?.[0]?.id as Address)
+                    ? shortenAddress(assetData?.childIpIds?.[0] as Address)
                     : `${assetData?.childIpIds?.length} total `}
                 </p>
               </div>
