@@ -115,27 +115,27 @@ const AssetComponent = () => {
               {assetData.nftMetadata.imageUrl}
             </div>
 
-            <div className="col-span-1 text-xs text-gray-600">rootIpIds</div>
+            <div className="col-span-1 text-xs text-gray-600">rootIps</div>
             <ul className="col-span-3 text-sm">
-              {assetData.rootIpIds?.map((obj) => (
+              {assetData.rootIps?.map((obj) => (
                 <li data-testid="asset-root-ip" key={obj.id}>
                   {obj.id}
                 </li>
               ))}
             </ul>
 
-            <div className="col-span-1 text-xs text-gray-600">parentIpIds</div>
+            <div className="col-span-1 text-xs text-gray-600">parentIps</div>
             <ul className="col-span-3 text-sm">
-              {assetData.parentIpIds?.map((obj) => (
+              {assetData.parentIps?.map((obj) => (
                 <li data-testid="asset-parent-ip" key={obj.id}>
                   {obj.id}
                 </li>
               ))}
             </ul>
 
-            <div className="col-span-1 text-xs text-gray-600">childIpIds</div>
+            <div className="col-span-1 text-xs text-gray-600">childIps</div>
             <ul className="col-span-3 text-sm">
-              {assetData.childIpIds?.map((obj) => (
+              {assetData.childIps?.map((obj) => (
                 <li data-testid="asset-child-ip" key={obj.id}>
                   {obj.id}
                 </li>

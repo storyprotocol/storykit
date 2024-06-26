@@ -17,9 +17,12 @@ export type PilFlavor =
 
 export type Asset = {
   id: Address
-  parentIpIds: Asset[] | null
-  childIpIds: Asset[] | null
-  rootIpIds: Asset[] | null
+  parentIpIds: Address[] | null
+  childIpIds: Address[] | null
+  rootIpIds: Address[] | null
+  parentIps: Asset[] | null
+  rootIps: Asset[] | null
+  childIps: Asset[] | null
   nftMetadata: {
     name: string
     chainId: string
