@@ -1,1 +1,1 @@
-export const API_BASE_URL = "https://edge.stg.storyprotocol.net"
+export const API_BASE_URL = "https://api.storyprotocol.net"
