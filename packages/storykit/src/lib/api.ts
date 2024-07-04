@@ -1,6 +1,9 @@
 import { QueryOptions, ResourceType } from "../types/api"
 import { API_BASE_URL } from "./constants"
 
+const API_URL =
+  process.env.STORYBOOK_API_BASE_URL || process.env.NEXT_PUBLIC_API_BASE_URL || process.env.API_BASE_URL || API_BASE_URL
+
 const API_KEY =
   process.env.STORYBOOK_STORY_PROTOCOL_X_API_KEY ||
   process.env.NEXT_PUBLIC_STORY_PROTOCOL_X_API_KEY ||
@@ -9,7 +12,7 @@ const API_KEY =
 
 export async function getResource(resourceName: ResourceType, resourceId: string) {
   try {
-    const res = await fetch(`${API_BASE_URL}/api/v1/${resourceName}/${resourceId}`, {
+    const res = await fetch(`${API_URL}/api/v1/${resourceName}/${resourceId}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -27,7 +30,7 @@ export async function getResource(resourceName: ResourceType, resourceId: string
 
 export async function listResource(resourceName: ResourceType, options?: QueryOptions) {
   try {
-    const res = await fetch(`${API_BASE_URL}/api/v1/${resourceName}`, {
+    const res = await fetch(`${API_URL}/api/v1/${resourceName}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
