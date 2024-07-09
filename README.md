@@ -32,6 +32,16 @@ NEXT_PUBLIC_STORY_PROTOCOL_X_API_KEY="l0YkL0VIBK6-nfb7SGake4s3ctg="
 NEXT_PUBLIC_SIMPLE_HASH_API_KEY="SIMPLEHASH_API_KEY_HERE"
 ```
 
+## Releasing New Versions
+
+Before publishing make sure to increment the version number [here](https://github.com/storyprotocol/storykit/blob/bdba305b644e08a9245e69ee7ba087da5f82c58b/packages/storykit/package.json#L4)
+
+When new changes are pushed to the branch defined [in the publish-package.yml workflow here](https://github.com/storyprotocol/storykit/blob/bdba305b644e08a9245e69ee7ba087da5f82c58b/.github/workflows/publish-package.yml#L6), a new [github action](https://github.com/storyprotocol/storykit/actions) will be started.
+
+As long as the version defined in the [package.json](https://github.com/storyprotocol/storykit/blob/bdba305b644e08a9245e69ee7ba087da5f82c58b/packages/storykit/package.json#L4) hasn't already been published, a new storykit package will be published, otherwise the action will fail.
+
+Storykit releases can be found [here](https://github.com/storyprotocol/storykit/pkgs/npm/storykit)
+
 ## Deploying on vercel
 
 Add all the content of the `.npmrc` file, including your personal access token, to a `NPM_RC` vercel environment variable.
