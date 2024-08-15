@@ -1,3 +1,4 @@
+import { cn } from "@/lib/utils"
 import { NFTMetadata } from "@/types"
 import { useQuery } from "@tanstack/react-query"
 import React, { useEffect, useRef, useState } from "react"
@@ -16,20 +17,31 @@ export type IpGraphProps = {
 }
 
 function IpGraph({ width = 500, height = 500, darkMode = false }: IpGraphProps) {
-  const { assetData, nftData } = useIpContext()
+  const { isAssetDataLoading, assetData, nftData } = useIpContext()
 
-  const { isLoading, data: formattedGraphData } = useQuery({
+  const {
+    isLoading: formattedDataLoading,
+    data: formattedGraphData,
+    isError,
+  } = useQuery({
     queryKey: ["FORMAT_GRAPH_DATA", assetData?.id],
     queryFn: () => convertAssetToGraphFormat(assetData as Asset, nftData as NFTMetadata),
     enabled: !!(assetData && nftData),
   })
 
-  console.log({ assetData, nftData, formattedGraphData })
+  const [isLoading, setIsLoading] = useState(true)
   const [ForceGraph, setForceGraph] = useState<any>(null)
   const imageCache = useRef<{ [key: string]: HTMLImageElement }>({})
 
   useEffect(() => {
-    // ForceGraph will break SSR, and needs to be loaded dynamically
+    if (isAssetDataLoading || formattedDataLoading) {
+      setIsLoading(true)
+    } else {
+      setIsLoading(!formattedGraphData)
+    }
+  }, [isAssetDataLoading, formattedDataLoading, formattedGraphData])
+
+  useEffect(() => {
     async function importForceGraphModule() {
       const fg = await import("react-force-graph-2d")
       setForceGraph(fg.default)
@@ -40,26 +52,15 @@ function IpGraph({ width = 500, height = 500, darkMode = false }: IpGraphProps) 
   const nodeCanvasObject = (node: any, ctx: any, globalScale: any) => {
     const isParent = node.level < 0
     const isSelf = node.level === 0
-    const isChild = node.level > 0
+    // const isChild = node.level > 0
 
-    let label1 = node.name // First line with the node name
-    let label2 = "" // Second line with the node type
+    // Define labels for node
+    const label1 = node.name
+    const label2 = node.isRoot ? (isParent ? "Root / Parent" : "Root") : isParent ? "Parent" : "Child"
 
-    if (node.isRoot) {
-      if (isParent) {
-        label2 = "Root / Parent"
-      } else {
-        label2 = "Root"
-      }
-    } else if (isParent) {
-      label2 = "Parent"
-    } else if (isChild) {
-      label2 = "Child"
-    }
+    const circleRadius = isSelf ? 8 : 5
 
-    const circleRadius = isSelf ? 8 : 5 // Adjust the circle radius based on node type
-
-    // Render the image if available
+    // Draw node image or fallback to a circle
     if (node.imageUrl) {
       let img = imageCache.current[node.id]
 
@@ -68,88 +69,81 @@ function IpGraph({ width = 500, height = 500, darkMode = false }: IpGraphProps) 
         img.src = node.imageUrl
         img.onload = () => {
           imageCache.current[node.id] = img
-          // Draw the image
           ctx.drawImage(img, node.x - circleRadius, node.y - circleRadius, circleRadius * 2, circleRadius * 2)
-
-          // Draw the border if isSelf
-          if (isSelf) {
-            ctx.beginPath()
-            ctx.rect(node.x - circleRadius, node.y - circleRadius, circleRadius * 2, circleRadius * 2)
-            ctx.lineWidth = 0.8
-            ctx.strokeStyle = "#7522e8" // Border color based on dark mode
-            ctx.stroke()
-          }
+          if (isSelf) drawBorder(ctx, node, circleRadius)
         }
       } else {
-        // Draw the image
         ctx.drawImage(img, node.x - circleRadius, node.y - circleRadius, circleRadius * 2, circleRadius * 2)
-
-        // Draw the border if isSelf
-        if (isSelf) {
-          ctx.beginPath()
-          ctx.rect(node.x - circleRadius, node.y - circleRadius, circleRadius * 2, circleRadius * 2)
-          ctx.lineWidth = 0.8
-          ctx.strokeStyle = "#7522e8" // Border color based on dark mode
-          ctx.stroke()
-        }
+        if (isSelf) drawBorder(ctx, node, circleRadius)
       }
     } else {
-      // Fallback to a circle if the image is not available
-      ctx.beginPath()
-      ctx.arc(node.x, node.y, circleRadius, 0, 2 * Math.PI, false)
-
-      if (isSelf) {
-        ctx.fillStyle = darkMode ? "white" : "black" // Color of the circle for self
-      } else if (isParent) {
-        ctx.fillStyle = darkMode ? "darkgrey" : "grey" // Color of the circle for parent
-      } else {
-        ctx.fillStyle = darkMode ? "lightgrey" : "grey" // Color of the circle for child
-      }
-
-      ctx.fill()
-
-      // Draw the border if isSelf
-      if (isSelf) {
-        ctx.beginPath()
-        ctx.arc(node.x, node.y, circleRadius, 0, 2 * Math.PI, false)
-        ctx.lineWidth = 0.8
-        ctx.strokeStyle = "#7522e8" // Border color based on dark mode
-        ctx.stroke()
-      }
+      drawCircle(ctx, node, circleRadius, isSelf, isParent, darkMode)
     }
 
-    // Set colors for the labels
-    const label1Color = darkMode ? "white" : "black" // Color for the first label
-    const label2Color = darkMode ? "#666" : "gray" // Color for the second label
+    drawLabels(ctx, node, label1, label2, globalScale, darkMode)
+  }
 
-    // Draw the first label (node name) with the larger font size and specific color
-    const fontSize1 = 12 / globalScale // Larger font size for the first label
-    ctx.fillStyle = label1Color // Set color for the first label
+  const drawBorder = (ctx: any, node: any, radius: number) => {
+    ctx.beginPath()
+    ctx.rect(node.x - radius, node.y - radius, radius * 2, radius * 2)
+    ctx.lineWidth = 0.8
+    ctx.strokeStyle = "#7522e8"
+    ctx.stroke()
+  }
+
+  const drawCircle = (ctx: any, node: any, radius: number, isSelf: boolean, isParent: boolean, darkMode: boolean) => {
+    ctx.beginPath()
+    ctx.arc(node.x, node.y, radius, 0, 2 * Math.PI, false)
+    ctx.fillStyle = isSelf
+      ? darkMode
+        ? "white"
+        : "black"
+      : isParent
+        ? darkMode
+          ? "darkgrey"
+          : "grey"
+        : darkMode
+          ? "lightgrey"
+          : "grey"
+    ctx.fill()
+    if (isSelf) drawBorder(ctx, node, radius)
+  }
+
+  const drawLabels = (ctx: any, node: any, label1: string, label2: string, globalScale: any, darkMode: boolean) => {
+    const label1Color = darkMode ? "white" : "black"
+    const label2Color = darkMode ? "#666" : "gray"
+    const fontSize1 = 12 / globalScale
+    const fontSize2 = fontSize1 * 0.8
+
+    ctx.fillStyle = label1Color
     ctx.font = `${fontSize1}px Sans-Serif`
-    ctx.fillText(label1, node.x + circleRadius + 2, node.y + fontSize1 / 2)
+    ctx.fillText(label1, node.x + 10, node.y + fontSize1 / 2)
 
-    // Draw the second label (node type) with the smaller font size and different color
     if (label2) {
-      const fontSize2 = fontSize1 * 0.8 // Smaller font size for the second label (80% of the first)
-      ctx.fillStyle = label2Color // Set color for the second label
+      ctx.fillStyle = label2Color
       ctx.font = `${fontSize2}px Sans-Serif`
-      ctx.fillText(label2, node.x + circleRadius + 2, node.y + fontSize1 + fontSize2 / 2 + 0.5)
+      ctx.fillText(label2, node.x + 10, node.y + fontSize1 + fontSize2 / 2 + 0.5)
     }
   }
 
   return (
-    <div className="skIpGraph">
-      {ForceGraph ? (
+    <div
+      className={cn(
+        "skIpGraph",
+        "flex items-center justify-center",
+        darkMode ? "bg-black text-white" : "bg-white text-black"
+      )}
+      style={{ width: `${width}px`, height: `${height}px` }}
+    >
+      {isLoading ? (
+        <>Loading...</>
+      ) : isError ? (
+        <>Error</>
+      ) : ForceGraph ? (
         <ForceGraph
           nodeLabel={"details"}
           width={width}
-          linkColor={(link: LinkObject) => {
-            if (darkMode) {
-              return "#686868"
-            } else {
-              return "#c0c0c0"
-            }
-          }}
+          linkColor={(link: LinkObject) => (darkMode ? "#686868" : "#c0c0c0")}
           backgroundColor={darkMode ? "#000" : "#fff"}
           height={height}
           graphData={formattedGraphData}
