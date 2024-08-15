@@ -7,10 +7,11 @@ import { Address } from "viem"
 import { IpProvider } from "../../../providers"
 import IpGraph from "../IpGraph"
 
-const Example: FC<{ ipId: Address; width?: number; height?: number }> = ({
+const Example: FC<{ ipId: Address; width?: number; height?: number; darkMode?: boolean }> = ({
   ipId = PREVIEW_IP_ASSETS[0] as `0x${string}`,
   width = 400,
   height = 300,
+  darkMode = false,
 }) => {
   const [collections, setCollections] = useState<any>(null)
   const [nfts, setNfts] = useState<any>(null)
@@ -31,7 +32,7 @@ const Example: FC<{ ipId: Address; width?: number; height?: number }> = ({
       <QueryClientProvider client={queryClient}>
         <div className="flex h-full items-center justify-center">
           <IpProvider ipId={ipId}>
-            <IpGraph width={width} height={height} />
+            <IpGraph width={width} height={height} darkMode={darkMode} />
           </IpProvider>
         </div>
       </QueryClientProvider>
