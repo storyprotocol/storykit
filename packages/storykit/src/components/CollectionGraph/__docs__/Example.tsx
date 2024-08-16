@@ -1,17 +1,16 @@
 import { getCollectionByAddress, getNFTByWallet } from "@/lib/simplehash"
-import { PREVIEW_COLLECTION_ADDRESS, PREVIEW_IP_ASSETS } from "@/stories/data"
+import { PREVIEW_COLLECTION_ADDRESS } from "@/stories/data"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import React, { FC, useEffect, useState } from "react"
 import { Address } from "viem"
 
-import { IpProvider } from "../../../providers"
 import CollectionGraph, { CollectionGraphProps } from "../CollectionGraph"
 
 const Example: FC<CollectionGraphProps> = ({
   collectionAddress = PREVIEW_COLLECTION_ADDRESS[0] as Address,
   width = 2000,
   height = 1000,
-  showName = true,
+  showName = false,
   showRelationship = false,
   darkMode = false,
 }) => {

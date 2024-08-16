@@ -33,8 +33,38 @@ export interface GraphData {
   links: Link[]
 }
 
+export function generateNFTDetails(nftData: NFTMetadata | undefined, assetId: Address): string {
+  return `
+    <div class="graph-content">
+      <img src="${nftData?.previews?.image_small_url || nftData?.image_url || "https://play.storyprotocol.xyz/_next/static/media/sp_logo_black.2e1d7450.svg"}" alt="NFT Image" style="max-width:250px; background-color:white;"/>
+      <div style="font-size:24px">
+        ${nftData?.name || "Untitled"}
+      </div>
+      <div style="font-size:10px; display:flex; width:100%; justify-content: space-between">
+        <div>
+          <div>
+            <span>IPID:</span> 
+            <span>${shortenAddress(assetId)}</span>
+          </div>
+          <div>
+            <span>${nftData?.chain}</span>
+          </div>
+          
+          
+        </div>
+        <div style="display: flex; justify-items:end; text-align: right; flex-direction:column">
+          <span style="text-transform:uppercase;color: #dddddd;">Owner</span> 
+          <div style="display:flex;align-items:center;justify-items:center;flex-direction:row;">
+            <img src="https://cdn.stamp.fyi/avatar/eth:${nftData?.owners[0].owner_address}" alt="${nftData?.owners[0].owner_address}" style="position:relative;width:16px;height:16px;border-radius:100%;margin-right:8px"/>
+            <span>${shortenAddress(nftData?.owners[0].owner_address as string)}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  `
+}
+
 export async function convertAssetToGraphFormat(jsonData: Asset, nftData: NFTMetadata): Promise<GraphData> {
-  // console.log({ jsonData, nftData })
   const rootIpId = jsonData.rootIpIds?.[0]
   const nodes: GraphNode[] = []
   const links: Link[] = []
@@ -45,6 +75,7 @@ export async function convertAssetToGraphFormat(jsonData: Asset, nftData: NFTMet
     name: nftData.name || jsonData.nftMetadata.name || "Untitled",
     details: `
         <div class="graph-content">
+          
           <div>
             <span class="graph-content-label">Name:</span> 
             <span>${nftData.name || jsonData.nftMetadata.name || "Untitled"}</span>
@@ -54,7 +85,7 @@ export async function convertAssetToGraphFormat(jsonData: Asset, nftData: NFTMet
             <span>${nftData.chain}</span>
           </div>
           <div>
-            <span class="graph-content-label">Contact:</span> 
+            <span class="graph-content-label">Contract:</span> 
             <span>${shortenAddress(nftData.contract_address)}</span>
           </div>
           <div>
@@ -92,7 +123,7 @@ export async function convertAssetToGraphFormat(jsonData: Asset, nftData: NFTMet
             <span>${childNftData.chain}</span>
           </div>
           <div>
-            <span class="graph-content-label">Contact:</span> 
+            <span class="graph-content-label">Contract:</span> 
             <span>${shortenAddress(childNftData.contract_address)}</span>
           </div>
           <div>
@@ -136,7 +167,7 @@ export async function convertAssetToGraphFormat(jsonData: Asset, nftData: NFTMet
             <span>${parentNftData.chain}</span>
           </div>
           <div>
-            <span class="graph-content-label">Contact:</span> 
+            <span class="graph-content-label">Contract:</span> 
             <span>${shortenAddress(parentNftData.contract_address)}</span>
           </div>
           <div>
@@ -207,12 +238,9 @@ export async function convertMultipleAssetsToGraphFormat(jsonData: Asset[]): Pro
   const nodes: GraphNode[] = []
   const links: Link[] = []
   const linkCounts = new Map<string, number>()
-  const nodeSet = new Set<string>()  // Set to track unique node IDs
+  const nodeSet = new Set<string>() // Set to track unique node IDs
 
-  console.log({ jsonData })
   const nftDataMap = await fetchNFTMetadata(jsonData) // Fetch NFT metadata and update map
-
-  console.log({ nftDataMap })
 
   // Process each asset
   for (const asset of jsonData) {
@@ -224,26 +252,7 @@ export async function convertMultipleAssetsToGraphFormat(jsonData: Asset[]): Pro
       const mainNode: GraphNode = {
         id: asset.id,
         name: nftData?.name || asset.nftMetadata.name || "Untitled",
-        details: `
-          <div class="graph-content">
-            <div>
-              <span class="graph-content-label">Name:</span> 
-              <span>${nftData?.name || asset.nftMetadata.name || "Untitled"}</span>
-            </div>
-            <div>
-              <span class="graph-content-label">Chain:</span> 
-              <span>${nftData?.chain}</span>
-            </div>
-            <div>
-              <span class="graph-content-label">Contact:</span> 
-              <span>${shortenAddress(nftData?.contract_address as string)}</span>
-            </div>
-            <div>
-              <span class="graph-content-label">Token ID:</span> 
-              <span>${nftData?.token_id}</span>
-            </div>
-          </div>
-        `,
+        details: generateNFTDetails(nftData, asset.id),
         tokenContract: asset.nftMetadata.tokenContract,
         tokenId: asset.nftMetadata.tokenId,
         val: 1,
@@ -251,7 +260,7 @@ export async function convertMultipleAssetsToGraphFormat(jsonData: Asset[]): Pro
         imageUrl: nftData?.previews?.image_small_url || nftData?.image_url,
         imageProperties: nftData?.image_properties,
         isRoot: rootIpId === undefined,
-        linkCount: 0,  // Initialize link count
+        linkCount: 0, // Initialize link count
       }
       nodes.push(mainNode)
       nodeSet.add(asset.id)
@@ -266,33 +275,14 @@ export async function convertMultipleAssetsToGraphFormat(jsonData: Asset[]): Pro
           const childNode: GraphNode = {
             id: childIpId,
             name: childNftData?.name || "Untitled",
-            details: `
-              <div class="graph-content">
-                <div>
-                  <span class="graph-content-label">Name:</span> 
-                  <span>${childNftData?.name || "Untitled"}</span>
-                </div>
-                <div>
-                  <span class="graph-content-label">Chain:</span> 
-                  <span>${childNftData?.chain}</span>
-                </div>
-                <div>
-                  <span class="graph-content-label">Contact:</span> 
-                  <span>${shortenAddress(childNftData?.contract_address as string)}</span>
-                </div>
-                <div>
-                  <span class="graph-content-label">Token ID:</span> 
-                  <span>${childNftData?.token_id}</span>
-                </div>
-              </div>
-            `,
+            details: generateNFTDetails(childNftData, childIpId),
             tokenContract: childNftData?.contract_address,
             tokenId: childNftData?.token_id,
             imageUrl: childNftData?.previews?.image_small_url || childNftData?.image_url,
             imageProperties: childNftData?.image_properties,
             val: 1,
             level: 1,
-            linkCount: 0,  // Initialize link count
+            linkCount: 0, // Initialize link count
           }
           nodes.push(childNode)
           nodeSet.add(childIpId)
@@ -318,26 +308,7 @@ export async function convertMultipleAssetsToGraphFormat(jsonData: Asset[]): Pro
           const parentNode: GraphNode = {
             id: parentIpId,
             name: parentNftData?.name || "Untitled",
-            details: `
-              <div class="graph-content">
-                <div>
-                  <span class="graph-content-label">Name:</span> 
-                  <span>${parentNftData?.name || "Untitled"}</span>
-                </div>
-                <div>
-                  <span class="graph-content-label">Chain:</span> 
-                  <span>${parentNftData?.chain}</span>
-                </div>
-                <div>
-                  <span class="graph-content-label">Contact:</span> 
-                  <span>${shortenAddress(parentNftData?.contract_address as string)}</span>
-                </div>
-                <div>
-                  <span class="graph-content-label">Token ID:</span> 
-                  <span>${parentNftData?.token_id}</span>
-                </div>
-              </div>
-            `,
+            details: generateNFTDetails(parentNftData, parentIpId),
             tokenContract: parentNftData?.contract_address,
             tokenId: parentNftData?.token_id,
             imageUrl: parentNftData?.previews?.image_small_url || parentNftData?.image_url,
@@ -345,7 +316,7 @@ export async function convertMultipleAssetsToGraphFormat(jsonData: Asset[]): Pro
             val: 1,
             level: -1,
             isRoot: parentIpId === rootIpId,
-            linkCount: 0,  // Initialize link count
+            linkCount: 0, // Initialize link count
           }
           nodes.push(parentNode)
           nodeSet.add(parentIpId)
@@ -368,6 +339,5 @@ export async function convertMultipleAssetsToGraphFormat(jsonData: Asset[]): Pro
     node.linkCount = linkCounts.get(node.id) || 0
   }
 
-  // console.log({ nodes, links })
   return { nodes, links }
 }

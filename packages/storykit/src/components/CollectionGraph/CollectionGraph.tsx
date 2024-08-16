@@ -25,7 +25,7 @@ function CollectionGraph({
   collectionAddress,
   width = 2000,
   height = 2000,
-  showName = true,
+  showName = false,
   showRelationship = false,
   darkMode = false,
 }: CollectionGraphProps) {
@@ -48,8 +48,6 @@ function CollectionGraph({
     queryFn: () => convertMultipleAssetsToGraphFormat(assetData.data as Asset[]),
     enabled: !!assetData,
   })
-
-  console.log({ formattedDataLoading, formattedGraphData, assetData })
 
   const [isLoading, setIsLoading] = useState(true)
   const [ForceGraph, setForceGraph] = useState<any>(null)

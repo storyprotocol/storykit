@@ -1,4 +1,4 @@
-import { PREVIEW_COLLECTION_ADDRESS, PREVIEW_IP_ASSETS } from "@/stories/data"
+import { PREVIEW_COLLECTION_ADDRESS } from "@/stories/data"
 import type { Meta, StoryObj } from "@storybook/react"
 import { expect, waitFor } from "@storybook/test"
 
