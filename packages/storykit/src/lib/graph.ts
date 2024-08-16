@@ -33,6 +33,8 @@ export interface GraphData {
 }
 
 export async function convertAssetToGraphFormat(jsonData: Asset, nftData: NFTMetadata): Promise<GraphData> {
+
+  // console.log({ jsonData, nftData })
   const rootIpId = jsonData.rootIpIds?.[0]
   const nodes: GraphNode[] = []
   const links: Link[] = []
@@ -145,6 +147,8 @@ export async function convertAssetToGraphFormat(jsonData: Asset, nftData: NFTMet
       `,
         tokenContract: parent.nftMetadata.tokenContract,
         tokenId: parent.nftMetadata.tokenId,
+        imageUrl: parentNftData.previews.image_small_url || parentNftData.image_url,
+        imageProperties: parentNftData.image_properties,
         val: 1,
         level: -1, // assuming parent is one level up
         isRoot: parent.id === rootIpId,

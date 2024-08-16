@@ -70,11 +70,11 @@ function IpGraph({ width = 500, height = 500, darkMode = false }: IpGraphProps) 
         img.onload = () => {
           imageCache.current[node.id] = img
           ctx.drawImage(img, node.x - circleRadius, node.y - circleRadius, circleRadius * 2, circleRadius * 2)
-          if (isSelf) drawBorder(ctx, node, circleRadius)
+          if (isSelf) drawRectBorder(ctx, node, circleRadius)
         }
       } else {
         ctx.drawImage(img, node.x - circleRadius, node.y - circleRadius, circleRadius * 2, circleRadius * 2)
-        if (isSelf) drawBorder(ctx, node, circleRadius)
+        if (isSelf) drawRectBorder(ctx, node, circleRadius)
       }
     } else {
       drawCircle(ctx, node, circleRadius, isSelf, isParent, darkMode)
@@ -83,9 +83,17 @@ function IpGraph({ width = 500, height = 500, darkMode = false }: IpGraphProps) 
     drawLabels(ctx, node, label1, label2, globalScale, darkMode)
   }
 
-  const drawBorder = (ctx: any, node: any, radius: number) => {
+  const drawRectBorder = (ctx: any, node: any, radius: number) => {
     ctx.beginPath()
     ctx.rect(node.x - radius, node.y - radius, radius * 2, radius * 2)
+    ctx.lineWidth = 0.8
+    ctx.strokeStyle = "#7522e8"
+    ctx.stroke()
+  }
+
+  const drawCircleBorder = (ctx: any, node: any, radius: number) => {
+    ctx.beginPath()
+    ctx.arc(node.x, node.y, radius, 0, 2 * Math.PI, false) // Draw the border as an arc
     ctx.lineWidth = 0.8
     ctx.strokeStyle = "#7522e8"
     ctx.stroke()
@@ -106,7 +114,7 @@ function IpGraph({ width = 500, height = 500, darkMode = false }: IpGraphProps) 
           ? "lightgrey"
           : "grey"
     ctx.fill()
-    if (isSelf) drawBorder(ctx, node, radius)
+    if (isSelf) drawCircleBorder(ctx, node, radius)
   }
 
   const drawLabels = (ctx: any, node: any, label1: string, label2: string, globalScale: any, darkMode: boolean) => {
