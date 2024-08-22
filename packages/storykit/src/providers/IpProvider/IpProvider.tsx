@@ -33,9 +33,9 @@ const IpContext = React.createContext<{
 } | null>(null)
 
 export const IpProvider = ({
+  chain = STORYKIT_SUPPORTED_CHAIN.SEPOLIA,
   children,
   ipId,
-  chain = STORYKIT_SUPPORTED_CHAIN.STORY_TESTNET,
   options = {},
 }: {
   children: React.ReactNode
