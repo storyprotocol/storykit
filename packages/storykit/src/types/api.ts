@@ -1,3 +1,4 @@
+import { STORYKIT_SUPPORTED_CHAIN } from "@/lib/constants"
 import { Address } from "viem"
 
 export enum RESOURCE_TYPE {
@@ -80,6 +81,7 @@ export type FilterOptions =
   | IPLicenseTermsFilterOptions
 
 export type QueryOptions = {
-  pagination: PaginationOptions
+  chain?: STORYKIT_SUPPORTED_CHAIN
+  pagination?: PaginationOptions
   where?: FilterOptions
 }

@@ -1,4 +1,5 @@
 import { getResource } from "@/lib/api"
+import { STORYKIT_SUPPORTED_CHAIN } from "@/lib/constants"
 import { noLicenseTerms } from "@/lib/example-data"
 import { convertLicenseTermObject } from "@/lib/functions/convertLicenseTermObject"
 import { cn } from "@/lib/utils"
@@ -126,7 +127,10 @@ function LicenseTermsList({
 }: LicenseTermsListProps) {
   const { data: licenseTermsData } = useQuery({
     queryKey: [RESOURCE_TYPE.LICENSE_TERMS, selectedLicenseTermsId],
-    queryFn: () => getResource(RESOURCE_TYPE.LICENSE_TERMS, selectedLicenseTermsId as string),
+    queryFn: () =>
+      getResource(RESOURCE_TYPE.LICENSE_TERMS, selectedLicenseTermsId as string, {
+        chain: STORYKIT_SUPPORTED_CHAIN.STORY_TESTNET,
+      }),
     enabled: !!selectedLicenseTermsId,
   })
 

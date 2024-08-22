@@ -1,3 +1,4 @@
+import { STORYKIT_SUPPORTED_CHAIN } from "@/lib/constants"
 import { convertLicenseTermObject } from "@/lib/functions/convertLicenseTermObject"
 import { useQuery } from "@tanstack/react-query"
 import React from "react"
@@ -34,10 +35,12 @@ const IpContext = React.createContext<{
 export const IpProvider = ({
   children,
   ipId,
+  chain = STORYKIT_SUPPORTED_CHAIN.STORY_TESTNET,
   options = {},
 }: {
   children: React.ReactNode
   ipId: Address
+  chain?: STORYKIT_SUPPORTED_CHAIN
   options?: IpProviderOptions
 }) => {
   const queryOptions = {
@@ -50,11 +53,12 @@ export const IpProvider = ({
   // Fetch asset data
   const { isLoading: isAssetDataLoading, data: assetData } = useQuery({
     queryKey: [RESOURCE_TYPE.ASSET, ipId],
-    queryFn: () => getResource(RESOURCE_TYPE.ASSET, ipId),
+    queryFn: () => getResource(RESOURCE_TYPE.ASSET, ipId, { chain }),
     enabled: queryOptions.assetData,
   })
 
   const ipLicenseTermsQueryOptions = {
+    chain,
     pagination: {
       limit: 0,
       offset: 0,
@@ -94,6 +98,7 @@ export const IpProvider = ({
   })
 
   const licenseQueryOptions = {
+    chain,
     pagination: {
       limit: 0,
       offset: 0,
@@ -130,7 +135,7 @@ export const IpProvider = ({
 
   const { isLoading: isNftDataLoading, data: nftData } = useQuery({
     queryKey: ["getNFTByTokenId", assetData?.data?.nftMetadata?.tokenContract, assetData?.data?.nftMetadata?.tokenId],
-    queryFn: () => getNFTByTokenId(assetData.data.nftMetadata.tokenContract, assetData.data.nftMetadata.tokenId),
+    queryFn: () => getNFTByTokenId(assetData.data.nftMetadata.tokenContract, assetData.data.nftMetadata.tokenId, chain),
     enabled:
       queryOptions.assetData &&
       Boolean(assetData) &&
