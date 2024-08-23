@@ -1,3 +1,4 @@
+import { STORYKIT_SUPPORTED_CHAIN } from "@/lib/constants"
 import { PREVIEW_IP_ASSETS } from "@/stories/data"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import React, { FC } from "react"
@@ -5,7 +6,8 @@ import { Address } from "viem"
 
 import IpWidget from "../IpWidget"
 
-const Example: FC<{ ipId: Address; isBottomNav?: boolean }> = ({
+const Example: FC<{ chain: STORYKIT_SUPPORTED_CHAIN; ipId: Address; isBottomNav?: boolean }> = ({
+  chain = STORYKIT_SUPPORTED_CHAIN.SEPOLIA,
   ipId = PREVIEW_IP_ASSETS[1] as "0x${string}",
   isBottomNav = false,
 }) => {
@@ -20,7 +22,7 @@ const Example: FC<{ ipId: Address; isBottomNav?: boolean }> = ({
           height: "100%",
         }}
       >
-        <IpWidget ipId={ipId} isBottomNav={isBottomNav} />
+        <IpWidget chain={chain} ipId={ipId} isBottomNav={isBottomNav} />
       </div>
     </QueryClientProvider>
   )
