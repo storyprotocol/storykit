@@ -1,10 +1,17 @@
+import { STORYKIT_SUPPORTED_CHAIN } from "@/lib/constants"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import React, { FC } from "react"
 import { Address } from "viem"
 
 import { IpProvider, IpProviderOptions, useIpContext } from "../IpProvider"
 
-const Example: FC<{ ipId: Address; children?: React.ReactNode; options?: IpProviderOptions }> = ({
+const Example: FC<{
+  chain: STORYKIT_SUPPORTED_CHAIN
+  ipId: Address
+  children?: React.ReactNode
+  options?: IpProviderOptions
+}> = ({
+  chain = "sepolia",
   ipId = "0xbbf08a30b9ff0f717a024a75963d3196aaf0f0dd",
   children = <ExampleComponent />,
   options = {},

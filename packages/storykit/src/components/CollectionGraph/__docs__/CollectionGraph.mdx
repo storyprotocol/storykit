@@ -1,16 +1,16 @@
 import { Canvas, Controls, Meta } from "@storybook/blocks"
 
-import * as IpGraphStory from "./IpGraph.stories"
+import * as CollectionGraphStory from "./CollectionGraph.stories"
 
-<Meta of={IpGraphStory} />
+<Meta of={CollectionGraphStory} />
 
-# IpGraph
+# CollectionGraph
 
 Show IP Asset derivatives graph.
 
 #### Example
 
-<Canvas of={IpGraphStory.Select} />
+<Canvas of={CollectionGraphStory.Select} />
 
 <Controls />
 
@@ -26,12 +26,12 @@ npm install react-force-graph-2d
 
 ```ts
 import { IpProvider } from "@storyprotocol/storykit"
-import { IpGraph } from "@storyprotocol/storykit"
+import { CollectionGraph } from "@storyprotocol/storykit"
 
 const ExamplePage = () => {
   return (
     <IpProvider ipId={"0xbbf08a30b9ff0f717a024a75963d3196aaf0f0dd"}>
-      <IpGraph />
+      <CollectionGraph />
     </IpProvider>
   );
 };

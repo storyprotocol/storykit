@@ -1,3 +1,4 @@
+import { STORYKIT_SUPPORTED_CHAIN } from "@/lib/constants"
 import { PREVIEW_IP_ASSETS } from "@/stories/data"
 import type { Meta, StoryObj } from "@storybook/react"
 import { expect, userEvent, waitFor, within } from "@storybook/test"
@@ -22,37 +23,49 @@ type Story = StoryObj<typeof meta>
 
 export const Select: Story = {
   argTypes: {
+    chain: {
+      options: [...Object.values(STORYKIT_SUPPORTED_CHAIN)],
+    },
     ipId: {
       options: PREVIEW_IP_ASSETS,
     },
   },
   args: {
+    chain: STORYKIT_SUPPORTED_CHAIN.SEPOLIA,
     ipId: PREVIEW_IP_ASSETS[0] as `0x${string}`,
     isBottomNav: true,
   },
 }
 export const Input: Story = {
   argTypes: {
+    chain: {
+      options: [...Object.values(STORYKIT_SUPPORTED_CHAIN)],
+    },
     ipId: { control: "text" },
   },
   args: {
+    chain: STORYKIT_SUPPORTED_CHAIN.SEPOLIA,
     ipId: PREVIEW_IP_ASSETS[0] as `0x${string}`,
     isBottomNav: true,
   },
 }
 export const TopNavigation: Story = {
   argTypes: {
+    chain: {
+      options: [...Object.values(STORYKIT_SUPPORTED_CHAIN)],
+    },
     ipId: { options: ["0x22Fe8C376919586F344fED952A9448df442b10f2"] },
     isBottomNav: { control: false },
   },
   args: {
+    chain: STORYKIT_SUPPORTED_CHAIN.SEPOLIA,
     ipId: "0x22Fe8C376919586F344fED952A9448df442b10f2",
     isBottomNav: false,
   },
   play: async ({ canvasElement }) => {
-    const wait = (timeout: number) => new Promise(resolve => setTimeout(resolve, timeout));
-    await wait(10000);
-    
+    const wait = (timeout: number) => new Promise((resolve) => setTimeout(resolve, timeout))
+    await wait(10000)
+
     const canvas = within(canvasElement)
 
     await waitFor(
@@ -101,10 +114,14 @@ export const TopNavigation: Story = {
 }
 export const BottomNavigation: Story = {
   argTypes: {
+    chain: {
+      options: [...Object.values(STORYKIT_SUPPORTED_CHAIN)],
+    },
     ipId: { options: ["0x22Fe8C376919586F344fED952A9448df442b10f2"] },
     isBottomNav: { control: false },
   },
   args: {
+    chain: STORYKIT_SUPPORTED_CHAIN.SEPOLIA,
     ipId: "0x22Fe8C376919586F344fED952A9448df442b10f2",
     isBottomNav: true,
   },
@@ -157,9 +174,13 @@ export const BottomNavigation: Story = {
 }
 export const IpFoundOverview: Story = {
   argTypes: {
+    chain: {
+      options: [...Object.values(STORYKIT_SUPPORTED_CHAIN)],
+    },
     ipId: { options: ["0x22Fe8C376919586F344fED952A9448df442b10f2"] },
   },
   args: {
+    chain: STORYKIT_SUPPORTED_CHAIN.SEPOLIA,
     ipId: "0x22Fe8C376919586F344fED952A9448df442b10f2",
     isBottomNav: true,
   },
@@ -182,9 +203,13 @@ export const IpFoundOverview: Story = {
 }
 export const IpNotFoundOverview: Story = {
   argTypes: {
+    chain: {
+      options: [...Object.values(STORYKIT_SUPPORTED_CHAIN)],
+    },
     ipId: { options: ["0x22Fe8C376919586F344fED952A9448df442b1999"] },
   },
   args: {
+    chain: STORYKIT_SUPPORTED_CHAIN.SEPOLIA,
     ipId: "0x22Fe8C376919586F344fED952A9448df442b1999",
     isBottomNav: true,
   },
@@ -206,9 +231,13 @@ export const IpNotFoundOverview: Story = {
 }
 export const MenuOpenAndClose: Story = {
   argTypes: {
+    chain: {
+      options: [...Object.values(STORYKIT_SUPPORTED_CHAIN)],
+    },
     ipId: { options: ["0x22Fe8C376919586F344fED952A9448df442b10f2"] },
   },
   args: {
+    chain: STORYKIT_SUPPORTED_CHAIN.SEPOLIA,
     ipId: "0x22Fe8C376919586F344fED952A9448df442b10f2",
     isBottomNav: true,
   },

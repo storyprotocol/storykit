@@ -10,14 +10,14 @@ const API_KEY =
   process.env.STORY_PROTOCOL_X_API_KEY ||
   ""
 
-export async function getResource(resourceName: ResourceType, resourceId: string) {
+export async function getResource(resourceName: ResourceType, resourceId: string, options?: QueryOptions) {
   try {
     const res = await fetch(`${API_URL}/api/v1/${resourceName}/${resourceId}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
         "x-api-key": API_KEY as string,
-        "X-CHAIN": "sepolia",
+        "X-CHAIN": options?.chain || "sepolia",
       },
     })
     if (res.ok) {
@@ -35,7 +35,7 @@ export async function listResource(resourceName: ResourceType, options?: QueryOp
       headers: {
         "Content-Type": "application/json",
         "x-api-key": API_KEY as string,
-        "X-CHAIN": "sepolia",
+        "X-CHAIN": options?.chain || "sepolia",
       },
       cache: "no-cache",
       ...(options && { body: JSON.stringify({ options }) }),

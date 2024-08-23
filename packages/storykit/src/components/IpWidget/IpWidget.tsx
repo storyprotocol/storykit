@@ -1,3 +1,4 @@
+import { STORYKIT_SUPPORTED_CHAIN } from "@/lib/constants"
 import { Menu, Transition } from "@headlessui/react"
 import React, { Fragment, useState } from "react"
 import { FaWandMagicSparkles } from "react-icons/fa6"
@@ -15,6 +16,7 @@ import { IpRoyaltyPieChart } from "../IpRoyaltyPieChart"
 import "./styles.css"
 
 export type IpWidgetProps = {
+  chain?: STORYKIT_SUPPORTED_CHAIN
   ipId: Address
   isBottomNav?: boolean
 }
@@ -26,11 +28,11 @@ export const IPA_CARD_TABS = [
   { id: "royalty", label: "Royalty" },
 ]
 
-const IpWidget = ({ ipId, isBottomNav, ...rest }: IpWidgetProps) => {
-  return <IPAssetCardWrapper ipId={ipId} isBottomNav={isBottomNav} {...rest} />
+const IpWidget = ({ chain, ipId, isBottomNav, ...rest }: IpWidgetProps) => {
+  return <IPAssetCardWrapper chain={chain} ipId={ipId} isBottomNav={isBottomNav} {...rest} />
 }
 
-function IPAssetCardWrapper({ ipId, isBottomNav = true }: { ipId: Address; isBottomNav?: boolean }) {
+function IPAssetCardWrapper({ chain, ipId, isBottomNav = true }: IpWidgetProps) {
   const [activeTab, setActiveTab] = useState(IPA_CARD_TABS[0].id)
 
   const _Tabs = () => (
@@ -46,7 +48,7 @@ function IPAssetCardWrapper({ ipId, isBottomNav = true }: { ipId: Address; isBot
   )
 
   return (
-    <IpProvider ipId={ipId} key={ipId}>
+    <IpProvider chain={chain} ipId={ipId} key={ipId}>
       <div className="skIpWidget">
         {isBottomNav ? <_Card /> : <_Tabs />}
         {isBottomNav ? <_Tabs /> : <_Card />}

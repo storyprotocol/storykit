@@ -1,16 +1,17 @@
 import { getCollectionByAddress, getNFTByWallet } from "@/lib/simplehash"
-import { PREVIEW_IP_ASSETS } from "@/stories/data"
+import { PREVIEW_COLLECTION_ADDRESS } from "@/stories/data"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import React, { FC, useEffect, useState } from "react"
 import { Address } from "viem"
 
-import { IpProvider } from "../../../providers"
-import IpGraph from "../IpGraph"
+import CollectionGraph, { CollectionGraphProps } from "../CollectionGraph"
 
-const Example: FC<{ ipId: Address; width?: number; height?: number; darkMode?: boolean }> = ({
-  ipId = PREVIEW_IP_ASSETS[0] as `0x${string}`,
-  width = 400,
-  height = 300,
+const Example: FC<CollectionGraphProps> = ({
+  collectionAddress = PREVIEW_COLLECTION_ADDRESS[0] as Address,
+  width = 2000,
+  height = 1000,
+  showName = false,
+  showRelationship = false,
   darkMode = false,
 }) => {
   const [collections, setCollections] = useState<any>(null)
@@ -31,9 +32,14 @@ const Example: FC<{ ipId: Address; width?: number; height?: number; darkMode?: b
     <>
       <QueryClientProvider client={queryClient}>
         <div className="flex h-full items-center justify-center">
-          <IpProvider ipId={ipId}>
-            <IpGraph width={width} height={height} darkMode={darkMode} />
-          </IpProvider>
+          <CollectionGraph
+            collectionAddress={collectionAddress}
+            width={width}
+            height={height}
+            showName={showName}
+            showRelationship={showRelationship}
+            darkMode={darkMode}
+          />
         </div>
       </QueryClientProvider>
       {collections && (

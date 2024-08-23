@@ -83,7 +83,7 @@
         }
 
         > p {
-          @apply truncate text-sm text-gray-900;
+          @apply truncate text-xs text-gray-900 font-mono;
         }
       }
     }
@@ -93,6 +93,13 @@
 
       .skIpWidget__ipAssetDropdownMenu__parentIp__title {
         @apply text-xs text-slate-400;
+      }
+      .skIpWidget__ipAssetDropdownMenu__parentIp__item {
+        @apply flex items-center;
+
+        > p {
+          @apply truncate text-sm text-gray-900;
+        }
       }
 
       .skIpWidget__ipAssetDropdownMenu__parentIp__avatars {
