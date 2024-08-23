@@ -34,14 +34,14 @@ const IpContext = React.createContext<{
 
 export const IpProvider = ({
   chain = STORYKIT_SUPPORTED_CHAIN.SEPOLIA,
-  children,
   ipId,
   options = {},
+  children,
 }: {
-  children: React.ReactNode
-  ipId: Address
   chain?: STORYKIT_SUPPORTED_CHAIN
+  ipId: Address
   options?: IpProviderOptions
+  children: React.ReactNode
 }) => {
   const queryOptions = {
     assetData: true,
