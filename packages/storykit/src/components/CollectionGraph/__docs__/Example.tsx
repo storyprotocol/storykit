@@ -1,3 +1,4 @@
+import { STORYKIT_SUPPORTED_CHAIN } from "@/lib/constants"
 import { getCollectionByAddress, getNFTByWallet } from "@/lib/simplehash"
 import { PREVIEW_COLLECTION_ADDRESS } from "@/stories/data"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
@@ -13,6 +14,7 @@ const Example: FC<CollectionGraphProps> = ({
   showName = false,
   showRelationship = false,
   darkMode = false,
+  chain = STORYKIT_SUPPORTED_CHAIN.STORY_TESTNET,
 }) => {
   const [collections, setCollections] = useState<any>(null)
   const [nfts, setNfts] = useState<any>(null)
@@ -33,6 +35,7 @@ const Example: FC<CollectionGraphProps> = ({
       <QueryClientProvider client={queryClient}>
         <div className="flex h-full items-center justify-center">
           <CollectionGraph
+            chain={chain}
             collectionAddress={collectionAddress}
             width={width}
             height={height}

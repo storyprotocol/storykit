@@ -1,4 +1,5 @@
-import { PREVIEW_COLLECTION_ADDRESS } from "@/stories/data"
+import { STORYKIT_SUPPORTED_CHAIN } from "@/lib/constants"
+import { ILIAD_TESTNET_COLLECTION, PREVIEW_COLLECTION_ADDRESS } from "@/stories/data"
 import type { Meta, StoryObj } from "@storybook/react"
 import { expect, waitFor } from "@storybook/test"
 
@@ -21,17 +22,53 @@ type Story = StoryObj<typeof meta>
 
 export const Select: Story = {
   argTypes: {
+    chain: {
+      options: [...Object.values(STORYKIT_SUPPORTED_CHAIN)],
+    },
     collectionAddress: { options: PREVIEW_COLLECTION_ADDRESS },
   },
   args: {
+    chain: STORYKIT_SUPPORTED_CHAIN.SEPOLIA,
     collectionAddress: PREVIEW_COLLECTION_ADDRESS[0] as `0x${string}`,
   },
 }
-export const Input: Story = {
+
+export const IliadTestnetMint: Story = {
   argTypes: {
+    chain: {
+      options: [...Object.values(STORYKIT_SUPPORTED_CHAIN)],
+    },
     collectionAddress: { control: "text" },
   },
   args: {
+    chain: STORYKIT_SUPPORTED_CHAIN.STORY_TESTNET,
+    collectionAddress: ILIAD_TESTNET_COLLECTION[0] as `0x${string}`,
+  },
+  play: async ({ args, canvasElement }) => {
+    const wait = (timeout: number) => new Promise((resolve) => setTimeout(resolve, timeout))
+    await wait(10000)
+
+    await waitFor(
+      () => {
+        const canvas = canvasElement.querySelector("canvas")
+        expect(canvasElement.querySelector(".force-graph-container")).toBeInTheDocument()
+        expect(canvasElement.querySelector(".graph-tooltip")).toBeInTheDocument()
+        expect(canvas).toHaveAttribute("style", `width: ${args.width || 400}px; height: ${args.height || 300}px;`)
+      },
+      { timeout: 10000 }
+    )
+  },
+}
+
+export const Input: Story = {
+  argTypes: {
+    chain: {
+      options: [...Object.values(STORYKIT_SUPPORTED_CHAIN)],
+    },
+    collectionAddress: { control: "text" },
+  },
+  args: {
+    chain: STORYKIT_SUPPORTED_CHAIN.SEPOLIA,
     collectionAddress: PREVIEW_COLLECTION_ADDRESS[0] as `0x${string}`,
   },
   play: async ({ args, canvasElement }) => {
@@ -73,9 +110,13 @@ export const Input: Story = {
 
 export const MultiChilds: Story = {
   argTypes: {
+    chain: {
+      options: [...Object.values(STORYKIT_SUPPORTED_CHAIN)],
+    },
     collectionAddress: { control: "text" },
   },
   args: {
+    chain: STORYKIT_SUPPORTED_CHAIN.SEPOLIA,
     collectionAddress: PREVIEW_COLLECTION_ADDRESS[0] as `0x${string}`,
   },
   play: async ({ args, canvasElement }) => {
@@ -96,9 +137,13 @@ export const MultiChilds: Story = {
 
 export const MultiParents: Story = {
   argTypes: {
+    chain: {
+      options: [...Object.values(STORYKIT_SUPPORTED_CHAIN)],
+    },
     collectionAddress: { control: "text" },
   },
   args: {
+    chain: STORYKIT_SUPPORTED_CHAIN.SEPOLIA,
     collectionAddress: PREVIEW_COLLECTION_ADDRESS[0] as `0x${string}`,
     width: 500,
     height: 500,
@@ -121,9 +166,13 @@ export const MultiParents: Story = {
 
 export const NoChildIP: Story = {
   argTypes: {
+    chain: {
+      options: [...Object.values(STORYKIT_SUPPORTED_CHAIN)],
+    },
     collectionAddress: { control: "text" },
   },
   args: {
+    chain: STORYKIT_SUPPORTED_CHAIN.SEPOLIA,
     collectionAddress: PREVIEW_COLLECTION_ADDRESS[0] as `0x${string}`,
   },
   play: async ({ args, canvasElement }) => {

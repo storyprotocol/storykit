@@ -1,4 +1,5 @@
 import { listResource } from "@/lib/api"
+import { STORYKIT_SUPPORTED_CHAIN } from "@/lib/constants"
 import { cn } from "@/lib/utils"
 import { RESOURCE_TYPE } from "@/types/api"
 import { useQuery } from "@tanstack/react-query"
@@ -19,6 +20,7 @@ export type CollectionGraphProps = {
   showName?: boolean
   showRelationship?: boolean
   darkMode?: boolean
+  chain: STORYKIT_SUPPORTED_CHAIN
 }
 
 function CollectionGraph({
@@ -28,11 +30,13 @@ function CollectionGraph({
   showName = false,
   showRelationship = false,
   darkMode = false,
+  chain = STORYKIT_SUPPORTED_CHAIN.SEPOLIA,
 }: CollectionGraphProps) {
   const { isLoading: isAssetDataLoading, data: assetData } = useQuery({
-    queryKey: [RESOURCE_TYPE.ASSET, collectionAddress],
+    queryKey: [RESOURCE_TYPE.ASSET, collectionAddress, chain],
     queryFn: () =>
       listResource(RESOURCE_TYPE.ASSET, {
+        chain,
         pagination: { limit: 1000 },
         where: { tokenContract: collectionAddress },
       }),

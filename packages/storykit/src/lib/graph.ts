@@ -3,7 +3,7 @@ import { Asset, NFTMetadata } from "@/types"
 import { Address } from "viem"
 
 import { NFT, getNFTByTokenId, getNFTByTokenIds } from "./simplehash"
-
+import { CHAINID_TO_CHAINNAME } from "./constants"
 export interface GraphNode {
   id: string
   name: string
@@ -36,8 +36,8 @@ export interface GraphData {
 export function generateNFTDetails(nftData: NFTMetadata | undefined, assetId: Address): string {
   return `
     <div class="graph-content">
-      <img src="${nftData?.previews?.image_small_url || nftData?.image_url || "https://play.storyprotocol.xyz/_next/static/media/sp_logo_black.2e1d7450.svg"}" alt="NFT Image" style="max-width:250px; background-color:white;"/>
-      <div style="font-size:24px">
+      <img src="${nftData?.previews?.image_small_url || nftData?.image_url || "https://play.storyprotocol.xyz/_next/static/media/sp_logo_black.2e1d7450.svg"}" alt="NFT Image" style="max-width:250px; background-color:white;"/>      
+      <div style="font-size:24px; width: 250px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
         ${nftData?.name || "Untitled"}
       </div>
       <div style="font-size:10px; display:flex; width:100%; justify-content: space-between">
@@ -194,6 +194,7 @@ export async function convertAssetToGraphFormat(jsonData: Asset, nftData: NFTMet
 
   return { nodes, links }
 }
+
 export async function fetchNFTMetadata(assets: Asset[]): Promise<Map<string, NFTMetadata>> {
   const chunkSize = 200
   const nftDataMap = new Map<string, NFTMetadata>()
@@ -213,7 +214,7 @@ export async function fetchNFTMetadata(assets: Asset[]): Promise<Map<string, NFT
   // Iterate over each chunk and fetch NFT metadata
   for (const chunk of assetChunks) {
     const nfts: NFT[] = chunk.map((asset) => ({
-      chain: "ethereum-sepolia",
+      chain: CHAINID_TO_CHAINNAME[Number(asset.nftMetadata.chainId)],
       tokenAddress: asset.nftMetadata.tokenContract,
       tokenId: asset.nftMetadata.tokenId,
     }))
