@@ -101,7 +101,7 @@ function CollectionGraph({
     const label2 = node.isRoot ? (isParent ? "Root / Parent" : "Root") : isParent ? "Parent" : "Child"
 
     // Define base radius and size factor
-    const baseRadius = 8
+    const baseRadius = 4
     const sizeFactor = 0.005 // Adjust this factor as needed
     const circleRadius = baseRadius + (node.linkCount || 0) * sizeFactor
 
