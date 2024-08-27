@@ -1,5 +1,5 @@
 import { STORYKIT_SUPPORTED_CHAIN } from "@/lib/constants"
-import { PREVIEW_IP_ASSETS } from "@/stories/data"
+import { ILIAD_TESTNET_COLLECTION, ILIAD_TESTNET_ROOT, PREVIEW_IP_ASSETS } from "@/stories/data"
 import type { Meta, StoryObj } from "@storybook/react"
 import { expect, userEvent, waitFor, within } from "@storybook/test"
 
@@ -46,6 +46,19 @@ export const Input: Story = {
   args: {
     chain: STORYKIT_SUPPORTED_CHAIN.SEPOLIA,
     ipId: PREVIEW_IP_ASSETS[0] as `0x${string}`,
+    isBottomNav: true,
+  },
+}
+export const IliadTestnetMint: Story = {
+  argTypes: {
+    chain: {
+      options: [...Object.values(STORYKIT_SUPPORTED_CHAIN)],
+    },
+    ipId: { control: "text" },
+  },
+  args: {
+    chain: STORYKIT_SUPPORTED_CHAIN.STORY_TESTNET,
+    ipId: ILIAD_TESTNET_ROOT,
     isBottomNav: true,
   },
 }

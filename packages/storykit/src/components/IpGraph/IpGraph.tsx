@@ -17,15 +17,16 @@ export type IpGraphProps = {
 }
 
 function IpGraph({ width = 500, height = 500, darkMode = false }: IpGraphProps) {
-  const { isAssetDataLoading, assetData, nftData } = useIpContext()
+  const { isAssetDataLoading, assetData, nftData, chain } = useIpContext()
 
+  console.log({ assetData, nftData })
   const {
     isLoading: formattedDataLoading,
     data: formattedGraphData,
     isError,
   } = useQuery({
-    queryKey: ["FORMAT_GRAPH_DATA", assetData?.id],
-    queryFn: () => convertAssetToGraphFormat(assetData as Asset, nftData as NFTMetadata),
+    queryKey: ["FORMAT_GRAPH_DATA", assetData?.id, chain],
+    queryFn: () => convertAssetToGraphFormat(assetData as Asset, nftData as NFTMetadata, chain),
     enabled: !!(assetData && nftData),
   })
 
