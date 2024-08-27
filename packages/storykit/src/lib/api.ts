@@ -18,6 +18,7 @@ export async function getResource(resourceName: ResourceType, resourceId: string
         "Content-Type": "application/json",
         "x-api-key": API_KEY as string,
         "X-CHAIN": options?.chain || "sepolia",
+        "x-extend-asset": "true",
       },
     })
     if (res.ok) {

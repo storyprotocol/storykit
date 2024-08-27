@@ -3,7 +3,7 @@ import { Asset, NFTMetadata } from "@/types"
 import { Address } from "viem"
 
 import { NFT, getNFTByTokenId, getNFTByTokenIds } from "./simplehash"
-import { CHAINID_TO_CHAINNAME } from "./constants"
+import { CHAINID_TO_CHAINNAME, STORYKIT_SUPPORTED_CHAIN } from "./constants"
 export interface GraphNode {
   id: string
   name: string
@@ -64,7 +64,7 @@ export function generateNFTDetails(nftData: NFTMetadata | undefined, assetId: Ad
   `
 }
 
-export async function convertAssetToGraphFormat(jsonData: Asset, nftData: NFTMetadata): Promise<GraphData> {
+export async function convertAssetToGraphFormat(jsonData: Asset, nftData: NFTMetadata, chain: STORYKIT_SUPPORTED_CHAIN): Promise<GraphData> {
   const rootIpId = jsonData.rootIpIds?.[0]
   const nodes: GraphNode[] = []
   const links: Link[] = []
@@ -107,7 +107,7 @@ export async function convertAssetToGraphFormat(jsonData: Asset, nftData: NFTMet
   // Add all childIpIds to nodes array and create links
   if (jsonData.childIps) {
     for (const child of jsonData.childIps) {
-      const childNftData = await getNFTByTokenId(child.nftMetadata.tokenContract, child.nftMetadata.tokenId)
+      const childNftData = await getNFTByTokenId(child.nftMetadata.tokenContract, child.nftMetadata.tokenId, chain)
 
       const childNode: GraphNode = {
         id: child.id,
@@ -151,7 +151,7 @@ export async function convertAssetToGraphFormat(jsonData: Asset, nftData: NFTMet
   // Add all parentIpIds to nodes array and create links
   if (jsonData.parentIps) {
     for (const parent of jsonData.parentIps) {
-      const parentNftData = await getNFTByTokenId(parent.nftMetadata.tokenContract, parent.nftMetadata.tokenId)
+      const parentNftData = await getNFTByTokenId(parent.nftMetadata.tokenContract, parent.nftMetadata.tokenId, chain)
 
       const parentNode: GraphNode = {
         id: parent.id,

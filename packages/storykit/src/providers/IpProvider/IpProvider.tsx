@@ -18,6 +18,7 @@ export interface IpProviderOptions {
 }
 
 const IpContext = React.createContext<{
+  chain: STORYKIT_SUPPORTED_CHAIN
   assetData: Asset | undefined
   nftData: NFTMetadata | undefined
   isNftDataLoading: boolean
@@ -146,6 +147,7 @@ export const IpProvider = ({
   return (
     <IpContext.Provider
       value={{
+        chain,
         nftData,
         isNftDataLoading,
         assetData: assetData?.data,

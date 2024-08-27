@@ -172,7 +172,7 @@
       }
     }
     .skIpWidget__ipAssetHeader__name {
-      @apply font-semibold;
+      @apply font-semibold truncate w-[300px];
     }
     .skIpWidget__ipAssetHeader__owner {
       @apply text-xs;
