@@ -84,4 +84,6 @@ export type QueryOptions = {
   chain?: STORYKIT_SUPPORTED_CHAIN
   pagination?: PaginationOptions
   where?: FilterOptions
+  orderBy?: "blockNumber" | "blockTimestamp"
+  orderDirection?: "desc" | "asc"
 }

@@ -243,6 +243,8 @@ export async function convertMultipleAssetsToGraphFormat(jsonData: Asset[]): Pro
 
   const nftDataMap = await fetchNFTMetadata(jsonData) // Fetch NFT metadata and update map
 
+  console.log({ nftDataMap })
+
   // Process each asset
   for (const asset of jsonData) {
     const nftData = nftDataMap.get(asset.id)

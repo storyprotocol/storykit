@@ -37,8 +37,10 @@ function CollectionGraph({
     queryFn: () =>
       listResource(RESOURCE_TYPE.ASSET, {
         chain,
-        pagination: { limit: 1000 },
+        pagination: { limit: 100 },
         where: { tokenContract: collectionAddress },
+        orderBy: "blockTimestamp", // or blockTimestamp
+        orderDirection: "asc", // or "ASC"
       }),
     enabled: Boolean(collectionAddress),
   })
@@ -102,7 +104,7 @@ function CollectionGraph({
 
     // Define base radius and size factor
     const baseRadius = 4
-    const sizeFactor = 0.005 // Adjust this factor as needed
+    const sizeFactor = 0.2 // Adjust this factor as needed
     const circleRadius = baseRadius + (node.linkCount || 0) * sizeFactor
 
     // Draw node image or fallback to a circle
