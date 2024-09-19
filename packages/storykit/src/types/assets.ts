@@ -15,7 +15,6 @@ export type PilFlavor =
   | PIL_FLAVOR.COMMERCIAL_REMIX
   | PIL_FLAVOR.CUSTOM
 
-
 export type Asset = {
   id: Address
   ancestorCount: number
@@ -116,6 +115,72 @@ export type LicenseTerms = {
   licenseTemplate: Address
   blockNumber: string
   blockTime: string
+}
+
+export type LicenseToken = {
+  id: string
+  licensorIpId: Address
+  licenseTemplate: Address
+  licenseTermsId: string
+  transferable: boolean
+  owner: Address
+  mintedAt: string
+  expiresAt: string
+  burntAt: string
+  blockNumber: string
+  blockTime: string
+}
+
+export type LicenseTemplate = {
+  id: string
+  name: string
+  metadataUri: string
+  blockNumber: string
+  blockTime: string
+}
+
+export type SocialMedia = {
+  platform?: string
+  url?: string
+}
+
+export type Creator = {
+  name?: string
+  address?: Address
+  description?: string
+  contributionPercent?: number
+  socialMedia?: SocialMedia[]
+}
+
+export interface IPMetadata {
+  title?: string
+  description?: string
+  ipType?: string
+  creators?: Creator[]
+  appInfo?: {
+    id?: string
+    name?: string
+    website?: string
+  }[]
+  relationships?: {
+    parentIpId?: Address
+    type?: string
+  }[]
+  robotTerms?: {
+    userAgent?: string
+    allow?: string
+  }
+  [key: string]: any
+}
+
+export interface AssetMetadata {
+  id: Address
+  metadataHash: string
+  metadataUri: string
+  metadataJson: IPMetadata
+  nftMetadataHash: string
+  nftTokenUri: string
+  registrationDate: string
 }
 
 // TODO: PILTerms is pending an api update
