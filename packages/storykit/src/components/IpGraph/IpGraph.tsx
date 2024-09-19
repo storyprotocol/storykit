@@ -81,7 +81,7 @@ function IpGraph({ width = 500, height = 500, darkMode = false }: IpGraphProps) 
       drawCircle(ctx, node, circleRadius, isSelf, isParent, darkMode)
     }
 
-    drawLabels(ctx, node, label1, label2, globalScale, darkMode)
+    // drawLabels(ctx, node, label1, label2, globalScale, darkMode)
   }
 
   const drawRectBorder = (ctx: any, node: any, radius: number) => {

@@ -1,9 +1,12 @@
 import { shortenAddress } from "@/lib/utils"
 import { Asset, NFTMetadata } from "@/types"
+import { RESOURCE_TYPE } from "@/types/api"
 import { Address } from "viem"
 
-import { NFT, getNFTByTokenId, getNFTByTokenIds } from "./simplehash"
+import { listResource } from "./api"
 import { CHAINID_TO_CHAINNAME, STORYKIT_SUPPORTED_CHAIN } from "./constants"
+import { NFT, getNFTByTokenId, getNFTByTokenIds } from "./simplehash"
+
 export interface GraphNode {
   id: string
   name: string
@@ -64,7 +67,11 @@ export function generateNFTDetails(nftData: NFTMetadata | undefined, assetId: Ad
   `
 }
 
-export async function convertAssetToGraphFormat(jsonData: Asset, nftData: NFTMetadata, chain: STORYKIT_SUPPORTED_CHAIN): Promise<GraphData> {
+export async function convertAssetToGraphFormat(
+  jsonData: Asset,
+  nftData: NFTMetadata,
+  chain: STORYKIT_SUPPORTED_CHAIN
+): Promise<GraphData> {
   const rootIpId = jsonData.rootIpIds?.[0]
   const nodes: GraphNode[] = []
   const links: Link[] = []
@@ -104,38 +111,46 @@ export async function convertAssetToGraphFormat(jsonData: Asset, nftData: NFTMet
   }
   nodes.push(mainNode)
 
-  // Add all childIpIds to nodes array and create links
-  if (jsonData.childIps) {
-    for (const child of jsonData.childIps) {
-      const childNftData = await getNFTByTokenId(child.nftMetadata.tokenContract, child.nftMetadata.tokenId, chain)
+  if (jsonData.childIpIds) {
+    const listRequest = {
+      pagination: {
+        limit: 100,
+        offset: 0,
+      },
+      ipAssetIds: jsonData.childIpIds,
+    }
 
+    const childNftData = await listResource(RESOURCE_TYPE.ASSET, listRequest)
+
+    console.log({ childNftData })
+    for (const child of childNftData.data) {
       const childNode: GraphNode = {
         id: child.id,
-        name: childNftData.name || "Untitled",
+        name: child?.nftMetadata?.name || "Untitled",
         details: `
         <div class="graph-content">
           <div>
             <span class="graph-content-label">Name:</span> 
-            <span>${childNftData.name || "Untitled"}</span>
+            <span>${child?.nftMetadata?.name || "Untitled"}</span>
           </div>
           <div>
             <span class="graph-content-label">Chain:</span> 
-            <span>${childNftData.chain}</span>
+            <span>${child?.nftMetadata?.chainId}</span>
           </div>
           <div>
             <span class="graph-content-label">Contract:</span> 
-            <span>${shortenAddress(childNftData.contract_address)}</span>
+            <span>${shortenAddress(child?.nftMetadata?.tokenContract)}</span>
           </div>
           <div>
             <span class="graph-content-label">Token ID:</span> 
-            <span>${childNftData.token_id}</span>
+            <span>${child?.nftMetadata?.token_id}</span>
           </div>
         </div>
       `,
         tokenContract: child.nftMetadata.tokenContract,
-        tokenId: child.nftMetadata.tokenId,
-        imageUrl: childNftData.previews.image_small_url || childNftData.image_url,
-        imageProperties: childNftData.image_properties,
+        tokenId: child.nftMetadata.token_id,
+        imageUrl: child.nftMetadata?.imageUrl,
+        imageProperties: child.nftMetadata?.image_properties,
         val: 1,
         level: 1,
       }
@@ -147,6 +162,49 @@ export async function convertAssetToGraphFormat(jsonData: Asset, nftData: NFTMet
       })
     }
   }
+  // Add all childIpIds to nodes array and create links
+  // if (jsonData.childIps) {
+  //   for (const child of jsonData.childIps) {
+  //     const childNftData = await getNFTByTokenId(child.nftMetadata.tokenContract, child.nftMetadata.tokenId, chain)
+
+  //     const childNode: GraphNode = {
+  //       id: child.id,
+  //       name: childNftData.name || "Untitled",
+  //       details: `
+  //       <div class="graph-content">
+  //         <div>
+  //           <span class="graph-content-label">Name:</span>
+  //           <span>${childNftData.name || "Untitled"}</span>
+  //         </div>
+  //         <div>
+  //           <span class="graph-content-label">Chain:</span>
+  //           <span>${childNftData.chain}</span>
+  //         </div>
+  //         <div>
+  //           <span class="graph-content-label">Contract:</span>
+  //           <span>${shortenAddress(childNftData.contract_address)}</span>
+  //         </div>
+  //         <div>
+  //           <span class="graph-content-label">Token ID:</span>
+  //           <span>${childNftData.token_id}</span>
+  //         </div>
+  //       </div>
+  //     `,
+  //       tokenContract: child.nftMetadata.tokenContract,
+  //       tokenId: child.nftMetadata.tokenId,
+  //       imageUrl: childNftData.previews.image_small_url || childNftData.image_url,
+  //       imageProperties: childNftData.image_properties,
+  //       val: 1,
+  //       level: 1,
+  //     }
+  //     nodes.push(childNode)
+
+  //     links.push({
+  //       source: jsonData.id,
+  //       target: child.id,
+  //     })
+  //   }
+  // }
 
   // Add all parentIpIds to nodes array and create links
   if (jsonData.parentIps) {

@@ -1,8 +1,9 @@
 import { STORYKIT_SUPPORTED_CHAIN } from "@/lib/constants"
-import { Address } from "viem"
+import { Address, Hash } from "viem"
 
 export enum RESOURCE_TYPE {
   ASSET = "assets",
+  ASSET_EDGES = "assets/edges",
   COLLECTION = "collections",
   DISPUTE = "disputes",
   IP_LICENSE_TERMS = "licenses/ip/terms",
@@ -23,6 +24,7 @@ export enum RESOURCE_TYPE {
 
 export type ResourceType =
   | RESOURCE_TYPE.ASSET
+  | RESOURCE_TYPE.ASSET_EDGES
   | RESOURCE_TYPE.COLLECTION
   | RESOURCE_TYPE.TRANSACTION
   | RESOURCE_TYPE.LICENSE
@@ -52,6 +54,11 @@ export type AssetFilterOptions = {
   tokenId?: string
 }
 
+export type AssetEdgesFilterOptions = {
+  ipId?: string
+  parentIpId?: string
+}
+
 export type LicenseTermsFilterOptions = {
   licenseTemplate?: string
 }
@@ -75,6 +82,7 @@ export type IPLicenseTermsFilterOptions = {
 
 export type FilterOptions =
   | AssetFilterOptions
+  | AssetEdgesFilterOptions
   | LicenseTermsFilterOptions
   | RoyaltyFilterOptions
   | LicenseFilterOptions
@@ -84,6 +92,7 @@ export type QueryOptions = {
   chain?: STORYKIT_SUPPORTED_CHAIN
   pagination?: PaginationOptions
   where?: FilterOptions
+  ipAssetIds?: Hash[]
   orderBy?: "blockNumber" | "blockTimestamp"
   orderDirection?: "desc" | "asc"
 }

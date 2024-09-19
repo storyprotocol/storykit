@@ -1,7 +1,8 @@
 import { STORYKIT_SUPPORTED_CHAIN } from "@/lib/constants"
-import { ILIAD_TESTNET_COLLECTION, ILIAD_TESTNET_ROOT, PREVIEW_IP_ASSETS } from "@/stories/data"
+import { ILIAD_PREVIEW_IP_ASSETS, PREVIEW_IP_ASSETS } from "@/stories/data"
 import type { Meta, StoryObj } from "@storybook/react"
 import { expect, userEvent, waitFor, within } from "@storybook/test"
+import { Address } from "viem"
 
 import Example from "./Example"
 
@@ -49,16 +50,29 @@ export const Input: Story = {
     isBottomNav: true,
   },
 }
-export const IliadTestnetMint: Story = {
+// export const IliadTestnetMint: Story = {
+//   argTypes: {
+//     chain: {
+//       options: [...Object.values(STORYKIT_SUPPORTED_CHAIN)],
+//     },
+//     ipId: { control: "text" },
+//   },
+//   args: {
+//     chain: STORYKIT_SUPPORTED_CHAIN.STORY_TESTNET,
+//     ipId: ILIAD_TESTNET_ROOT,
+//     isBottomNav: true,
+//   },
+// }
+export const IliadTestnetExamples: Story = {
   argTypes: {
     chain: {
       options: [...Object.values(STORYKIT_SUPPORTED_CHAIN)],
     },
-    ipId: { control: "text" },
+    ipId: { options: ILIAD_PREVIEW_IP_ASSETS },
   },
   args: {
     chain: STORYKIT_SUPPORTED_CHAIN.STORY_TESTNET,
-    ipId: ILIAD_TESTNET_ROOT,
+    ipId: ILIAD_PREVIEW_IP_ASSETS[0] as Address,
     isBottomNav: true,
   },
 }
