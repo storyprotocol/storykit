@@ -10,7 +10,7 @@ const API_KEY =
   process.env.STORY_PROTOCOL_X_API_KEY ||
   ""
 
-export async function getResource(resourceName: ResourceType, resourceId: string, options?: QueryOptions) {
+export async function getResource<T>(resourceName: ResourceType, resourceId: string, options?: QueryOptions) {
   try {
     const res = await fetch(`${API_URL}/api/v1/${resourceName}/${resourceId}`, {
       method: "GET",
@@ -29,7 +29,7 @@ export async function getResource(resourceName: ResourceType, resourceId: string
   }
 }
 
-export async function listResource(resourceName: ResourceType, options?: QueryOptions) {
+export async function listResource<T>(resourceName: ResourceType, options?: QueryOptions) {
   try {
     const res = await fetch(`${API_URL}/api/v1/${resourceName}`, {
       method: "POST",

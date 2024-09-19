@@ -15,14 +15,20 @@ export type PilFlavor =
   | PIL_FLAVOR.COMMERCIAL_REMIX
   | PIL_FLAVOR.CUSTOM
 
+
 export type Asset = {
   id: Address
+  ancestorCount: number
+  descendantCount: number
+  parentCount?: number
+  childCount?: number
+  rootCount?: number
   parentIpIds: Address[] | null
   childIpIds: Address[] | null
   rootIpIds: Address[] | null
-  parentIps: Asset[] | null
-  rootIps: Asset[] | null
-  childIps: Asset[] | null
+  parentIps?: Asset[] | null
+  rootIps?: Asset[] | null
+  childIps?: Asset[] | null
   nftMetadata: {
     name: string
     chainId: string
@@ -33,6 +39,18 @@ export type Asset = {
   }
   blockNumber: string
   blockTimestamp: string
+}
+
+export type AssetEdges = {
+  ipId: Address
+  parentIpId: Address
+  blockNumber: string
+  blockTime: string
+  licenseTemplate: Address
+  licenseTermsId: string
+  licenseTokenId: string
+  transactionHash: string
+  transactionIndex: string
 }
 
 export type License = {
