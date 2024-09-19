@@ -7,11 +7,22 @@ import { Address, Hash } from "viem"
 import { getResource, listResource } from "../../lib/api"
 import { getNFTByTokenId } from "../../lib/simplehash"
 import { RESOURCE_TYPE } from "../../types/api"
-import { Asset, AssetEdges, IPLicenseTerms, License, LicenseTerms, RoyaltyPolicy } from "../../types/assets"
+import {
+  Asset,
+  AssetEdges,
+  AssetMetadata,
+  IPLicenseTerms,
+  License,
+  LicenseTerms,
+  RoyaltyPolicy,
+} from "../../types/assets"
 import { NFTMetadata } from "../../types/simplehash"
 
 export interface IpProviderOptions {
   assetData?: boolean
+  ipaMetadata?: boolean
+  assetParentsData?: boolean
+  assetChildrenData?: boolean
   licenseTermsData?: boolean
   licenseData?: boolean
   royaltyData?: boolean
@@ -22,11 +33,13 @@ const IpContext = React.createContext<{
   assetData: Asset | undefined
   assetParentData: AssetEdges[] | undefined
   assetChildrenData: AssetEdges[] | undefined
-  isAssetParentDataLoading: boolean
-  isAssetChildrenDataLoading: boolean
   nftData: NFTMetadata | undefined
+  ipaMetadata: AssetMetadata | undefined
   isNftDataLoading: boolean
   isAssetDataLoading: boolean
+  isAssetParentDataLoading: boolean
+  isAssetChildrenDataLoading: boolean
+  isIpaMetadataLoading: boolean
   ipLicenseData: IPLicenseTerms[] | undefined
   isipLicenseDataLoading: boolean
   licenseTermsData: LicenseTerms[] | undefined
@@ -66,6 +79,7 @@ export const IpProvider = ({
 }) => {
   const queryOptions = {
     assetData: true,
+    ipaMetadata: true,
     assetParentsData: true,
     assetChildrenData: true,
     licenseTermsData: true,
@@ -73,6 +87,7 @@ export const IpProvider = ({
     royaltyData: true,
     ...options,
   }
+
   // Fetch asset data
   const {
     isLoading: isAssetDataLoading,
@@ -85,6 +100,13 @@ export const IpProvider = ({
     enabled: queryOptions.assetData,
   })
 
+  // Fetch IP metadata
+  const { isLoading: isIpaMetadataLoading, data: ipaMetadata } = useQuery({
+    queryKey: [RESOURCE_TYPE.ASSET, `${ipId}/metadata`],
+    queryFn: () => getResource(RESOURCE_TYPE.ASSET, `${ipId}/metadata`, { chain }),
+    enabled: queryOptions.ipaMetadata,
+  })
+
   const fetchParentEdgeOptions = {
     pagination: {
       limit: 10,
@@ -94,10 +116,11 @@ export const IpProvider = ({
       ipId,
     },
   }
+
   // Fetch asset parent data
   const {
     isLoading: isAssetParentDataLoading,
-    data: assetEdgesData,
+    data: assetParentData,
     refetch: refetchAssetParentData,
     isFetched: isAssetParentDataFetched,
   } = useQuery<AssetEdges[] | undefined>({
@@ -115,6 +138,7 @@ export const IpProvider = ({
       parentIpId: ipId,
     },
   }
+
   // Fetch asset children data
   const {
     isLoading: isAssetChildrenDataLoading,
@@ -137,10 +161,11 @@ export const IpProvider = ({
       ipId,
     },
   }
+
   // Fetch IP License Terms data
   const {
     isLoading: isipLicenseDataLoading,
-    data: ipLicenseData, /// <reference path=": " />
+    data: ipLicenseData,
     refetch: refetchIpLicenseData,
     isFetched: isIpLicenseDataFetched,
   } = useQuery({
@@ -152,7 +177,9 @@ export const IpProvider = ({
   async function fetchLicenseTermsDetails(data: IPLicenseTerms[]) {
     const uniqueLicenses = data.filter((item) => item.ipId.toLowerCase() === ipId.toLowerCase())
 
-    const requests = uniqueLicenses.map((item) => getResource(RESOURCE_TYPE.LICENSE_TERMS, item.licenseTermsId))
+    const requests = uniqueLicenses.map((item) =>
+      getResource(RESOURCE_TYPE.LICENSE_TERMS, item.licenseTermsId, { chain })
+    )
     const results = await Promise.all(requests)
 
     return results
@@ -160,7 +187,6 @@ export const IpProvider = ({
       .map((result) => {
         return {
           ...result.data,
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           licenseTerms: convertLicenseTermObject(result.data.licenseTerms),
         }
       })
@@ -219,7 +245,7 @@ export const IpProvider = ({
         },
       },
     ],
-    queryFn: () => getResource(RESOURCE_TYPE.ROYALTY_POLICY, ipId),
+    queryFn: () => getResource(RESOURCE_TYPE.ROYALTY_POLICY, ipId, { chain }),
     enabled: queryOptions.royaltyData,
   })
 
@@ -251,13 +277,15 @@ export const IpProvider = ({
         isNftDataLoading,
         assetData: assetData?.data,
         isAssetDataLoading,
-        assetParentData: assetEdgesData,
+        assetParentData,
         isAssetParentDataLoading,
-        assetChildrenData: assetChildrenData,
+        assetChildrenData,
         isAssetChildrenDataLoading,
+        ipaMetadata,
+        isIpaMetadataLoading,
         ipLicenseData: ipLicenseData?.data,
         isipLicenseDataLoading,
-        licenseTermsData: licenseTermsData,
+        licenseTermsData,
         isLicenseTermsDataLoading,
         licenseData: licenseData?.data,
         isLicenseDataLoading,
