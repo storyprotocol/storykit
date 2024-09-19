@@ -31,6 +31,12 @@ const IpContext = React.createContext<{
   isLicenseDataLoading: boolean
   royaltyData: RoyaltyPolicy | undefined
   isRoyaltyDataLoading: boolean
+  refetchAssetData: () => void
+  refetchIpLicenseData: () => void
+  refetchLicenseTermsData: () => void
+  refetchLicenseData: () => void
+  refetchRoyaltyData: () => void
+  refetchNFTData: () => void
 } | null>(null)
 
 export const IpProvider = ({
@@ -52,7 +58,11 @@ export const IpProvider = ({
     ...options,
   }
   // Fetch asset data
-  const { isLoading: isAssetDataLoading, data: assetData } = useQuery({
+  const {
+    isLoading: isAssetDataLoading,
+    data: assetData,
+    refetch: refetchAssetData,
+  } = useQuery({
     queryKey: [RESOURCE_TYPE.ASSET, ipId],
     queryFn: () => getResource(RESOURCE_TYPE.ASSET, ipId, { chain }),
     enabled: queryOptions.assetData,
@@ -69,7 +79,11 @@ export const IpProvider = ({
     },
   }
   // Fetch IP License Terms data
-  const { isLoading: isipLicenseDataLoading, data: ipLicenseData } = useQuery({
+  const {
+    isLoading: isipLicenseDataLoading,
+    data: ipLicenseData, /// <reference path=": " />
+    refetch: refetchIpLicenseData,
+  } = useQuery({
     queryKey: [RESOURCE_TYPE.IP_LICENSE_TERMS, ipLicenseTermsQueryOptions],
     queryFn: () => listResource(RESOURCE_TYPE.IP_LICENSE_TERMS, ipLicenseTermsQueryOptions),
     enabled: queryOptions.licenseTermsData,
@@ -92,7 +106,11 @@ export const IpProvider = ({
       })
   }
 
-  const { isLoading: isLicenseTermsDataLoading, data: licenseTermsData } = useQuery({
+  const {
+    isLoading: isLicenseTermsDataLoading,
+    data: licenseTermsData,
+    refetch: refetchLicenseTermsData,
+  } = useQuery({
     queryKey: ["fetchLicenseTermsDetails", ipLicenseData?.data],
     queryFn: () => fetchLicenseTermsDetails(ipLicenseData?.data),
     enabled: Boolean(ipLicenseData) && Boolean(ipLicenseData.data) && queryOptions.licenseTermsData,
@@ -110,14 +128,22 @@ export const IpProvider = ({
   }
 
   // Fetch License Data
-  const { isLoading: isLicenseDataLoading, data: licenseData } = useQuery({
+  const {
+    isLoading: isLicenseDataLoading,
+    data: licenseData,
+    refetch: refetchLicenseData,
+  } = useQuery({
     queryKey: [RESOURCE_TYPE.LICENSE, licenseQueryOptions],
     queryFn: () => listResource(RESOURCE_TYPE.LICENSE, licenseQueryOptions),
     enabled: queryOptions.licenseData,
   })
 
   // Fetch Royalty Data
-  const { isLoading: isRoyaltyDataLoading, data: royaltyData } = useQuery({
+  const {
+    isLoading: isRoyaltyDataLoading,
+    data: royaltyData,
+    refetch: refetchRoyaltyData,
+  } = useQuery({
     queryKey: [
       RESOURCE_TYPE.ROYALTY_POLICY,
       {
@@ -134,7 +160,11 @@ export const IpProvider = ({
     enabled: queryOptions.royaltyData,
   })
 
-  const { isLoading: isNftDataLoading, data: nftData } = useQuery({
+  const {
+    isLoading: isNftDataLoading,
+    data: nftData,
+    refetch: refetchNFTData,
+  } = useQuery({
     queryKey: ["getNFTByTokenId", assetData?.data?.nftMetadata?.tokenContract, assetData?.data?.nftMetadata?.tokenId],
     queryFn: () => getNFTByTokenId(assetData.data.nftMetadata.tokenContract, assetData.data.nftMetadata.tokenId, chain),
     enabled:
@@ -160,6 +190,12 @@ export const IpProvider = ({
         isLicenseDataLoading,
         royaltyData: royaltyData?.data,
         isRoyaltyDataLoading,
+        refetchAssetData,
+        refetchIpLicenseData,
+        refetchLicenseTermsData,
+        refetchLicenseData,
+        refetchRoyaltyData,
+        refetchNFTData,
       }}
     >
       {children}
