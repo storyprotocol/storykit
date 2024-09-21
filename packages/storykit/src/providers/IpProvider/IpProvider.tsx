@@ -156,7 +156,7 @@ export const IpProvider = ({
   const ipLicenseTermsQueryOptions = {
     chain,
     pagination: {
-      limit: 0,
+      limit: 100,
       offset: 0,
     },
     where: {
