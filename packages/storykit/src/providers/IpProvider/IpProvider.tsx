@@ -115,6 +115,7 @@ export const IpProvider = ({
     where: {
       ipId,
     },
+    chain,
   }
 
   // Fetch asset parent data
@@ -137,6 +138,7 @@ export const IpProvider = ({
     where: {
       parentIpId: ipId,
     },
+    chain,
   }
 
   // Fetch asset children data
