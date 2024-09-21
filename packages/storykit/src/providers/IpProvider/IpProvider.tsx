@@ -1,6 +1,6 @@
 import { STORYKIT_SUPPORTED_CHAIN } from "@/lib/constants"
 import { convertLicenseTermObject } from "@/lib/functions/convertLicenseTermObject"
-import { useQuery } from "@tanstack/react-query"
+import { useInfiniteQuery, useQuery } from "@tanstack/react-query"
 import React from "react"
 import { Address, Hash } from "viem"
 
@@ -33,6 +33,7 @@ const IpContext = React.createContext<{
   assetData: Asset | undefined
   assetParentData: AssetEdges[] | undefined
   assetChildrenData: AssetEdges[] | undefined
+  loadMoreAssetChildren: () => void
   nftData: NFTMetadata | undefined
   ipaMetadata: AssetMetadata | undefined
   isNftDataLoading: boolean
@@ -141,17 +142,40 @@ export const IpProvider = ({
     chain,
   }
 
-  // Fetch asset children data
+  // Fetch asset children data with pagination
   const {
     isLoading: isAssetChildrenDataLoading,
     data: assetChildrenData,
     refetch: refetchAssetChildrenData,
     isFetched: isAssetChildrenDataFetched,
-  } = useQuery<AssetEdges[] | undefined>({
+    fetchNextPage,
+    hasNextPage,
+  } = useInfiniteQuery<AssetEdges[]>({
     queryKey: [RESOURCE_TYPE.ASSET_EDGES, ipId, "children"],
-    queryFn: () => listResource(RESOURCE_TYPE.ASSET_EDGES, fetchChildEdgeOptions),
+    queryFn: ({ pageParam = 0 }) => {
+      const currentOptions = {
+        ...fetchChildEdgeOptions,
+        pagination: {
+          ...fetchChildEdgeOptions.pagination,
+          offset: pageParam as number,
+        },
+      }
+      return listResource(RESOURCE_TYPE.ASSET_EDGES, currentOptions)
+    },
+    getNextPageParam: (lastPage, allPages) => {
+      const totalFetched = allPages.flat().length
+      return totalFetched < lastPage.length ? totalFetched : undefined
+    },
     enabled: queryOptions.assetChildrenData,
+    initialPageParam: 0,
   })
+
+  // Function to load more data
+  const loadMoreAssetChildren = () => {
+    if (hasNextPage) {
+      fetchNextPage()
+    }
+  }
 
   const ipLicenseTermsQueryOptions = {
     chain,
@@ -281,7 +305,8 @@ export const IpProvider = ({
         isAssetDataLoading,
         assetParentData,
         isAssetParentDataLoading,
-        assetChildrenData,
+        assetChildrenData: assetChildrenData?.pages.flatMap((page) => page),
+        loadMoreAssetChildren,
         isAssetChildrenDataLoading,
         ipaMetadata,
         isIpaMetadataLoading,
