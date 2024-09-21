@@ -162,7 +162,7 @@ export const IpProvider = ({
       }
       return listResource(RESOURCE_TYPE.ASSET_EDGES, currentOptions)
     },
-    getNextPageParam: (lastPage, allPages) => {
+    getNextPageParam: (lastPage: AssetEdges[], allPages: AssetEdges[][]) => {
       const totalFetched = allPages.flat().length
       return totalFetched < lastPage.length ? totalFetched : undefined
     },
@@ -305,7 +305,7 @@ export const IpProvider = ({
         isAssetDataLoading,
         assetParentData,
         isAssetParentDataLoading,
-        assetChildrenData: assetChildrenData?.pages.flatMap((page) => page),
+        assetChildrenData: assetChildrenData?.pages.flatMap((page: AssetEdges[]) => page),
         loadMoreAssetChildren,
         isAssetChildrenDataLoading,
         ipaMetadata,
