@@ -164,7 +164,7 @@ export const IpProvider = ({
     },
     getNextPageParam: (lastPage: AssetEdges[], allPages: AssetEdges[][]) => {
       const totalFetched = allPages.flat().length
-      return totalFetched < lastPage.length ? totalFetched : undefined
+      return lastPage && lastPage.length > 0 && totalFetched < lastPage.length ? totalFetched : undefined
     },
     enabled: queryOptions.assetChildrenData,
     initialPageParam: 0,
