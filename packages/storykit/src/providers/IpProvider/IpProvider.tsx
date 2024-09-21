@@ -109,7 +109,7 @@ export const IpProvider = ({
 
   const fetchParentEdgeOptions = {
     pagination: {
-      limit: 10,
+      limit: 500,
       offset: 0,
     },
     where: {
@@ -132,7 +132,7 @@ export const IpProvider = ({
 
   const fetchChildEdgeOptions = {
     pagination: {
-      limit: 10,
+      limit: 500,
       offset: 0,
     },
     where: {
