@@ -1,3 +1,4 @@
+import { STORYKIT_SUPPORTED_CHAIN } from "@/lib/constants"
 import { PREVIEW_IP_ASSETS } from "@/stories/data"
 import { PIL_FLAVOR } from "@/types/assets"
 import type { Meta, StoryObj } from "@storybook/react"
@@ -12,7 +13,11 @@ const meta = {
     layout: "centered",
   },
   // tags: ["autodocs"],
-  argTypes: {},
+  argTypes: {
+    chain: {
+      options: [...Object.values(STORYKIT_SUPPORTED_CHAIN)],
+    },
+  },
   args: {},
   // tags: ["isHidden"],
 } satisfies Meta<typeof Example>
@@ -27,6 +32,7 @@ export const Select: Story = {
     },
   },
   args: {
+    chain: STORYKIT_SUPPORTED_CHAIN.STORY_TESTNET,
     ipId: PREVIEW_IP_ASSETS[0] as `0x${string}`,
     size: "medium",
   },
@@ -36,6 +42,7 @@ export const Input: Story = {
     ipId: { control: "text" },
   },
   args: {
+    chain: STORYKIT_SUPPORTED_CHAIN.STORY_TESTNET,
     ipId: PREVIEW_IP_ASSETS[0] as `0x${string}`,
     size: "medium",
   },
@@ -47,6 +54,7 @@ export const IpNoLicense: Story = {
     },
   },
   args: {
+    chain: STORYKIT_SUPPORTED_CHAIN.STORY_TESTNET,
     ipId: "0x0aEcA721aDceb65fbE81F450a1C59978fF903124",
     size: "medium",
   },
@@ -60,11 +68,12 @@ export const IpNoLicense: Story = {
 export const IpOfCommercialRemix: Story = {
   argTypes: {
     ipId: {
-      options: ["0x9344852e16A4aCC2592FDeD4301eDcC58E8E0128"],
+      options: ["0x129B22b651529e2ee9243df8c2cDb9B47BD548C0"],
     },
   },
   args: {
-    ipId: "0x9344852e16A4aCC2592FDeD4301eDcC58E8E0128",
+    chain: STORYKIT_SUPPORTED_CHAIN.STORY_TESTNET,
+    ipId: "0x129B22b651529e2ee9243df8c2cDb9B47BD548C0",
     size: "large",
   },
   play: async ({ canvasElement }) => {

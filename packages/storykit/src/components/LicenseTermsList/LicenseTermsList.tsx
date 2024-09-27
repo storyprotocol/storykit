@@ -39,7 +39,7 @@ const DescribeTerms = (selectedLicenseTerms: PILTerms) => {
     cans.push(DESCRIPTIONS.COMMERCIAL_USE)
     if (selectedLicenseTerms.commercialRevenueShare) {
       extras.push(
-        `Anyone who creates a remix will share ${selectedLicenseTerms.commercialRevenueShare}% of their revenue with you`
+        `Anyone who creates a remix will share ${Math.round(selectedLicenseTerms.commercialRevenueShare / 10000) / 100}% of their revenue with you`
       )
     }
     // cannot make more than the minimum between commercial rev ceiling and derivative rev ceiling
