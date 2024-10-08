@@ -1,5 +1,5 @@
 import { STORYKIT_SUPPORTED_CHAIN } from "@/lib/constants"
-import { ILIAD_PREVIEW_IP_ASSETS, PREVIEW_IP_ASSETS } from "@/stories/data"
+import { ILIAD_PREVIEW_IP_ASSETS } from "@/stories/data"
 import type { Meta, StoryObj } from "@storybook/react"
 import { expect, userEvent, waitFor, within } from "@storybook/test"
 import { Address } from "viem"
@@ -28,12 +28,12 @@ export const Select: Story = {
       options: [...Object.values(STORYKIT_SUPPORTED_CHAIN)],
     },
     ipId: {
-      options: PREVIEW_IP_ASSETS,
+      options: ILIAD_PREVIEW_IP_ASSETS,
     },
   },
   args: {
-    chain: STORYKIT_SUPPORTED_CHAIN.SEPOLIA,
-    ipId: PREVIEW_IP_ASSETS[0] as `0x${string}`,
+    chain: STORYKIT_SUPPORTED_CHAIN.STORY_TESTNET,
+    ipId: ILIAD_PREVIEW_IP_ASSETS[0] as `0x${string}`,
     isBottomNav: true,
   },
 }
@@ -45,8 +45,8 @@ export const Input: Story = {
     ipId: { control: "text" },
   },
   args: {
-    chain: STORYKIT_SUPPORTED_CHAIN.SEPOLIA,
-    ipId: PREVIEW_IP_ASSETS[0] as `0x${string}`,
+    chain: STORYKIT_SUPPORTED_CHAIN.STORY_TESTNET,
+    ipId: ILIAD_PREVIEW_IP_ASSETS[0] as `0x${string}`,
     isBottomNav: true,
   },
 }
@@ -85,7 +85,7 @@ export const TopNavigation: Story = {
     isBottomNav: { control: false },
   },
   args: {
-    chain: STORYKIT_SUPPORTED_CHAIN.SEPOLIA,
+    chain: STORYKIT_SUPPORTED_CHAIN.STORY_TESTNET,
     ipId: "0x22Fe8C376919586F344fED952A9448df442b10f2",
     isBottomNav: false,
   },
@@ -148,7 +148,7 @@ export const BottomNavigation: Story = {
     isBottomNav: { control: false },
   },
   args: {
-    chain: STORYKIT_SUPPORTED_CHAIN.SEPOLIA,
+    chain: STORYKIT_SUPPORTED_CHAIN.STORY_TESTNET,
     ipId: "0x22Fe8C376919586F344fED952A9448df442b10f2",
     isBottomNav: true,
   },
@@ -207,7 +207,7 @@ export const IpFoundOverview: Story = {
     ipId: { options: ["0x22Fe8C376919586F344fED952A9448df442b10f2"] },
   },
   args: {
-    chain: STORYKIT_SUPPORTED_CHAIN.SEPOLIA,
+    chain: STORYKIT_SUPPORTED_CHAIN.STORY_TESTNET,
     ipId: "0x22Fe8C376919586F344fED952A9448df442b10f2",
     isBottomNav: true,
   },
@@ -236,7 +236,7 @@ export const IpNotFoundOverview: Story = {
     ipId: { options: ["0x22Fe8C376919586F344fED952A9448df442b1999"] },
   },
   args: {
-    chain: STORYKIT_SUPPORTED_CHAIN.SEPOLIA,
+    chain: STORYKIT_SUPPORTED_CHAIN.STORY_TESTNET,
     ipId: "0x22Fe8C376919586F344fED952A9448df442b1999",
     isBottomNav: true,
   },
@@ -264,7 +264,7 @@ export const MenuOpenAndClose: Story = {
     ipId: { options: ["0x22Fe8C376919586F344fED952A9448df442b10f2"] },
   },
   args: {
-    chain: STORYKIT_SUPPORTED_CHAIN.SEPOLIA,
+    chain: STORYKIT_SUPPORTED_CHAIN.STORY_TESTNET,
     ipId: "0x22Fe8C376919586F344fED952A9448df442b10f2",
     isBottomNav: true,
   },

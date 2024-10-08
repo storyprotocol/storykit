@@ -11,7 +11,7 @@ const Example: FC<{
   children?: React.ReactNode
   options?: IpProviderOptions
 }> = ({
-  chain = STORYKIT_SUPPORTED_CHAIN.SEPOLIA,
+  chain = STORYKIT_SUPPORTED_CHAIN.STORY_TESTNET,
   ipId = "0xbbf08a30b9ff0f717a024a75963d3196aaf0f0dd",
   children = <ExampleComponent />,
   options = {},

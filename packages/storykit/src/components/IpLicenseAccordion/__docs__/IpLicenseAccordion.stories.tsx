@@ -1,5 +1,5 @@
 import { STORYKIT_SUPPORTED_CHAIN } from "@/lib/constants"
-import { PREVIEW_IP_ASSETS } from "@/stories/data"
+import { ILIAD_PREVIEW_IP_ASSETS } from "@/stories/data"
 import { PIL_FLAVOR } from "@/types/assets"
 import type { Meta, StoryObj } from "@storybook/react"
 import { expect, userEvent, waitFor, within } from "@storybook/test"
@@ -28,12 +28,12 @@ type Story = StoryObj<typeof meta>
 export const Select: Story = {
   argTypes: {
     ipId: {
-      options: PREVIEW_IP_ASSETS,
+      options: ILIAD_PREVIEW_IP_ASSETS,
     },
   },
   args: {
     chain: STORYKIT_SUPPORTED_CHAIN.STORY_TESTNET,
-    ipId: PREVIEW_IP_ASSETS[0] as `0x${string}`,
+    ipId: ILIAD_PREVIEW_IP_ASSETS[0] as `0x${string}`,
     size: "medium",
   },
 }
@@ -43,7 +43,7 @@ export const Input: Story = {
   },
   args: {
     chain: STORYKIT_SUPPORTED_CHAIN.STORY_TESTNET,
-    ipId: PREVIEW_IP_ASSETS[0] as `0x${string}`,
+    ipId: ILIAD_PREVIEW_IP_ASSETS[0] as `0x${string}`,
     size: "medium",
   },
 }

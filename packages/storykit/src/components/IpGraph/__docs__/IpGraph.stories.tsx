@@ -1,4 +1,4 @@
-import { PREVIEW_IP_ASSETS } from "@/stories/data"
+import { ILIAD_PREVIEW_IP_ASSETS } from "@/stories/data"
 import type { Meta, StoryObj } from "@storybook/react"
 import { expect, waitFor } from "@storybook/test"
 
@@ -22,11 +22,11 @@ type Story = StoryObj<typeof meta>
 export const Select: Story = {
   argTypes: {
     ipId: {
-      options: PREVIEW_IP_ASSETS,
+      options: ILIAD_PREVIEW_IP_ASSETS,
     },
   },
   args: {
-    ipId: PREVIEW_IP_ASSETS[0] as `0x${string}`,
+    ipId: ILIAD_PREVIEW_IP_ASSETS[0] as `0x${string}`,
   },
 }
 export const Input: Story = {
@@ -34,11 +34,11 @@ export const Input: Story = {
     ipId: { control: "text" },
   },
   args: {
-    ipId: PREVIEW_IP_ASSETS[0] as `0x${string}`,
+    ipId: ILIAD_PREVIEW_IP_ASSETS[0] as `0x${string}`,
   },
-play: async ({ args, canvasElement }) => {
-    const wait = (timeout: number) => new Promise(resolve => setTimeout(resolve, timeout));
-    await wait(10000);
+  play: async ({ args, canvasElement }) => {
+    const wait = (timeout: number) => new Promise((resolve) => setTimeout(resolve, timeout))
+    await wait(10000)
 
     await waitFor(
       () => {
@@ -78,11 +78,11 @@ export const MultiChilds: Story = {
     ipId: { control: "text" },
   },
   args: {
-    ipId: PREVIEW_IP_ASSETS[3] as `0x${string}`,
+    ipId: ILIAD_PREVIEW_IP_ASSETS[3] as `0x${string}`,
   },
-play: async ({ args, canvasElement }) => {
-    const wait = (timeout: number) => new Promise(resolve => setTimeout(resolve, timeout));
-    await wait(10000);
+  play: async ({ args, canvasElement }) => {
+    const wait = (timeout: number) => new Promise((resolve) => setTimeout(resolve, timeout))
+    await wait(10000)
 
     await waitFor(
       () => {
@@ -101,13 +101,13 @@ export const MultiParents: Story = {
     ipId: { control: "text" },
   },
   args: {
-    ipId: PREVIEW_IP_ASSETS[6] as `0x${string}`,
+    ipId: ILIAD_PREVIEW_IP_ASSETS[6] as `0x${string}`,
     width: 500,
-    height: 500
+    height: 500,
   },
-play: async ({ args, canvasElement }) => {
-    const wait = (timeout: number) => new Promise(resolve => setTimeout(resolve, timeout));
-    await wait(10000);
+  play: async ({ args, canvasElement }) => {
+    const wait = (timeout: number) => new Promise((resolve) => setTimeout(resolve, timeout))
+    await wait(10000)
 
     await waitFor(
       () => {
@@ -126,11 +126,11 @@ export const NoChildIP: Story = {
     ipId: { control: "text" },
   },
   args: {
-    ipId: PREVIEW_IP_ASSETS[2] as `0x${string}`,
+    ipId: ILIAD_PREVIEW_IP_ASSETS[2] as `0x${string}`,
   },
-play: async ({ args, canvasElement }) => {
-    const wait = (timeout: number) => new Promise(resolve => setTimeout(resolve, timeout));
-    await wait(10000);
+  play: async ({ args, canvasElement }) => {
+    const wait = (timeout: number) => new Promise((resolve) => setTimeout(resolve, timeout))
+    await wait(10000)
 
     await waitFor(
       () => {

@@ -1,5 +1,5 @@
 import { getCollectionByAddress, getNFTByWallet } from "@/lib/simplehash"
-import { PREVIEW_IP_ASSETS } from "@/stories/data"
+import { ILIAD_PREVIEW_IP_ASSETS } from "@/stories/data"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import React, { FC, useEffect, useState } from "react"
 import { Address } from "viem"
@@ -8,7 +8,7 @@ import { IpProvider } from "../../../providers"
 import IpGraph from "../IpGraph"
 
 const Example: FC<{ ipId: Address; width?: number; height?: number; darkMode?: boolean }> = ({
-  ipId = PREVIEW_IP_ASSETS[0] as `0x${string}`,
+  ipId = ILIAD_PREVIEW_IP_ASSETS[0] as `0x${string}`,
   width = 400,
   height = 300,
   darkMode = false,

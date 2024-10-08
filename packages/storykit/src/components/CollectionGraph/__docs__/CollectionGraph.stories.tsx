@@ -1,5 +1,5 @@
 import { STORYKIT_SUPPORTED_CHAIN } from "@/lib/constants"
-import { ILIAD_PREVIEW_COLLECTION_ADDRESS, ILIAD_TESTNET_COLLECTION, PREVIEW_COLLECTION_ADDRESS } from "@/stories/data"
+import { ILIAD_PREVIEW_COLLECTION_ADDRESS } from "@/stories/data"
 import type { Meta, StoryObj } from "@storybook/react"
 import { expect, waitFor } from "@storybook/test"
 
@@ -25,11 +25,11 @@ export const Select: Story = {
     chain: {
       options: [...Object.values(STORYKIT_SUPPORTED_CHAIN)],
     },
-    collectionAddress: { options: PREVIEW_COLLECTION_ADDRESS },
+    collectionAddress: { options: ILIAD_PREVIEW_COLLECTION_ADDRESS },
   },
   args: {
-    chain: STORYKIT_SUPPORTED_CHAIN.SEPOLIA,
-    collectionAddress: PREVIEW_COLLECTION_ADDRESS[0] as `0x${string}`,
+    chain: STORYKIT_SUPPORTED_CHAIN.STORY_TESTNET,
+    collectionAddress: ILIAD_PREVIEW_COLLECTION_ADDRESS[0] as `0x${string}`,
   },
 }
 
@@ -97,8 +97,8 @@ export const Input: Story = {
     collectionAddress: { control: "text" },
   },
   args: {
-    chain: STORYKIT_SUPPORTED_CHAIN.SEPOLIA,
-    collectionAddress: PREVIEW_COLLECTION_ADDRESS[0] as `0x${string}`,
+    chain: STORYKIT_SUPPORTED_CHAIN.STORY_TESTNET,
+    collectionAddress: ILIAD_PREVIEW_COLLECTION_ADDRESS[0] as `0x${string}`,
   },
   play: async ({ args, canvasElement }) => {
     const wait = (timeout: number) => new Promise((resolve) => setTimeout(resolve, timeout))
@@ -145,8 +145,8 @@ export const MultiChilds: Story = {
     collectionAddress: { control: "text" },
   },
   args: {
-    chain: STORYKIT_SUPPORTED_CHAIN.SEPOLIA,
-    collectionAddress: PREVIEW_COLLECTION_ADDRESS[0] as `0x${string}`,
+    chain: STORYKIT_SUPPORTED_CHAIN.STORY_TESTNET,
+    collectionAddress: ILIAD_PREVIEW_COLLECTION_ADDRESS[0] as `0x${string}`,
   },
   play: async ({ args, canvasElement }) => {
     const wait = (timeout: number) => new Promise((resolve) => setTimeout(resolve, timeout))
@@ -172,8 +172,8 @@ export const MultiParents: Story = {
     collectionAddress: { control: "text" },
   },
   args: {
-    chain: STORYKIT_SUPPORTED_CHAIN.SEPOLIA,
-    collectionAddress: PREVIEW_COLLECTION_ADDRESS[0] as `0x${string}`,
+    chain: STORYKIT_SUPPORTED_CHAIN.STORY_TESTNET,
+    collectionAddress: ILIAD_PREVIEW_COLLECTION_ADDRESS[0] as `0x${string}`,
     width: 500,
     height: 500,
   },
@@ -201,8 +201,8 @@ export const NoChildIP: Story = {
     collectionAddress: { control: "text" },
   },
   args: {
-    chain: STORYKIT_SUPPORTED_CHAIN.SEPOLIA,
-    collectionAddress: PREVIEW_COLLECTION_ADDRESS[0] as `0x${string}`,
+    chain: STORYKIT_SUPPORTED_CHAIN.STORY_TESTNET,
+    collectionAddress: ILIAD_PREVIEW_COLLECTION_ADDRESS[0] as `0x${string}`,
   },
   play: async ({ args, canvasElement }) => {
     const wait = (timeout: number) => new Promise((resolve) => setTimeout(resolve, timeout))

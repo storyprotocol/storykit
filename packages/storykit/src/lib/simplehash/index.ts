@@ -24,9 +24,9 @@ export type NFT = {
 export const getNFTByTokenId = async (
   contractAddress: Address,
   tokenId: string,
-  chain: STORYKIT_SUPPORTED_CHAIN = STORYKIT_SUPPORTED_CHAIN.SEPOLIA
+  chain: STORYKIT_SUPPORTED_CHAIN = STORYKIT_SUPPORTED_CHAIN.STORY_TESTNET
 ): Promise<NFTMetadata> => {
-  const chainName = chain === STORYKIT_SUPPORTED_CHAIN.SEPOLIA ? "ethereum-sepolia" : chain
+  const chainName = chain === STORYKIT_SUPPORTED_CHAIN.STORY_TESTNET ? "story-testnet" : chain
   const options = createRequestOptions()
   const url = `https://api.simplehash.xyz/api/v0/nfts/${chainName}/${contractAddress}/${tokenId}`
   const response = await fetch(url, options)
@@ -52,9 +52,9 @@ export const getNFTByTokenIds = async (nfts: NFT[]): Promise<NFTMetadata[]> => {
 
 export const getCollectionByAddress = async (
   contractAddress: Address,
-  chain: STORYKIT_SUPPORTED_CHAIN = STORYKIT_SUPPORTED_CHAIN.SEPOLIA
+  chain: STORYKIT_SUPPORTED_CHAIN = STORYKIT_SUPPORTED_CHAIN.STORY_TESTNET
 ): Promise<CollectionMetadata> => {
-  const chainName = chain === STORYKIT_SUPPORTED_CHAIN.SEPOLIA ? "ethereum-sepolia" : chain
+  const chainName = chain === STORYKIT_SUPPORTED_CHAIN.STORY_TESTNET ? "story-testnet" : chain
   const options = createRequestOptions()
   const url = `https://api.simplehash.xyz/api/v0/nfts/collections/${chainName}/${contractAddress}`
   const response = await fetch(url, options)
@@ -64,9 +64,9 @@ export const getCollectionByAddress = async (
 
 export const getNFTByWallet = async (
   walletAddress: Address,
-  chain: STORYKIT_SUPPORTED_CHAIN = STORYKIT_SUPPORTED_CHAIN.SEPOLIA
+  chain: STORYKIT_SUPPORTED_CHAIN = STORYKIT_SUPPORTED_CHAIN.STORY_TESTNET
 ): Promise<NFTWalletResponse> => {
-  const chainName = chain === STORYKIT_SUPPORTED_CHAIN.SEPOLIA ? "ethereum-sepolia" : chain
+  const chainName = chain === STORYKIT_SUPPORTED_CHAIN.STORY_TESTNET ? "story-testnet" : chain
   const options = createRequestOptions()
   const url = `https://api.simplehash.xyz/api/v0/nfts/owners?chains=${chainName}&wallet_addresses=${walletAddress}`
   const response = await fetch(url, options)

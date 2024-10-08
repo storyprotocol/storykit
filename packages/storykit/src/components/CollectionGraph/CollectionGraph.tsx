@@ -30,7 +30,7 @@ function CollectionGraph({
   showName = false,
   showRelationship = false,
   darkMode = false,
-  chain = STORYKIT_SUPPORTED_CHAIN.SEPOLIA,
+  chain = STORYKIT_SUPPORTED_CHAIN.STORY_TESTNET,
 }: CollectionGraphProps) {
   const { isLoading: isAssetDataLoading, data: assetData } = useQuery({
     queryKey: [RESOURCE_TYPE.ASSET, collectionAddress, chain],
