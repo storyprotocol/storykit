@@ -6,6 +6,7 @@ import { Address } from "viem"
 import { listResource } from "./api"
 import { CHAINID_TO_CHAINNAME, STORYKIT_SUPPORTED_CHAIN } from "./constants"
 import { NFT, getNFTByTokenId, getNFTByTokenIds } from "./simplehash"
+import { RoyaltiesGraph, RoyaltyBalance, RoyaltyGraph, RoyaltyLink } from "@/types/royalty-graph"
 
 export interface GraphNode {
   id: string
@@ -29,6 +30,7 @@ export interface GraphNode {
 interface Link {
   source: string
   target: string
+  value?: number
 }
 
 export interface GraphData {
@@ -251,6 +253,97 @@ export async function convertAssetToGraphFormat(
   }
 
   return { nodes, links }
+}
+
+export async function convertRoyaltyToGraphFormat(apiData: RoyaltiesGraph, nftData: NFTMetadata): Promise<GraphData> {
+  try {
+    console.log({ nftData })
+    const nodes: GraphNode[] = []
+    const links: Link[] = []
+
+    apiData.royalties.forEach((royalty: RoyaltyGraph) => {
+      // Create node for the parent IP
+      const parentNode: GraphNode = {
+        id: royalty.ipId,
+        name: `IP ${royalty.ipId.slice(0, 6)}...`,
+        details: `
+          <div class="graph-content">
+            <div>
+              <span class="graph-content-label">IP ID:</span> 
+              <span>${royalty.ipId}</span>
+            </div>
+            <div>
+              <span class="graph-content-label">Type:</span> 
+              <span>Parent</span>
+            </div>
+            <div>
+              <span class="graph-content-label">Currency Address:</span> 
+              <span>${royalty?.balances?.[0]?.tokenAddress.slice(0, 6)}...${royalty?.balances?.[0]?.tokenAddress.slice(-4)}</span>
+            </div>
+            <div>
+              <span class="graph-content-label">Mint Fee:</span> 
+              <span>${parseInt(royalty?.balances?.[0]?.mintFee?.[0].amount) / 1e18} IP</span>
+            </div>
+            <div>
+              <span class="graph-content-label">Claimable Balance:</span> 
+              <span>${parseInt(royalty?.balances?.[0]?.balance) / 1e18} IP</span>
+            </div>
+          </div>
+        `,
+        val: 1,
+        level: 0,
+        imageProperties: nftData?.image_properties,
+        imageUrl: nftData?.previews?.image_small_url || nftData?.image_url,
+        isRoot: true,
+      }
+      nodes.push(parentNode)
+
+      royalty.balances.forEach((balance: RoyaltyBalance) => {
+        balance.links.forEach((link: RoyaltyLink) => {
+          // Create node for each child IP
+          const childNode: GraphNode = {
+            id: link.childIpId,
+            name: `Child ${link.childIpId.slice(0, 6)}...`,
+            details: `
+              <div class="graph-content">
+                <div>
+                  <span class="graph-content-label">IP ID:</span> 
+                  <span>${link.childIpId}</span>
+                </div>
+                <div>
+                  <span class="graph-content-label">Type:</span> 
+                  <span>Child</span>
+                </div>
+                <div>
+                  <span class="graph-content-label">Currency Address:</span> 
+                  <span>${link.tokenAddress.slice(0, 6)}...${link.tokenAddress.slice(-4)}</span>
+                </div>
+                <div>
+                  <span class="graph-content-label">Royalty Amount:</span> 
+                  <span>${parseInt(link.amount) / 1e18} IP</span>
+                </div>
+              </div>
+            `,
+            val: 1,
+            level: 1,
+          }
+          nodes.push(childNode)
+
+          // Create link between parent and child
+          links.push({
+            source: link.childIpId,
+            target: royalty.ipId,
+            value: parseInt(link.amount) / 1e18,
+          })
+        })
+      })
+    })
+
+    return { nodes, links }
+  } catch (error) {
+    console.error(error)
+    return { nodes: [], links: [] }
+  }
 }
 
 export async function fetchNFTMetadata(assets: Asset[]): Promise<Map<string, NFTMetadata>> {

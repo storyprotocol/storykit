@@ -1,0 +1,46 @@
+import { Canvas, Controls, Meta } from "@storybook/blocks"
+
+import * as RoyaltyGraphStory from "./RoyaltyGraph.stories"
+
+<Meta of={RoyaltyGraphStory} />
+
+# RoyaltyGraph
+
+Show IP Asset derivatives graph.
+
+#### Example
+
+<Canvas of={RoyaltyGraphStory.Select} />
+
+<Controls />
+
+## Dependencies
+
+The IP Graph also requires [react-force-graph-2d](https://www.npmjs.com/package/react-force-graph-2d).
+
+```bash
+npm install react-force-graph-2d
+```
+
+## Usage
+
+```ts
+import { IpProvider } from "@storyprotocol/storykit"
+import { RoyaltyGraph } from "@storyprotocol/storykit"
+
+const RoyaltyGraphExample = () => {
+  return (
+    <IpProvider ipId={"0xEd8E05f46c39EEFDA7eBB87Dd9434ED86De5C453"} options={{ royaltyGraphData: true }}>
+      <RoyaltyGraph />
+    </IpProvider>
+  );
+};
+
+export default RoyaltyGraphExample;
+```
+
+#### Arguments
+
+- **width**: _number_ - The width of the canvas
+- **height**: _number_ - The height of the canvas
+- **darkMode**: _boolean_ - Light or Dark mode
