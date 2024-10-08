@@ -28,7 +28,7 @@ export const getNFTByTokenId = async (
 ): Promise<NFTMetadata> => {
   const chainName = chain === STORYKIT_SUPPORTED_CHAIN.SEPOLIA ? "ethereum-sepolia" : chain
   const options = createRequestOptions()
-  const url = `https://api.simplehash.com/api/v0/nfts/${chainName}/${contractAddress}/${tokenId}`
+  const url = `https://api.simplehash.xyz/api/v0/nfts/${chainName}/${contractAddress}/${tokenId}`
   const response = await fetch(url, options)
   const data = await response.json()
   return data
@@ -36,7 +36,7 @@ export const getNFTByTokenId = async (
 
 // Note: This function only takes up to 200 NFTs at a time
 export const getNFTByTokenIds = async (nfts: NFT[]): Promise<NFTMetadata[]> => {
-  const url = "https://api.simplehash.com/api/v0/nfts/assets"
+  const url = "https://api.simplehash.xyz/api/v0/nfts/assets"
   const options = {
     ...createRequestOptions(),
     method: "POST",
@@ -56,7 +56,7 @@ export const getCollectionByAddress = async (
 ): Promise<CollectionMetadata> => {
   const chainName = chain === STORYKIT_SUPPORTED_CHAIN.SEPOLIA ? "ethereum-sepolia" : chain
   const options = createRequestOptions()
-  const url = `https://api.simplehash.com/api/v0/nfts/collections/${chainName}/${contractAddress}`
+  const url = `https://api.simplehash.xyz/api/v0/nfts/collections/${chainName}/${contractAddress}`
   const response = await fetch(url, options)
   const data = await response.json()
   return data.collections[0]
@@ -68,7 +68,7 @@ export const getNFTByWallet = async (
 ): Promise<NFTWalletResponse> => {
   const chainName = chain === STORYKIT_SUPPORTED_CHAIN.SEPOLIA ? "ethereum-sepolia" : chain
   const options = createRequestOptions()
-  const url = `https://api.simplehash.com/api/v0/nfts/owners?chains=${chainName}&wallet_addresses=${walletAddress}`
+  const url = `https://api.simplehash.xyz/api/v0/nfts/owners?chains=${chainName}&wallet_addresses=${walletAddress}`
   const response = await fetch(url, options)
   const data = await response.json()
   return data
