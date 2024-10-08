@@ -1,4 +1,4 @@
-import { PREVIEW_IP_ASSETS } from "@/stories/data"
+import { ILIAD_PREVIEW_IP_ASSETS } from "@/stories/data"
 import type { Meta, StoryObj } from "@storybook/react"
 import { expect, waitFor, within } from "@storybook/test"
 
@@ -22,11 +22,11 @@ type Story = StoryObj<typeof meta>
 export const Select: Story = {
   argTypes: {
     ipId: {
-      options: PREVIEW_IP_ASSETS,
+      options: ILIAD_PREVIEW_IP_ASSETS,
     },
   },
   args: {
-    ipId: PREVIEW_IP_ASSETS[1] as `0x${string}`,
+    ipId: ILIAD_PREVIEW_IP_ASSETS[1] as `0x${string}`,
   },
 }
 export const Input: Story = {
@@ -34,7 +34,7 @@ export const Input: Story = {
     ipId: { control: "text" },
   },
   args: {
-    ipId: PREVIEW_IP_ASSETS[1] as `0x${string}`,
+    ipId: ILIAD_PREVIEW_IP_ASSETS[1] as `0x${string}`,
   },
 }
 export const IpNoRoyalty: Story = {

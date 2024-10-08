@@ -1,5 +1,5 @@
 import { STORYKIT_SUPPORTED_CHAIN } from "@/lib/constants"
-import { PREVIEW_IP_ASSETS } from "@/stories/data"
+import { ILIAD_PREVIEW_IP_ASSETS } from "@/stories/data"
 import licenseData from "@/tests/data/0x5FCeDadBbDF710Ac3C528F6Aac9D1bD9ac18D9a8-license.json"
 import ipaPolicyData from "@/tests/data/0x195A5B433bbFb6481490cA12d1C95e5594Fb54C4-ipapolicy.json"
 import policyData from "@/tests/data/0x195A5B433bbFb6481490cA12d1C95e5594Fb54C4-policy.json"
@@ -51,13 +51,13 @@ export const Select: Story = {
       options: [...Object.values(STORYKIT_SUPPORTED_CHAIN)],
     },
     ipId: {
-      options: PREVIEW_IP_ASSETS,
+      options: ILIAD_PREVIEW_IP_ASSETS,
     },
     children: { control: false },
   },
   args: {
     chain: Object.values(STORYKIT_SUPPORTED_CHAIN)[0],
-    ipId: PREVIEW_IP_ASSETS[0] as `0x${string}`,
+    ipId: ILIAD_PREVIEW_IP_ASSETS[0] as `0x${string}`,
   },
 }
 export const Input: Story = {
@@ -70,7 +70,7 @@ export const Input: Story = {
   },
   args: {
     chain: Object.values(STORYKIT_SUPPORTED_CHAIN)[0],
-    ipId: PREVIEW_IP_ASSETS[0] as `0x${string}`,
+    ipId: ILIAD_PREVIEW_IP_ASSETS[0] as `0x${string}`,
   },
 }
 export const NFTData: Story = {

@@ -1,6 +1,6 @@
 import { STORYKIT_SUPPORTED_CHAIN } from "@/lib/constants"
 import { getCollectionByAddress, getNFTByWallet } from "@/lib/simplehash"
-import { PREVIEW_COLLECTION_ADDRESS } from "@/stories/data"
+import { ILIAD_PREVIEW_COLLECTION_ADDRESS } from "@/stories/data"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import React, { FC, useEffect, useState } from "react"
 import { Address } from "viem"
@@ -8,7 +8,7 @@ import { Address } from "viem"
 import CollectionGraph, { CollectionGraphProps } from "../CollectionGraph"
 
 const Example: FC<CollectionGraphProps> = ({
-  collectionAddress = PREVIEW_COLLECTION_ADDRESS[0] as Address,
+  collectionAddress = ILIAD_PREVIEW_COLLECTION_ADDRESS[0] as Address,
   width = 2000,
   height = 1000,
   showName = false,

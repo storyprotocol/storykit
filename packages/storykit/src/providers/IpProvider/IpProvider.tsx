@@ -68,7 +68,7 @@ const IpContext = React.createContext<{
 } | null>(null)
 
 export const IpProvider = ({
-  chain = STORYKIT_SUPPORTED_CHAIN.SEPOLIA,
+  chain = STORYKIT_SUPPORTED_CHAIN.STORY_TESTNET,
   ipId,
   options = {},
   children,
