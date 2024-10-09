@@ -2,7 +2,7 @@ import { cn } from "@/lib/utils"
 import { NFTMetadata } from "@/types"
 import { RoyaltiesGraph } from "@/types/royalty-graph"
 import { useQuery } from "@tanstack/react-query"
-import React, { useEffect, useRef, useState } from "react"
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import { LinkObject } from "react-force-graph-2d"
 
 import "../../global.css"
@@ -21,6 +21,8 @@ type Link = LinkObject & {
   value?: number
 }
 
+const NODE_R = 8
+
 function RoyaltyGraph({ width = 800, height = 800, darkMode = false }: RoyaltyGraphProps) {
   const { isAssetDataLoading, assetData, nftData, chain, royaltyGraphData } = useIpContext()
 
@@ -36,10 +38,17 @@ function RoyaltyGraph({ width = 800, height = 800, darkMode = false }: RoyaltyGr
 
   const [isLoading, setIsLoading] = useState(true)
   const [ForceGraph, setForceGraph] = useState<any>(null)
+  const fgRef = useRef<any>(null)
   const imageCache = useRef<{ [key: string]: HTMLImageElement }>({})
   // TODO: try to fix the width and height to stretch to the container
   const containerRef = useRef<HTMLDivElement>(null)
   const [dimensions, setDimensions] = useState({ width, height })
+
+  useEffect(() => {
+    if (fgRef.current) {
+      fgRef.current?.d3Force("link").distance(100)
+    }
+  }, [fgRef.current])
 
   useEffect(() => {
     if (isAssetDataLoading || formattedDataLoading) {
@@ -73,57 +82,71 @@ function RoyaltyGraph({ width = 800, height = 800, darkMode = false }: RoyaltyGr
     return () => window.removeEventListener("resize", handleResize)
   }, [])
 
-  const nodeCanvasObject = (node: any, ctx: any, globalScale: any) => {
-    const isParent = node.level < 0
-    const isSelf = node.level === 0
-    // const isChild = node.level > 0
+  // cross-link node objects
+  const crossLinkedData = useMemo(() => {
+    if (!formattedGraphData) return { nodes: [], links: [] }
 
-    // Define labels for node
-    const label1 = node.name
-    const label2 = node.isRoot ? (isParent ? "Root / Parent" : "Root") : isParent ? "Parent" : "Child"
+    const data = JSON.parse(JSON.stringify(formattedGraphData))
 
-    const circleRadius = isSelf ? 8 : 5
+    console.log("crossLinkedData", data)
 
-    // Draw node image or fallback to a circle
-    if (node.imageUrl) {
-      let img = imageCache.current[node.id]
+    data.links.forEach((link: { source: string; target: string }) => {
+      const a = data.nodes.find((node: any) => node.id === link.source)
+      const b = data.nodes.find((node: any) => node.id === link.target)
 
-      if (!img) {
-        img = new Image()
-        img.src = node.imageUrl
-        img.onload = () => {
-          imageCache.current[node.id] = img
-          ctx.drawImage(img, node.x - circleRadius, node.y - circleRadius, circleRadius * 2, circleRadius * 2)
-          if (isSelf) drawRectBorder(ctx, node, circleRadius)
-        }
-      } else {
-        ctx.drawImage(img, node.x - circleRadius, node.y - circleRadius, circleRadius * 2, circleRadius * 2)
-        if (isSelf) drawRectBorder(ctx, node, circleRadius)
+      if (a && b) {
+        if (!a.neighbors) a.neighbors = []
+        if (!b.neighbors) b.neighbors = []
+        a.neighbors.push(b)
+        b.neighbors.push(a)
+
+        if (!a.links) a.links = []
+        if (!b.links) b.links = []
+        a.links.push(link)
+        b.links.push(link)
       }
-    } else {
-      drawCircle(ctx, node, circleRadius, isSelf, isParent, darkMode)
+    })
+
+    return data
+  }, [formattedGraphData])
+
+  const [highlightNodes, setHighlightNodes] = useState(new Set())
+  const [highlightLinks, setHighlightLinks] = useState(new Set())
+  const [hoverNode, setHoverNode] = useState(null)
+
+  const updateHighlight = () => {
+    setHighlightNodes(new Set(highlightNodes))
+    setHighlightLinks(new Set(highlightLinks))
+  }
+
+  const handleNodeHover = (node: any) => {
+    highlightNodes.clear()
+    highlightLinks.clear()
+    if (node) {
+      highlightNodes.add(node)
+      if (node.neighbors) {
+        node.neighbors.forEach((neighbor: any) => highlightNodes.add(neighbor))
+      }
+      if (node.links) {
+        node.links.forEach((link: any) => highlightLinks.add(link))
+      }
     }
 
-    // Draw label for parent nodes
-    if (isSelf) {
-      const curBalance = royaltyGraphData?.royalties?.[0]?.balances?.[0]?.balance
+    setHoverNode(node || null)
+    updateHighlight()
+  }
 
-      const label = curBalance ? `${(parseInt(curBalance) / 1e18).toFixed(2)} IP` : "0 IP"
-      ctx.font = `${12 / globalScale}px Sans-Serif`
-      ctx.fillStyle = darkMode ? "#ffffff" : "#000000"
-      ctx.textAlign = "center"
-      ctx.textBaseline = "bottom"
-      ctx.fillText(label, node.x, node.y - circleRadius - 2)
+  const handleLinkHover = (link: any) => {
+    highlightNodes.clear()
+    highlightLinks.clear()
+
+    if (link) {
+      highlightLinks.add(link)
+      highlightNodes.add(link.source)
+      highlightNodes.add(link.target)
     }
 
-    // Draw node name below the node
-    ctx.font = `${10 / globalScale}px Sans-Serif`
-    ctx.fillStyle = darkMode ? "#cccccc" : "#666666"
-    ctx.textAlign = "center"
-    ctx.textBaseline = "top"
-    ctx.fillText(node.name, node.x, node.y + circleRadius + 2)
-
-    // drawLabels(ctx, node, label1, label2, globalScale, darkMode)
+    updateHighlight()
   }
 
   const linkCanvasObject = (link: Link, ctx: CanvasRenderingContext2D, scale: number) => {
@@ -132,23 +155,51 @@ function RoyaltyGraph({ width = 800, height = 800, darkMode = false }: RoyaltyGr
 
     // Calculate the middle point of the link
     const middleX = start?.x + (end?.x - start?.x) / 2
-    const middleY = start?.y + (end?.y - start?.y) / 2
+    const middleY = start?.y + (end?.y - start?.y) / 2 + 8
 
     // Draw the link
     ctx.beginPath()
     ctx.moveTo(start?.x, start?.y)
     ctx.lineTo(end?.x, end?.y)
-    ctx.strokeStyle = darkMode ? "#686868" : "#c0c0c0"
-    ctx.lineWidth = 1
+    ctx.strokeStyle = highlightLinks.has(link) ? "#d8d5f4" : darkMode ? "#686868" : "#c0c0c0"
+    ctx.lineWidth = highlightLinks.has(link) ? 3 : 1
     ctx.stroke()
 
     // Draw the label
-    const label = `${link.value?.toFixed(2)} IP`
-    ctx.fillStyle = darkMode ? "#ffffff" : "#000000"
-    ctx.font = `${12 / scale}px Sans-Serif`
-    ctx.textAlign = "center"
-    ctx.textBaseline = "middle"
-    ctx.fillText(label, middleX, middleY)
+    if (highlightLinks.has(link)) {
+      const label = `${link.value} IP`
+      const padding = 4
+      const textMetrics = ctx.measureText(label)
+      const textWidth = textMetrics.width
+      const textHeight = 4 / scale // Assuming font size is 12
+      // Draw background with rounded corners
+      ctx.fillStyle = darkMode ? "rgba(0, 0, 0, 0.7)" : "rgba(117, 34, 232,0.8)"
+      const cornerRadius = 6 // Adjust this value to change the roundness of corners
+      const x = middleX - textWidth / 2 - padding - 1
+      const y = middleY - padding + 1
+      const width = textWidth + padding * 2 + 2
+      const height = textHeight + padding * 2
+
+      ctx.beginPath()
+      ctx.moveTo(x + cornerRadius, y)
+      ctx.lineTo(x + width - cornerRadius, y)
+      ctx.quadraticCurveTo(x + width, y, x + width, y + cornerRadius)
+      ctx.lineTo(x + width, y + height - cornerRadius)
+      ctx.quadraticCurveTo(x + width, y + height, x + width - cornerRadius, y + height)
+      ctx.lineTo(x + cornerRadius, y + height)
+      ctx.quadraticCurveTo(x, y + height, x, y + height - cornerRadius)
+      ctx.lineTo(x, y + cornerRadius)
+      ctx.quadraticCurveTo(x, y, x + cornerRadius, y)
+      ctx.closePath()
+      ctx.fill()
+
+      // Draw text
+      ctx.fillStyle = darkMode ? "#ffffff" : "#ffffff"
+      ctx.font = `${12 / scale}px Sans-Serif`
+      ctx.textAlign = "center"
+      ctx.textBaseline = "top"
+      ctx.fillText(label, middleX, middleY)
+    }
   }
 
   const drawRectBorder = (ctx: any, node: any, radius: number) => {
@@ -159,31 +210,37 @@ function RoyaltyGraph({ width = 800, height = 800, darkMode = false }: RoyaltyGr
     ctx.stroke()
   }
 
-  const drawCircleBorder = (ctx: any, node: any, radius: number) => {
-    ctx.beginPath()
-    ctx.arc(node.x, node.y, radius, 0, 2 * Math.PI, false) // Draw the border as an arc
-    ctx.lineWidth = 0.8
-    ctx.strokeStyle = "#7522e8"
-    ctx.stroke()
-  }
+  const drawCircleBorder = useCallback(
+    (ctx: any, node: any, radius: number, isSelf: boolean) => {
+      ctx.beginPath()
+      ctx.arc(node.x, node.y, radius, 0, 2 * Math.PI, false) // Draw the border as an arc
+      ctx.lineWidth = 2
+      ctx.strokeStyle = isSelf ? "#fb45e3" : node === hoverNode ? "#27eed7" : "#27eed7"
+      ctx.stroke()
+    },
+    [hoverNode]
+  )
 
-  const drawCircle = (ctx: any, node: any, radius: number, isSelf: boolean, isParent: boolean, darkMode: boolean) => {
-    ctx.beginPath()
-    ctx.arc(node.x, node.y, radius, 0, 2 * Math.PI, false)
-    ctx.fillStyle = isSelf
-      ? darkMode
-        ? "white"
-        : "black"
-      : isParent
+  const drawCircle = useCallback(
+    (ctx: any, node: any, radius: number, isSelf: boolean, isParent: boolean, darkMode: boolean) => {
+      ctx.beginPath()
+      ctx.arc(node.x, node.y, radius, 0, 2 * Math.PI, false)
+      ctx.fillStyle = isSelf
         ? darkMode
-          ? "darkgrey"
-          : "grey"
-        : darkMode
-          ? "lightgrey"
-          : "grey"
-    ctx.fill()
-    if (isSelf) drawCircleBorder(ctx, node, radius)
-  }
+          ? "white"
+          : "black"
+        : isParent
+          ? darkMode
+            ? "darkgrey"
+            : "grey"
+          : darkMode
+            ? "lightgrey"
+            : "grey"
+      ctx.fill()
+      // drawCircleBorder(ctx, node, radius)
+    },
+    []
+  )
 
   const drawLabels = (ctx: any, node: any, label1: string, label2: string, globalScale: any, darkMode: boolean) => {
     const label1Color = darkMode ? "white" : "black"
@@ -202,6 +259,97 @@ function RoyaltyGraph({ width = 800, height = 800, darkMode = false }: RoyaltyGr
     }
   }
 
+  const nodeCanvasObject = useCallback(
+    (node: any, ctx: any, globalScale: any) => {
+      const isParent = node.level < 0
+      const isSelf = node.level === 0
+      // const isChild = node.level > 0
+
+      // Define labels for node
+      const label1 = node.name
+      const label2 = node.isRoot ? (isParent ? "Root / Parent" : "Root") : isParent ? "Parent" : "Child"
+
+      const circleRadius = isSelf ? 8 : 5
+
+      // Draw node image or fallback to a circle
+      if (node.imageUrl) {
+        let img = imageCache.current[node.id]
+
+        if (!img) {
+          img = new Image()
+          img.src = node.imageUrl
+          img.onload = () => {
+            imageCache.current[node.id] = img
+            ctx.drawImage(img, node.x - circleRadius, node.y - circleRadius, circleRadius * 2, circleRadius * 2)
+            if (isSelf) drawRectBorder(ctx, node, circleRadius)
+          }
+        } else {
+          ctx.drawImage(img, node.x - circleRadius, node.y - circleRadius, circleRadius * 2, circleRadius * 2)
+          if (isSelf) drawRectBorder(ctx, node, circleRadius)
+        }
+      } else {
+        if (highlightNodes.has(node)) {
+          drawCircle(ctx, node, circleRadius, isSelf, isParent, darkMode)
+          drawCircleBorder(ctx, node, circleRadius, isSelf)
+        } else {
+          drawCircle(ctx, node, circleRadius, isSelf, isParent, darkMode)
+        }
+      }
+
+      // Draw label for parent nodes
+      if (isSelf) {
+        const curBalance = royaltyGraphData?.royalties?.[0]?.balances?.[0]?.balance
+
+        const label = curBalance ? `Claimable royalties: ${parseInt(curBalance) / 1e18} IP` : "0 IP"
+        ctx.font = `${12 / globalScale}px Sans-Serif`
+        ctx.fillStyle = darkMode ? "#ffffff" : "#000000"
+        ctx.textAlign = "center"
+        ctx.textBaseline = "bottom"
+
+        // Add background with rounded corners
+        const textWidth = ctx.measureText(label).width
+        const padding = 4
+        const cornerRadius = 5
+        const rectWidth = textWidth + padding * 2
+        const rectHeight = 9
+        const rectX = node.x - textWidth / 2 - padding
+        const rectY = node.y - circleRadius - 13
+
+        ctx.fillStyle = darkMode ? "rgba(0, 0, 0, 0.7)" : "rgba(252, 20, 244, 0.7)"
+        ctx.beginPath()
+        ctx.moveTo(rectX + cornerRadius, rectY)
+        ctx.lineTo(rectX + rectWidth - cornerRadius, rectY)
+        ctx.quadraticCurveTo(rectX + rectWidth, rectY, rectX + rectWidth, rectY + cornerRadius)
+        ctx.lineTo(rectX + rectWidth, rectY + rectHeight - cornerRadius)
+        ctx.quadraticCurveTo(
+          rectX + rectWidth,
+          rectY + rectHeight,
+          rectX + rectWidth - cornerRadius,
+          rectY + rectHeight
+        )
+        ctx.lineTo(rectX + cornerRadius, rectY + rectHeight)
+        ctx.quadraticCurveTo(rectX, rectY + rectHeight, rectX, rectY + rectHeight - cornerRadius)
+        ctx.lineTo(rectX, rectY + cornerRadius)
+        ctx.quadraticCurveTo(rectX, rectY, rectX + cornerRadius, rectY)
+        ctx.closePath()
+        ctx.fill()
+
+        // Draw text
+        ctx.fillStyle = darkMode ? "#ffffff" : "#ffffff"
+        ctx.fillText(label, node.x, node.y - circleRadius - 6)
+      }
+
+      // Draw node name below the node
+      ctx.font = `${10 / globalScale}px Sans-Serif`
+      ctx.fillStyle = darkMode ? "#cccccc" : "#666666"
+      ctx.textAlign = "center"
+      ctx.textBaseline = "top"
+      ctx.fillText(node.name, node.x, node.y + circleRadius + 2)
+      // drawLabels(ctx, node, label1, label2, globalScale, darkMode)
+    },
+    [darkMode, drawCircle, drawCircleBorder, highlightNodes, royaltyGraphData?.royalties]
+  )
+
   return (
     <div
       // TODO: try to fix the width and height to stretch to the container
@@ -219,19 +367,27 @@ function RoyaltyGraph({ width = 800, height = 800, darkMode = false }: RoyaltyGr
         <>Error</>
       ) : ForceGraph ? (
         <ForceGraph
+          ref={fgRef}
           nodeLabel={"details"}
+          nodeRelSize={NODE_R}
+          autoPauseRedraw={false}
           // TODO: try to fix the width and height to stretch to the container
           // width={dimensions.width}
           // height={dimensions.height}
           width={width}
           height={height}
-          graphData={formattedGraphData}
+          graphData={crossLinkedData}
           backgroundColor={darkMode ? "#000" : "#fff"}
           nodeCanvasObject={nodeCanvasObject}
+          // linkWidth={(link: Link) => (highlightLinks.has(link) ? 5 : 1)}
           linkCanvasObject={linkCanvasObject}
           linkCanvasObjectMode={() => "replace"}
           linkDirectionalParticles={4}
-          linkDirectionalParticleWidth={2}
+          linkDirectionalParticleColor={() => "#7a12f8"}
+          linkDirectionalParticleWidth={(link: Link) => (highlightLinks.has(link) ? 4 : 0)}
+          linkDirectionalParticleSpeed={() => 0.005}
+          onNodeHover={handleNodeHover}
+          onLinkHover={handleLinkHover}
         />
       ) : null}
     </div>

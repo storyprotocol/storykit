@@ -270,7 +270,7 @@ export async function convertRoyaltyToGraphFormat(apiData: RoyaltiesGraph, nftDa
           <div class="graph-content">
             <div>
               <span class="graph-content-label">IP ID:</span> 
-              <span>${royalty.ipId}</span>
+              <span>${royalty.ipId.slice(0, 6)}...${royalty.ipId.slice(-4)}</span>
             </div>
             <div>
               <span class="graph-content-label">Type:</span> 
@@ -308,7 +308,7 @@ export async function convertRoyaltyToGraphFormat(apiData: RoyaltiesGraph, nftDa
               <div class="graph-content">
                 <div>
                   <span class="graph-content-label">IP ID:</span> 
-                  <span>${link.childIpId}</span>
+                  <span>${link.childIpId.slice(0, 6)}...${link.childIpId.slice(-4)}</span>
                 </div>
                 <div>
                   <span class="graph-content-label">Type:</span> 
