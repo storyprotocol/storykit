@@ -12,11 +12,12 @@ import { Address } from "viem"
 // import { IpProvider } from "../../../providers"
 import RoyaltyGraph from "../RoyaltyGraph"
 
-const Example: FC<{ ipIds: Address[]; width?: number; height?: number; darkMode?: boolean }> = ({
+const Example: FC<{ ipIds: Address[]; width?: number; height?: number; darkMode?: boolean; isAnimated?: boolean }> = ({
   ipIds = [ILIAD_TESTNET_ROYALTY_GRAPH_IP_ASSETS[0]] as Address[],
   width = 400,
   height = 300,
   darkMode = false,
+  isAnimated = false,
 }) => {
   const [collections, setCollections] = useState<any>(null)
   const [nfts, setNfts] = useState<any>(null)
@@ -39,7 +40,7 @@ const Example: FC<{ ipIds: Address[]; width?: number; height?: number; darkMode?
           {/* <IpProvider ipId={ipId} options={{ royaltyGraphData: true }}> */}
           <RoyaltyGraphProvider ipIds={ipIds}>
             {/* <div style={{ width: "100%", height: "500px" }}> */}
-            <RoyaltyGraph width={width} height={height} darkMode={darkMode} />
+            <RoyaltyGraph width={width} height={height} darkMode={darkMode} isAnimated={isAnimated} />
             {/* </div> */}
           </RoyaltyGraphProvider>
           {/* </IpProvider> */}

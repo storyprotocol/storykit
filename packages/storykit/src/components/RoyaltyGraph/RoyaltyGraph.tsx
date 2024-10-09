@@ -16,6 +16,7 @@ export type RoyaltyGraphProps = {
   width?: number
   height?: number
   darkMode?: boolean
+  isAnimated?: boolean
 }
 
 type Link = LinkObject & {
@@ -25,7 +26,7 @@ type Link = LinkObject & {
 
 const NODE_R = 8
 
-function RoyaltyGraph({ width = 600, height = 600, darkMode = false }: RoyaltyGraphProps) {
+function RoyaltyGraph({ width = 600, height = 600, darkMode = false, isAnimated = false }: RoyaltyGraphProps) {
   // const { isAssetDataLoading, royaltyGraphData, chain } = useIpContext()
   const { isRoyaltyGraphDataLoading, royaltyGraphData, chain } = useRoyaltyGraphContext()
 
@@ -166,18 +167,19 @@ function RoyaltyGraph({ width = 600, height = 600, darkMode = false }: RoyaltyGr
     ctx.beginPath()
     ctx.moveTo(start?.x, start?.y)
     ctx.lineTo(end?.x, end?.y)
-    ctx.strokeStyle = highlightLinks.has(link)
-      ? link.source?.id === hoverNode?.id
-        ? "#d8d5f4"
-        : "#d8f7f3"
-      : darkMode
-        ? "#686868"
-        : "#c0c0c0"
-    ctx.lineWidth = highlightLinks.has(link) ? 2 : 1
+    ctx.strokeStyle =
+      highlightLinks.has(link) || isAnimated
+        ? link.source?.id === hoverNode?.id
+          ? "#d8d5f4"
+          : "#d8f7f3"
+        : darkMode
+          ? "#686868"
+          : "#c0c0c0"
+    ctx.lineWidth = highlightLinks.has(link) || isAnimated ? 2 : 1
     ctx.stroke()
 
     // Draw the label
-    if (highlightLinks.has(link)) {
+    if (highlightLinks.has(link) || isAnimated) {
       const label = `${link.value} IP`
       const padding = 4 / scale
       const fontSize = 12 / scale
@@ -398,12 +400,20 @@ function RoyaltyGraph({ width = 600, height = 600, darkMode = false }: RoyaltyGr
           linkDirectionalArrowRelPos={2}
           linkDirectionalArrowLength={8}
           linkDirectionalArrowColor={(link: Link) =>
-            highlightLinks.has(link) ? (link.source?.id === hoverNode?.id ? "#613df0" : "#27eed7") : "#cccccc"
+            highlightLinks.has(link) || isAnimated
+              ? link.source?.id === hoverNode?.id
+                ? "#613df0"
+                : "#27eed7"
+              : "#cccccc"
           }
           linkDirectionalParticleColor={(link: Link) =>
-            highlightLinks.has(link) ? (link.source?.id === hoverNode?.id ? "#613df0" : "#27eed7") : "#cccccc"
+            highlightLinks.has(link) || isAnimated
+              ? link.source?.id === hoverNode?.id
+                ? "#613df0"
+                : "#27eed7"
+              : "#cccccc"
           }
-          linkDirectionalParticleWidth={(link: Link) => (highlightLinks.has(link) ? 4 : 0)}
+          linkDirectionalParticleWidth={(link: Link) => (highlightLinks.has(link) || isAnimated ? 4 : 0)}
           linkDirectionalParticleSpeed={() => 0.005}
           onNodeHover={handleNodeHover}
           onLinkHover={handleLinkHover}
