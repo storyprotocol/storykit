@@ -169,16 +169,19 @@ function RoyaltyGraph({ width = 600, height = 600, darkMode = false }: RoyaltyGr
     // Draw the label
     if (highlightLinks.has(link)) {
       const label = `${link.value} IP`
-      const padding = 4
+      const padding = 4 / scale
+      const fontSize = 12 / scale
+      ctx.font = `${fontSize}px Sans-Serif`
       const textMetrics = ctx.measureText(label)
       const textWidth = textMetrics.width
-      const textHeight = 4 / scale // Assuming font size is 12
+      const textHeight = fontSize * 0.8 // Approximate height based on font size
+
       // Draw background with rounded corners
       ctx.fillStyle = darkMode ? "rgba(0, 0, 0, 0.7)" : "rgba(117, 34, 232,0.6)"
-      const cornerRadius = 6 // Adjust this value to change the roundness of corners
-      const x = middleX - textWidth / 2 - padding - 1
-      const y = middleY - padding + 1
-      const width = textWidth + padding * 2 + 2
+      const cornerRadius = 6 / scale // Adjust corner radius based on scale
+      const x = middleX - textWidth / 2 - padding
+      const y = middleY - textHeight / 2 - padding
+      const width = textWidth + padding * 2
       const height = textHeight + padding * 2
 
       ctx.beginPath()
@@ -195,10 +198,9 @@ function RoyaltyGraph({ width = 600, height = 600, darkMode = false }: RoyaltyGr
       ctx.fill()
 
       // Draw text
-      ctx.fillStyle = darkMode ? "#ffffff" : "#ffffff"
-      ctx.font = `${12 / scale}px Sans-Serif`
+      ctx.fillStyle = "#ffffff"
       ctx.textAlign = "center"
-      ctx.textBaseline = "top"
+      ctx.textBaseline = "middle"
       ctx.fillText(label, middleX, middleY)
     }
   }
@@ -302,19 +304,20 @@ function RoyaltyGraph({ width = 600, height = 600, darkMode = false }: RoyaltyGr
         const curBalance = royaltyGraphData?.royalties?.[0]?.balances?.[0]?.balance
 
         const label = curBalance ? `Claimable royalties: ${parseInt(curBalance) / 1e18} IP` : "0 IP"
-        ctx.font = `${12 / globalScale}px Sans-Serif`
+        const fontSize = 12 / globalScale
+        ctx.font = `${fontSize}px Sans-Serif`
         ctx.fillStyle = darkMode ? "#ffffff" : "#000000"
         ctx.textAlign = "center"
         ctx.textBaseline = "bottom"
 
         // Add background with rounded corners
         const textWidth = ctx.measureText(label).width
-        const padding = 4
-        const cornerRadius = 5
+        const padding = 4 / globalScale
+        const cornerRadius = 5 / globalScale
         const rectWidth = textWidth + padding * 2
-        const rectHeight = 9
+        const rectHeight = 20 / globalScale
         const rectX = node.x - textWidth / 2 - padding
-        const rectY = node.y - circleRadius - 13
+        const rectY = node.y - circleRadius - 22 / globalScale
 
         ctx.fillStyle = darkMode ? "rgba(0, 0, 0, 0.7)" : "rgba(252, 20, 244, 0.7)"
         ctx.beginPath()
@@ -337,7 +340,7 @@ function RoyaltyGraph({ width = 600, height = 600, darkMode = false }: RoyaltyGr
 
         // Draw text
         ctx.fillStyle = darkMode ? "#ffffff" : "#ffffff"
-        ctx.fillText(label, node.x, node.y - circleRadius - 6)
+        ctx.fillText(label, node.x, node.y - circleRadius - 6 / globalScale)
       }
 
       // Draw node name below the node
