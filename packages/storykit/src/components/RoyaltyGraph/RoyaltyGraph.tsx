@@ -1,4 +1,5 @@
 import { cn } from "@/lib/utils"
+import { useRoyaltyGraphContext } from "@/providers/RoyaltyGraphProvider/RoyaltyGraphProvider"
 import { NFTMetadata } from "@/types"
 import { RoyaltiesGraph } from "@/types/royalty-graph"
 import { useQuery } from "@tanstack/react-query"
@@ -24,15 +25,16 @@ type Link = LinkObject & {
 const NODE_R = 8
 
 function RoyaltyGraph({ width = 600, height = 600, darkMode = false }: RoyaltyGraphProps) {
-  const { isAssetDataLoading, assetData, nftData, chain, royaltyGraphData } = useIpContext()
+  // const { isAssetDataLoading, royaltyGraphData, chain } = useIpContext()
+  const { isRoyaltyGraphDataLoading, royaltyGraphData, chain } = useRoyaltyGraphContext()
 
   const {
     isLoading: formattedDataLoading,
     data: formattedGraphData,
     isError,
   } = useQuery({
-    queryKey: ["FORMAT_ROYALTY_GRAPH_DATA", assetData?.id, chain],
-    queryFn: () => convertRoyaltyToGraphFormat(royaltyGraphData as RoyaltiesGraph, nftData as NFTMetadata),
+    queryKey: ["FORMAT_ROYALTY_GRAPH_DATA", royaltyGraphData, chain],
+    queryFn: () => convertRoyaltyToGraphFormat(royaltyGraphData as RoyaltiesGraph),
     enabled: !!royaltyGraphData,
   })
 
@@ -41,8 +43,8 @@ function RoyaltyGraph({ width = 600, height = 600, darkMode = false }: RoyaltyGr
   const fgRef = useRef<any>(null)
   const imageCache = useRef<{ [key: string]: HTMLImageElement }>({})
   // TODO: try to fix the width and height to stretch to the container
-  const containerRef = useRef<HTMLDivElement>(null)
-  const [dimensions, setDimensions] = useState({ width, height })
+  // const containerRef = useRef<HTMLDivElement>(null)
+  // const [dimensions, setDimensions] = useState({ width, height })
 
   useEffect(() => {
     if (fgRef.current) {
@@ -51,12 +53,12 @@ function RoyaltyGraph({ width = 600, height = 600, darkMode = false }: RoyaltyGr
   }, [fgRef.current])
 
   useEffect(() => {
-    if (isAssetDataLoading || formattedDataLoading) {
+    if (formattedDataLoading || isRoyaltyGraphDataLoading) {
       setIsLoading(true)
     } else {
-      setIsLoading(!formattedGraphData)
+      setIsLoading(!formattedGraphData && !isRoyaltyGraphDataLoading)
     }
-  }, [isAssetDataLoading, formattedDataLoading, formattedGraphData])
+  }, [formattedDataLoading, formattedGraphData, isRoyaltyGraphDataLoading])
 
   useEffect(() => {
     async function importForceGraphModule() {
@@ -264,6 +266,7 @@ function RoyaltyGraph({ width = 600, height = 600, darkMode = false }: RoyaltyGr
 
   const nodeCanvasObject = useCallback(
     (node: any, ctx: any, globalScale: any) => {
+      console.log({ node })
       const isParent = node.level < 0
       const isSelf = node.level === 0
       // const isChild = node.level > 0
@@ -300,48 +303,44 @@ function RoyaltyGraph({ width = 600, height = 600, darkMode = false }: RoyaltyGr
       }
 
       // Draw label for parent nodes
-      if (isSelf) {
-        const curBalance = royaltyGraphData?.royalties?.[0]?.balances?.[0]?.balance
+      // if (isSelf) {
+      const curBalance = royaltyGraphData?.royalties.find((royalty: any) => royalty.ipId === node.id)?.balances[0]
+        ?.balance
 
-        const label = curBalance ? `Claimable royalties: ${parseInt(curBalance) / 1e18} IP` : "0 IP"
-        const fontSize = 12 / globalScale
-        ctx.font = `${fontSize}px Sans-Serif`
-        ctx.fillStyle = darkMode ? "#ffffff" : "#000000"
-        ctx.textAlign = "center"
-        ctx.textBaseline = "bottom"
+      const label = curBalance ? `Claimable royalties: ${parseInt(curBalance) / 1e18} IP` : "0 IP"
+      const fontSize = 12 / globalScale
+      ctx.font = `${fontSize}px Sans-Serif`
+      ctx.fillStyle = darkMode ? "#ffffff" : "#000000"
+      ctx.textAlign = "center"
+      ctx.textBaseline = "bottom"
 
-        // Add background with rounded corners
-        const textWidth = ctx.measureText(label).width
-        const padding = 4 / globalScale
-        const cornerRadius = 5 / globalScale
-        const rectWidth = textWidth + padding * 2
-        const rectHeight = 20 / globalScale
-        const rectX = node.x - textWidth / 2 - padding
-        const rectY = node.y - circleRadius - 22 / globalScale
+      // Add background with rounded corners
+      const textWidth = ctx.measureText(label).width
+      const padding = 4 / globalScale
+      const cornerRadius = 5 / globalScale
+      const rectWidth = textWidth + padding * 2
+      const rectHeight = 20 / globalScale
+      const rectX = node.x - textWidth / 2 - padding
+      const rectY = node.y - circleRadius - 22 / globalScale
 
-        ctx.fillStyle = darkMode ? "rgba(0, 0, 0, 0.7)" : "rgba(252, 20, 244, 0.7)"
-        ctx.beginPath()
-        ctx.moveTo(rectX + cornerRadius, rectY)
-        ctx.lineTo(rectX + rectWidth - cornerRadius, rectY)
-        ctx.quadraticCurveTo(rectX + rectWidth, rectY, rectX + rectWidth, rectY + cornerRadius)
-        ctx.lineTo(rectX + rectWidth, rectY + rectHeight - cornerRadius)
-        ctx.quadraticCurveTo(
-          rectX + rectWidth,
-          rectY + rectHeight,
-          rectX + rectWidth - cornerRadius,
-          rectY + rectHeight
-        )
-        ctx.lineTo(rectX + cornerRadius, rectY + rectHeight)
-        ctx.quadraticCurveTo(rectX, rectY + rectHeight, rectX, rectY + rectHeight - cornerRadius)
-        ctx.lineTo(rectX, rectY + cornerRadius)
-        ctx.quadraticCurveTo(rectX, rectY, rectX + cornerRadius, rectY)
-        ctx.closePath()
-        ctx.fill()
+      ctx.fillStyle = darkMode ? "rgba(0, 0, 0, 0.7)" : "rgba(252, 20, 244, 0.7)"
+      ctx.beginPath()
+      ctx.moveTo(rectX + cornerRadius, rectY)
+      ctx.lineTo(rectX + rectWidth - cornerRadius, rectY)
+      ctx.quadraticCurveTo(rectX + rectWidth, rectY, rectX + rectWidth, rectY + cornerRadius)
+      ctx.lineTo(rectX + rectWidth, rectY + rectHeight - cornerRadius)
+      ctx.quadraticCurveTo(rectX + rectWidth, rectY + rectHeight, rectX + rectWidth - cornerRadius, rectY + rectHeight)
+      ctx.lineTo(rectX + cornerRadius, rectY + rectHeight)
+      ctx.quadraticCurveTo(rectX, rectY + rectHeight, rectX, rectY + rectHeight - cornerRadius)
+      ctx.lineTo(rectX, rectY + cornerRadius)
+      ctx.quadraticCurveTo(rectX, rectY, rectX + cornerRadius, rectY)
+      ctx.closePath()
+      ctx.fill()
 
-        // Draw text
-        ctx.fillStyle = darkMode ? "#ffffff" : "#ffffff"
-        ctx.fillText(label, node.x, node.y - circleRadius - 6 / globalScale)
-      }
+      // Draw text
+      ctx.fillStyle = darkMode ? "#ffffff" : "#ffffff"
+      ctx.fillText(label, node.x, node.y - circleRadius - 6 / globalScale)
+      // }
 
       // Draw node name below the node
       ctx.font = `${10 / globalScale}px Sans-Serif`

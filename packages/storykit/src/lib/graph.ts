@@ -255,97 +255,122 @@ export async function convertAssetToGraphFormat(
   return { nodes, links }
 }
 
-export async function convertRoyaltyToGraphFormat(apiData: RoyaltiesGraph, nftData: NFTMetadata): Promise<GraphData> {
+export async function convertRoyaltyToGraphFormat(apiData: RoyaltiesGraph): Promise<GraphData> {
   try {
-    console.log({ nftData })
-    const nodes: GraphNode[] = []
-    const links: Link[] = []
-
+    const nodes: GraphNode[] = [];
+    const links: Link[] = [];
+    const nodeIds = new Set<string>(); // Use this to track node IDs to avoid duplication
     apiData.royalties.forEach((royalty: RoyaltyGraph) => {
-      // Create node for the parent IP
-      const parentNode: GraphNode = {
-        id: royalty.ipId,
-        name: `IP ${royalty.ipId.slice(0, 6)}...`,
-        details: `
-          <div class="graph-content">
-            <div>
-              <span class="graph-content-label">IP ID:</span> 
-              <span>${royalty.ipId.slice(0, 6)}...${royalty.ipId.slice(-4)}</span>
+      // Create node for the parent IP if it doesn't already exist
+      if (!nodeIds.has(royalty.ipId)) {
+        const parentNode: GraphNode = {
+          id: royalty.ipId,
+          name: `IP ${royalty.ipId.slice(0, 6)}...`,
+          details: `
+            <div class="graph-content">
+              <div>
+                <span class="graph-content-label">IP ID:</span> 
+                <span>${royalty.ipId.slice(0, 6)}...${royalty.ipId.slice(-4)}</span>
+              </div>
+              <div>
+                <span class="graph-content-label">Type:</span> 
+                <span>Parent</span>
+              </div>
+              <div>
+                <span class="graph-content-label">Currency Address:</span> 
+                <span>${royalty?.balances?.[0]?.tokenAddress.slice(0, 6)}...${royalty?.balances?.[0]?.tokenAddress.slice(-4)}</span>
+              </div>
+              <div>
+                <span class="graph-content-label">Mint Fee:</span> 
+                <span>${parseInt(royalty?.balances?.[0]?.mintFee?.[0].amount) / 1e18} IP</span>
+              </div>
+              <div>
+                <span class="graph-content-label">Claimable Balance:</span> 
+                <span>${parseInt(royalty?.balances?.[0]?.balance) / 1e18} IP</span>
+              </div>
+              <div>
+                <span class="graph-content-label">Children:</span> 
+                <span>${royalty.balances[0].links.map(link => link.childIpId.slice(0, 6) + '...').join(', ')}</span>
+              </div>
             </div>
-            <div>
-              <span class="graph-content-label">Type:</span> 
-              <span>Parent</span>
-            </div>
-            <div>
-              <span class="graph-content-label">Currency Address:</span> 
-              <span>${royalty?.balances?.[0]?.tokenAddress.slice(0, 6)}...${royalty?.balances?.[0]?.tokenAddress.slice(-4)}</span>
-            </div>
-            <div>
-              <span class="graph-content-label">Mint Fee:</span> 
-              <span>${parseInt(royalty?.balances?.[0]?.mintFee?.[0].amount) / 1e18} IP</span>
-            </div>
-            <div>
-              <span class="graph-content-label">Claimable Balance:</span> 
-              <span>${parseInt(royalty?.balances?.[0]?.balance) / 1e18} IP</span>
-            </div>
-          </div>
-        `,
-        val: 1,
-        level: 0,
-        imageProperties: nftData?.image_properties,
-        imageUrl: nftData?.previews?.image_small_url || nftData?.image_url,
-        isRoot: true,
+          `,
+          val: 1,
+          level: 0,
+          isRoot: true,
+        };
+        nodes.push(parentNode);
+        nodeIds.add(royalty.ipId); // Track the node ID
       }
-      nodes.push(parentNode)
 
+      // Iterate over balances and links to create child nodes and links
       royalty.balances.forEach((balance: RoyaltyBalance) => {
         balance.links.forEach((link: RoyaltyLink) => {
-          // Create node for each child IP
-          const childNode: GraphNode = {
-            id: link.childIpId,
-            name: `Child ${link.childIpId.slice(0, 6)}...`,
-            details: `
-              <div class="graph-content">
-                <div>
-                  <span class="graph-content-label">IP ID:</span> 
-                  <span>${link.childIpId.slice(0, 6)}...${link.childIpId.slice(-4)}</span>
+          // Create node for each child IP if it doesn't already exist
+          if (!nodeIds.has(link.childIpId)) {
+            const childRoyalty = apiData.royalties.find(r => r.ipId === link.childIpId);
+            const childNode: GraphNode = {
+              id: link.childIpId,
+              name: `Child ${link.childIpId.slice(0, 6)}...`,
+              details: `
+                <div class="graph-content">
+                  <div>
+                    <span class="graph-content-label">IP ID:</span> 
+                    <span>${link.childIpId.slice(0, 6)}...${link.childIpId.slice(-4)}</span>
+                  </div>
+                  <div>
+                    <span class="graph-content-label">Type:</span> 
+                    <span>Child</span>
+                  </div>
+                  <div>
+                    <span class="graph-content-label">Currency Address:</span> 
+                    <span>${link.tokenAddress.slice(0, 6)}...${link.tokenAddress.slice(-4)}</span>
+                  </div>
+                  <div>
+                    <span class="graph-content-label">Royalty Amount:</span> 
+                    <span>${parseInt(link.amount) / 1e18} IP</span>
+                  </div>
+                  <div>
+                    <span class="graph-content-label">Mint Fee:</span> 
+                    <span>${parseInt(childRoyalty?.balances?.[0]?.mintFee?.[0].amount as string) / 1e18 || 0} IP</span>
+                  </div>
+                  <div>
+                    <span class="graph-content-label">Claimable Balance:</span> 
+                    <span>${parseInt(childRoyalty?.balances?.[0]?.balance as string) / 1e18 || 0} IP</span>
+                  </div>
+                  <div>
+                    <span class="graph-content-label">Parents:</span> 
+                    <span>${apiData.royalties.filter(r => r.balances[0].links.some(l => l.childIpId === link.childIpId)).map(r => r.ipId.slice(0, 6) + '...').join(', ')}</span>
+                  </div>
+                  <div>
+                    <span class="graph-content-label">Children:</span> 
+                    <span>${childRoyalty?.balances[0].links.map(l => l.childIpId.slice(0, 6) + '...').join(', ') || 'None'}</span>
+                  </div>
                 </div>
-                <div>
-                  <span class="graph-content-label">Type:</span> 
-                  <span>Child</span>
-                </div>
-                <div>
-                  <span class="graph-content-label">Currency Address:</span> 
-                  <span>${link.tokenAddress.slice(0, 6)}...${link.tokenAddress.slice(-4)}</span>
-                </div>
-                <div>
-                  <span class="graph-content-label">Royalty Amount:</span> 
-                  <span>${parseInt(link.amount) / 1e18} IP</span>
-                </div>
-              </div>
-            `,
-            val: 1,
-            level: 1,
+              `,
+              val: 1,
+              level: 1,
+            };
+            nodes.push(childNode);
+            nodeIds.add(link.childIpId); // Track the node ID
           }
-          nodes.push(childNode)
 
-          // Create link between parent and child
+          // Create link between parent (source) and child (target)
           links.push({
-            source: link.childIpId,
-            target: royalty.ipId,
+            source: link.childIpId, // Parent is the source
+            target: royalty.ipId, // Child is the target
             value: parseInt(link.amount) / 1e18,
-          })
-        })
-      })
-    })
+          });
+        });
+      });
+    });
 
-    return { nodes, links }
+    console.log({ nodes, links })
+    return { nodes, links };
   } catch (error) {
-    console.error(error)
-    return { nodes: [], links: [] }
+    console.error(error);
+    return { nodes: [], links: [] };
   }
 }
-
 export async function fetchNFTMetadata(assets: Asset[]): Promise<Map<string, NFTMetadata>> {
   const chunkSize = 200
   const nftDataMap = new Map<string, NFTMetadata>()

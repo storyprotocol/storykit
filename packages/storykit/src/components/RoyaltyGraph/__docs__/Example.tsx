@@ -1,14 +1,19 @@
 import { getCollectionByAddress, getNFTByWallet } from "@/lib/simplehash"
-import { ILIAD_PREVIEW_IP_ASSETS } from "@/stories/data"
+import { RoyaltyGraphProvider } from "@/providers/RoyaltyGraphProvider/RoyaltyGraphProvider"
+import {
+  // ILIAD_PREVIEW_IP_ASSETS,
+  ILIAD_TESTNET_ROYALTY_GRAPH_IP_ASSETS, // ILIAD_TESTNET_ROYALTY_GRAPH_LAP_ASSETS,
+  // ILIAD_TESTNET_ROYALTY_GRAPH_LRP_ASSETS,
+} from "@/stories/data"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import React, { FC, useEffect, useState } from "react"
 import { Address } from "viem"
 
-import { IpProvider } from "../../../providers"
+// import { IpProvider } from "../../../providers"
 import RoyaltyGraph from "../RoyaltyGraph"
 
-const Example: FC<{ ipId: Address; width?: number; height?: number; darkMode?: boolean }> = ({
-  ipId = ILIAD_PREVIEW_IP_ASSETS[0] as `0x${string}`,
+const Example: FC<{ ipIds: Address[]; width?: number; height?: number; darkMode?: boolean }> = ({
+  ipIds = [ILIAD_TESTNET_ROYALTY_GRAPH_IP_ASSETS[0]] as Address[],
   width = 400,
   height = 300,
   darkMode = false,
@@ -31,11 +36,13 @@ const Example: FC<{ ipId: Address; width?: number; height?: number; darkMode?: b
     <>
       <QueryClientProvider client={queryClient}>
         <div className="flex h-full items-center justify-center">
-          <IpProvider ipId={ipId} options={{ royaltyGraphData: true }}>
+          {/* <IpProvider ipId={ipId} options={{ royaltyGraphData: true }}> */}
+          <RoyaltyGraphProvider ipIds={ipIds}>
             {/* <div style={{ width: "100%", height: "500px" }}> */}
             <RoyaltyGraph width={width} height={height} darkMode={darkMode} />
             {/* </div> */}
-          </IpProvider>
+          </RoyaltyGraphProvider>
+          {/* </IpProvider> */}
         </div>
       </QueryClientProvider>
       {collections && (
