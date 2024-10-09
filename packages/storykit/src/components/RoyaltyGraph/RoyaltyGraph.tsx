@@ -23,7 +23,7 @@ type Link = LinkObject & {
 
 const NODE_R = 8
 
-function RoyaltyGraph({ width = 800, height = 800, darkMode = false }: RoyaltyGraphProps) {
+function RoyaltyGraph({ width = 1000, height = 1000, darkMode = false }: RoyaltyGraphProps) {
   const { isAssetDataLoading, assetData, nftData, chain, royaltyGraphData } = useIpContext()
 
   const {
@@ -162,7 +162,7 @@ function RoyaltyGraph({ width = 800, height = 800, darkMode = false }: RoyaltyGr
     ctx.moveTo(start?.x, start?.y)
     ctx.lineTo(end?.x, end?.y)
     ctx.strokeStyle = highlightLinks.has(link) ? "#d8d5f4" : darkMode ? "#686868" : "#c0c0c0"
-    ctx.lineWidth = highlightLinks.has(link) ? 3 : 1
+    ctx.lineWidth = highlightLinks.has(link) ? 2 : 1
     ctx.stroke()
 
     // Draw the label
@@ -173,7 +173,7 @@ function RoyaltyGraph({ width = 800, height = 800, darkMode = false }: RoyaltyGr
       const textWidth = textMetrics.width
       const textHeight = 4 / scale // Assuming font size is 12
       // Draw background with rounded corners
-      ctx.fillStyle = darkMode ? "rgba(0, 0, 0, 0.7)" : "rgba(117, 34, 232,0.8)"
+      ctx.fillStyle = darkMode ? "rgba(0, 0, 0, 0.7)" : "rgba(117, 34, 232,0.6)"
       const cornerRadius = 6 // Adjust this value to change the roundness of corners
       const x = middleX - textWidth / 2 - padding - 1
       const y = middleY - padding + 1
@@ -382,7 +382,7 @@ function RoyaltyGraph({ width = 800, height = 800, darkMode = false }: RoyaltyGr
           // linkWidth={(link: Link) => (highlightLinks.has(link) ? 5 : 1)}
           linkCanvasObject={linkCanvasObject}
           linkCanvasObjectMode={() => "replace"}
-          linkDirectionalParticles={4}
+          linkDirectionalParticles={6}
           linkDirectionalParticleColor={() => "#7a12f8"}
           linkDirectionalParticleWidth={(link: Link) => (highlightLinks.has(link) ? 4 : 0)}
           linkDirectionalParticleSpeed={() => 0.005}
