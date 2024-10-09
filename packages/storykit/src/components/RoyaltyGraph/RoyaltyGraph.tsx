@@ -23,7 +23,7 @@ type Link = LinkObject & {
 
 const NODE_R = 8
 
-function RoyaltyGraph({ width = 1000, height = 1000, darkMode = false }: RoyaltyGraphProps) {
+function RoyaltyGraph({ width = 600, height = 600, darkMode = false }: RoyaltyGraphProps) {
   const { isAssetDataLoading, assetData, nftData, chain, royaltyGraphData } = useIpContext()
 
   const {
@@ -66,21 +66,22 @@ function RoyaltyGraph({ width = 1000, height = 1000, darkMode = false }: Royalty
     importForceGraphModule()
   }, [])
 
-  useEffect(() => {
-    function handleResize() {
-      if (containerRef.current) {
-        setDimensions({
-          width: containerRef.current.offsetWidth,
-          height: containerRef.current.offsetHeight,
-        })
-      }
-    }
+  // TODO: try to fix the width and height to stretch to the container
+  // useEffect(() => {
+  //   function handleResize() {
+  //     if (containerRef.current) {
+  //       setDimensions({
+  //         width: containerRef.current.offsetWidth,
+  //         height: containerRef.current.offsetHeight,
+  //       })
+  //     }
+  //   }
 
-    handleResize() // Initial size calculation
+  //   handleResize() // Initial size calculation
 
-    window.addEventListener("resize", handleResize)
-    return () => window.removeEventListener("resize", handleResize)
-  }, [])
+  //   window.addEventListener("resize", handleResize)
+  //   return () => window.removeEventListener("resize", handleResize)
+  // }, [])
 
   // cross-link node objects
   const crossLinkedData = useMemo(() => {
@@ -359,7 +360,7 @@ function RoyaltyGraph({ width = 1000, height = 1000, darkMode = false }: Royalty
         "flex items-center justify-center w-full h-full",
         darkMode ? "bg-black text-white" : "bg-white text-black"
       )}
-      style={{ width: `${width}px`, height: `${height}px` }}
+      // style={{ width: `${width}px`, height: `${height}px` }}
     >
       {isLoading ? (
         <>Loading...</>
@@ -374,8 +375,8 @@ function RoyaltyGraph({ width = 1000, height = 1000, darkMode = false }: Royalty
           // TODO: try to fix the width and height to stretch to the container
           // width={dimensions.width}
           // height={dimensions.height}
-          width={width}
-          height={height}
+          // width={width}
+          // height={height}
           graphData={crossLinkedData}
           backgroundColor={darkMode ? "#000" : "#fff"}
           nodeCanvasObject={nodeCanvasObject}
