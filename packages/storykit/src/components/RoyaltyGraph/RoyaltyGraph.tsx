@@ -19,6 +19,7 @@ export type RoyaltyGraphProps = {
 }
 
 type Link = LinkObject & {
+  source: { id: string; x: number; y: number }
   value?: number
 }
 
@@ -91,7 +92,7 @@ function RoyaltyGraph({ width = 600, height = 600, darkMode = false }: RoyaltyGr
 
     const data = JSON.parse(JSON.stringify(formattedGraphData))
 
-    console.log("crossLinkedData", data)
+    // console.log("crossLinkedData", data)
 
     data.links.forEach((link: { source: string; target: string }) => {
       const a = data.nodes.find((node: any) => node.id === link.source)
@@ -115,7 +116,7 @@ function RoyaltyGraph({ width = 600, height = 600, darkMode = false }: RoyaltyGr
 
   const [highlightNodes, setHighlightNodes] = useState(new Set())
   const [highlightLinks, setHighlightLinks] = useState(new Set())
-  const [hoverNode, setHoverNode] = useState(null)
+  const [hoverNode, setHoverNode] = useState<any>(null)
 
   const updateHighlight = () => {
     setHighlightNodes(new Set(highlightNodes))
@@ -153,8 +154,9 @@ function RoyaltyGraph({ width = 600, height = 600, darkMode = false }: RoyaltyGr
   }
 
   const linkCanvasObject = (link: Link, ctx: CanvasRenderingContext2D, scale: number) => {
-    const start = link.source as { x: number; y: number }
-    const end = link.target as { x: number; y: number }
+    // console.log("linkCanvasObject", link)
+    const start = link.source as { id: string; x: number; y: number }
+    const end = link.target as { id: string; x: number; y: number }
 
     // Calculate the middle point of the link
     const middleX = start?.x + (end?.x - start?.x) / 2
@@ -164,7 +166,13 @@ function RoyaltyGraph({ width = 600, height = 600, darkMode = false }: RoyaltyGr
     ctx.beginPath()
     ctx.moveTo(start?.x, start?.y)
     ctx.lineTo(end?.x, end?.y)
-    ctx.strokeStyle = highlightLinks.has(link) ? "#d8d5f4" : darkMode ? "#686868" : "#c0c0c0"
+    ctx.strokeStyle = highlightLinks.has(link)
+      ? link.source?.id === hoverNode?.id
+        ? "#d8d5f4"
+        : "#d8f7f3"
+      : darkMode
+        ? "#686868"
+        : "#c0c0c0"
     ctx.lineWidth = highlightLinks.has(link) ? 2 : 1
     ctx.stroke()
 
@@ -179,7 +187,8 @@ function RoyaltyGraph({ width = 600, height = 600, darkMode = false }: RoyaltyGr
       const textHeight = fontSize * 0.8 // Approximate height based on font size
 
       // Draw background with rounded corners
-      ctx.fillStyle = darkMode ? "rgba(0, 0, 0, 0.7)" : "rgba(117, 34, 232,0.6)"
+      ctx.fillStyle = link.source?.id === hoverNode?.id ? "rgba(97, 61, 240, 0.7)" : "rgba(36, 196, 177, 0.7)"
+
       const cornerRadius = 6 / scale // Adjust corner radius based on scale
       const x = middleX - textWidth / 2 - padding
       const y = middleY - textHeight / 2 - padding
@@ -220,7 +229,7 @@ function RoyaltyGraph({ width = 600, height = 600, darkMode = false }: RoyaltyGr
       ctx.beginPath()
       ctx.arc(node.x, node.y, radius, 0, 2 * Math.PI, false) // Draw the border as an arc
       ctx.lineWidth = 2
-      ctx.strokeStyle = isSelf ? "#fb45e3" : node === hoverNode ? "#27eed7" : "#27eed7"
+      ctx.strokeStyle = node === hoverNode ? "#fb45e3" : node.level < hoverNode?.level ? "#613df0" : "#27eed7"
       ctx.stroke()
     },
     [hoverNode]
@@ -266,9 +275,9 @@ function RoyaltyGraph({ width = 600, height = 600, darkMode = false }: RoyaltyGr
 
   const nodeCanvasObject = useCallback(
     (node: any, ctx: any, globalScale: any) => {
-      console.log({ node })
       const isParent = node.level < 0
       const isSelf = node.level === 0
+
       // const isChild = node.level > 0
 
       // Define labels for node
@@ -350,7 +359,7 @@ function RoyaltyGraph({ width = 600, height = 600, darkMode = false }: RoyaltyGr
       ctx.fillText(node.name, node.x, node.y + circleRadius + 2)
       // drawLabels(ctx, node, label1, label2, globalScale, darkMode)
     },
-    [darkMode, drawCircle, drawCircleBorder, highlightNodes, royaltyGraphData?.royalties]
+    [darkMode, drawCircle, drawCircleBorder, highlightNodes, royaltyGraphData?.royalties, hoverNode]
   )
 
   return (
@@ -371,7 +380,7 @@ function RoyaltyGraph({ width = 600, height = 600, darkMode = false }: RoyaltyGr
       ) : ForceGraph ? (
         <ForceGraph
           ref={fgRef}
-          nodeLabel={"details"}
+          // nodeLabel={"details"}
           nodeRelSize={NODE_R}
           autoPauseRedraw={false}
           // TODO: try to fix the width and height to stretch to the container
@@ -386,7 +395,14 @@ function RoyaltyGraph({ width = 600, height = 600, darkMode = false }: RoyaltyGr
           linkCanvasObject={linkCanvasObject}
           linkCanvasObjectMode={() => "replace"}
           linkDirectionalParticles={6}
-          linkDirectionalParticleColor={() => "#7a12f8"}
+          linkDirectionalArrowRelPos={2}
+          linkDirectionalArrowLength={8}
+          linkDirectionalArrowColor={(link: Link) =>
+            highlightLinks.has(link) ? (link.source?.id === hoverNode?.id ? "#613df0" : "#27eed7") : "#cccccc"
+          }
+          linkDirectionalParticleColor={(link: Link) =>
+            highlightLinks.has(link) ? (link.source?.id === hoverNode?.id ? "#613df0" : "#27eed7") : "#cccccc"
+          }
           linkDirectionalParticleWidth={(link: Link) => (highlightLinks.has(link) ? 4 : 0)}
           linkDirectionalParticleSpeed={() => 0.005}
           onNodeHover={handleNodeHover}

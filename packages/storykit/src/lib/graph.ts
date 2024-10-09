@@ -259,9 +259,11 @@ export async function convertRoyaltyToGraphFormat(apiData: RoyaltiesGraph): Prom
   try {
     const nodes: GraphNode[] = [];
     const links: Link[] = [];
-    const nodeIds = new Set<string>(); // Use this to track node IDs to avoid duplication
+    const nodeIds = new Set<string>();
+    const idToLevelMap = new Map<string, number>();
+
+    // First pass: Create nodes and identify root nodes
     apiData.royalties.forEach((royalty: RoyaltyGraph) => {
-      // Create node for the parent IP if it doesn't already exist
       if (!nodeIds.has(royalty.ipId)) {
         const parentNode: GraphNode = {
           id: royalty.ipId,
@@ -299,13 +301,13 @@ export async function convertRoyaltyToGraphFormat(apiData: RoyaltiesGraph): Prom
           isRoot: true,
         };
         nodes.push(parentNode);
-        nodeIds.add(royalty.ipId); // Track the node ID
+        nodeIds.add(royalty.ipId);
+        idToLevelMap.set(royalty.ipId, 0);
       }
 
-      // Iterate over balances and links to create child nodes and links
+      // Create child nodes and links
       royalty.balances.forEach((balance: RoyaltyBalance) => {
         balance.links.forEach((link: RoyaltyLink) => {
-          // Create node for each child IP if it doesn't already exist
           if (!nodeIds.has(link.childIpId)) {
             const childRoyalty = apiData.royalties.find(r => r.ipId === link.childIpId);
             const childNode: GraphNode = {
@@ -339,38 +341,56 @@ export async function convertRoyaltyToGraphFormat(apiData: RoyaltiesGraph): Prom
                   </div>
                   <div>
                     <span class="graph-content-label">Parents:</span> 
-                    <span>${apiData.royalties.filter(r => r.balances[0].links.some(l => l.childIpId === link.childIpId)).map(r => r.ipId.slice(0, 6) + '...').join(', ')}</span>
+                    <span>${apiData.royalties
+                  .filter((r) => r.balances[0].links.some((l) => l.childIpId === link.childIpId))
+                  .map((r) => r.ipId.slice(0, 6) + "...")
+                  .join(", ")}</span>
                   </div>
                   <div>
                     <span class="graph-content-label">Children:</span> 
-                    <span>${childRoyalty?.balances[0].links.map(l => l.childIpId.slice(0, 6) + '...').join(', ') || 'None'}</span>
+                    <span>${childRoyalty?.balances[0].links.map((l) => l.childIpId.slice(0, 6) + "...").join(", ") || "None"}</span>
                   </div>
                 </div>
               `,
               val: 1,
-              level: 1,
+              level: 0, // We'll update this later
+              isRoot: false,
             };
             nodes.push(childNode);
-            nodeIds.add(link.childIpId); // Track the node ID
+            nodeIds.add(link.childIpId);
+            idToLevelMap.set(link.childIpId, 0); // Initially set to 0, will update later
           }
 
-          // Create link between parent (source) and child (target)
           links.push({
-            source: link.childIpId, // Parent is the source
-            target: royalty.ipId, // Child is the target
+            source: link.childIpId,
+            target: royalty.ipId,
             value: parseInt(link.amount) / 1e18,
           });
+
+          // Update level for child nodes
+          const parentLevel = idToLevelMap.get(royalty.ipId) || 0;
+          const childLevel = idToLevelMap.get(link.childIpId) || 0;
+          if (childLevel <= parentLevel) {
+            idToLevelMap.set(link.childIpId, parentLevel + 1);
+          }
         });
       });
     });
 
-    console.log({ nodes, links })
+    // Update node levels and isRoot property
+    nodes.forEach(node => {
+      node.level = idToLevelMap.get(node.id) || 0;
+      node.isRoot = node.level === 0;
+    });
+
+    console.log({ nodes, links });
     return { nodes, links };
   } catch (error) {
     console.error(error);
     return { nodes: [], links: [] };
   }
 }
+
 export async function fetchNFTMetadata(assets: Asset[]): Promise<Map<string, NFTMetadata>> {
   const chunkSize = 200
   const nftDataMap = new Map<string, NFTMetadata>()
