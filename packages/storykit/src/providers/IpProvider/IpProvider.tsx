@@ -1,5 +1,7 @@
 import { STORYKIT_SUPPORTED_CHAIN } from "@/lib/constants"
 import { convertLicenseTermObject } from "@/lib/functions/convertLicenseTermObject"
+import { getRoyaltiesByIPs } from "@/lib/royalty-graph"
+import { RoyaltiesGraph, RoyaltyGraph } from "@/types/royalty-graph"
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query"
 import React from "react"
 import { Address, Hash } from "viem"
@@ -26,6 +28,7 @@ export interface IpProviderOptions {
   licenseTermsData?: boolean
   licenseData?: boolean
   royaltyData?: boolean
+  royaltyGraphData?: boolean
 }
 
 const IpContext = React.createContext<{
@@ -49,6 +52,8 @@ const IpContext = React.createContext<{
   isLicenseDataLoading: boolean
   royaltyData: RoyaltyPolicy | undefined
   isRoyaltyDataLoading: boolean
+  royaltyGraphData: RoyaltiesGraph | undefined
+  isRoyaltyGraphDataLoading: boolean
   refetchAssetData: () => void
   refetchAssetParentData: () => void
   refetchAssetChildrenData: () => void
@@ -57,6 +62,7 @@ const IpContext = React.createContext<{
   refetchLicenseData: () => void
   refetchRoyaltyData: () => void
   refetchNFTData: () => void
+  refetchRoyaltyGraphData: () => void
   isNftDataFetched: boolean
   isAssetDataFetched: boolean
   isAssetParentDataFetched: boolean
@@ -65,6 +71,7 @@ const IpContext = React.createContext<{
   isLicenseTermsDataFetched: boolean
   isLicenseDataFetched: boolean
   isRoyaltyDataFetched: boolean
+  isRoyaltyGraphDataFetched: boolean
 } | null>(null)
 
 export const IpProvider = ({
@@ -86,6 +93,7 @@ export const IpProvider = ({
     licenseTermsData: true,
     licenseData: true,
     royaltyData: true,
+    royaltyGraphData: false,
     ...options,
   }
 
@@ -276,6 +284,17 @@ export const IpProvider = ({
   })
 
   const {
+    isLoading: isRoyaltyGraphDataLoading,
+    data: royaltyGraphData,
+    refetch: refetchRoyaltyGraphData,
+    isFetched: isRoyaltyGraphDataFetched,
+  } = useQuery<RoyaltiesGraph | undefined>({
+    queryKey: ["getRoyaltiesByIPs", ipId],
+    queryFn: () => getRoyaltiesByIPs([ipId], { chain }),
+    enabled: queryOptions.royaltyGraphData,
+  })
+
+  const {
     isLoading: isNftDataLoading,
     data: nftData,
     refetch: refetchNFTData,
@@ -318,6 +337,8 @@ export const IpProvider = ({
         isLicenseDataLoading,
         royaltyData: royaltyData?.data,
         isRoyaltyDataLoading,
+        royaltyGraphData,
+        isRoyaltyGraphDataLoading,
         refetchAssetData,
         refetchAssetParentData,
         refetchAssetChildrenData,
@@ -325,6 +346,7 @@ export const IpProvider = ({
         refetchLicenseTermsData,
         refetchLicenseData,
         refetchRoyaltyData,
+        refetchRoyaltyGraphData,
         refetchNFTData,
         isNftDataFetched,
         isAssetDataFetched,
@@ -334,6 +356,7 @@ export const IpProvider = ({
         isLicenseTermsDataFetched,
         isLicenseDataFetched,
         isRoyaltyDataFetched,
+        isRoyaltyGraphDataFetched,
       }}
     >
       {children}

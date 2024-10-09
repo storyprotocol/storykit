@@ -19,7 +19,6 @@ export type IpGraphProps = {
 function IpGraph({ width = 500, height = 500, darkMode = false }: IpGraphProps) {
   const { isAssetDataLoading, assetData, nftData, chain } = useIpContext()
 
-  console.log({ assetData, nftData })
   const {
     isLoading: formattedDataLoading,
     data: formattedGraphData,

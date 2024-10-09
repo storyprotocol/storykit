@@ -6,6 +6,7 @@ import { Address } from "viem"
 import { listResource } from "./api"
 import { CHAINID_TO_CHAINNAME, STORYKIT_SUPPORTED_CHAIN } from "./constants"
 import { NFT, getNFTByTokenId, getNFTByTokenIds } from "./simplehash"
+import { RoyaltiesGraph, RoyaltyBalance, RoyaltyGraph, RoyaltyLink } from "@/types/royalty-graph"
 
 export interface GraphNode {
   id: string
@@ -29,6 +30,7 @@ export interface GraphNode {
 interface Link {
   source: string
   target: string
+  value?: number
 }
 
 export interface GraphData {
@@ -251,6 +253,142 @@ export async function convertAssetToGraphFormat(
   }
 
   return { nodes, links }
+}
+
+export async function convertRoyaltyToGraphFormat(apiData: RoyaltiesGraph): Promise<GraphData> {
+  try {
+    const nodes: GraphNode[] = [];
+    const links: Link[] = [];
+    const nodeIds = new Set<string>();
+    const idToLevelMap = new Map<string, number>();
+
+    // First pass: Create nodes and identify root nodes
+    apiData.royalties.forEach((royalty: RoyaltyGraph) => {
+      if (!nodeIds.has(royalty.ipId)) {
+        const parentNode: GraphNode = {
+          id: royalty.ipId,
+          name: `IP ${royalty.ipId.slice(0, 6)}...`,
+          details: `
+            <div class="graph-content">
+              <div>
+                <span class="graph-content-label">IP ID:</span> 
+                <span>${royalty.ipId.slice(0, 6)}...${royalty.ipId.slice(-4)}</span>
+              </div>
+              <div>
+                <span class="graph-content-label">Type:</span> 
+                <span>Parent</span>
+              </div>
+              <div>
+                <span class="graph-content-label">Currency Address:</span> 
+                <span>${royalty?.balances?.[0]?.tokenAddress.slice(0, 6)}...${royalty?.balances?.[0]?.tokenAddress.slice(-4)}</span>
+              </div>
+              <div>
+                <span class="graph-content-label">Mint Fee:</span> 
+                <span>${parseInt(royalty?.balances?.[0]?.mintFee?.[0].amount) / 1e18} IP</span>
+              </div>
+              <div>
+                <span class="graph-content-label">Claimable Balance:</span> 
+                <span>${parseInt(royalty?.balances?.[0]?.balance) / 1e18} IP</span>
+              </div>
+              <div>
+                <span class="graph-content-label">Children:</span> 
+                <span>${royalty.balances[0].links.map(link => link.childIpId.slice(0, 6) + '...').join(', ')}</span>
+              </div>
+            </div>
+          `,
+          val: 1,
+          level: 0,
+          isRoot: true,
+        };
+        nodes.push(parentNode);
+        nodeIds.add(royalty.ipId);
+        idToLevelMap.set(royalty.ipId, 0);
+      }
+
+      // Create child nodes and links
+      royalty.balances.forEach((balance: RoyaltyBalance) => {
+        balance.links.forEach((link: RoyaltyLink) => {
+          if (!nodeIds.has(link.childIpId)) {
+            const childRoyalty = apiData.royalties.find(r => r.ipId === link.childIpId);
+            const childNode: GraphNode = {
+              id: link.childIpId,
+              name: `Child ${link.childIpId.slice(0, 6)}...`,
+              details: `
+                <div class="graph-content">
+                  <div>
+                    <span class="graph-content-label">IP ID:</span> 
+                    <span>${link.childIpId.slice(0, 6)}...${link.childIpId.slice(-4)}</span>
+                  </div>
+                  <div>
+                    <span class="graph-content-label">Type:</span> 
+                    <span>Child</span>
+                  </div>
+                  <div>
+                    <span class="graph-content-label">Currency Address:</span> 
+                    <span>${link.tokenAddress.slice(0, 6)}...${link.tokenAddress.slice(-4)}</span>
+                  </div>
+                  <div>
+                    <span class="graph-content-label">Royalty Amount:</span> 
+                    <span>${parseInt(link.amount) / 1e18} IP</span>
+                  </div>
+                  <div>
+                    <span class="graph-content-label">Mint Fee:</span> 
+                    <span>${parseInt(childRoyalty?.balances?.[0]?.mintFee?.[0].amount as string) / 1e18 || 0} IP</span>
+                  </div>
+                  <div>
+                    <span class="graph-content-label">Claimable Balance:</span> 
+                    <span>${parseInt(childRoyalty?.balances?.[0]?.balance as string) / 1e18 || 0} IP</span>
+                  </div>
+                  <div>
+                    <span class="graph-content-label">Parents:</span> 
+                    <span>${apiData.royalties
+                  .filter((r) => r.balances[0].links.some((l) => l.childIpId === link.childIpId))
+                  .map((r) => r.ipId.slice(0, 6) + "...")
+                  .join(", ")}</span>
+                  </div>
+                  <div>
+                    <span class="graph-content-label">Children:</span> 
+                    <span>${childRoyalty?.balances[0].links.map((l) => l.childIpId.slice(0, 6) + "...").join(", ") || "None"}</span>
+                  </div>
+                </div>
+              `,
+              val: 1,
+              level: 0, // We'll update this later
+              isRoot: false,
+            };
+            nodes.push(childNode);
+            nodeIds.add(link.childIpId);
+            idToLevelMap.set(link.childIpId, 0); // Initially set to 0, will update later
+          }
+
+          links.push({
+            source: link.childIpId,
+            target: royalty.ipId,
+            value: parseInt(link.amount) / 1e18,
+          });
+
+          // Update level for child nodes
+          const parentLevel = idToLevelMap.get(royalty.ipId) || 0;
+          const childLevel = idToLevelMap.get(link.childIpId) || 0;
+          if (childLevel <= parentLevel) {
+            idToLevelMap.set(link.childIpId, parentLevel + 1);
+          }
+        });
+      });
+    });
+
+    // Update node levels and isRoot property
+    nodes.forEach(node => {
+      node.level = idToLevelMap.get(node.id) || 0;
+      node.isRoot = node.level === 0;
+    });
+
+    console.log({ nodes, links });
+    return { nodes, links };
+  } catch (error) {
+    console.error(error);
+    return { nodes: [], links: [] };
+  }
 }
 
 export async function fetchNFTMetadata(assets: Asset[]): Promise<Map<string, NFTMetadata>> {
