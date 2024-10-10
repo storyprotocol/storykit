@@ -19,7 +19,7 @@ export type RoyaltyGraphQueryOptions = {
 export async function getRoyaltiesByIPs(ipIds: Address[], options?: RoyaltyGraphQueryOptions) {
   console.log("ipIds", ipIds)
   try {
-    const res = await fetch(`${API_URL}/story-graph/graph/v1/ipas/royalties`, {
+    const res = await fetch(`${API_URL}/story-graph/graph/v1/nodes/royalties`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
