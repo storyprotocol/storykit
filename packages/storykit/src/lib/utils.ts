@@ -45,3 +45,18 @@ export function getPilFlavorByLicenseTerms(pilTerms: PILTerms): PilFlavor {
 
   return PIL_FLAVOR.CUSTOM
 }
+
+export async function getImageUrlFromIpfsUrl(ipfsUrl: string) {
+  const metadata = await fetch(ipfsUrl).then((res) => res.json())
+
+  return convertIpfsUriToUrl(metadata.image)
+}
+
+export function convertIpfsUriToUrl(ipfsUri: string): string {
+  if (!ipfsUri.startsWith("ipfs://")) {
+    return ipfsUri
+  }
+
+  const contentHash = ipfsUri.slice(7) // Remove the 'ipfs://' prefix
+  return `https://ipfs.io/ipfs/${contentHash}`
+}
