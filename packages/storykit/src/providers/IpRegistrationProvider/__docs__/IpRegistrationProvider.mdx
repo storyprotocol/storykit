@@ -1,0 +1,70 @@
+import { Canvas, Controls, Meta } from "@storybook/blocks"
+
+import * as IpRegistrationProviderStory from "./IpRegistrationProvider.stories"
+
+<Meta of={IpRegistrationProviderStory} title="Providers/IpRegistrationProvider" />
+
+# IpRegistrationProvider
+
+The IP Registration Provider is the core of Storykit, by passing it an IP Asset ID it provides IP Asset data to children components.
+
+#### Example
+
+<Canvas of={IpRegistrationProviderStory.Empty} />
+
+<Controls />
+
+## Usage
+
+```ts
+// wrap your component with the IpRegistrationProvider
+
+import { IpRegistrationProvider } from "@storyprotocol/storykit"
+import ExampleFormComponent from './ExampleFormComponent'
+
+const ExamplePage = () => {
+  return (
+    <IpRegistrationProvider>
+      <ExampleFormComponent />
+    </IpRegistrationProvider>
+  );
+};
+
+export default ExamplePage;
+```
+
+#### Provider data
+
+The IpRegistrationProvider provides the following data to its children:
+
+- **nftImage ** - the url of the image
+- **setNftImage** - function to set the url of the image
+- **nftContract** - nft contract address
+- **setNftContract** - function to set the nft contract address
+- **collectionAddress** - collection address
+- **setCollectionAddress** - function to set the collection address
+- **tokenId** - token Id of minted NFT
+- **setTokenId** - function to set token Id of minted NFT
+- **registrationMethod** - will the user register the IPA or mint an NFT then register it
+- **setRegistrationMethod** - function to set the registration method
+- **nftName** - the name of both the NFT and the IPA
+- **setNftName** - function to set the name of the NFT
+- **ipId** - the ID of the newly created IPA
+- **setIpId** - function to set the ID of the newly created IPA
+- **imageUrl** - the image url of the NFT, defined in the metadataIpfs
+- **metadataIpfs** - ipfs address of the NFT metadata
+- **setMetadataIpfs** - funtion to set the ipfs address of the NFT metadata
+- **ipRegistrationTxnHash** - transaction hash of the IPA registration
+- **setIpRegistrationTxnHash** - function to set the transaction hash of the IPA registration
+- **licenseId** - chosen license id of the IPA
+- **setLicenseId** - function to set the chosen license id of the IPA
+- **licenseType** - chosen license type (PIL_TYPE) of the IPA
+- **setLicenseType** - function to set the chosen license type of the IPA
+- **licenseRegistrationTxnHash** - transaction hash of the license registration
+- **setLicenseRegistrationTxnHash** - function to set the transaction hash of the license registration
+- **licenseAttachTxnHash** - transaction hash of the license attachment
+- **setLicenseAttachTxnHash** - function to set the transaction hash of the license attachment
+
+#### Arguments
+
+- **children** - The child component to provide the IP Asset context to.
