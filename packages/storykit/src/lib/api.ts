@@ -11,7 +11,7 @@ const API_KEY =
 
 export async function getResource<T>(resourceName: ResourceType, resourceId: string, options?: QueryOptions) {
   try {
-    const res = await fetch(`${API_URL}/api/v1/${resourceName}/${resourceId}`, {
+    const res = await fetch(`${API_URL}/${resourceName}/${resourceId}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -30,7 +30,7 @@ export async function getResource<T>(resourceName: ResourceType, resourceId: str
 
 export async function listResource<T>(resourceName: ResourceType, options?: QueryOptions) {
   try {
-    const res = await fetch(`${API_URL}/api/v1/${resourceName}`, {
+    const res = await fetch(`${API_URL}/${resourceName}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
