@@ -1,5 +1,3 @@
-export const API_BASE_URL = "https://edge.stg.storyprotocol.net"
-
 export enum STORYKIT_SUPPORTED_CHAIN {
   STORY_TESTNET = "story-testnet",
   ODYSSEY_TESTNET = "odyssey-testnet",
