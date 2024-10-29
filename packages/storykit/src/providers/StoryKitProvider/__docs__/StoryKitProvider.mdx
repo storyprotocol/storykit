@@ -1,0 +1,80 @@
+import { Canvas, Controls, Meta } from "@storybook/blocks"
+
+import * as StoryKitProviderStory from "./StoryKitProvider.stories"
+
+<Meta of={StoryKitProviderStory} title="Providers/StoryKitProvider" />
+
+# StoryKitProvider
+
+{/* The IP Provider is the core of Storykit, by passing it an IP Asset ID it provides IP Asset data to children components. */}
+
+#### Example
+
+<Canvas of={StoryKitProviderStory.Odyssey} />
+
+<Controls />
+
+## Usage
+
+```ts
+// wrap your app with the StoryKitProvider
+
+import { StoryKitProvider } from "@storyprotocol/storykit"
+import ExampleComponent from './ExampleComponent'
+
+const ExampleApp = () => {
+  return (
+    <StoryKitProvider
+      chain={STORYKIT_SUPPORTED_CHAIN.STORY_TESTNET}
+      defaultCurrency={STORYKIT_SUPPORTED_CURRENCY.ILIAD_STORYUSD}
+    >
+      <ExampleComponent />
+    </StoryKitProvider>
+  );
+};
+
+export default ExampleApp;
+```
+
+```ts
+import { useStoryKitContext } from "@storyprotocol/storykit"
+
+const ExampleComponent = () => {
+
+  const { defaultCurrency, chain } = useStoryKitContext()
+
+  return (
+    <div className="flex flex-col bg-background">
+      <div className="text-sm text-foreground">name: {chain.name}</div>
+      <div className="text-sm text-foreground">currency name: {defaultCurrency.name}</div>
+      ...
+    </div>
+  );
+};
+
+export default ExampleComponent;
+```
+
+#### Provider data
+
+The StoryKitProvider provides the following data to its children:
+
+- **chain** - the Story Chain config as defined in [chains.ts](https://github.com/storyprotocol/storykit/blob/main/packages/storykit/src/lib/chains.ts)
+- **viemChain** - the Chain config in viem Chain format
+- **apiKey** - The users API key if provided
+- **appId** - The users appId if provided
+- **theme** - The style theme, 'default' if none provided
+- **mode** - The style mode, 'light', 'dark' or undefined, will default to system if none provided
+- **themeClass** - The theme class to use if user wants to overwrite the theme mode
+- **defaultCurrency** - The default currency as defined in [currencies.ts](https://github.com/storyprotocol/storykit/blob/main/packages/storykit/src/lib/currencies.ts), sUSD if none provided
+
+#### Arguments
+
+- **children** - The child component to provide the IP Asset context to.
+- **chain** - The Story Chain to use, defaults to Odyssey Testnet
+- **defaultCurrency** - The default currency to use, defaults to Odyssey sUSD
+- **theme** - The style theme to use, defaults to 'default'
+- **mode** - 'light' and 'dark' mode, undefined defaults to system preference
+- **rpcUrl** - The RPC URL to use, defaults to the chain's RPC URL
+- **apiKey** - The API key to use, defaults to undefined
+- **appId** - The appId to use, defaults to undefined

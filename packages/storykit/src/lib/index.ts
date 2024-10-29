@@ -1,3 +1,4 @@
 export * from "./utils"
 export * from "./functions/convertLicenseTermObject"
-export * from "./constants"
+export * from "./chains"
+export * from "./currencies"

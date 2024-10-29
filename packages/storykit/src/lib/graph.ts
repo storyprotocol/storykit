@@ -1,12 +1,12 @@
 import { shortenAddress } from "@/lib/utils"
 import { Asset, NFTMetadata } from "@/types"
 import { RESOURCE_TYPE } from "@/types/api"
+import { RoyaltiesGraph, RoyaltyBalance, RoyaltyGraph, RoyaltyLink } from "@/types/royalty-graph"
 import { Address } from "viem"
 
 import { listResource } from "./api"
-import { CHAINID_TO_CHAINNAME, STORYKIT_SUPPORTED_CHAIN } from "./constants"
+import { CHAINID_TO_CHAINNAME, STORYKIT_SUPPORTED_CHAIN } from "./chains"
 import { NFT, getNFTByTokenId, getNFTByTokenIds } from "./simplehash"
-import { RoyaltiesGraph, RoyaltyBalance, RoyaltyGraph, RoyaltyLink } from "@/types/royalty-graph"
 
 export interface GraphNode {
   id: string
@@ -257,10 +257,10 @@ export async function convertAssetToGraphFormat(
 
 export async function convertRoyaltyToGraphFormat(apiData: RoyaltiesGraph): Promise<GraphData> {
   try {
-    const nodes: GraphNode[] = [];
-    const links: Link[] = [];
-    const nodeIds = new Set<string>();
-    const idToLevelMap = new Map<string, number>();
+    const nodes: GraphNode[] = []
+    const links: Link[] = []
+    const nodeIds = new Set<string>()
+    const idToLevelMap = new Map<string, number>()
 
     // First pass: Create nodes and identify root nodes
     apiData.royalties.forEach((royalty: RoyaltyGraph) => {
@@ -292,24 +292,24 @@ export async function convertRoyaltyToGraphFormat(apiData: RoyaltiesGraph): Prom
               </div>
               <div>
                 <span class="graph-content-label">Children:</span> 
-                <span>${royalty.balances[0].links.map(link => link.childIpId.slice(0, 6) + '...').join(', ')}</span>
+                <span>${royalty.balances[0].links.map((link) => link.childIpId.slice(0, 6) + "...").join(", ")}</span>
               </div>
             </div>
           `,
           val: 1,
           level: 0,
           isRoot: true,
-        };
-        nodes.push(parentNode);
-        nodeIds.add(royalty.ipId);
-        idToLevelMap.set(royalty.ipId, 0);
+        }
+        nodes.push(parentNode)
+        nodeIds.add(royalty.ipId)
+        idToLevelMap.set(royalty.ipId, 0)
       }
 
       // Create child nodes and links
       royalty.balances.forEach((balance: RoyaltyBalance) => {
         balance.links.forEach((link: RoyaltyLink) => {
           if (!nodeIds.has(link.childIpId)) {
-            const childRoyalty = apiData.royalties.find(r => r.ipId === link.childIpId);
+            const childRoyalty = apiData.royalties.find((r) => r.ipId === link.childIpId)
             const childNode: GraphNode = {
               id: link.childIpId,
               name: `Child ${link.childIpId.slice(0, 6)}...`,
@@ -342,9 +342,9 @@ export async function convertRoyaltyToGraphFormat(apiData: RoyaltiesGraph): Prom
                   <div>
                     <span class="graph-content-label">Parents:</span> 
                     <span>${apiData.royalties
-                  .filter((r) => r.balances[0].links.some((l) => l.childIpId === link.childIpId))
-                  .map((r) => r.ipId.slice(0, 6) + "...")
-                  .join(", ")}</span>
+                      .filter((r) => r.balances[0].links.some((l) => l.childIpId === link.childIpId))
+                      .map((r) => r.ipId.slice(0, 6) + "...")
+                      .join(", ")}</span>
                   </div>
                   <div>
                     <span class="graph-content-label">Children:</span> 
@@ -355,39 +355,39 @@ export async function convertRoyaltyToGraphFormat(apiData: RoyaltiesGraph): Prom
               val: 1,
               level: 0, // We'll update this later
               isRoot: false,
-            };
-            nodes.push(childNode);
-            nodeIds.add(link.childIpId);
-            idToLevelMap.set(link.childIpId, 0); // Initially set to 0, will update later
+            }
+            nodes.push(childNode)
+            nodeIds.add(link.childIpId)
+            idToLevelMap.set(link.childIpId, 0) // Initially set to 0, will update later
           }
 
           links.push({
             source: link.childIpId,
             target: royalty.ipId,
             value: parseInt(link.amount) / 1e18,
-          });
+          })
 
           // Update level for child nodes
-          const parentLevel = idToLevelMap.get(royalty.ipId) || 0;
-          const childLevel = idToLevelMap.get(link.childIpId) || 0;
+          const parentLevel = idToLevelMap.get(royalty.ipId) || 0
+          const childLevel = idToLevelMap.get(link.childIpId) || 0
           if (childLevel <= parentLevel) {
-            idToLevelMap.set(link.childIpId, parentLevel + 1);
+            idToLevelMap.set(link.childIpId, parentLevel + 1)
           }
-        });
-      });
-    });
+        })
+      })
+    })
 
     // Update node levels and isRoot property
-    nodes.forEach(node => {
-      node.level = idToLevelMap.get(node.id) || 0;
-      node.isRoot = node.level === 0;
-    });
+    nodes.forEach((node) => {
+      node.level = idToLevelMap.get(node.id) || 0
+      node.isRoot = node.level === 0
+    })
 
-    console.log({ nodes, links });
-    return { nodes, links };
+    console.log({ nodes, links })
+    return { nodes, links }
   } catch (error) {
-    console.error(error);
-    return { nodes: [], links: [] };
+    console.error(error)
+    return { nodes: [], links: [] }
   }
 }
 

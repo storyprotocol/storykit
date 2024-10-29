@@ -1,0 +1,83 @@
+@tailwind base;
+
+@layer base {
+  :root .default,
+  .light .default,
+  .light.default,
+  .default-light {
+    --sk-font-family: "Inter", sans-serif;
+
+    --sk-background: 0 0% 98%;
+    --sk-foreground: 0 0 2%;
+
+    --sk-font-size-xs: 0.75rem;
+    --sk-font-size-sm: 0.875rem;
+    --sk-font-size-base: 1rem;
+    --sk-font-size-lg: 1.125rem;
+    --sk-font-size-xl: 1.25rem;
+    --sk-font-size-2xl: 1.5rem;
+    --sk-font-size-3xl: 1.875rem;
+    --sk-font-size-4xl: 2.25rem;
+
+    --sk-card: 0 0% 100%;
+    --sk-card-foreground: 222.2 84% 4.9%;
+
+    --sk-popover: 0 0% 100%;
+    --sk-popover-foreground: 222.2 84% 4.9%;
+
+    --sk-primary: 222.2 47.4% 11.2%;
+    --sk-primary-foreground: 210 40% 98%;
+
+    --sk-secondary: 210 40% 96.1%;
+    --sk-secondary-foreground: 222.2 47.4% 11.2%;
+
+    --sk-muted: 210 40% 96.1%;
+    --sk-muted-foreground: 215.4 16.3% 46.9%;
+
+    --sk-accent: 210 40% 96.1%;
+    --sk-accent-foreground: 222.2 47.4% 11.2%;
+
+    --sk-destructive: 0 84.2% 60.2%;
+    --sk-destructive-foreground: 210 40% 98%;
+
+    --sk-border: 214.3 31.8% 91.4%;
+    --sk-input: 214.3 31.8% 91.4%;
+    --sk-ring: 222.2 84% 4.9%;
+
+    --sk-radius: 0.5rem;
+  }
+
+  .dark,
+  .dark .default,
+  .dark.default,
+  .default-dark {
+    --sk-background: 0 0 2%;
+    --sk-foreground: 0 0% 98%;
+  }
+
+  .story,
+  .light .story,
+  .light.story,
+  .story-light {
+    --sk-font-family: "Roboto Mono", sans-serif;
+
+    --sk-font-size-xs: 0.5rem;
+    --sk-font-size-sm: 0.75rem;
+    --sk-font-size-base: 0.875rem;
+    --sk-font-size-lg: 1rem;
+    --sk-font-size-xl: 1.125rem;
+    --sk-font-size-2xl: 1.25rem;
+    --sk-font-size-3xl: 1.5rem;
+    --sk-font-size-4xl: 2rem;
+
+    --sk-background: 0 0% 92%;
+    --sk-foreground: 0 0 22%;
+  }
+
+  .dark .story,
+  .dark.story,
+  .story-dark {
+    --sk-background: 222.2 84% 4.9%;
+    --sk-foreground: 0 0% 86%;
+  }
+}

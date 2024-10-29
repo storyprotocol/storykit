@@ -1,5 +1,5 @@
 import { getResource } from "@/lib/api"
-import { STORYKIT_SUPPORTED_CHAIN } from "@/lib/constants"
+import { STORYKIT_SUPPORTED_CHAIN } from "@/lib/chains"
 import { noLicenseTerms } from "@/lib/example-data"
 import { convertLicenseTermObject } from "@/lib/functions/convertLicenseTermObject"
 import { cn } from "@/lib/utils"

@@ -1,7 +1,7 @@
 import { Address } from "viem"
 
 import { CollectionMetadata, NFTMetadata, NFTWalletResponse } from "../../types/simplehash"
-import { STORYKIT_SUPPORTED_CHAIN } from "../constants"
+import { STORYKIT_SUPPORTED_CHAIN } from "../chains"
 
 const createRequestOptions = (): RequestInit => ({
   method: "GET",

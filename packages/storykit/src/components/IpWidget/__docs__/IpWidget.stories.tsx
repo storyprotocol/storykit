@@ -1,4 +1,4 @@
-import { STORYKIT_SUPPORTED_CHAIN } from "@/lib/constants"
+import { STORYKIT_SUPPORTED_CHAIN } from "@/lib/chains"
 import { ILIAD_PREVIEW_IP_ASSETS } from "@/stories/data"
 import type { Meta, StoryObj } from "@storybook/react"
 import { expect, userEvent, waitFor, within } from "@storybook/test"

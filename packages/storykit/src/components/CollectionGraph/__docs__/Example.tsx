@@ -1,4 +1,4 @@
-import { STORYKIT_SUPPORTED_CHAIN } from "@/lib/constants"
+import { STORYKIT_SUPPORTED_CHAIN } from "@/lib/chains"
 import { getCollectionByAddress, getNFTByWallet } from "@/lib/simplehash"
 import { ILIAD_PREVIEW_COLLECTION_ADDRESS } from "@/stories/data"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
