@@ -1,5 +1,5 @@
 import { listResource } from "@/lib/api"
-import { STORYKIT_SUPPORTED_CHAIN } from "@/lib/constants"
+import { STORYKIT_SUPPORTED_CHAIN } from "@/lib/chains"
 import { cn } from "@/lib/utils"
 import { RESOURCE_TYPE } from "@/types/api"
 import { useQuery } from "@tanstack/react-query"

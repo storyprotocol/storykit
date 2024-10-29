@@ -1,5 +1,5 @@
 import { QueryOptions, ResourceType } from "../types/api"
-import { STORYKIT_SUPPORTED_CHAIN } from "./constants"
+import { STORYKIT_SUPPORTED_CHAIN } from "./chains"
 
 const API_URL = process.env.STORYBOOK_API_BASE_URL || process.env.NEXT_PUBLIC_API_BASE_URL || process.env.API_BASE_URL
 
