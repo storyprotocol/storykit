@@ -60,6 +60,5 @@ export const Theme: Story = {
   },
   args: {
     theme: "story",
-    mode: "dark",
   },
 }
