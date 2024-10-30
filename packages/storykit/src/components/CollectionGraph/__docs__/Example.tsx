@@ -21,9 +21,9 @@ const Example: FC<CollectionGraphProps> = ({
 
   useEffect(() => {
     const fetch = async () => {
-      const collectionMetadata = await getCollectionByAddress("0x7ee32b8B515dEE0Ba2F25f612A04a731eEc24F49")
+      const collectionMetadata = await getCollectionByAddress("0x7ee32b8B515dEE0Ba2F25f612A04a731eEc24F49", chain)
       setCollections(collectionMetadata)
-      const nftWalletResponse = await getNFTByWallet("0xB1918E7d6CB67d027F6aBc66DC3273D6ECAD6dE5")
+      const nftWalletResponse = await getNFTByWallet("0xB1918E7d6CB67d027F6aBc66DC3273D6ECAD6dE5", chain)
       setNfts(nftWalletResponse)
     }
     fetch()

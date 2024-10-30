@@ -1,3 +1,4 @@
+import { STORYKIT_SUPPORTED_CHAIN } from "@/lib"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import React, { FC } from "react"
 
@@ -11,6 +12,7 @@ const Example: FC<LicenseTermsListProps> = ({
   showExtras = true,
   selectedLicenseTerms,
   selectedLicenseTermsId,
+  chain = STORYKIT_SUPPORTED_CHAIN.STORY_TESTNET,
 }) => {
   const queryClient = new QueryClient()
   return (
@@ -24,6 +26,7 @@ const Example: FC<LicenseTermsListProps> = ({
           showExtras={showExtras}
           selectedLicenseTerms={selectedLicenseTerms}
           selectedLicenseTermsId={selectedLicenseTermsId}
+          chain={chain}
         />
       </div>
     </QueryClientProvider>

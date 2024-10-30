@@ -1,7 +1,7 @@
 import { Address } from "viem"
 
 import { CollectionMetadata, NFTMetadata, NFTWalletResponse } from "../../types/simplehash"
-import { STORYKIT_SUPPORTED_CHAIN } from "../constants"
+import { CHAINNAME_TO_SIMPLEHASH_ID, STORYKIT_SUPPORTED_CHAIN } from "../constants"
 
 const createRequestOptions = (): RequestInit => ({
   method: "GET",
@@ -28,7 +28,7 @@ export const getNFTByTokenId = async (
 ): Promise<NFTMetadata> => {
   const chainName = chain === STORYKIT_SUPPORTED_CHAIN.STORY_TESTNET ? "story-testnet" : chain
   const options = createRequestOptions()
-  const url = `https://api.simplehash.xyz/api/v0/nfts/${chainName}/${contractAddress}/${tokenId}`
+  const url = `https://api.simplehash.xyz/api/v0/nfts/${CHAINNAME_TO_SIMPLEHASH_ID[chainName]}/${contractAddress}/${tokenId}`
   const response = await fetch(url, options)
   const data = await response.json()
   return data
@@ -56,7 +56,7 @@ export const getCollectionByAddress = async (
 ): Promise<CollectionMetadata> => {
   const chainName = chain === STORYKIT_SUPPORTED_CHAIN.STORY_TESTNET ? "story-testnet" : chain
   const options = createRequestOptions()
-  const url = `https://api.simplehash.xyz/api/v0/nfts/collections/${chainName}/${contractAddress}`
+  const url = `https://api.simplehash.xyz/api/v0/nfts/collections/${CHAINNAME_TO_SIMPLEHASH_ID[chainName]}/${contractAddress}`
   const response = await fetch(url, options)
   const data = await response.json()
   return data.collections[0]
@@ -68,7 +68,7 @@ export const getNFTByWallet = async (
 ): Promise<NFTWalletResponse> => {
   const chainName = chain === STORYKIT_SUPPORTED_CHAIN.STORY_TESTNET ? "story-testnet" : chain
   const options = createRequestOptions()
-  const url = `https://api.simplehash.xyz/api/v0/nfts/owners?chains=${chainName}&wallet_addresses=${walletAddress}`
+  const url = `https://api.simplehash.xyz/api/v0/nfts/owners?chains=${CHAINNAME_TO_SIMPLEHASH_ID[chainName]}&wallet_addresses=${walletAddress}`
   const response = await fetch(url, options)
   const data = await response.json()
   return data

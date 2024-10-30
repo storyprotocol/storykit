@@ -12,3 +12,13 @@ export const CHAINID_TO_CHAINNAME: { [key: number]: string } = {
   1513: "story-testnet",
   1516: "odyssey-testnet",
 }
+
+export const CHAINNAME_TO_SIMPLEHASH_ID: { [key: string]: string } = {
+  "story-testnet": "story-testnet",
+  "odyssey-testnet": "story-odyssey",
+}
+
+export const CHAINNAME_TO_API_VERSION: { [key: string]: string } = {
+  "story-testnet": "v1",
+  "odyssey-testnet": "v2",
+}

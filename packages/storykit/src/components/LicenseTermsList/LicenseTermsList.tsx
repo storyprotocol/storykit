@@ -114,6 +114,7 @@ export type LicenseTermsListProps = {
   showExtras?: boolean
   selectedLicenseTerms?: PILTerms
   selectedLicenseTermsId?: string
+  chain?: STORYKIT_SUPPORTED_CHAIN
 }
 
 function LicenseTermsList({
@@ -124,12 +125,13 @@ function LicenseTermsList({
   showExtras = true,
   selectedLicenseTerms,
   selectedLicenseTermsId,
+  chain = STORYKIT_SUPPORTED_CHAIN.STORY_TESTNET,
 }: LicenseTermsListProps) {
   const { data: licenseTermsData } = useQuery({
     queryKey: [RESOURCE_TYPE.LICENSE_TERMS, selectedLicenseTermsId],
     queryFn: () =>
       getResource(RESOURCE_TYPE.LICENSE_TERMS, selectedLicenseTermsId as string, {
-        chain: STORYKIT_SUPPORTED_CHAIN.STORY_TESTNET,
+        chain: chain,
       }),
     enabled: !!selectedLicenseTermsId,
   })
