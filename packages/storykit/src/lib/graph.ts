@@ -1,12 +1,12 @@
 import { shortenAddress } from "@/lib/utils"
 import { Asset, NFTMetadata } from "@/types"
 import { RESOURCE_TYPE } from "@/types/api"
+import { RoyaltiesGraph, RoyaltyBalance, RoyaltyGraph, RoyaltyLink } from "@/types/royalty-graph"
 import { Address } from "viem"
 
 import { listResource } from "./api"
 import { CHAINID_TO_CHAINNAME, STORYKIT_SUPPORTED_CHAIN } from "./constants"
 import { NFT, getNFTByTokenId, getNFTByTokenIds } from "./simplehash"
-import { RoyaltiesGraph, RoyaltyBalance, RoyaltyGraph, RoyaltyLink } from "@/types/royalty-graph"
 
 export interface GraphNode {
   id: string
@@ -113,18 +113,18 @@ export async function convertAssetToGraphFormat(
   }
   nodes.push(mainNode)
 
-  if (jsonData.childIpIds) {
+  if (jsonData?.childIpIds && jsonData.childIpIds.length > 0) {
     const listRequest = {
       pagination: {
         limit: 100,
         offset: 0,
       },
       ipAssetIds: jsonData.childIpIds,
+      chain: chain,
     }
 
     const childNftData = await listResource(RESOURCE_TYPE.ASSET, listRequest)
 
-    console.log({ childNftData })
     for (const child of childNftData.data) {
       const childNode: GraphNode = {
         id: child.id,
@@ -209,7 +209,7 @@ export async function convertAssetToGraphFormat(
   // }
 
   // Add all parentIpIds to nodes array and create links
-  if (jsonData.parentIps) {
+  if (jsonData?.parentIps && jsonData.parentIps.length > 0) {
     for (const parent of jsonData.parentIps) {
       const parentNftData = await getNFTByTokenId(parent.nftMetadata.tokenContract, parent.nftMetadata.tokenId, chain)
 
@@ -257,10 +257,10 @@ export async function convertAssetToGraphFormat(
 
 export async function convertRoyaltyToGraphFormat(apiData: RoyaltiesGraph): Promise<GraphData> {
   try {
-    const nodes: GraphNode[] = [];
-    const links: Link[] = [];
-    const nodeIds = new Set<string>();
-    const idToLevelMap = new Map<string, number>();
+    const nodes: GraphNode[] = []
+    const links: Link[] = []
+    const nodeIds = new Set<string>()
+    const idToLevelMap = new Map<string, number>()
 
     // First pass: Create nodes and identify root nodes
     apiData.royalties.forEach((royalty: RoyaltyGraph) => {
@@ -292,24 +292,24 @@ export async function convertRoyaltyToGraphFormat(apiData: RoyaltiesGraph): Prom
               </div>
               <div>
                 <span class="graph-content-label">Children:</span> 
-                <span>${royalty.balances[0].links.map(link => link.childIpId.slice(0, 6) + '...').join(', ')}</span>
+                <span>${royalty.balances[0].links.map((link) => link.childIpId.slice(0, 6) + "...").join(", ")}</span>
               </div>
             </div>
           `,
           val: 1,
           level: 0,
           isRoot: true,
-        };
-        nodes.push(parentNode);
-        nodeIds.add(royalty.ipId);
-        idToLevelMap.set(royalty.ipId, 0);
+        }
+        nodes.push(parentNode)
+        nodeIds.add(royalty.ipId)
+        idToLevelMap.set(royalty.ipId, 0)
       }
 
       // Create child nodes and links
       royalty.balances.forEach((balance: RoyaltyBalance) => {
         balance.links.forEach((link: RoyaltyLink) => {
           if (!nodeIds.has(link.childIpId)) {
-            const childRoyalty = apiData.royalties.find(r => r.ipId === link.childIpId);
+            const childRoyalty = apiData.royalties.find((r) => r.ipId === link.childIpId)
             const childNode: GraphNode = {
               id: link.childIpId,
               name: `Child ${link.childIpId.slice(0, 6)}...`,
@@ -342,9 +342,9 @@ export async function convertRoyaltyToGraphFormat(apiData: RoyaltiesGraph): Prom
                   <div>
                     <span class="graph-content-label">Parents:</span> 
                     <span>${apiData.royalties
-                  .filter((r) => r.balances[0].links.some((l) => l.childIpId === link.childIpId))
-                  .map((r) => r.ipId.slice(0, 6) + "...")
-                  .join(", ")}</span>
+                      .filter((r) => r.balances[0].links.some((l) => l.childIpId === link.childIpId))
+                      .map((r) => r.ipId.slice(0, 6) + "...")
+                      .join(", ")}</span>
                   </div>
                   <div>
                     <span class="graph-content-label">Children:</span> 
@@ -355,39 +355,39 @@ export async function convertRoyaltyToGraphFormat(apiData: RoyaltiesGraph): Prom
               val: 1,
               level: 0, // We'll update this later
               isRoot: false,
-            };
-            nodes.push(childNode);
-            nodeIds.add(link.childIpId);
-            idToLevelMap.set(link.childIpId, 0); // Initially set to 0, will update later
+            }
+            nodes.push(childNode)
+            nodeIds.add(link.childIpId)
+            idToLevelMap.set(link.childIpId, 0) // Initially set to 0, will update later
           }
 
           links.push({
             source: link.childIpId,
             target: royalty.ipId,
             value: parseInt(link.amount) / 1e18,
-          });
+          })
 
           // Update level for child nodes
-          const parentLevel = idToLevelMap.get(royalty.ipId) || 0;
-          const childLevel = idToLevelMap.get(link.childIpId) || 0;
+          const parentLevel = idToLevelMap.get(royalty.ipId) || 0
+          const childLevel = idToLevelMap.get(link.childIpId) || 0
           if (childLevel <= parentLevel) {
-            idToLevelMap.set(link.childIpId, parentLevel + 1);
+            idToLevelMap.set(link.childIpId, parentLevel + 1)
           }
-        });
-      });
-    });
+        })
+      })
+    })
 
     // Update node levels and isRoot property
-    nodes.forEach(node => {
-      node.level = idToLevelMap.get(node.id) || 0;
-      node.isRoot = node.level === 0;
-    });
+    nodes.forEach((node) => {
+      node.level = idToLevelMap.get(node.id) || 0
+      node.isRoot = node.level === 0
+    })
 
-    console.log({ nodes, links });
-    return { nodes, links };
+    console.log({ nodes, links })
+    return { nodes, links }
   } catch (error) {
-    console.error(error);
-    return { nodes: [], links: [] };
+    console.error(error)
+    return { nodes: [], links: [] }
   }
 }
 

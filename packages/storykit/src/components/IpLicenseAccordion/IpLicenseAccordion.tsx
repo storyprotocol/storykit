@@ -1,3 +1,4 @@
+import { STORYKIT_SUPPORTED_CHAIN } from "@/lib"
 import { cn, getPilFlavorByLicenseTerms } from "@/lib/utils"
 import { useIpContext } from "@/providers"
 import { cva } from "class-variance-authority"
@@ -21,9 +22,13 @@ const licensesStyles = cva("", {
 
 export type IpLicenseAccordionProps = {
   size?: "small" | "medium" | "large"
+  chain?: STORYKIT_SUPPORTED_CHAIN
 }
 
-function IpLicenseAccordion({ size = "medium" }: IpLicenseAccordionProps) {
+function IpLicenseAccordion({
+  size = "medium",
+  chain = STORYKIT_SUPPORTED_CHAIN.STORY_TESTNET,
+}: IpLicenseAccordionProps) {
   const { licenseTermsData } = useIpContext()
   const [expanded, setExpanded] = useState<number | null>(0)
 
@@ -49,7 +54,7 @@ function IpLicenseAccordion({ size = "medium" }: IpLicenseAccordionProps) {
               expanded === index && "skIpLicenseAccordion__item-list--expanded"
             )}
           >
-            <LicenseTermsList size={size} selectedLicenseTerms={license.licenseTerms} />
+            <LicenseTermsList size={size} selectedLicenseTerms={license.licenseTerms} chain={chain} />
           </div>
 
           {index < licenseTermsData.length - 1 && <div className="skIpLicenseAccordion__divider" />}
