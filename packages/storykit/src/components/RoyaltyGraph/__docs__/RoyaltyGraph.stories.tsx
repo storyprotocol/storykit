@@ -1,3 +1,4 @@
+import { STORYKIT_SUPPORTED_CHAIN } from "@/lib"
 import {
   ILIAD_TESTNET_ROYALTY_GRAPH_DIAMOND_ASSETS,
   ILIAD_TESTNET_ROYALTY_GRAPH_IP_ASSETS,
@@ -17,8 +18,15 @@ const meta = {
     layout: "centered",
   },
   // tags: ["autodocs"],
-  argTypes: {},
-  args: {},
+  argTypes: {
+    chain: {
+      control: "select",
+      options: Object.values(STORYKIT_SUPPORTED_CHAIN),
+    },
+  },
+  args: {
+    chain: STORYKIT_SUPPORTED_CHAIN.ODYSSEY_TESTNET,
+  },
   // tags: ["isHidden"],
 } satisfies Meta<typeof Example>
 
