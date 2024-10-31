@@ -31,7 +31,7 @@ const StoryKitContext = React.createContext<{
 
 export const StoryKitProvider = ({
   chain = STORYKIT_SUPPORTED_CHAIN.ODYSSEY_TESTNET,
-  defaultCurrency = STORYKIT_SUPPORTED_CURRENCY.ODYSSEY_STORYUSD,
+  defaultCurrency,
   theme = "default",
   mode,
   rpcUrl,
@@ -49,7 +49,7 @@ export const StoryKitProvider = ({
       value={{
         chain: chainConfig,
         viemChain: getChainViemConfig(chainConfig),
-        defaultCurrency: CURRENCIES[defaultCurrency],
+        defaultCurrency: defaultCurrency ? CURRENCIES[defaultCurrency] : chainConfig.defaultCurrency,
         theme: theme,
         mode: mode,
         themeClass: `${theme}${mode ? `-${mode}` : ""}`,
