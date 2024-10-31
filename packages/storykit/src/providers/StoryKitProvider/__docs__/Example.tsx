@@ -1,7 +1,6 @@
 import { cn } from "@/lib"
 import { STORYKIT_SUPPORTED_CHAIN } from "@/lib/chains"
 import { STORYKIT_SUPPORTED_CURRENCY } from "@/lib/currencies"
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import React, { FC } from "react"
 
 import "../../../global.css"
@@ -14,18 +13,15 @@ const Example: FC<{
   mode: "auto" | "light" | "dark"
   children?: React.ReactNode
 }> = ({ chain, defaultCurrency, theme, mode, children = <ExampleComponent /> }) => {
-  const queryClient = new QueryClient()
   return (
-    <QueryClientProvider client={queryClient}>
-      <StoryKitProvider
-        chain={chain}
-        defaultCurrency={defaultCurrency}
-        theme={theme}
-        mode={mode !== "auto" ? mode : undefined}
-      >
-        {children}
-      </StoryKitProvider>
-    </QueryClientProvider>
+    <StoryKitProvider
+      chain={chain}
+      defaultCurrency={defaultCurrency}
+      theme={theme}
+      mode={mode !== "auto" ? mode : undefined}
+    >
+      {children}
+    </StoryKitProvider>
   )
 }
 
