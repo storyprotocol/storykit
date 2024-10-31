@@ -7,7 +7,7 @@ import { Address } from "viem"
 import Example from "./Example"
 
 const meta = {
-  title: "IP Assets/IpWidget",
+  title: "WIP/IpWidget",
   component: Example,
   parameters: {
     layout: "centered",

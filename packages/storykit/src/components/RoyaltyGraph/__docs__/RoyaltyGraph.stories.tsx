@@ -11,7 +11,7 @@ import { Address } from "viem"
 import Example from "./Example"
 
 const meta = {
-  title: "Royalty/Royalty Graph",
+  title: "WIP/Royalty Graph",
   component: Example,
   parameters: {
     layout: "centered",

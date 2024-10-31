@@ -6,7 +6,7 @@ import { expect, waitFor, within } from "@storybook/test"
 import Example from "./Example"
 
 const meta = {
-  title: "IP Assets/IpRoyaltyPieChart",
+  title: "WIP/IpRoyaltyPieChart",
   component: Example,
   parameters: {
     layout: "centered",

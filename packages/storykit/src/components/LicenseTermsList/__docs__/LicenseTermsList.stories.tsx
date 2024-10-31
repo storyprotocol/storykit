@@ -12,7 +12,7 @@ import { DESCRIPTIONS } from "../LicenseTermsList"
 import Example from "./Example"
 
 const meta = {
-  title: "UI/LicenseTermsList",
+  title: "Components/LicenseTermsList",
   component: Example,
   parameters: {
     layout: "centered",
