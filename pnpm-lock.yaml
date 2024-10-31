@@ -201,9 +201,6 @@ importers:
       '@storybook/addon-styling-webpack':
         specifier: ^1.0.0
         version: 1.0.0(webpack@5.91.0)
-      '@storybook/addon-themes':
-        specifier: ^8.0.4
-        version: 8.0.9
       '@storybook/blocks':
         specifier: ^8.0.4
         version: 8.0.9(@types/react@18.3.0)(react-dom@18.3.0)(react@18.3.0)
@@ -4071,12 +4068,6 @@ packages:
     dependencies:
       '@storybook/node-logger': 8.0.9
       webpack: 5.91.0(@swc/core@1.5.7)(esbuild@0.20.2)
-    dev: true
-
-  /@storybook/addon-themes@8.0.9:
-    resolution: {integrity: sha512-aAbKIT//bqKbMeRLKtVStwndi+XrYxeg94tDKTFrIv2W1It6QJlO/5FMjI+cgtHHBi6w/4ThKDYwjupasaBdlg==}
-    dependencies:
-      ts-dedent: 2.2.0
     dev: true
 
   /@storybook/addon-toolbars@8.0.9:
