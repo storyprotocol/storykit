@@ -12,11 +12,9 @@ const Example: FC<{ ipId: Address; size: Size }> = ({
   size = "medium",
 }) => {
   return (
-    <div className="flex h-full w-full items-center justify-center">
-      <IpProvider ipId={ipId}>
-        <IpLicenseAccordion size={size} />
-      </IpProvider>
-    </div>
+    <IpProvider ipId={ipId}>
+      <IpLicenseAccordion size={size} />
+    </IpProvider>
   )
 }
 

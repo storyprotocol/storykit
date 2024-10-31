@@ -36,11 +36,10 @@ const Example: FC<{
 
   return (
     <>
-      <div className="flex h-full items-center justify-center">
-        <IpProvider ipId={ipId}>
-          <IpGraph width={width} height={height} darkMode={darkMode} />
-        </IpProvider>
-      </div>
+      <IpProvider ipId={ipId}>
+        <IpGraph width={width} height={height} darkMode={darkMode} />
+      </IpProvider>
+
       {collections && (
         <div id="collections" style={{ visibility: "hidden", position: "fixed" }}>
           {JSON.stringify(collections)}

@@ -7,11 +7,9 @@ import IpRoyaltyPieChart from "../IpRoyaltyPieChart"
 
 const Example: FC<{ ipId: Address }> = ({ ipId = ILIAD_PREVIEW_IP_ASSETS[1] as `0x${string}` }) => {
   return (
-    <div className="flex h-full items-center justify-center">
-      <IpProvider ipId={ipId}>
-        <IpRoyaltyPieChart />
-      </IpProvider>
-    </div>
+    <IpProvider ipId={ipId}>
+      <IpRoyaltyPieChart />
+    </IpProvider>
   )
 }
 

@@ -12,17 +12,15 @@ const Example: FC<LicenseTermsListProps> = ({
   selectedLicenseTermsId,
 }) => {
   return (
-    <div className="flex h-full w-full items-center justify-center">
-      <LicenseTermsList
-        size={size}
-        direction={direction}
-        showCans={showCans}
-        showCannots={showCannots}
-        showExtras={showExtras}
-        selectedLicenseTerms={selectedLicenseTerms}
-        selectedLicenseTermsId={selectedLicenseTermsId}
-      />
-    </div>
+    <LicenseTermsList
+      size={size}
+      direction={direction}
+      showCans={showCans}
+      showCannots={showCannots}
+      showExtras={showExtras}
+      selectedLicenseTerms={selectedLicenseTerms}
+      selectedLicenseTermsId={selectedLicenseTermsId}
+    />
   )
 }
 

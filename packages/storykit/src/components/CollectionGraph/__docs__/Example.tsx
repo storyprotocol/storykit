@@ -37,16 +37,15 @@ const Example: FC<CollectionGraphProps> = ({
 
   return (
     <>
-      <div className="flex h-full items-center justify-center">
-        <CollectionGraph
-          collectionAddress={collectionAddress}
-          width={width}
-          height={height}
-          showName={showName}
-          showRelationship={showRelationship}
-          darkMode={darkMode}
-        />
-      </div>
+      <CollectionGraph
+        collectionAddress={collectionAddress}
+        width={width}
+        height={height}
+        showName={showName}
+        showRelationship={showRelationship}
+        darkMode={darkMode}
+      />
+
       {collections && (
         <div id="collections" style={{ visibility: "hidden", position: "fixed" }}>
           {JSON.stringify(collections)}
