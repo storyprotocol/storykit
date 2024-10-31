@@ -39,6 +39,8 @@ export const StoryKitProvider = ({
   appId,
   children,
 }: StoryKitProviderOptions) => {
+  //
+  // get ChainConfig using chain name, replace rpcUrl if alternative provided
   const chainConfig: ChainConfig = useMemo(
     () => ({ ...CHAINS[chain], ...{ rpcUrl: rpcUrl || CHAINS[chain].rpcUrl } }),
     [chain, rpcUrl]
