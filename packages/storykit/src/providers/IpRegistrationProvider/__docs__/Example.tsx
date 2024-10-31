@@ -1,4 +1,3 @@
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import React, { FC } from "react"
 
 import { IPRegistrationProvider, useIPRegistration } from "../IpRegistrationProvider"
@@ -6,21 +5,7 @@ import { IPRegistrationProvider, useIPRegistration } from "../IpRegistrationProv
 const Example: FC<{
   children?: React.ReactNode
 }> = ({ children = <ExampleComponent /> }) => {
-  const queryClient = new QueryClient()
-  return (
-    <QueryClientProvider client={queryClient}>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          height: "100%",
-        }}
-      >
-        <IPRegistrationProvider>{children}</IPRegistrationProvider>
-      </div>
-    </QueryClientProvider>
-  )
+  return <IPRegistrationProvider>{children}</IPRegistrationProvider>
 }
 
 const ExampleComponent = () => {
