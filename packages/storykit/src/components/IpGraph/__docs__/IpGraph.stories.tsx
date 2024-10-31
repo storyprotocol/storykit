@@ -1,3 +1,4 @@
+import { STORYKIT_SUPPORTED_CHAIN } from "@/lib"
 import { ILIAD_PREVIEW_IP_ASSETS } from "@/stories/data"
 import type { Meta, StoryObj } from "@storybook/react"
 import { expect, waitFor } from "@storybook/test"
@@ -11,8 +12,14 @@ const meta = {
     layout: "centered",
   },
   // tags: ["autodocs"],
-  argTypes: {},
-  args: {},
+  argTypes: {
+    chain: {
+      options: Object.values(STORYKIT_SUPPORTED_CHAIN),
+    },
+  },
+  args: {
+    chain: STORYKIT_SUPPORTED_CHAIN.STORY_TESTNET,
+  },
   // tags: ["isHidden"],
 } satisfies Meta<typeof Example>
 

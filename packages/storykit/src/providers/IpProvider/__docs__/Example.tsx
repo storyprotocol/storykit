@@ -1,4 +1,5 @@
 import { STORYKIT_SUPPORTED_CHAIN } from "@/lib/chains"
+import { StoryKitProvider } from "@/providers/StoryKitProvider"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import React, { FC } from "react"
 import { Address } from "viem"
@@ -19,18 +20,20 @@ const Example: FC<{
   const queryClient = new QueryClient()
   return (
     <QueryClientProvider client={queryClient}>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          height: "100%",
-        }}
-      >
-        <IpProvider ipId={ipId} options={options} chain={chain}>
-          {children}
-        </IpProvider>
-      </div>
+      <StoryKitProvider chain={chain}>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            height: "100%",
+          }}
+        >
+          <IpProvider ipId={ipId} options={options}>
+            {children}
+          </IpProvider>
+        </div>
+      </StoryKitProvider>
     </QueryClientProvider>
   )
 }

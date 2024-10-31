@@ -1,4 +1,5 @@
 import { STORYKIT_SUPPORTED_CHAIN } from "@/lib/chains"
+import { StoryKitProvider } from "@/providers/StoryKitProvider"
 import { ILIAD_PREVIEW_IP_ASSETS } from "@/stories/data"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import React, { FC } from "react"
@@ -14,16 +15,18 @@ const Example: FC<{ chain: STORYKIT_SUPPORTED_CHAIN; ipId: Address; isBottomNav?
   const queryClient = new QueryClient()
   return (
     <QueryClientProvider client={queryClient}>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          height: "100%",
-        }}
-      >
-        <IpWidget chain={chain} ipId={ipId} isBottomNav={isBottomNav} />
-      </div>
+      <StoryKitProvider chain={chain}>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            height: "100%",
+          }}
+        >
+          <IpWidget ipId={ipId} isBottomNav={isBottomNav} />
+        </div>
+      </StoryKitProvider>
     </QueryClientProvider>
   )
 }
