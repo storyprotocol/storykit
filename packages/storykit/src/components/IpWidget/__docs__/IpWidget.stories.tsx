@@ -1,4 +1,3 @@
-import { STORYKIT_SUPPORTED_CHAIN } from "@/lib/chains"
 import { ILIAD_PREVIEW_IP_ASSETS } from "@/stories/data"
 import type { Meta, StoryObj } from "@storybook/react"
 import { expect, userEvent, waitFor, within } from "@storybook/test"
@@ -24,68 +23,48 @@ type Story = StoryObj<typeof meta>
 
 export const Select: Story = {
   argTypes: {
-    chain: {
-      options: [...Object.values(STORYKIT_SUPPORTED_CHAIN)],
-    },
     ipId: {
       options: ILIAD_PREVIEW_IP_ASSETS,
     },
   },
   args: {
-    chain: STORYKIT_SUPPORTED_CHAIN.STORY_TESTNET,
     ipId: ILIAD_PREVIEW_IP_ASSETS[0] as `0x${string}`,
     isBottomNav: true,
   },
 }
 export const Input: Story = {
   argTypes: {
-    chain: {
-      options: [...Object.values(STORYKIT_SUPPORTED_CHAIN)],
-    },
     ipId: { control: "text" },
   },
   args: {
-    chain: STORYKIT_SUPPORTED_CHAIN.STORY_TESTNET,
     ipId: ILIAD_PREVIEW_IP_ASSETS[0] as `0x${string}`,
     isBottomNav: true,
   },
 }
 // export const IliadTestnetMint: Story = {
 //   argTypes: {
-//     chain: {
-//       options: [...Object.values(STORYKIT_SUPPORTED_CHAIN)],
-//     },
 //     ipId: { control: "text" },
 //   },
 //   args: {
-//     chain: STORYKIT_SUPPORTED_CHAIN.STORY_TESTNET,
 //     ipId: ILIAD_TESTNET_ROOT,
 //     isBottomNav: true,
 //   },
 // }
 export const IliadTestnetExamples: Story = {
   argTypes: {
-    chain: {
-      options: [...Object.values(STORYKIT_SUPPORTED_CHAIN)],
-    },
     ipId: { options: ILIAD_PREVIEW_IP_ASSETS },
   },
   args: {
-    chain: STORYKIT_SUPPORTED_CHAIN.STORY_TESTNET,
     ipId: ILIAD_PREVIEW_IP_ASSETS[0] as Address,
     isBottomNav: true,
   },
 }
 export const TopNavigation: Story = {
   argTypes: {
-    chain: {
-      options: [...Object.values(STORYKIT_SUPPORTED_CHAIN)],
-    },
     ipId: { options: ["0x22Fe8C376919586F344fED952A9448df442b10f2"] },
     isBottomNav: { control: false },
   },
   args: {
-    chain: STORYKIT_SUPPORTED_CHAIN.STORY_TESTNET,
     ipId: "0x22Fe8C376919586F344fED952A9448df442b10f2",
     isBottomNav: false,
   },
@@ -141,14 +120,10 @@ export const TopNavigation: Story = {
 }
 export const BottomNavigation: Story = {
   argTypes: {
-    chain: {
-      options: [...Object.values(STORYKIT_SUPPORTED_CHAIN)],
-    },
     ipId: { options: ["0x22Fe8C376919586F344fED952A9448df442b10f2"] },
     isBottomNav: { control: false },
   },
   args: {
-    chain: STORYKIT_SUPPORTED_CHAIN.STORY_TESTNET,
     ipId: "0x22Fe8C376919586F344fED952A9448df442b10f2",
     isBottomNav: true,
   },
@@ -201,13 +176,9 @@ export const BottomNavigation: Story = {
 }
 export const IpFoundOverview: Story = {
   argTypes: {
-    chain: {
-      options: [...Object.values(STORYKIT_SUPPORTED_CHAIN)],
-    },
     ipId: { options: ["0x22Fe8C376919586F344fED952A9448df442b10f2"] },
   },
   args: {
-    chain: STORYKIT_SUPPORTED_CHAIN.STORY_TESTNET,
     ipId: "0x22Fe8C376919586F344fED952A9448df442b10f2",
     isBottomNav: true,
   },
@@ -230,13 +201,9 @@ export const IpFoundOverview: Story = {
 }
 export const IpNotFoundOverview: Story = {
   argTypes: {
-    chain: {
-      options: [...Object.values(STORYKIT_SUPPORTED_CHAIN)],
-    },
     ipId: { options: ["0x22Fe8C376919586F344fED952A9448df442b1999"] },
   },
   args: {
-    chain: STORYKIT_SUPPORTED_CHAIN.STORY_TESTNET,
     ipId: "0x22Fe8C376919586F344fED952A9448df442b1999",
     isBottomNav: true,
   },
@@ -258,13 +225,9 @@ export const IpNotFoundOverview: Story = {
 }
 export const MenuOpenAndClose: Story = {
   argTypes: {
-    chain: {
-      options: [...Object.values(STORYKIT_SUPPORTED_CHAIN)],
-    },
     ipId: { options: ["0x22Fe8C376919586F344fED952A9448df442b10f2"] },
   },
   args: {
-    chain: STORYKIT_SUPPORTED_CHAIN.STORY_TESTNET,
     ipId: "0x22Fe8C376919586F344fED952A9448df442b10f2",
     isBottomNav: true,
   },

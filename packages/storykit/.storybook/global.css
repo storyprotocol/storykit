@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-.sb-show-main {
+.sb-show-main,
+.sbdocs-preview {
   @apply bg-white dark:bg-gray-900;
 }

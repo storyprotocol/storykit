@@ -1,4 +1,3 @@
-import { STORYKIT_SUPPORTED_CHAIN } from "@/lib/chains"
 import { ILIAD_PREVIEW_IP_ASSETS } from "@/stories/data"
 import { PIL_FLAVOR } from "@/types/assets"
 import type { Meta, StoryObj } from "@storybook/react"
@@ -13,11 +12,7 @@ const meta = {
     layout: "centered",
   },
   // tags: ["autodocs"],
-  argTypes: {
-    chain: {
-      options: [...Object.values(STORYKIT_SUPPORTED_CHAIN)],
-    },
-  },
+  argTypes: {},
   args: {},
   // tags: ["isHidden"],
 } satisfies Meta<typeof Example>
@@ -32,7 +27,6 @@ export const Select: Story = {
     },
   },
   args: {
-    chain: STORYKIT_SUPPORTED_CHAIN.STORY_TESTNET,
     ipId: ILIAD_PREVIEW_IP_ASSETS[0] as `0x${string}`,
     size: "medium",
   },
@@ -42,7 +36,6 @@ export const Input: Story = {
     ipId: { control: "text" },
   },
   args: {
-    chain: STORYKIT_SUPPORTED_CHAIN.STORY_TESTNET,
     ipId: ILIAD_PREVIEW_IP_ASSETS[0] as `0x${string}`,
     size: "medium",
   },
@@ -54,7 +47,6 @@ export const IpNoLicense: Story = {
     },
   },
   args: {
-    chain: STORYKIT_SUPPORTED_CHAIN.STORY_TESTNET,
     ipId: "0x0aEcA721aDceb65fbE81F450a1C59978fF903124",
     size: "medium",
   },
@@ -72,7 +64,6 @@ export const IpOfCommercialRemix: Story = {
     },
   },
   args: {
-    chain: STORYKIT_SUPPORTED_CHAIN.STORY_TESTNET,
     ipId: "0x129B22b651529e2ee9243df8c2cDb9B47BD548C0",
     size: "large",
   },

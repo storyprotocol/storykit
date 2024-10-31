@@ -22,13 +22,9 @@ type Story = StoryObj<typeof meta>
 
 export const Select: Story = {
   argTypes: {
-    chain: {
-      options: [...Object.values(STORYKIT_SUPPORTED_CHAIN)],
-    },
     collectionAddress: { options: ILIAD_PREVIEW_COLLECTION_ADDRESS },
   },
   args: {
-    chain: STORYKIT_SUPPORTED_CHAIN.STORY_TESTNET,
     collectionAddress: ILIAD_PREVIEW_COLLECTION_ADDRESS[0] as `0x${string}`,
   },
 }
@@ -62,15 +58,11 @@ export const Select: Story = {
 
 export const IliadTestnetCollections: Story = {
   argTypes: {
-    chain: {
-      options: [...Object.values(STORYKIT_SUPPORTED_CHAIN)],
-    },
     collectionAddress: {
       options: ILIAD_PREVIEW_COLLECTION_ADDRESS,
     },
   },
   args: {
-    chain: STORYKIT_SUPPORTED_CHAIN.STORY_TESTNET,
     collectionAddress: ILIAD_PREVIEW_COLLECTION_ADDRESS[0] as `0x${string}`,
   },
   play: async ({ args, canvasElement }) => {
@@ -91,13 +83,9 @@ export const IliadTestnetCollections: Story = {
 
 export const Input: Story = {
   argTypes: {
-    chain: {
-      options: [...Object.values(STORYKIT_SUPPORTED_CHAIN)],
-    },
     collectionAddress: { control: "text" },
   },
   args: {
-    chain: STORYKIT_SUPPORTED_CHAIN.STORY_TESTNET,
     collectionAddress: ILIAD_PREVIEW_COLLECTION_ADDRESS[0] as `0x${string}`,
   },
   play: async ({ args, canvasElement }) => {
@@ -139,13 +127,9 @@ export const Input: Story = {
 
 export const MultiChilds: Story = {
   argTypes: {
-    chain: {
-      options: [...Object.values(STORYKIT_SUPPORTED_CHAIN)],
-    },
     collectionAddress: { control: "text" },
   },
   args: {
-    chain: STORYKIT_SUPPORTED_CHAIN.STORY_TESTNET,
     collectionAddress: ILIAD_PREVIEW_COLLECTION_ADDRESS[0] as `0x${string}`,
   },
   play: async ({ args, canvasElement }) => {
@@ -166,13 +150,9 @@ export const MultiChilds: Story = {
 
 export const MultiParents: Story = {
   argTypes: {
-    chain: {
-      options: [...Object.values(STORYKIT_SUPPORTED_CHAIN)],
-    },
     collectionAddress: { control: "text" },
   },
   args: {
-    chain: STORYKIT_SUPPORTED_CHAIN.STORY_TESTNET,
     collectionAddress: ILIAD_PREVIEW_COLLECTION_ADDRESS[0] as `0x${string}`,
     width: 500,
     height: 500,
@@ -195,13 +175,9 @@ export const MultiParents: Story = {
 
 export const NoChildIP: Story = {
   argTypes: {
-    chain: {
-      options: [...Object.values(STORYKIT_SUPPORTED_CHAIN)],
-    },
     collectionAddress: { control: "text" },
   },
   args: {
-    chain: STORYKIT_SUPPORTED_CHAIN.STORY_TESTNET,
     collectionAddress: ILIAD_PREVIEW_COLLECTION_ADDRESS[0] as `0x${string}`,
   },
   play: async ({ args, canvasElement }) => {

@@ -1,4 +1,3 @@
-import { STORYKIT_SUPPORTED_CHAIN } from "@/lib/chains"
 import { ILIAD_PREVIEW_IP_ASSETS } from "@/stories/data"
 import licenseData from "@/tests/data/0x5FCeDadBbDF710Ac3C528F6Aac9D1bD9ac18D9a8-license.json"
 import ipaPolicyData from "@/tests/data/0x195A5B433bbFb6481490cA12d1C95e5594Fb54C4-ipapolicy.json"
@@ -47,37 +46,26 @@ type Story = StoryObj<typeof meta>
 
 export const Select: Story = {
   argTypes: {
-    chain: {
-      options: [...Object.values(STORYKIT_SUPPORTED_CHAIN)],
-    },
     ipId: {
       options: ILIAD_PREVIEW_IP_ASSETS,
     },
     children: { control: false },
   },
   args: {
-    chain: Object.values(STORYKIT_SUPPORTED_CHAIN)[0],
     ipId: ILIAD_PREVIEW_IP_ASSETS[0] as `0x${string}`,
   },
 }
 export const Input: Story = {
   argTypes: {
-    chain: {
-      options: [...Object.values(STORYKIT_SUPPORTED_CHAIN)],
-    },
     ipId: { control: "text" },
     children: { control: false },
   },
   args: {
-    chain: Object.values(STORYKIT_SUPPORTED_CHAIN)[0],
     ipId: ILIAD_PREVIEW_IP_ASSETS[0] as `0x${string}`,
   },
 }
 export const NFTData: Story = {
   argTypes: {
-    chain: {
-      options: [...Object.values(STORYKIT_SUPPORTED_CHAIN)],
-    },
     ipId: {
       options: ["0x7907Cec258B28638FCA15d533800B2A13bd1f140"],
     },
@@ -85,7 +73,6 @@ export const NFTData: Story = {
     options: { control: false },
   },
   args: {
-    chain: Object.values(STORYKIT_SUPPORTED_CHAIN)[0],
     ipId: "0x7907Cec258B28638FCA15d533800B2A13bd1f140",
   },
   play: async ({ canvasElement }) => {
@@ -112,9 +99,6 @@ export const NFTData: Story = {
 }
 export const AssetData: Story = {
   argTypes: {
-    chain: {
-      options: [...Object.values(STORYKIT_SUPPORTED_CHAIN)],
-    },
     ipId: {
       options: ["0x7907Cec258B28638FCA15d533800B2A13bd1f140"],
     },
@@ -122,7 +106,6 @@ export const AssetData: Story = {
     options: { control: false },
   },
   args: {
-    chain: Object.values(STORYKIT_SUPPORTED_CHAIN)[0],
     ipId: "0x7907Cec258B28638FCA15d533800B2A13bd1f140",
     children: <AssetComponent />,
   },
@@ -162,9 +145,6 @@ export const AssetData: Story = {
 }
 export const IPLicenseData: Story = {
   argTypes: {
-    chain: {
-      options: [...Object.values(STORYKIT_SUPPORTED_CHAIN)],
-    },
     ipId: {
       options: ["0x195A5B433bbFb6481490cA12d1C95e5594Fb54C4"],
     },
@@ -172,7 +152,6 @@ export const IPLicenseData: Story = {
     options: { control: false },
   },
   args: {
-    chain: Object.values(STORYKIT_SUPPORTED_CHAIN)[0],
     ipId: "0x195A5B433bbFb6481490cA12d1C95e5594Fb54C4",
     children: <IPLicenseComponent />,
   },
@@ -204,9 +183,6 @@ export const IPLicenseData: Story = {
 }
 export const LicenseTermsData: Story = {
   argTypes: {
-    chain: {
-      options: [...Object.values(STORYKIT_SUPPORTED_CHAIN)],
-    },
     ipId: {
       options: ["0x195A5B433bbFb6481490cA12d1C95e5594Fb54C4"],
     },
@@ -214,7 +190,6 @@ export const LicenseTermsData: Story = {
     options: { control: false },
   },
   args: {
-    chain: Object.values(STORYKIT_SUPPORTED_CHAIN)[0],
     ipId: "0x195A5B433bbFb6481490cA12d1C95e5594Fb54C4",
     children: <LicenseTermsComponent />,
   },
@@ -251,9 +226,6 @@ export const LicenseTermsData: Story = {
 }
 export const LicenseData: Story = {
   argTypes: {
-    chain: {
-      options: [...Object.values(STORYKIT_SUPPORTED_CHAIN)],
-    },
     ipId: {
       options: ["0x5FCeDadBbDF710Ac3C528F6Aac9D1bD9ac18D9a8"],
     },
@@ -261,7 +233,6 @@ export const LicenseData: Story = {
     options: { control: false },
   },
   args: {
-    chain: Object.values(STORYKIT_SUPPORTED_CHAIN)[0],
     ipId: "0x5FCeDadBbDF710Ac3C528F6Aac9D1bD9ac18D9a8",
     children: <LicenseComponent />,
   },
@@ -297,9 +268,6 @@ export const LicenseData: Story = {
 
 export const RoyaltyData: Story = {
   argTypes: {
-    chain: {
-      options: [...Object.values(STORYKIT_SUPPORTED_CHAIN)],
-    },
     ipId: {
       options: ["0x6510c5487312cfEd3e1b9939C6Cad33b5F47358F"],
     },
@@ -307,7 +275,6 @@ export const RoyaltyData: Story = {
     options: { control: false },
   },
   args: {
-    chain: Object.values(STORYKIT_SUPPORTED_CHAIN)[0],
     ipId: "0x6510c5487312cfEd3e1b9939C6Cad33b5F47358F",
     children: <RoyaltyComponent />,
   },
@@ -336,9 +303,6 @@ export const RoyaltyData: Story = {
 }
 export const NotLoadAsset: Story = {
   argTypes: {
-    chain: {
-      options: [...Object.values(STORYKIT_SUPPORTED_CHAIN)],
-    },
     ipId: {
       options: ["0x7907Cec258B28638FCA15d533800B2A13bd1f140"],
     },
@@ -346,7 +310,6 @@ export const NotLoadAsset: Story = {
     options: { control: false },
   },
   args: {
-    chain: Object.values(STORYKIT_SUPPORTED_CHAIN)[0],
     ipId: "0x7907Cec258B28638FCA15d533800B2A13bd1f140",
     children: <ProviderOptionsComponent />,
     options: { assetData: false },
@@ -377,9 +340,6 @@ export const NotLoadAsset: Story = {
 }
 export const NotLoadPolicy: Story = {
   argTypes: {
-    chain: {
-      options: [...Object.values(STORYKIT_SUPPORTED_CHAIN)],
-    },
     ipId: {
       options: ["0x7907Cec258B28638FCA15d533800B2A13bd1f140"],
     },
@@ -387,7 +347,6 @@ export const NotLoadPolicy: Story = {
     options: { control: false },
   },
   args: {
-    chain: Object.values(STORYKIT_SUPPORTED_CHAIN)[0],
     ipId: "0x7907Cec258B28638FCA15d533800B2A13bd1f140",
     children: <ProviderOptionsComponent />,
     options: { licenseTermsData: false },
@@ -420,9 +379,6 @@ export const NotLoadPolicy: Story = {
 }
 export const NotLoadLicense: Story = {
   argTypes: {
-    chain: {
-      options: [...Object.values(STORYKIT_SUPPORTED_CHAIN)],
-    },
     ipId: {
       options: ["0x7907Cec258B28638FCA15d533800B2A13bd1f140"],
     },
@@ -430,7 +386,6 @@ export const NotLoadLicense: Story = {
     options: { control: false },
   },
   args: {
-    chain: Object.values(STORYKIT_SUPPORTED_CHAIN)[0],
     ipId: "0x7907Cec258B28638FCA15d533800B2A13bd1f140",
     children: <ProviderOptionsComponent />,
     options: { licenseData: false },
@@ -462,9 +417,6 @@ export const NotLoadLicense: Story = {
 }
 export const NotLoadRoyalty: Story = {
   argTypes: {
-    chain: {
-      options: [...Object.values(STORYKIT_SUPPORTED_CHAIN)],
-    },
     ipId: {
       options: ["0x7907Cec258B28638FCA15d533800B2A13bd1f140"],
     },
@@ -472,7 +424,6 @@ export const NotLoadRoyalty: Story = {
     options: { control: false },
   },
   args: {
-    chain: Object.values(STORYKIT_SUPPORTED_CHAIN)[0],
     ipId: "0x7907Cec258B28638FCA15d533800B2A13bd1f140",
     children: <ProviderOptionsComponent />,
     options: { royaltyData: false },
@@ -504,9 +455,6 @@ export const NotLoadRoyalty: Story = {
 }
 export const NotLoadAll: Story = {
   argTypes: {
-    chain: {
-      options: [...Object.values(STORYKIT_SUPPORTED_CHAIN)],
-    },
     ipId: {
       options: ["0x7907Cec258B28638FCA15d533800B2A13bd1f140"],
     },
@@ -514,7 +462,6 @@ export const NotLoadAll: Story = {
     options: { control: false },
   },
   args: {
-    chain: Object.values(STORYKIT_SUPPORTED_CHAIN)[0],
     ipId: "0x7907Cec258B28638FCA15d533800B2A13bd1f140",
     children: <ProviderOptionsComponent />,
     options: { assetData: false, licenseTermsData: false, licenseData: false, royaltyData: false },
