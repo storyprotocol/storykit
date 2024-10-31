@@ -122,7 +122,7 @@ export async function convertAssetToGraphFormat(
       ipAssetIds: jsonData.childIpIds,
     }
 
-    const childNftData = await listResource(RESOURCE_TYPE.ASSET, listRequest)
+    const childNftData = await listResource(RESOURCE_TYPE.ASSET, chain, listRequest)
 
     console.log({ childNftData })
     for (const child of childNftData.data) {

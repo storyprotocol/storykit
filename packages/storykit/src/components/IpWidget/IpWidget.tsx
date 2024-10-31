@@ -16,7 +16,6 @@ import { IpRoyaltyPieChart } from "../IpRoyaltyPieChart"
 import "./styles.css"
 
 export type IpWidgetProps = {
-  chain?: STORYKIT_SUPPORTED_CHAIN
   ipId: Address
   isBottomNav?: boolean
 }
@@ -28,11 +27,11 @@ export const IPA_CARD_TABS = [
   { id: "royalty", label: "Royalty" },
 ]
 
-const IpWidget = ({ chain, ipId, isBottomNav, ...rest }: IpWidgetProps) => {
-  return <IPAssetCardWrapper chain={chain} ipId={ipId} isBottomNav={isBottomNav} {...rest} />
+const IpWidget = ({ ipId, isBottomNav, ...rest }: IpWidgetProps) => {
+  return <IPAssetCardWrapper ipId={ipId} isBottomNav={isBottomNav} {...rest} />
 }
 
-function IPAssetCardWrapper({ chain, ipId, isBottomNav = true }: IpWidgetProps) {
+function IPAssetCardWrapper({ ipId, isBottomNav = true }: IpWidgetProps) {
   const [activeTab, setActiveTab] = useState(IPA_CARD_TABS[0].id)
 
   const _Tabs = () => (
@@ -48,7 +47,7 @@ function IPAssetCardWrapper({ chain, ipId, isBottomNav = true }: IpWidgetProps) 
   )
 
   return (
-    <IpProvider chain={chain} ipId={ipId} key={ipId}>
+    <IpProvider ipId={ipId} key={ipId}>
       <div className="skIpWidget">
         {isBottomNav ? <_Card /> : <_Tabs />}
         {isBottomNav ? <_Tabs /> : <_Card />}

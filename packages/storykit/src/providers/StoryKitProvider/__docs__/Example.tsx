@@ -4,6 +4,7 @@ import { STORYKIT_SUPPORTED_CURRENCY } from "@/lib/currencies"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import React, { FC } from "react"
 
+import "../../../global.css"
 import { StoryKitProvider, Theme, useStoryKitContext } from "../StoryKitProvider"
 
 const Example: FC<{

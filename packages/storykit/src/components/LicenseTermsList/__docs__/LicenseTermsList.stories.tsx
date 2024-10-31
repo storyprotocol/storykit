@@ -1,3 +1,4 @@
+import { STORYKIT_SUPPORTED_CHAIN } from "@/lib"
 import {
   commercialRemixingLicenseTerms,
   commercialUseLicenseTerms,
@@ -17,8 +18,13 @@ const meta = {
     layout: "centered",
     controls: { sort: "requiredFirst" },
   },
-  argTypes: {},
+  argTypes: {
+    chain: {
+      options: Object.values(STORYKIT_SUPPORTED_CHAIN),
+    },
+  },
   args: {
+    chain: STORYKIT_SUPPORTED_CHAIN.STORY_TESTNET,
     direction: "column",
     size: "medium",
   },

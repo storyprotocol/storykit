@@ -1,5 +1,6 @@
 import { cn } from "@/lib/utils"
 import { useRoyaltyGraphContext } from "@/providers/RoyaltyGraphProvider/RoyaltyGraphProvider"
+import { useStoryKitContext } from "@/providers/StoryKitProvider"
 import { NFTMetadata } from "@/types"
 import { RoyaltiesGraph } from "@/types/royalty-graph"
 import { useQuery } from "@tanstack/react-query"
@@ -27,15 +28,15 @@ type Link = LinkObject & {
 const NODE_R = 8
 
 function RoyaltyGraph({ width = 600, height = 600, darkMode = false, isAnimated = false }: RoyaltyGraphProps) {
-  // const { isAssetDataLoading, royaltyGraphData, chain } = useIpContext()
-  const { isRoyaltyGraphDataLoading, royaltyGraphData, chain } = useRoyaltyGraphContext()
+  const { chain } = useStoryKitContext()
+  const { isRoyaltyGraphDataLoading, royaltyGraphData } = useRoyaltyGraphContext()
 
   const {
     isLoading: formattedDataLoading,
     data: formattedGraphData,
     isError,
   } = useQuery({
-    queryKey: ["FORMAT_ROYALTY_GRAPH_DATA", royaltyGraphData, chain],
+    queryKey: ["FORMAT_ROYALTY_GRAPH_DATA", royaltyGraphData, chain.name],
     queryFn: () => convertRoyaltyToGraphFormat(royaltyGraphData as RoyaltiesGraph),
     enabled: !!royaltyGraphData,
   })

@@ -3,6 +3,7 @@ import { STORYKIT_SUPPORTED_CHAIN } from "@/lib/chains"
 import { noLicenseTerms } from "@/lib/example-data"
 import { convertLicenseTermObject } from "@/lib/functions/convertLicenseTermObject"
 import { cn } from "@/lib/utils"
+import { useStoryKitContext } from "@/providers/StoryKitProvider"
 import { PILTerms } from "@/types"
 import { RESOURCE_TYPE } from "@/types/api"
 import { useQuery } from "@tanstack/react-query"
@@ -125,12 +126,16 @@ function LicenseTermsList({
   selectedLicenseTerms,
   selectedLicenseTermsId,
 }: LicenseTermsListProps) {
+  const { chain } = useStoryKitContext()
+
   const { data: licenseTermsData } = useQuery({
     queryKey: [RESOURCE_TYPE.LICENSE_TERMS, selectedLicenseTermsId],
     queryFn: () =>
-      getResource(RESOURCE_TYPE.LICENSE_TERMS, selectedLicenseTermsId as string, {
-        chain: STORYKIT_SUPPORTED_CHAIN.STORY_TESTNET,
-      }),
+      getResource(
+        RESOURCE_TYPE.LICENSE_TERMS,
+        selectedLicenseTermsId as string,
+        chain.name as STORYKIT_SUPPORTED_CHAIN
+      ),
     enabled: !!selectedLicenseTermsId,
   })
 

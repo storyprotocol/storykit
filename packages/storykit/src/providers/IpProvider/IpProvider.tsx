@@ -19,6 +19,7 @@ import {
   RoyaltyPolicy,
 } from "../../types/assets"
 import { NFTMetadata } from "../../types/simplehash"
+import { useStoryKitContext } from "../StoryKitProvider"
 
 export interface IpProviderOptions {
   assetData?: boolean
@@ -75,12 +76,10 @@ const IpContext = React.createContext<{
 } | null>(null)
 
 export const IpProvider = ({
-  chain = STORYKIT_SUPPORTED_CHAIN.STORY_TESTNET,
   ipId,
   options = {},
   children,
 }: {
-  chain?: STORYKIT_SUPPORTED_CHAIN
   ipId: Address
   options?: IpProviderOptions
   children: React.ReactNode
@@ -97,6 +96,8 @@ export const IpProvider = ({
     ...options,
   }
 
+  const { chain } = useStoryKitContext()
+
   // Fetch asset data
   const {
     isLoading: isAssetDataLoading,
@@ -105,14 +106,14 @@ export const IpProvider = ({
     isFetched: isAssetDataFetched,
   } = useQuery<{ data: Asset } | undefined>({
     queryKey: [RESOURCE_TYPE.ASSET, ipId],
-    queryFn: () => getResource(RESOURCE_TYPE.ASSET, ipId, { chain }),
+    queryFn: () => getResource(RESOURCE_TYPE.ASSET, ipId, chain.name as STORYKIT_SUPPORTED_CHAIN),
     enabled: queryOptions.assetData,
   })
 
   // Fetch IP metadata
   const { isLoading: isIpaMetadataLoading, data: ipaMetadata } = useQuery({
     queryKey: [RESOURCE_TYPE.ASSET, `${ipId}/metadata`],
-    queryFn: () => getResource(RESOURCE_TYPE.ASSET, `${ipId}/metadata`, { chain }),
+    queryFn: () => getResource(RESOURCE_TYPE.ASSET, `${ipId}/metadata`, chain.name as STORYKIT_SUPPORTED_CHAIN),
     enabled: queryOptions.ipaMetadata,
   })
 
@@ -124,7 +125,6 @@ export const IpProvider = ({
     where: {
       ipId,
     },
-    chain,
   }
 
   // Fetch asset parent data
@@ -135,7 +135,8 @@ export const IpProvider = ({
     isFetched: isAssetParentDataFetched,
   } = useQuery<AssetEdges[] | undefined>({
     queryKey: [RESOURCE_TYPE.ASSET_EDGES, ipId, "parents"],
-    queryFn: () => listResource(RESOURCE_TYPE.ASSET_EDGES, fetchParentEdgeOptions),
+    queryFn: () =>
+      listResource(RESOURCE_TYPE.ASSET_EDGES, chain.name as STORYKIT_SUPPORTED_CHAIN, fetchParentEdgeOptions),
     enabled: queryOptions.assetParentsData,
   })
 
@@ -147,7 +148,6 @@ export const IpProvider = ({
     where: {
       parentIpId: ipId,
     },
-    chain,
   }
 
   // Fetch asset children data with pagination
@@ -168,7 +168,7 @@ export const IpProvider = ({
           offset: pageParam as number,
         },
       }
-      return listResource(RESOURCE_TYPE.ASSET_EDGES, currentOptions)
+      return listResource(RESOURCE_TYPE.ASSET_EDGES, chain.name as STORYKIT_SUPPORTED_CHAIN, currentOptions)
     },
     getNextPageParam: (lastPage: AssetEdges[], allPages: AssetEdges[][]) => {
       const totalFetched = allPages.flat().length
@@ -186,7 +186,6 @@ export const IpProvider = ({
   }
 
   const ipLicenseTermsQueryOptions = {
-    chain,
     pagination: {
       limit: 100,
       offset: 0,
@@ -204,7 +203,8 @@ export const IpProvider = ({
     isFetched: isIpLicenseDataFetched,
   } = useQuery({
     queryKey: [RESOURCE_TYPE.IP_LICENSE_TERMS, ipLicenseTermsQueryOptions],
-    queryFn: () => listResource(RESOURCE_TYPE.IP_LICENSE_TERMS, ipLicenseTermsQueryOptions),
+    queryFn: () =>
+      listResource(RESOURCE_TYPE.IP_LICENSE_TERMS, chain.name as STORYKIT_SUPPORTED_CHAIN, ipLicenseTermsQueryOptions),
     enabled: queryOptions.licenseTermsData,
   })
 
@@ -212,7 +212,7 @@ export const IpProvider = ({
     const uniqueLicenses = data.filter((item) => item.ipId.toLowerCase() === ipId.toLowerCase())
 
     const requests = uniqueLicenses.map((item) =>
-      getResource(RESOURCE_TYPE.LICENSE_TERMS, item.licenseTermsId, { chain })
+      getResource(RESOURCE_TYPE.LICENSE_TERMS, item.licenseTermsId, chain.name as STORYKIT_SUPPORTED_CHAIN)
     )
     const results = await Promise.all(requests)
 
@@ -238,7 +238,6 @@ export const IpProvider = ({
   })
 
   const licenseQueryOptions = {
-    chain,
     pagination: {
       limit: 0,
       offset: 0,
@@ -256,7 +255,7 @@ export const IpProvider = ({
     isFetched: isLicenseDataFetched,
   } = useQuery({
     queryKey: [RESOURCE_TYPE.LICENSE, licenseQueryOptions],
-    queryFn: () => listResource(RESOURCE_TYPE.LICENSE, licenseQueryOptions),
+    queryFn: () => listResource(RESOURCE_TYPE.LICENSE, chain.name as STORYKIT_SUPPORTED_CHAIN, licenseQueryOptions),
     enabled: queryOptions.licenseData,
   })
 
@@ -279,7 +278,7 @@ export const IpProvider = ({
         },
       },
     ],
-    queryFn: () => getResource(RESOURCE_TYPE.ROYALTY_POLICY, ipId, { chain }),
+    queryFn: () => getResource(RESOURCE_TYPE.ROYALTY_POLICY, ipId, chain.name as STORYKIT_SUPPORTED_CHAIN),
     enabled: queryOptions.royaltyData,
   })
 
@@ -290,7 +289,7 @@ export const IpProvider = ({
     isFetched: isRoyaltyGraphDataFetched,
   } = useQuery<RoyaltiesGraph | undefined>({
     queryKey: ["getRoyaltiesByIPs", ipId],
-    queryFn: () => getRoyaltiesByIPs([ipId], { chain }),
+    queryFn: () => getRoyaltiesByIPs([ipId], chain.name as STORYKIT_SUPPORTED_CHAIN),
     enabled: queryOptions.royaltyGraphData,
   })
 
@@ -305,7 +304,7 @@ export const IpProvider = ({
       getNFTByTokenId(
         assetData?.data?.nftMetadata?.tokenContract as Hash,
         assetData?.data?.nftMetadata?.tokenId as string,
-        chain
+        chain.name as STORYKIT_SUPPORTED_CHAIN
       ),
     enabled:
       queryOptions.assetData &&
@@ -317,7 +316,7 @@ export const IpProvider = ({
   return (
     <IpContext.Provider
       value={{
-        chain,
+        chain: chain.name as STORYKIT_SUPPORTED_CHAIN,
         nftData,
         isNftDataLoading,
         assetData: assetData?.data,
