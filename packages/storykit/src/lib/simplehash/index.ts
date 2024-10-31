@@ -1,7 +1,7 @@
 import { Address } from "viem"
 
 import { CollectionMetadata, NFTMetadata, NFTWalletResponse } from "../../types/simplehash"
-import { STORYKIT_SUPPORTED_CHAIN } from "../chains"
+import { CHAINS, STORYKIT_SUPPORTED_CHAIN } from "../chains"
 
 const createRequestOptions = (): RequestInit => ({
   method: "GET",
@@ -24,11 +24,11 @@ export type NFT = {
 export const getNFTByTokenId = async (
   contractAddress: Address,
   tokenId: string,
-  chain: STORYKIT_SUPPORTED_CHAIN = STORYKIT_SUPPORTED_CHAIN.STORY_TESTNET
+  chain: STORYKIT_SUPPORTED_CHAIN
 ): Promise<NFTMetadata> => {
-  const chainName = chain === STORYKIT_SUPPORTED_CHAIN.STORY_TESTNET ? "story-testnet" : chain
+  const _chain = CHAINS[chain]
   const options = createRequestOptions()
-  const url = `https://api.simplehash.xyz/api/v0/nfts/${chainName}/${contractAddress}/${tokenId}`
+  const url = `https://api.simplehash.xyz/api/v0/nfts/${_chain.simplehashId}/${contractAddress}/${tokenId}`
   const response = await fetch(url, options)
   const data = await response.json()
   return data
@@ -52,11 +52,11 @@ export const getNFTByTokenIds = async (nfts: NFT[]): Promise<NFTMetadata[]> => {
 
 export const getCollectionByAddress = async (
   contractAddress: Address,
-  chain: STORYKIT_SUPPORTED_CHAIN = STORYKIT_SUPPORTED_CHAIN.STORY_TESTNET
+  chain: STORYKIT_SUPPORTED_CHAIN
 ): Promise<CollectionMetadata> => {
-  const chainName = chain === STORYKIT_SUPPORTED_CHAIN.STORY_TESTNET ? "story-testnet" : chain
+  const _chain = CHAINS[chain]
   const options = createRequestOptions()
-  const url = `https://api.simplehash.xyz/api/v0/nfts/collections/${chainName}/${contractAddress}`
+  const url = `https://api.simplehash.xyz/api/v0/nfts/collections/${_chain.simplehashId}/${contractAddress}`
   const response = await fetch(url, options)
   const data = await response.json()
   return data.collections[0]
@@ -64,11 +64,11 @@ export const getCollectionByAddress = async (
 
 export const getNFTByWallet = async (
   walletAddress: Address,
-  chain: STORYKIT_SUPPORTED_CHAIN = STORYKIT_SUPPORTED_CHAIN.STORY_TESTNET
+  chain: STORYKIT_SUPPORTED_CHAIN
 ): Promise<NFTWalletResponse> => {
-  const chainName = chain === STORYKIT_SUPPORTED_CHAIN.STORY_TESTNET ? "story-testnet" : chain
+  const _chain = CHAINS[chain]
   const options = createRequestOptions()
-  const url = `https://api.simplehash.xyz/api/v0/nfts/owners?chains=${chainName}&wallet_addresses=${walletAddress}`
+  const url = `https://api.simplehash.xyz/api/v0/nfts/owners?chains=${_chain.simplehashId}&wallet_addresses=${walletAddress}`
   const response = await fetch(url, options)
   const data = await response.json()
   return data
