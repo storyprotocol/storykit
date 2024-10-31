@@ -1,40 +1,17 @@
-import { STORYKIT_SUPPORTED_CHAIN } from "@/lib/chains"
-import { StoryKitProvider } from "@/providers/StoryKitProvider"
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import React, { FC } from "react"
 import { Address } from "viem"
 
 import { IpProvider, IpProviderOptions, useIpContext } from "../IpProvider"
 
 const Example: FC<{
-  chain: STORYKIT_SUPPORTED_CHAIN
   ipId: Address
   children?: React.ReactNode
   options?: IpProviderOptions
-}> = ({
-  chain = STORYKIT_SUPPORTED_CHAIN.STORY_TESTNET,
-  ipId = "0xbbf08a30b9ff0f717a024a75963d3196aaf0f0dd",
-  children = <ExampleComponent />,
-  options = {},
-}) => {
-  const queryClient = new QueryClient()
+}> = ({ ipId = "0xbbf08a30b9ff0f717a024a75963d3196aaf0f0dd", children = <ExampleComponent />, options = {} }) => {
   return (
-    <QueryClientProvider client={queryClient}>
-      <StoryKitProvider chain={chain}>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            height: "100%",
-          }}
-        >
-          <IpProvider ipId={ipId} options={options}>
-            {children}
-          </IpProvider>
-        </div>
-      </StoryKitProvider>
-    </QueryClientProvider>
+    <IpProvider ipId={ipId} options={options}>
+      {children}
+    </IpProvider>
   )
 }
 
