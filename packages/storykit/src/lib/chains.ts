@@ -1,4 +1,6 @@
-import { Address, Chain } from "viem"
+import { Chain } from "viem"
+
+import { Currency, ILIAD_STORYUSD, ODYSSEY_STORYUSD } from "./currencies"
 
 export type ChainConfig = {
   id: number
@@ -7,27 +9,33 @@ export type ChainConfig = {
   rpcUrl: string
   blockExplorerUrl: string
   protocolExplorerUrl: string
-  sUSDAddress: Address
+  simplehashId: string
+  apiVersion: string
+  defaultCurrency: Currency
 }
 
 export const STORY_ILIAD: ChainConfig = {
   id: 1513,
   name: "story-testnet",
+  simplehashId: "story-testnet",
+  apiVersion: "v1",
   displayName: "Iliad Testnet",
   rpcUrl: "https://testnet.storyrpc.io",
   blockExplorerUrl: "https://explorer.testnet.storyprotocol.net",
   protocolExplorerUrl: "https://iliad.explorer.story.foundation",
-  sUSDAddress: "0x91f6F05B08c16769d3c85867548615d270C42fC7",
+  defaultCurrency: ILIAD_STORYUSD,
 }
 
 export const STORY_ODYSSEY: ChainConfig = {
   id: 1516,
   name: "odyssey-testnet",
+  simplehashId: "story-odyssey",
+  apiVersion: "v2",
   displayName: "Odyssey Testnet",
   rpcUrl: "https://odyssey.storyrpc.io/",
   blockExplorerUrl: "https://odyssey-testnet-explorer.storyscan.xyz",
   protocolExplorerUrl: "https://odyssey.explorer.story.foundation",
-  sUSDAddress: "0xa906E2589A7F8385A376BABBb70a39dad551603b",
+  defaultCurrency: ODYSSEY_STORYUSD,
 }
 
 export const CHAINS = {
