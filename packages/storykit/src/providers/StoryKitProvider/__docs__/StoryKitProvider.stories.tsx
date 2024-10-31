@@ -10,6 +10,7 @@ const meta = {
   component: Example,
   parameters: {
     layout: "centered",
+    disableStoryProvider: true,
   },
   argTypes: {
     chain: { control: "select", options: Object.values(STORYKIT_SUPPORTED_CHAIN) },
