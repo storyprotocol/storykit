@@ -153,7 +153,7 @@ function LicenseTermsList({
   const { cans, cannots, extras } = DescribeTerms(licenseTerms as PILTerms)
 
   return (
-    <div className={cn("skLicenseTermsList", licenseStyles({ size }))}>
+    <div className={cn("skLicenseTermsList font-sans text-foreground", licenseStyles({ size }))}>
       <div className={cn("skLicenseTermsList__properties", directionStyles({ direction }))}>
         {cans.length && showCans ? (
           <div className="skLicenseTermsList__group">
