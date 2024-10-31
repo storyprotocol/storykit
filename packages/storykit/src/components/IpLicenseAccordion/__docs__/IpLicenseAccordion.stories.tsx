@@ -7,7 +7,7 @@ import { expect, userEvent, waitFor, within } from "@storybook/test"
 import Example from "./Example"
 
 const meta = {
-  title: "IP Assets/IpLicenseAccordion",
+  title: "Components/IpLicenseAccordion",
   component: Example,
   parameters: {
     layout: "centered",
