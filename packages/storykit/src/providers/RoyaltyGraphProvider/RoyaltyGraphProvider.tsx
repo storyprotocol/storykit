@@ -1,27 +1,21 @@
-import { STORYKIT_SUPPORTED_CHAIN } from "@/lib/chains"
+import { STORYKIT_SUPPORTED_CHAIN } from "@/lib"
 import { getRoyaltiesByIPs } from "@/lib/royalty-graph"
 import { RoyaltiesGraph } from "@/types/royalty-graph"
 import { useQuery } from "@tanstack/react-query"
 import React from "react"
 import { Address } from "viem"
 
+import { useStoryKitContext } from "../StoryKitProvider"
+
 const RoyaltyGraphContext = React.createContext<{
-  chain: STORYKIT_SUPPORTED_CHAIN
   royaltyGraphData: RoyaltiesGraph | undefined
   isRoyaltyGraphDataLoading: boolean
   refetchRoyaltyGraphData: () => void
   isRoyaltyGraphDataFetched: boolean
 } | null>(null)
 
-export const RoyaltyGraphProvider = ({
-  chain = STORYKIT_SUPPORTED_CHAIN.STORY_TESTNET,
-  ipIds,
-  children,
-}: {
-  chain?: STORYKIT_SUPPORTED_CHAIN
-  ipIds: Address[]
-  children: React.ReactNode
-}) => {
+export const RoyaltyGraphProvider = ({ ipIds, children }: { ipIds: Address[]; children: React.ReactNode }) => {
+  const { chain } = useStoryKitContext()
   const {
     isLoading: isRoyaltyGraphDataLoading,
     data: royaltyGraphData,
@@ -29,14 +23,13 @@ export const RoyaltyGraphProvider = ({
     isFetched: isRoyaltyGraphDataFetched,
   } = useQuery<RoyaltiesGraph | undefined>({
     queryKey: ["getRoyaltiesByIPs", ipIds],
-    queryFn: () => getRoyaltiesByIPs(ipIds, { chain }),
+    queryFn: () => getRoyaltiesByIPs(ipIds, chain.name as STORYKIT_SUPPORTED_CHAIN),
     enabled: true,
   })
 
   return (
     <RoyaltyGraphContext.Provider
       value={{
-        chain,
         royaltyGraphData,
         isRoyaltyGraphDataLoading,
         refetchRoyaltyGraphData,
