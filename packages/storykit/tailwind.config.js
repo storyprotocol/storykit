@@ -43,6 +43,10 @@ module.exports = {
           DEFAULT: "hsl(var(--sk-destructive))",
           foreground: "hsl(var(--sk-destructive-foreground))",
         },
+        success: {
+          DEFAULT: "hsl(var(--sk-success))",
+          foreground: "hsl(var(--sk-success-foreground))",
+        },
         muted: {
           DEFAULT: "hsl(var(--sk-muted))",
           foreground: "hsl(var(--sk-muted-foreground))",

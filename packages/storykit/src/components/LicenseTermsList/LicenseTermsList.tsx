@@ -2,7 +2,6 @@ import { getResource } from "@/lib/api"
 import { STORYKIT_SUPPORTED_CHAIN } from "@/lib/chains"
 import { noLicenseTerms } from "@/lib/example-data"
 import { convertLicenseTermObject } from "@/lib/functions/convertLicenseTermObject"
-import { cn } from "@/lib/utils"
 import { useStoryKitContext } from "@/providers/StoryKitProvider"
 import { PILTerms } from "@/types"
 import { RESOURCE_TYPE } from "@/types/api"
@@ -12,7 +11,6 @@ import { CircleCheck, CircleMinus, Info } from "lucide-react"
 import React, { useMemo } from "react"
 
 import "../../global.css"
-import "./styles.css"
 
 export const DESCRIPTIONS: { [key: string]: string } = {
   DERIVATIVES_ALLOWED: "Remix this work",
@@ -88,21 +86,36 @@ const DescribeTerms = (selectedLicenseTerms: PILTerms) => {
   return { cans, cannots, extras }
 }
 
-const licenseStyles = cva("", {
+const licenseStyles = cva("flex flex-col w-full min-w-48 font-sans text-foreground", {
   variants: {
     size: {
-      small: "skLicenseTermsList--small",
-      medium: "skLicenseTermsList--medium",
-      large: "skLicenseTermsList--large",
+      small: "text-sm",
+      medium: "text-base",
+      large: "text-lg",
     },
   },
 })
 
-const directionStyles = cva("", {
+const directionStyles = cva("flex pt-2 w-full", {
   variants: {
     direction: {
-      row: "skLicenseTermsList--row",
-      column: "skLicenseTermsList--col",
+      row: "flex-row",
+      column: "flex-col",
+    },
+    size: {
+      small: "gap-2",
+      medium: "gap-3",
+      large: "gap-4",
+    },
+  },
+})
+
+const groupStyles = cva("flex flex-col flex-1", {
+  variants: {
+    size: {
+      small: "gap-0.5",
+      medium: "gap-1",
+      large: "gap-2",
     },
   },
 })
@@ -153,15 +166,15 @@ function LicenseTermsList({
   const { cans, cannots, extras } = DescribeTerms(licenseTerms as PILTerms)
 
   return (
-    <div className={cn("skLicenseTermsList font-sans text-foreground", licenseStyles({ size }))}>
-      <div className={cn("skLicenseTermsList__properties", directionStyles({ direction }))}>
+    <div className={licenseStyles({ size })}>
+      <div className={directionStyles({ direction, size })}>
         {cans.length && showCans ? (
-          <div className="skLicenseTermsList__group">
-            <div className="skLicenseTermsList__item-list-title">Others Can</div>
-            <div className="skLicenseTermsList__list">
+          <div className={groupStyles({ size })}>
+            <div className="font-bold">Others Can</div>
+            <div className="flex flex-col">
               {cans.map((term, index) => (
-                <div key={index} className="skLicenseTermsList__property skLicenseTermsList__property--can">
-                  <CircleCheck width={iconWidth} />
+                <div key={index} className="flex w-full items-center justify-start gap-2 shrink-0">
+                  <CircleCheck width={iconWidth} className="items-start w-4 h-4 justify-start shrink-0 text-success" />
                   <span>{term}</span>
                 </div>
               ))}
@@ -169,12 +182,15 @@ function LicenseTermsList({
           </div>
         ) : null}
         {cannots.length && showCannots ? (
-          <div className="skLicenseTermsList__group">
-            <div className="skLicenseTermsList__item-list-title">Others Cannot</div>
-            <div className="skLicenseTermsList__list">
+          <div className={groupStyles({ size })}>
+            <div className="font-bold">Others Cannot</div>
+            <div className="flex flex-col">
               {cannots.map((term, index) => (
-                <div key={index} className="skLicenseTermsList__property skLicenseTermsList__property--cannot">
-                  <CircleMinus width={iconWidth} />
+                <div key={index} className="flex w-full items-center justify-start gap-2 shrink-0">
+                  <CircleMinus
+                    width={iconWidth}
+                    className="items-start w-4 h-4 justify-start shrink-0 text-destructive"
+                  />
                   <span>{term}</span>
                 </div>
               ))}
@@ -182,12 +198,12 @@ function LicenseTermsList({
           </div>
         ) : null}
         {extras.length && showExtras ? (
-          <div className="skLicenseTermsList__group">
-            <div className="skLicenseTermsList__item-list-title">Additional Notes</div>
-            <div className="skLicenseTermsList__list">
+          <div className={groupStyles({ size })}>
+            <div className="font-bold">Additional Notes</div>
+            <div className="flex flex-col">
               {extras.map((term, index) => (
-                <div key={index} className="skLicenseTermsList__property skLicenseTermsList__property--note">
-                  <Info width={iconWidth} />
+                <div key={index} className="flex w-full items-center justify-start gap-2 shrink-0">
+                  <Info width={iconWidth} className="items-start w-4 h-4 justify-start shrink-0" />
                   <span>{term}</span>
                 </div>
               ))}

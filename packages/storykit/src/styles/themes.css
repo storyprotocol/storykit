@@ -1,7 +1,8 @@
 @tailwind base;
 
 @layer base {
-  :root .default,
+  :root,
+  .default,
   .light .default,
   .light.default,
   .default-light {
@@ -36,6 +37,9 @@
 
     --sk-accent: 210 40% 96.1%;
     --sk-accent-foreground: 222.2 47.4% 11.2%;
+
+    --sk-success: 142.09 70.56% 45.29%;
+    --sk-success-foreground: 210 40% 98%;
 
     --sk-destructive: 0 84.2% 60.2%;
     --sk-destructive-foreground: 210 40% 98%;
@@ -72,6 +76,9 @@
 
     --sk-background: 0 0% 92%;
     --sk-foreground: 0 0 22%;
+
+    --sk-success: 142.09 100% 67.41%;
+    --sk-destructive: 0 100% 70.91%;
   }
 
   .dark .story,
