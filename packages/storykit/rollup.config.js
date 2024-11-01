@@ -2,6 +2,7 @@ import commonjs from "@rollup/plugin-commonjs"
 import resolve from "@rollup/plugin-node-resolve"
 import terser from "@rollup/plugin-terser"
 import typescript from "@rollup/plugin-typescript"
+import easyImport from "postcss-easy-import"
 import dts from "rollup-plugin-dts"
 import peerDepsExternal from "rollup-plugin-peer-deps-external"
 import postcss from "rollup-plugin-postcss"
@@ -26,20 +27,22 @@ const config = [
     ],
     plugins: [
       peerDepsExternal(),
-      resolve(),
-      commonjs(),
-      typescript(),
-      terser(),
       postcss({
+        sourceMap: true,
+        minimize: true,
+        plugins: [easyImport],
         config: {
           path: "./postcss.config.cjs",
         },
         extensions: [".css"],
-        minimize: true,
         inject: {
           insertAt: "top",
         },
       }),
+      resolve(),
+      commonjs(),
+      typescript(),
+      terser(),
     ],
     external: ["react/jsx-runtime"],
   },

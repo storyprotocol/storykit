@@ -1,0 +1,14 @@
+@tailwind base;
+
+@layer base {
+  :root, .my-theme {
+    --sk-font-family: "Itim", sans-serif;
+    --sk-background: 0 0% 98%;
+    --sk-foreground: 298.63 100% 60.18%;
+    --sk-success: 220.21 100% 65.5%;
+    --sk-destructive: 275.84 100% 61.77%;
+  }
+}
+
+@tailwind components;
+@tailwind utilities;
