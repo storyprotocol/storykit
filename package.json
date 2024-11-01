@@ -3,7 +3,7 @@
   "scripts": {
     "build": "turbo run build --filter @storyprotocol/storykit",
     "dev": "turbo run dev --filter @storyprotocol/storykit",
-    "dev-example": "turbo run dev --filter next-app",
+    "dev-examples": "turbo run dev",
     "lint": "turbo run lint --filter @storyprotocol/storykit",
     "lint-all": "turbo run lint",
     "format": "turbo run format --filter @storyprotocol/storykit",
