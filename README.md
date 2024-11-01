@@ -79,7 +79,8 @@ Run the next.js [example app](./examples/next-app/):
 
 ```bash
 pnpm build
-pnpm dev-example
+pnpm dev-example --filter @example/simple-setup
+pnpm dev-example --filter @example/custom-theme
 ```
 
 The dev server will be running at [http://localhost:3000](http://localhost:3000)
