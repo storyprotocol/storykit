@@ -1,3 +1,4 @@
+import { cn } from "@/lib"
 import { getResource } from "@/lib/api"
 import { STORYKIT_SUPPORTED_CHAIN } from "@/lib/chains"
 import { noLicenseTerms } from "@/lib/example-data"
@@ -96,7 +97,7 @@ const licenseStyles = cva("flex flex-col w-full min-w-48 font-sans text-foregrou
   },
 })
 
-const directionStyles = cva("flex pt-2 w-full", {
+const directionStyles = cva("flex w-full", {
   variants: {
     direction: {
       row: "flex-row",
@@ -116,6 +117,16 @@ const groupStyles = cva("flex flex-col flex-1", {
       small: "gap-0.5",
       medium: "gap-1",
       large: "gap-2",
+    },
+  },
+})
+
+const termIconStyles = cva("items-start w-4 h-4 justify-start shrink-0", {
+  variants: {
+    size: {
+      small: "w-3.5 h-3.5 mt-1",
+      medium: "w-4 h-4 mt-1",
+      large: "w-5 h-5 mt-1",
     },
   },
 })
@@ -173,8 +184,8 @@ function LicenseTermsList({
             <div className="font-bold">Others Can</div>
             <div className="flex flex-col">
               {cans.map((term, index) => (
-                <div key={index} className="flex w-full items-center justify-start gap-2 shrink-0">
-                  <CircleCheck width={iconWidth} className="items-start w-4 h-4 justify-start shrink-0 text-success" />
+                <div key={index} className="flex w-full items-start justify-start gap-2 shrink-0">
+                  <CircleCheck width={iconWidth} className={cn(termIconStyles({ size }), "text-success")} />
                   <span>{term}</span>
                 </div>
               ))}
@@ -186,11 +197,8 @@ function LicenseTermsList({
             <div className="font-bold">Others Cannot</div>
             <div className="flex flex-col">
               {cannots.map((term, index) => (
-                <div key={index} className="flex w-full items-center justify-start gap-2 shrink-0">
-                  <CircleMinus
-                    width={iconWidth}
-                    className="items-start w-4 h-4 justify-start shrink-0 text-destructive"
-                  />
+                <div key={index} className="flex w-full items-start justify-start gap-2 shrink-0">
+                  <CircleMinus width={iconWidth} className={cn(termIconStyles({ size }), "text-destructive")} />
                   <span>{term}</span>
                 </div>
               ))}
@@ -202,8 +210,8 @@ function LicenseTermsList({
             <div className="font-bold">Additional Notes</div>
             <div className="flex flex-col">
               {extras.map((term, index) => (
-                <div key={index} className="flex w-full items-center justify-start gap-2 shrink-0">
-                  <Info width={iconWidth} className="items-start w-4 h-4 justify-start shrink-0" />
+                <div key={index} className="flex w-full items-start justify-start gap-2 shrink-0">
+                  <Info width={iconWidth} className={termIconStyles({ size })} />
                   <span>{term}</span>
                 </div>
               ))}
