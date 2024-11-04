@@ -18,16 +18,12 @@ export type PilFlavor =
 export type Asset = {
   id: Address
   ancestorCount: number
-  descendantCount: number
-  parentCount?: number
-  childCount?: number
-  rootCount?: number
-  parentIpIds: Address[] | null
+  blockNumber: string
+  blockTimestamp: string
   childIpIds: Address[] | null
-  rootIpIds: Address[] | null
-  parentIps?: Asset[] | null
-  rootIps?: Asset[] | null
-  childIps?: Asset[] | null
+  childrenCount: number
+  createdAt: string
+  descendantCount: number
   nftMetadata: {
     name: string
     chainId: string
@@ -36,8 +32,14 @@ export type Asset = {
     tokenUri: string
     imageUrl: string
   }
-  blockNumber: string
-  blockTimestamp: string
+  parentCount?: number
+  parentIpIds: Address[] | null
+  rootIpIds: Address[] | null
+  updatedAt: string
+  // TODO: update graph.ts, remove below
+  parentIps?: Asset[] | null
+  rootIps?: Asset[] | null
+  childIps?: Asset[] | null
 }
 
 export type AssetEdges = {
