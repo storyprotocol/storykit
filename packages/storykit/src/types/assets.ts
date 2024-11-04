@@ -37,8 +37,6 @@ export type Asset = {
   rootIpIds: Address[] | null
   updatedAt: string
   // TODO: update graph.ts, remove below
-  childCount?: number
-  rootCount?: number
   parentIps?: Asset[] | null
   rootIps?: Asset[] | null
   childIps?: Asset[] | null
