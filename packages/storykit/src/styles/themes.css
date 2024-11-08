@@ -57,6 +57,9 @@
   .default-dark {
     --sk-background: 0 0 2%;
     --sk-foreground: 0 0% 98%;
+
+    --sk-primary: 222.2 47.4% 88.8%;
+    --sk-primary-foreground: 210 40% 11.2%;
   }
 
   .story,

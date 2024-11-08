@@ -1,4 +1,21 @@
 /** @type {import('tailwindcss').Config} */
+
+// https://github.com/storyprotocol/story-monorepo/blob/a4e9c1d18a62d96813b7cc3ed56c6f7f3ca34ece/apps/hub/tailwind.config.ts#L9
+const charcoal = {
+  DEFAULT: "#1C1C1C",
+  50: "#EBEBEB",
+  100: "#C9C9C9",
+  200: "#AAAAAA",
+  300: "#909090",
+  400: "#818181",
+  500: "#6D6D6D",
+  600: "#585858",
+  700: "#3F3F3F",
+  800: "#282828",
+  900: "#1C1C1C",
+  950: "#111111",
+}
+
 module.exports = {
   darkMode: ["class"],
   content: ["./pages/**/*.{ts,tsx}", "./components/**/*.{ts,tsx}", "./app/**/*.{ts,tsx}", "./src/**/*.{ts,tsx}"],
@@ -63,6 +80,7 @@ module.exports = {
           DEFAULT: "hsl(var(--sk-card))",
           foreground: "hsl(var(--sk-card-foreground))",
         },
+        gray: charcoal,
       },
       borderRadius: {
         lg: "var(--sk-radius)",
