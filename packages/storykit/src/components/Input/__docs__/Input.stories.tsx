@@ -9,7 +9,12 @@ const meta = {
     layout: "centered",
   },
   // tags: ["isHidden"],
-  argTypes: {},
+  argTypes: {
+    size: {
+      options: ["sm", "medium", "lg"],
+      control: { type: "radio" },
+    },
+  },
   args: {},
 } satisfies Meta<typeof Input>
 
