@@ -1,6 +1,6 @@
 import { cn } from "@/lib"
-import { STORYKIT_SUPPORTED_CHAIN } from "@/lib/chains"
-import { STORYKIT_SUPPORTED_CURRENCY } from "@/lib/currencies"
+import { STORYKIT_SUPPORTED_CHAIN } from "@/types/chains"
+import { STORYKIT_SUPPORTED_CURRENCY } from "@/types/currencies"
 import React, { FC } from "react"
 
 import "../../../global.css"

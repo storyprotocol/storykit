@@ -3,7 +3,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import React from "react"
 import { useEffect } from "react"
 
-import { STORYKIT_SUPPORTED_CHAIN } from "../src/lib/chains"
+import { STORYKIT_SUPPORTED_CHAIN } from "../src/types/chains"
 import StoryProvider from "./directors/StoryProvider"
 import "./global.css"
 import theme from "./theme"

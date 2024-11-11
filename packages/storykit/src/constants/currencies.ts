@@ -1,10 +1,4 @@
-import { Address } from "viem"
-
-export type Currency = {
-  name: string
-  symbol: string
-  address: Address
-}
+import { Currency } from "@/types/currencies"
 
 export const ILIAD_STORYUSD: Currency = {
   name: "Testnet StoryUSD",
@@ -21,11 +15,4 @@ export const ODYSSEY_STORYUSD: Currency = {
 export const CURRENCIES = {
   [ILIAD_STORYUSD.name]: ILIAD_STORYUSD,
   [ODYSSEY_STORYUSD.name]: ODYSSEY_STORYUSD,
-}
-
-export type SupportedCurrencies = typeof ODYSSEY_STORYUSD
-
-export enum STORYKIT_SUPPORTED_CURRENCY {
-  ILIAD_STORYUSD = "Testnet StoryUSD",
-  ODYSSEY_STORYUSD = "Odyssey StoryUSD",
 }

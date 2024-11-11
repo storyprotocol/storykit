@@ -1,7 +1,7 @@
-import { STORYKIT_SUPPORTED_CHAIN } from "@/lib"
 import { cn } from "@/lib/utils"
 import { useStoryKitContext } from "@/providers/StoryKitProvider"
 import { NFTMetadata } from "@/types"
+import { STORYKIT_SUPPORTED_CHAIN } from "@/types/chains"
 import { useQuery } from "@tanstack/react-query"
 import React, { useEffect, useRef, useState } from "react"
 import { LinkObject } from "react-force-graph-2d"

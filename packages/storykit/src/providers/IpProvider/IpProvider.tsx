@@ -1,6 +1,6 @@
-import { STORYKIT_SUPPORTED_CHAIN } from "@/lib/chains"
 import { convertLicenseTermObject } from "@/lib/functions/convertLicenseTermObject"
 import { getRoyaltiesByIPs } from "@/lib/royalty-graph"
+import { STORYKIT_SUPPORTED_CHAIN } from "@/types/chains"
 import { RoyaltiesGraph, RoyaltyGraph } from "@/types/royalty-graph"
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query"
 import React from "react"

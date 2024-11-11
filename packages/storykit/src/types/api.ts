@@ -1,4 +1,4 @@
-import { STORYKIT_SUPPORTED_CHAIN } from "@/lib/chains"
+import { STORYKIT_SUPPORTED_CHAIN } from "@/types/chains"
 import { Address, Hash } from "viem"
 
 export enum RESOURCE_TYPE {

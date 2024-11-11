@@ -1,7 +1,7 @@
-import { STORYKIT_SUPPORTED_CHAIN } from "@/lib/chains"
 import { getCollectionByAddress, getNFTByWallet } from "@/lib/simplehash"
 import { useStoryKitContext } from "@/providers"
 import { ILIAD_PREVIEW_COLLECTION_ADDRESS } from "@/stories/data"
+import { STORYKIT_SUPPORTED_CHAIN } from "@/types/chains"
 import React, { FC, useEffect, useState } from "react"
 import { Address } from "viem"
 
