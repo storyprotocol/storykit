@@ -5,8 +5,8 @@ import {
 } from "@/constants/pil-flavors"
 import { cn } from "@/lib/utils"
 import { PIL_FLAVOR } from "@/types"
-import * as RadioGroup from "@radix-ui/react-radio-group"
-import React from "react"
+import { cva } from "class-variance-authority"
+import * as React from "react"
 
 import LicenseTermsList, { LicenseTermsListProps } from "../LicenseTermsList/LicenseTermsList"
 
@@ -14,8 +14,8 @@ interface LicenseFlavorSelectorTermsProps
   extends Omit<LicenseTermsListProps, "selectedLicenseTerms" | "selectedLicenseTermsId"> {}
 
 export interface LicenseFlavorSelectorProps extends LicenseFlavorSelectorTermsProps {
-  value: PIL_FLAVOR
-  onValueChange: (value: PIL_FLAVOR) => void
+  value?: PIL_FLAVOR
+  onValueChange?: (value: PIL_FLAVOR) => void
   className?: string
 }
 
@@ -42,57 +42,63 @@ export const licenseFlavorOptions = [
   },
 ]
 
+const titleStyles = cva("text-foreground font-sans font-bold", {
+  variants: {
+    size: {
+      small: "text-sm",
+      medium: "text-base",
+      large: "text-lg",
+    },
+  },
+})
+
+const descriptionStyles = cva("font-medium text-muted-foreground font-sans", {
+  variants: {
+    size: {
+      small: "text-xs",
+      medium: "text-sm",
+      large: "text-base",
+    },
+  },
+})
+
 export default function LicenseFlavorSelector({
-  value,
+  value = PIL_FLAVOR.NON_COMMERCIAL_SOCIAL_REMIXING,
   onValueChange,
   className,
   size,
   ...rest
 }: LicenseFlavorSelectorProps) {
   return (
-    <RadioGroup.Root
-      name="pil-flavor"
-      value={value}
-      onValueChange={onValueChange}
-      className={cn("grid gap-4", className)}
-    >
+    <div className={cn("grid gap-4", className)} role="radiogroup">
       {licenseFlavorOptions.map((flavor) => (
-        <RadioGroup.Item
-          key={flavor.value}
-          value={flavor.value}
-          className="group focus-visible:outline-none"
-          aria-label={flavor.label}
-        >
+        <label className="group" key={flavor.value}>
+          <input
+            type="radio"
+            name="pil-flavor"
+            value={flavor.value}
+            checked={value === flavor.value}
+            onChange={(e) => onValueChange?.(e.target.value as PIL_FLAVOR)}
+            className="sr-only"
+          />
           <div
             className={cn(
-              "relative flex cursor-pointer rounded-lg border-2 bg-popover p-4",
-              "group-data-[state=checked]:border-foreground group-focus-visible:ring-2 group-focus-visible:ring-ring",
-              "group-data-[state=unchecked]:border-border group-data-[state=unchecked]:hover:border-foreground"
+              "flex flex-col w-full cursor-pointer items-start text-left rounded-lg border-2 bg-popover p-4",
+              "peer-focus-visible:ring-2 peer-focus-visible:ring-offset-2 peer-focus-visible:ring-foreground/40",
+              "group-focus-visible:ring-2 group-focus-visible:ring-offset-2 group-focus-visible:ring-foreground/40",
+              value === flavor.value ? "border-foreground" : "border-border hover:border-foreground"
             )}
           >
-            <div className="flex flex-col w-full items-start text-left">
-              <h1
-                className={cn(
-                  "text-foreground font-sans font-bold",
-                  size === "small" ? "text-sm" : size === "large" ? "text-lg" : "text-base"
-                )}
-              >
-                {flavor.label}
-              </h1>
-              <span
-                className={cn("font-medium text-muted-foreground font-sans", size === "small" ? "text-xs" : "text-sm")}
-              >
-                {flavor.description}
-              </span>
-              {rest.showCannots || rest.showCans || rest.showExtras ? (
-                <div className={cn("group-data-[state=checked]:block hidden", size === "small" ? "mt-4" : "mt-6")}>
-                  <LicenseTermsList {...rest} size={size} selectedLicenseTerms={flavor.terms} />
-                </div>
-              ) : null}
-            </div>
+            <h3 className={titleStyles({ size })}>{flavor.label}</h3>
+            <h5 className={descriptionStyles({ size })}>{flavor.description}</h5>
+            {rest.showCannots || rest.showCans || rest.showExtras ? (
+              <div className={cn(value === flavor.value ? "block" : "hidden", size === "small" ? "mt-4" : "mt-6")}>
+                <LicenseTermsList {...rest} size={size} selectedLicenseTerms={flavor.terms} />
+              </div>
+            ) : null}
           </div>
-        </RadioGroup.Item>
+        </label>
       ))}
-    </RadioGroup.Root>
+    </div>
   )
 }
