@@ -1,7 +1,7 @@
+import { noLicenseTerms } from "@/constants/pil-flavors"
 import { cn } from "@/lib"
 import { getResource } from "@/lib/api"
 import { STORYKIT_SUPPORTED_CHAIN } from "@/lib/chains"
-import { noLicenseTerms } from "@/lib/example-data"
 import { convertLicenseTermObject } from "@/lib/functions/convertLicenseTermObject"
 import { useStoryKitContext } from "@/providers/StoryKitProvider"
 import { PILTerms } from "@/types"
