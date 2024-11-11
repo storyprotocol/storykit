@@ -11,7 +11,7 @@
     --sk-background: 0 0% 98%;
     --sk-foreground: 0 0 2%;
 
-    --sk-font-size-xs: 0.75rem;
+    --sk-font-size-xs: 0.7rem;
     --sk-font-size-sm: 0.875rem;
     --sk-font-size-base: 1rem;
     --sk-font-size-lg: 1.125rem;
@@ -23,7 +23,7 @@
     --sk-card: 0 0% 100%;
     --sk-card-foreground: 222.2 84% 4.9%;
 
-    --sk-popover: 0 0% 100%;
+    --sk-popover: 0 0% 96%;
     --sk-popover-foreground: 222.2 84% 4.9%;
 
     --sk-primary: 222.2 47.4% 11.2%;
@@ -46,7 +46,7 @@
 
     --sk-border: 214.3 31.8% 91.4%;
     --sk-input: 214.3 31.8% 91.4%;
-    --sk-ring: 222.2 84% 4.9%;
+    --sk-ring: 214.3 31.8% 91.4%;
 
     --sk-radius: 0.5rem;
   }
@@ -56,7 +56,10 @@
   .dark.default,
   .default-dark {
     --sk-background: 0 0 2%;
+    --sk-popover: 0 0% 4%;
     --sk-foreground: 0 0% 98%;
+    --sk-border: 0 0 20%;
+    --sk-ring: 0 0 20%;
   }
 
   .story,
@@ -65,7 +68,7 @@
   .story-light {
     --sk-font-family: "Roboto Mono", sans-serif;
 
-    --sk-font-size-xs: 0.5rem;
+    --sk-font-size-xs: 0.625rem;
     --sk-font-size-sm: 0.75rem;
     --sk-font-size-base: 0.875rem;
     --sk-font-size-lg: 1rem;
