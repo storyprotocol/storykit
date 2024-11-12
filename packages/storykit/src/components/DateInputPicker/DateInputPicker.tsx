@@ -6,6 +6,7 @@ import { Calendar } from "../Calendar/Calendar"
 import { Input } from "../Input"
 import { Popover, PopoverContent, PopoverTrigger } from "../Popover/Popover"
 import { buildContext } from "../utility/context"
+import { dateUtils } from "./dateUtils"
 
 interface DateInputContextType {
   date: string
@@ -20,6 +21,7 @@ interface DateInputContextType {
 export interface DateInputPickerProps {
   children: React.ReactNode
   defaultOpen?: boolean
+  initialValue?: Date
 }
 
 export interface TriggerProps {
@@ -27,11 +29,17 @@ export interface TriggerProps {
 }
 const [DateInputProvider, useDateInputContext] = buildContext<DateInputContextType>("DateInputPicker")
 
-export const DateInputPicker = ({ children, defaultOpen = false }: DateInputPickerProps) => {
-  const [date, setDate] = useState("")
+export const DateInputPicker = ({ children, defaultOpen = false, initialValue }: DateInputPickerProps) => {
+  const initialDateString =
+    initialValue != null
+      ? `${String(initialValue.getMonth() + 1).padStart(2, "0")}/${String(initialValue.getDate()).padStart(2, "0")}/${initialValue.getFullYear()}`
+      : ""
+
+  const [date, setDate] = useState(initialDateString)
+  const [selectedDate, setSelectedDate] = useState(initialValue)
+
   const [error, setError] = useState("")
   const [isOpen, setIsOpen] = useState(defaultOpen)
-  const [selectedDate, setSelectedDate] = useState<Date | undefined>()
 
   const value = {
     date,
@@ -44,9 +52,18 @@ export const DateInputPicker = ({ children, defaultOpen = false }: DateInputPick
     setSelectedDate,
   }
 
+  const handleOpenChange = (open: boolean) => {
+    setIsOpen(open)
+
+    if (!open && !selectedDate) {
+      setDate("")
+      setError("")
+    }
+  }
+
   return (
     <DateInputProvider {...value}>
-      <Popover open={isOpen} onOpenChange={setIsOpen}>
+      <Popover open={isOpen} onOpenChange={handleOpenChange}>
         {children}
       </Popover>
     </DateInputProvider>
@@ -54,67 +71,111 @@ export const DateInputPicker = ({ children, defaultOpen = false }: DateInputPick
 }
 
 const Trigger = forwardRef<HTMLButtonElement, TriggerProps>(({ children }, ref) => {
-  return <PopoverTrigger asChild>{children}</PopoverTrigger>
+  return (
+    <PopoverTrigger ref={ref} asChild>
+      {children}
+    </PopoverTrigger>
+  )
 })
 
 Trigger.displayName = "DateInputPickerTrigger"
 
-const Content = () => {
+interface DateValidationResult {
+  isValid: boolean
+  date?: Date
+  error?: string
+}
+
+export interface ContentProps {
+  baseDate?: Date
+  maxDate?: Date
+}
+const PLACEHOLDER = "MM/DD/YYYY"
+const Content = ({ baseDate = new Date(), maxDate = new Date(9999) }: ContentProps) => {
   const { date, setDate, error, setError, setIsOpen, selectedDate, setSelectedDate } =
     useDateInputContext("DateInputPickerContent")
 
-  const [currentMonth, setCurrentMonth] = useState<Date>(new Date())
+  const [baseMonth, setBaseMonth] = useState(selectedDate || baseDate)
 
-  const parseDateInput = (value: string): { month?: number; day?: number; year?: number } => {
-    if (value.includes("/")) {
-      const parts = value.split("/")
+  const validateDateInput = (value: string, validateFully: boolean, currentYear: number): DateValidationResult => {
+    if (value === "") {
       return {
-        month: parts[0] ? parseInt(parts[0]) : undefined,
-        day: parts[1] ? parseInt(parts[1]) : undefined,
-        year: parts[2] ? parseInt(parts[2]) : undefined,
+        isValid: true,
+        error: "",
       }
     }
 
-    const digits = value.replace(/\D/g, "")
-    if (digits.length >= 2) {
-      const month = parseInt(digits.substring(0, 2))
-      const day = digits.length >= 4 ? parseInt(digits.substring(2, 4)) : undefined
-      const year = digits.length === 8 ? parseInt(digits.substring(4, 8)) : undefined
-      return { month, day, year }
+    const parts = value.split("/")
+    const [monthStr, dayStr, yearStr] = parts
+
+    const isValidMonth = dateUtils.isValidMonthFormat(monthStr)
+    const isValidDay = dateUtils.isValidDayFormat(dayStr)
+    const isValidYear = dateUtils.isValidYearFormat(yearStr)
+
+    if (!isValidMonth || !isValidDay || !isValidYear) {
+      return {
+        isValid: false,
+        error: validateFully ? "Invalid date format" : undefined,
+      }
     }
 
-    return {}
+    const parsedDate = dateUtils.parse(value)
+
+    if (!dateUtils.hasRequiredFields(parsedDate)) {
+      return {
+        isValid: true,
+      }
+    }
+
+    const candidateDate = dateUtils.createDate(parsedDate, currentYear)
+    const isValidDate = dateUtils.isValidDate(candidateDate, parsedDate.month!, parsedDate.day!)
+
+    if (!isValidDate) {
+      return {
+        isValid: false,
+        error: validateFully ? "Unsupported date format" : undefined,
+      }
+    }
+
+    const isWithinMaxDate = dateUtils.isWithinMaxDate(candidateDate, maxDate)
+    if (!isWithinMaxDate) {
+      return {
+        isValid: false,
+        error: validateFully ? "Date exceeds maximum" : undefined,
+      }
+    }
+
+    return {
+      isValid: true,
+      date: candidateDate,
+    }
   }
-
   const processDateInput = (value: string, validateFully = false) => {
-    if (value === "") {
-      setError("")
-      setSelectedDate(undefined)
-      return
-    }
+    const baseYear = baseDate.getFullYear()
+    const validationResult = validateDateInput(value, validateFully, baseYear)
 
-    const { month, day, year } = parseDateInput(value)
-    const currentYear = new Date().getFullYear()
+    if (value === "") {
+      setSelectedDate(undefined)
+      setError("")
+      return false
+    }
 
     if (!validateFully) {
       setError("")
     }
 
-    if (month && day) {
-      const yearToUse = year || currentYear
-      const testDate = new Date(yearToUse, month - 1, day)
+    if (validationResult.isValid && validationResult.date != null) {
+      setSelectedDate(validationResult.date)
+      setBaseMonth(validationResult.date)
+      setError("")
+      return true
+    }
 
-      if (testDate.getMonth() === month - 1 && testDate.getDate() === day) {
-        setSelectedDate(testDate)
+    if (validationResult.error) {
+      setError(validationResult.error)
+    }
 
-        setCurrentMonth(testDate)
-        setError("")
-        return true
-      } else if (validateFully) {
-        setError("Invalid date")
-        return false
-      }
-    } else {
+    if (validationResult.date == null) {
       setSelectedDate(undefined)
     }
 
@@ -137,7 +198,9 @@ const Content = () => {
   }
 
   const handleCalendarSelect = (newDate: Date | undefined) => {
-    if (!newDate) return
+    if (newDate == null) {
+      return
+    }
 
     const month = String(newDate.getMonth() + 1).padStart(2, "0")
     const day = String(newDate.getDate()).padStart(2, "0")
@@ -145,7 +208,7 @@ const Content = () => {
 
     setDate(`${month}/${day}/${year}`)
     setSelectedDate(newDate)
-    setCurrentMonth(newDate)
+    setBaseMonth(newDate)
     setError("")
     setIsOpen(false)
   }
@@ -164,12 +227,13 @@ const Content = () => {
             type="text"
             size="sm"
             variant="solid"
-            placeholder="MM/DD/YYYY"
+            placeholder={PLACEHOLDER}
+            maxLength={PLACEHOLDER.length}
             value={date}
             onChange={handleInputChange}
             onKeyDown={handleKeyDown}
             rightAddon={
-              date != null ? (
+              date !== "" && error === "" ? (
                 <button
                   onClick={handleClear}
                   type="button"
@@ -184,15 +248,17 @@ const Content = () => {
               ) : null
             }
           />
+          {error !== "" && (
+            <p className="absolute right-[10px] top-3 text-xs text-red-700 dark:text-red-400">{error}</p>
+          )}
         </div>
-        {error && <p className="text-sm text-red-500 dark:text-red-400 mt-1">{error}</p>}
       </div>
       <Calendar
         mode="single"
         selected={selectedDate}
         onSelect={handleCalendarSelect}
-        month={currentMonth}
-        onMonthChange={setCurrentMonth}
+        month={baseMonth}
+        onMonthChange={setBaseMonth}
       />
     </PopoverContent>
   )
