@@ -2,9 +2,11 @@ import { cn } from "@/lib/utils"
 import { X } from "lucide-react"
 import React, { forwardRef, useState } from "react"
 
+import { Button } from "../Button"
 import { Calendar } from "../Calendar/Calendar"
 import { Input } from "../Input"
 import { Popover, PopoverContent, PopoverTrigger } from "../Popover/Popover"
+import { If } from "../utility/If"
 import { buildContext } from "../utility/context"
 import { dateUtils } from "./dateUtils"
 
@@ -89,9 +91,13 @@ interface DateValidationResult {
 export interface ContentProps {
   baseDate?: Date
   maxDate?: Date
+  presets?: Array<{
+    label: string
+    value: Date
+  }>
 }
 const PLACEHOLDER = "MM/DD/YYYY"
-const Content = ({ baseDate = new Date(), maxDate = new Date(9999) }: ContentProps) => {
+const Content = ({ baseDate = new Date(), maxDate = new Date(9999), presets }: ContentProps) => {
   const { date, setDate, error, setError, setIsOpen, selectedDate, setSelectedDate } =
     useDateInputContext("DateInputPickerContent")
 
@@ -213,6 +219,18 @@ const Content = ({ baseDate = new Date(), maxDate = new Date(9999) }: ContentPro
     setIsOpen(false)
   }
 
+  const handlePresetClick = (value: Date) => {
+    const newDate = value
+    const month = String(newDate.getMonth() + 1).padStart(2, "0")
+    const day = String(newDate.getDate()).padStart(2, "0")
+    const year = newDate.getFullYear()
+
+    setDate(`${month}/${day}/${year}`)
+    setSelectedDate(newDate)
+    setBaseMonth(newDate)
+    setError("")
+  }
+
   const handleClear = () => {
     setDate("")
     setSelectedDate(undefined)
@@ -221,7 +239,7 @@ const Content = ({ baseDate = new Date(), maxDate = new Date(9999) }: ContentPro
 
   return (
     <PopoverContent className={cn("sk-w-[300px] sk-p-0", "sk-bg-white dark:sk-bg-gray-950")} align="start">
-      <div className={cn("sk-p-3")}>
+      <div className={cn("sk-p-3 sk-pb-2")}>
         <div className="sk-relative">
           <Input
             type="text"
@@ -248,11 +266,11 @@ const Content = ({ baseDate = new Date(), maxDate = new Date(9999) }: ContentPro
               ) : null
             }
           />
-          {error !== "" && (
+          <If condition={error !== ""}>
             <p className="sk-absolute sk-right-[10px] sk-top-3 sk-text-xs sk-text-red-700 dark:sk-text-red-400">
               {error}
             </p>
-          )}
+          </If>
         </div>
       </div>
       <Calendar
@@ -262,6 +280,22 @@ const Content = ({ baseDate = new Date(), maxDate = new Date(9999) }: ContentPro
         month={baseMonth}
         onMonthChange={setBaseMonth}
       />
+      {presets && presets.length > 0 && (
+        <div className="border-t px-1 py-1 grid grid-flow-row gap-[2px] border-gray-100/25 dark:border-gray-800">
+          {presets.map((preset) => (
+            <Button
+              key={preset.value.getTime()}
+              type="button"
+              variant="ghost"
+              size="sm"
+              onClick={() => handlePresetClick(preset.value)}
+              className={cn("w-full px-2 text-sm justify-start", "text-gray-700 dark:text-gray-300")}
+            >
+              {preset.label}
+            </Button>
+          ))}
+        </div>
+      )}
     </PopoverContent>
   )
 }

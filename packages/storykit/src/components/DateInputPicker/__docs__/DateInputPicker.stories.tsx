@@ -79,3 +79,31 @@ export const WithInitialValue: Story = {
     )
   },
 }
+
+export const PresetExample: Story = {
+  args: {
+    defaultOpen: false,
+    children: null,
+  },
+  render: () => {
+    return (
+      <DateInputPicker>
+        <DateInputPicker.Trigger>
+          <Button>open</Button>
+        </DateInputPicker.Trigger>
+        <DateInputPicker.Content
+          presets={[
+            {
+              label: "30 days",
+              value: new Date(new Date().getTime() - 30 * 24 * 60 * 60 * 1000),
+            },
+            {
+              label: "60 days",
+              value: new Date(new Date().getTime() - 60 * 24 * 60 * 60 * 1000),
+            },
+          ]}
+        />
+      </DateInputPicker>
+    )
+  },
+}
