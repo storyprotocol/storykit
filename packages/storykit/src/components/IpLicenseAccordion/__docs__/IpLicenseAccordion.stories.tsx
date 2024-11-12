@@ -1,4 +1,4 @@
-import { ILIAD_PREVIEW_IP_ASSETS } from "@/stories/data"
+import { STORY_IP_ASSETS, STORY_IP_ASSETS_MAP } from "@/stories/data"
 import { PIL_FLAVOR } from "@/types/assets"
 import type { Meta, StoryObj } from "@storybook/react"
 import { expect, userEvent, waitFor, within } from "@storybook/test"
@@ -23,11 +23,15 @@ type Story = StoryObj<typeof meta>
 export const Select: Story = {
   argTypes: {
     ipId: {
-      options: ILIAD_PREVIEW_IP_ASSETS,
+      control: {
+        type: "select",
+      },
+      options: STORY_IP_ASSETS,
+      mapping: STORY_IP_ASSETS_MAP,
     },
   },
   args: {
-    ipId: ILIAD_PREVIEW_IP_ASSETS[0] as `0x${string}`,
+    ipId: STORY_IP_ASSETS_MAP[STORY_IP_ASSETS[0]] as `0x${string}`,
     size: "medium",
   },
 }
@@ -36,7 +40,7 @@ export const Input: Story = {
     ipId: { control: "text" },
   },
   args: {
-    ipId: ILIAD_PREVIEW_IP_ASSETS[0] as `0x${string}`,
+    ipId: STORY_IP_ASSETS_MAP[STORY_IP_ASSETS[0]] as `0x${string}`,
     size: "medium",
   },
 }
