@@ -1,4 +1,4 @@
-import { ILIAD_PREVIEW_IP_ASSETS } from "@/stories/data"
+import { STORY_IP_ASSETS, STORY_IP_ASSETS_MAP } from "@/stories/data"
 import licenseData from "@/tests/data/0x5FCeDadBbDF710Ac3C528F6Aac9D1bD9ac18D9a8-license.json"
 import ipaPolicyData from "@/tests/data/0x195A5B433bbFb6481490cA12d1C95e5594Fb54C4-ipapolicy.json"
 import policyData from "@/tests/data/0x195A5B433bbFb6481490cA12d1C95e5594Fb54C4-policy.json"
@@ -24,21 +24,18 @@ const meta = {
   parameters: {
     layout: "centered",
   },
-  // tags: ["autodocs"],
-  // argTypes: {},
-  // argTypes: {
-  //   ipId: {
-  //     options: [
-  //       "0xbbf08a30b9ff0f717a024a75963d3196aaf0f0dd",
-  //       "0xa4ad3f18c2a37f1fb8d86bcd5922739f53e57bae",
-  //       "0x05aae0c68d33bc1fd3cc2241a6af2f5866271726",
-  //     ],
-  //     // control: { type: "select" }, // Automatically inferred when 'options' is defined
-  //   },
-  // },
-  // args: {
-  //   ipId: "0xbbf08a30b9ff0f717a024a75963d3196aaf0f0dd",
-  // },
+  argTypes: {
+    ipId: {
+      control: {
+        type: "select",
+      },
+      options: STORY_IP_ASSETS,
+      mapping: STORY_IP_ASSETS_MAP,
+    },
+  },
+  args: {
+    ipId: STORY_IP_ASSETS[0] as `0x${string}`,
+  },
 } satisfies Meta<typeof Example>
 
 export default meta
@@ -46,14 +43,9 @@ type Story = StoryObj<typeof meta>
 
 export const Select: Story = {
   argTypes: {
-    ipId: {
-      options: ILIAD_PREVIEW_IP_ASSETS,
-    },
     children: { control: false },
   },
-  args: {
-    ipId: ILIAD_PREVIEW_IP_ASSETS[0] as `0x${string}`,
-  },
+  args: {},
 }
 export const Input: Story = {
   argTypes: {
@@ -61,20 +53,15 @@ export const Input: Story = {
     children: { control: false },
   },
   args: {
-    ipId: ILIAD_PREVIEW_IP_ASSETS[0] as `0x${string}`,
+    ipId: STORY_IP_ASSETS_MAP[STORY_IP_ASSETS[0]] as `0x${string}`,
   },
 }
 export const NFTData: Story = {
   argTypes: {
-    ipId: {
-      options: ["0x7907Cec258B28638FCA15d533800B2A13bd1f140"],
-    },
     children: { control: false },
     options: { control: false },
   },
-  args: {
-    ipId: "0x7907Cec258B28638FCA15d533800B2A13bd1f140",
-  },
+  args: {},
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement)
     await waitFor(
@@ -99,14 +86,10 @@ export const NFTData: Story = {
 }
 export const AssetData: Story = {
   argTypes: {
-    ipId: {
-      options: ["0x7907Cec258B28638FCA15d533800B2A13bd1f140"],
-    },
     children: { control: false },
     options: { control: false },
   },
   args: {
-    ipId: "0x7907Cec258B28638FCA15d533800B2A13bd1f140",
     children: <AssetComponent />,
   },
   play: async ({ canvasElement }) => {
@@ -145,14 +128,10 @@ export const AssetData: Story = {
 }
 export const IPLicenseData: Story = {
   argTypes: {
-    ipId: {
-      options: ["0x195A5B433bbFb6481490cA12d1C95e5594Fb54C4"],
-    },
     children: { control: false },
     options: { control: false },
   },
   args: {
-    ipId: "0x195A5B433bbFb6481490cA12d1C95e5594Fb54C4",
     children: <IPLicenseComponent />,
   },
   play: async ({ canvasElement }) => {
@@ -182,15 +161,8 @@ export const IPLicenseData: Story = {
   },
 }
 export const LicenseTermsData: Story = {
-  argTypes: {
-    ipId: {
-      options: ["0x195A5B433bbFb6481490cA12d1C95e5594Fb54C4"],
-    },
-    children: { control: false },
-    options: { control: false },
-  },
+  argTypes: {},
   args: {
-    ipId: "0x195A5B433bbFb6481490cA12d1C95e5594Fb54C4",
     children: <LicenseTermsComponent />,
   },
   play: async ({ canvasElement }) => {
@@ -226,14 +198,10 @@ export const LicenseTermsData: Story = {
 }
 export const LicenseData: Story = {
   argTypes: {
-    ipId: {
-      options: ["0x5FCeDadBbDF710Ac3C528F6Aac9D1bD9ac18D9a8"],
-    },
     children: { control: false },
     options: { control: false },
   },
   args: {
-    ipId: "0x5FCeDadBbDF710Ac3C528F6Aac9D1bD9ac18D9a8",
     children: <LicenseComponent />,
   },
   play: async ({ canvasElement }) => {
@@ -268,14 +236,10 @@ export const LicenseData: Story = {
 
 export const RoyaltyData: Story = {
   argTypes: {
-    ipId: {
-      options: ["0x6510c5487312cfEd3e1b9939C6Cad33b5F47358F"],
-    },
     children: { control: false },
     options: { control: false },
   },
   args: {
-    ipId: "0x6510c5487312cfEd3e1b9939C6Cad33b5F47358F",
     children: <RoyaltyComponent />,
   },
   play: async ({ canvasElement }) => {
@@ -303,14 +267,10 @@ export const RoyaltyData: Story = {
 }
 export const NotLoadAsset: Story = {
   argTypes: {
-    ipId: {
-      options: ["0x7907Cec258B28638FCA15d533800B2A13bd1f140"],
-    },
     children: { control: false },
     options: { control: false },
   },
   args: {
-    ipId: "0x7907Cec258B28638FCA15d533800B2A13bd1f140",
     children: <ProviderOptionsComponent />,
     options: { assetData: false },
   },
@@ -340,14 +300,10 @@ export const NotLoadAsset: Story = {
 }
 export const NotLoadPolicy: Story = {
   argTypes: {
-    ipId: {
-      options: ["0x7907Cec258B28638FCA15d533800B2A13bd1f140"],
-    },
     children: { control: false },
     options: { control: false },
   },
   args: {
-    ipId: "0x7907Cec258B28638FCA15d533800B2A13bd1f140",
     children: <ProviderOptionsComponent />,
     options: { licenseTermsData: false },
   },
@@ -379,14 +335,10 @@ export const NotLoadPolicy: Story = {
 }
 export const NotLoadLicense: Story = {
   argTypes: {
-    ipId: {
-      options: ["0x7907Cec258B28638FCA15d533800B2A13bd1f140"],
-    },
     children: { control: false },
     options: { control: false },
   },
   args: {
-    ipId: "0x7907Cec258B28638FCA15d533800B2A13bd1f140",
     children: <ProviderOptionsComponent />,
     options: { licenseData: false },
   },
@@ -417,14 +369,10 @@ export const NotLoadLicense: Story = {
 }
 export const NotLoadRoyalty: Story = {
   argTypes: {
-    ipId: {
-      options: ["0x7907Cec258B28638FCA15d533800B2A13bd1f140"],
-    },
     children: { control: false },
     options: { control: false },
   },
   args: {
-    ipId: "0x7907Cec258B28638FCA15d533800B2A13bd1f140",
     children: <ProviderOptionsComponent />,
     options: { royaltyData: false },
   },
@@ -455,14 +403,10 @@ export const NotLoadRoyalty: Story = {
 }
 export const NotLoadAll: Story = {
   argTypes: {
-    ipId: {
-      options: ["0x7907Cec258B28638FCA15d533800B2A13bd1f140"],
-    },
     children: { control: false },
     options: { control: false },
   },
   args: {
-    ipId: "0x7907Cec258B28638FCA15d533800B2A13bd1f140",
     children: <ProviderOptionsComponent />,
     options: { assetData: false, licenseTermsData: false, licenseData: false, royaltyData: false },
   },
