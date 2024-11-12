@@ -72,15 +72,14 @@ module.exports = {
           DEFAULT: "hsl(var(--sk-accent))",
           foreground: "hsl(var(--sk-accent-foreground))",
         },
-        popover: {
-          DEFAULT: "hsl(var(--sk-popover))",
-          foreground: "hsl(var(--sk-popover-foreground))",
-        },
         card: {
           DEFAULT: "hsl(var(--sk-card))",
           foreground: "hsl(var(--sk-card-foreground))",
         },
         gray: charcoal,
+      },
+      boxShadow: {
+        popover: "0px 0px 0px 1px rgba(0, 0, 0, 0.03), 0px 14px 20px rgba(0, 0, 0, 0.15)",
       },
       borderRadius: {
         lg: "var(--sk-radius)",
