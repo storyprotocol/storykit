@@ -87,9 +87,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>((props, ref) => {
     <div
       className={cn(
         inputVariants({ size, variant }),
-        // "relative w-full items-center justify-between rounded-lg border border-gray-400 bg-white dark:bg-gray-800",
         "relative w-full items-center justify-between rounded-lg border",
-        // "focus-within:border-gray-800 dark:focus-within:border-gray-300 focus-within:outline-none focus-within:ring-0 focus-within:ring-transparent",
         "focus-within:outline-none focus-within:ring-0 focus-within:ring-transparent",
         "disabled:cursor-not-allowed disabled:opacity-50",
         "transition-colors duration-100 ease-in-out",
