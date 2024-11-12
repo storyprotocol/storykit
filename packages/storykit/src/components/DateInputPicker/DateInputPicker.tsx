@@ -19,19 +19,31 @@ interface DateInputContextType {
   setIsOpen: (isOpen: boolean) => void
   selectedDate: Date | undefined
   setSelectedDate: (date: Date | undefined) => void
+  baseDate: Date
+  maxDate: Date
 }
+
 export interface DateInputPickerProps {
   children: React.ReactNode
   defaultOpen?: boolean
   initialValue?: Date
+  baseDate?: Date
+  maxDate?: Date
 }
 
 export interface TriggerProps {
   children: React.ReactNode
 }
+
 const [DateInputProvider, useDateInputContext] = buildContext<DateInputContextType>("DateInputPicker")
 
-export const DateInputPicker = ({ children, defaultOpen = false, initialValue }: DateInputPickerProps) => {
+export const DateInputPicker = ({
+  children,
+  defaultOpen = false,
+  initialValue,
+  baseDate = new Date(),
+  maxDate = new Date("9999-12-31"),
+}: DateInputPickerProps) => {
   const initialDateString =
     initialValue != null
       ? `${String(initialValue.getMonth() + 1).padStart(2, "0")}/${String(initialValue.getDate()).padStart(2, "0")}/${initialValue.getFullYear()}`
@@ -52,6 +64,8 @@ export const DateInputPicker = ({ children, defaultOpen = false, initialValue }:
     setIsOpen,
     selectedDate,
     setSelectedDate,
+    baseDate,
+    maxDate,
   }
 
   const handleOpenChange = (open: boolean) => {
@@ -89,16 +103,15 @@ interface DateValidationResult {
 }
 
 export interface ContentProps {
-  baseDate?: Date
-  maxDate?: Date
   presets?: Array<{
     label: string
     value: Date
   }>
 }
+
 const PLACEHOLDER = "MM/DD/YYYY"
-const Content = ({ baseDate = new Date(), maxDate = new Date(9999), presets }: ContentProps) => {
-  const { date, setDate, error, setError, setIsOpen, selectedDate, setSelectedDate } =
+const Content = ({ presets }: ContentProps) => {
+  const { date, setDate, error, setError, setIsOpen, selectedDate, setSelectedDate, baseDate, maxDate } =
     useDateInputContext("DateInputPickerContent")
 
   const [baseMonth, setBaseMonth] = useState(selectedDate || baseDate)
@@ -156,6 +169,7 @@ const Content = ({ baseDate = new Date(), maxDate = new Date(9999), presets }: C
       date: candidateDate,
     }
   }
+
   const processDateInput = (value: string, validateFully = false) => {
     const baseYear = baseDate.getFullYear()
     const validationResult = validateDateInput(value, validateFully, baseYear)
