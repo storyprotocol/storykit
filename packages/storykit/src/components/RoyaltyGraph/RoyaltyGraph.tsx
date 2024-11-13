@@ -371,8 +371,8 @@ function RoyaltyGraph({ width = 600, height = 600, darkMode = false, isAnimated 
       // ref={containerRef}
       className={cn(
         "skIpGraph",
-        "flex items-center justify-center w-full h-full",
-        darkMode ? "bg-black text-white" : "bg-white text-black"
+        "sk-flex sk-items-center sk-justify-center sk-w-full sk-h-full",
+        darkMode ? "sk-bg-black sk-text-white" : "sk-bg-white sk-text-black"
       )}
       // style={{ width: `${width}px`, height: `${height}px` }}
     >

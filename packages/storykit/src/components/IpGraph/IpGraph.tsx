@@ -142,8 +142,8 @@ function IpGraph({ width = 500, height = 500, darkMode = false }: IpGraphProps) 
     <div
       className={cn(
         "skIpGraph",
-        "flex items-center justify-center",
-        darkMode ? "bg-black text-white" : "bg-white text-black"
+        "sk-flex sk-items-center sk-justify-center",
+        darkMode ? "sk-bg-black sk-text-white" : "sk-bg-white sk-text-black"
       )}
       style={{ width: `${width}px`, height: `${height}px` }}
     >

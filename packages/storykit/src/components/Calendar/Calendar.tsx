@@ -11,40 +11,43 @@ function Calendar({ className, classNames, showOutsideDays = true, ...props }: C
   return (
     <DayPicker
       showOutsideDays={showOutsideDays}
-      className={cn("p-3", className)}
+      className={cn("sk-p-3", className)}
       classNames={{
-        months: "flex flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0",
-        month: "space-y-4",
-        caption: "flex justify-center pt-1 relative items-center",
-        caption_label: "text-sm font-medium",
-        nav: "space-x-1 flex items-center",
+        months: "sk-flex sk-flex-col sm:sk-flex-row sk-space-y-4 sm:sk-space-x-4 sm:sk-space-y-0",
+        month: "sk-space-y-4",
+        caption: "sk-flex sk-justify-center sk-pt-1 sk-relative sk-items-center",
+        caption_label: "sk-text-sm sk-font-medium",
+        nav: "sk-space-x-1 sk-flex sk-items-center",
         nav_button: cn(
           buttonVariants({ variant: "outline" }),
-          "h-7 w-7 bg-transparent p-0 opacity-50 hover:opacity-100"
+          "sk-h-7 sk-w-7 sk-bg-transparent sk-p-0 sk-opacity-50 hover:sk-opacity-100"
         ),
-        nav_button_previous: "absolute left-1",
-        nav_button_next: "absolute right-1",
-        table: "w-full border-collapse space-y-1",
-        head_row: "flex justify-between",
-        caption_start: "w-full",
-        head_cell: "text-muted-foreground rounded-md w-9 font-normal text-[0.8rem]",
-        row: "flex justify-between mt-2",
-        cell: "h-9 w-9 text-center text-sm p-0 relative [&:has([aria-selected].day-range-end)]:rounded-r-md [&:has([aria-selected].day-outside)]:bg-accent/50 [&:has([aria-selected])]:bg-accent first:[&:has([aria-selected])]:rounded-l-md last:[&:has([aria-selected])]:rounded-r-md focus-within:relative focus-within:z-20",
-        day: cn(buttonVariants({ variant: "ghost" }), "h-9 w-9 p-0 font-normal aria-selected:opacity-100"),
+        nav_button_previous: "sk-absolute sk-left-1",
+        nav_button_next: "sk-absolute sk-right-1",
+        table: "sk-w-full sk-border-collapse sk-space-y-1",
+        head_row: "sk-flex sk-justify-between",
+        caption_start: "sk-w-full",
+        head_cell: "sk-text-muted-foreground sk-rounded-md sk-w-9 sk-font-normal sk-text-[0.8rem]",
+        row: "sk-flex sk-justify-between sk-mt-2",
+        cell: "sk-h-9 sk-w-9 sk-text-center sk-text-sm sk-p-0 sk-relative [&:has([aria-selected].day-range-end)]:sk-rounded-r-md [&:has([aria-selected].day-outside)]:sk-bg-accent/50 [&:has([aria-selected])]:sk-bg-accent first:[&:has([aria-selected])]:sk-rounded-l-md last:[&:has([aria-selected])]:sk-rounded-r-md focus-within:sk-relative focus-within:sk-z-20",
+        day: cn(
+          buttonVariants({ variant: "ghost" }),
+          "sk-h-9 sk-w-9 sk-p-0 sk-font-normal aria-selected:sk-opacity-100"
+        ),
         day_range_end: "day-range-end",
         day_selected:
-          "bg-primary text-primary-foreground hover:bg-primary hover:text-primary-foreground focus:bg-primary focus:text-primary-foreground",
-        day_today: "bg-accent text-accent-foreground",
+          "sk-bg-primary sk-text-primary-foreground hover:sk-bg-primary hover:sk-text-primary-foreground focus:sk-bg-primary focus:sk-text-primary-foreground",
+        day_today: "sk-bg-accent sk-text-accent-foreground",
         day_outside:
-          "day-outside text-muted-foreground opacity-50 aria-selected:bg-accent/50 aria-selected:text-muted-foreground aria-selected:opacity-30",
-        day_disabled: "text-muted-foreground opacity-50",
-        day_range_middle: "aria-selected:bg-accent aria-selected:text-accent-foreground",
-        day_hidden: "invisible",
+          "day-outside sk-text-muted-foreground sk-opacity-50 aria-selected:sk-bg-accent/50 aria-selected:sk-text-muted-foreground aria-selected:sk-opacity-30",
+        day_disabled: "sk-text-muted-foreground sk-opacity-50",
+        day_range_middle: "aria-selected:sk-bg-accent aria-selected:sk-text-accent-foreground",
+        day_hidden: "sk-invisible",
         ...classNames,
       }}
       components={{
-        IconLeft: ({ ...props }) => <ChevronLeft className="h-4 w-4" />,
-        IconRight: ({ ...props }) => <ChevronRight className="h-4 w-4" />,
+        IconLeft: ({ ...props }) => <ChevronLeft className="sk-h-4 sk-w-4" />,
+        IconRight: ({ ...props }) => <ChevronRight className="sk-h-4 sk-w-4" />,
       }}
       {...props}
     />

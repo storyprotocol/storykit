@@ -4,5 +4,5 @@
 
 .sb-show-main,
 .sbdocs-preview {
-  @apply bg-white dark:bg-gray-900;
+  @apply sk-bg-white dark:sk-bg-gray-900;
 }

@@ -5,25 +5,26 @@ import { Loader2 } from "lucide-react"
 import * as React from "react"
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
+  "sk-inline-flex sk-items-center sk-justify-center sk-whitespace-nowrap sk-rounded-md sk-text-sm sk-font-medium sk-ring-offset-background sk-transition-colors focus-visible:sk-outline-none focus-visible:sk-ring-2 focus-visible:sk-ring-ring focus-visible:sk-ring-offset-2 disabled:sk-pointer-events-none disabled:sk-opacity-50",
   {
     variants: {
       variant: {
-        primary: "bg-primary text-primary-foreground hover:bg-primary/90",
-        destructive: "bg-destructive text-destructive-foreground hover:bg-destructive/90",
+        primary: "sk-bg-primary sk-text-primary-foreground hover:sk-bg-primary/90",
+        destructive: "sk-bg-destructive sk-text-destructive-foreground hover:sk-bg-destructive/90",
         outline:
-          "border border-gray-400 bg-white dark:bg-gray-800 dark:border-gray-400 text-black dark:text-white hover:bg-gray-100/20 dark:hover:bg-gray-900/50 hover:border-gray-600",
-        secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/80",
-        ghost: "hover:bg-accent hover:text-accent-foreground",
-        link: "text-primary underline-offset-4 hover:underline",
-        white: "bg-white text-black hover:bg-white/90",
-        whiteOutline: "border border-input bg-transparent border-white hover:bg-accent hover:text-accent-foreground",
+          "sk-border sk-border-gray-400 sk-bg-white dark:sk-bg-gray-800 dark:sk-border-gray-400 sk-text-black dark:sk-text-white hover:sk-bg-gray-100/20 dark:hover:sk-bg-gray-900/50 hover:sk-border-gray-600",
+        secondary: "sk-bg-secondary sk-text-secondary-foreground hover:sk-bg-secondary/80",
+        ghost: "hover:sk-bg-accent hover:sk-text-accent-foreground",
+        link: "sk-text-primary sk-underline-offset-4 hover:sk-underline",
+        white: "sk-bg-white sk-text-black hover:sk-bg-white/90",
+        whiteOutline:
+          "sk-border sk-border-input sk-bg-transparent sk-border-white hover:sk-bg-accent hover:sk-text-accent-foreground",
       },
       size: {
-        medium: "h-10 px-4 py-2",
-        sm: "h-9 rounded-md px-3",
-        lg: "h-11 rounded-md px-8",
-        icon: "h-10 w-10",
+        medium: "sk-h-10 sk-px-4 sk-py-2",
+        sm: "sk-h-9 sk-rounded-md sk-px-3",
+        lg: "sk-h-11 sk-rounded-md sk-px-8",
+        icon: "sk-h-10 sk-w-10",
       },
     },
     defaultVariants: {
@@ -45,7 +46,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     const Comp = asChild ? Slot : "button"
     return (
       <Comp className={cn(buttonVariants({ variant, size, className }))} ref={ref} {...props}>
-        {isLoading && <Loader2 className="mr-2 h-6 w-6 animate-spin" />}
+        {isLoading && <Loader2 className="sk-mr-2 sk-h-6 sk-w-6 sk-animate-spin" />}
         {children}
       </Comp>
     )
