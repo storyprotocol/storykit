@@ -9,6 +9,10 @@
       "default": "./dist/storyprotocol-storykit.cjs.js",
       "types": "./dist/types.d.ts"
     },
+    "./plugin": {
+      "import": "./dist/plugin.mjs",
+      "require": "./dist/plugin.cjs"
+    },
     "./package.json": "./package.json"
   },
   "types": "dist/types.d.ts",

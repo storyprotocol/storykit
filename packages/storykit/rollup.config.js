@@ -47,6 +47,24 @@ const config = [
     external: ["react/jsx-runtime"],
   },
   {
+    input: "plugin.js",
+    output: [
+      {
+        file: "dist/plugin.cjs",
+        format: "cjs",
+        sourcemap: true,
+        exports: "named",
+      },
+      {
+        file: "dist/plugin.mjs",
+        format: "esm",
+        sourcemap: true,
+      },
+    ],
+    plugins: [resolve(), commonjs(), terser()],
+    external: ["tailwindcss", "tailwindcss/plugin"],
+  },
+  {
     input: "src/index.ts",
     output: [{ file: "dist/types.d.ts", format: "es" }],
     plugins: [dts.default()],
