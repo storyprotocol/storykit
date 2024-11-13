@@ -25,16 +25,18 @@ export const Basic: Story = {
     }
 
     return (
-      <FileUpload maxFiles={5} onChange={(files) => console.log("Files changed:", files)}>
-        <FileUpload.Dropzone accept={acceptedFileTypes} description="SVG, PNG, JPG or GIF (max. 800×400px)">
-          Drag your file(s) here
-        </FileUpload.Dropzone>
-        <FileUpload.ItemGroup>
-          {({ acceptedFiles }) =>
-            acceptedFiles.map((file, index) => <FileUpload.Item key={`${file.name}-${index}`} file={file} />)
-          }
-        </FileUpload.ItemGroup>
-      </FileUpload>
+      <div style={{ width: 400 }}>
+        <FileUpload maxFiles={5} onChange={(files) => console.log("Files changed:", files)}>
+          <FileUpload.Dropzone accept={acceptedFileTypes} description="SVG, PNG, JPG or GIF (max. 800×400px)">
+            Drag your file(s) here
+          </FileUpload.Dropzone>
+          <FileUpload.ItemGroup>
+            {({ acceptedFiles }) =>
+              acceptedFiles.map((file, index) => <FileUpload.Item key={`${file.name}-${index}`} file={file} />)
+            }
+          </FileUpload.ItemGroup>
+        </FileUpload>
+      </div>
     )
   },
 }
