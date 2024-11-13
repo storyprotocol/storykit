@@ -112,7 +112,7 @@ const Dropzone = ({ children, accept, className, description, multiple, maxSize 
         "flex flex-col items-center justify-center p-6 cursor-pointer",
         "border rounded-lg transition-colors",
         "border-gray-50 bg-white",
-        "hover:border-gray-100 hover:bg-gray-50",
+        "hover:border-gray-100 hover:bg-gray-50/20",
         "dark:border-gray-700 dark:bg-gray-900",
         "dark:hover:border-gray-700 dark:hover:bg-gray-800",
         isDragActive && ["bg-blue-50 border-blue-300", "dark:bg-blue-900/20 dark:border-blue-800"],
@@ -120,7 +120,7 @@ const Dropzone = ({ children, accept, className, description, multiple, maxSize 
       )}
     >
       <input {...getInputProps()} />
-      <div className="flex items-center gap-4 mb-3 text-black dark:text-white">
+      <div className="flex items-center gap-4 mb-3 text-gray-700 dark:text-white">
         <Video name="upload" size={32} />
         <LucideImage name="upload" size={32} />
         <FileText name="upload" size={28} />
@@ -181,22 +181,15 @@ const Item = ({ file }: ItemProps) => {
     >
       <div className="flex items-center space-x-3">
         {isImage && imageUrl ? (
-          <div className="w-10 h-10 rounded overflow-hidden">
-            <img src={imageUrl} alt={file.name} className="w-full h-full object-cover" />
+          <div className="p-2 bg-gray-100/10 dark:bg-gray-800 rounded overflow-hidden">
+            <img src={imageUrl} alt={file.name} className="w-10 h-10  object-cover rounded" />
           </div>
         ) : (
-          <div
-            className={cn(
-              "p-2 rounded flex-shrink-0",
-
-              "dark:bg-gray-800",
-              "dark:text-gray-300"
-            )}
-          >
+          <div className={cn("p-2 rounded flex-shrink-0", "bg-gray-100/10 dark:bg-gray-800", "dark:text-gray-300")}>
             <div className={`relative text-xs font-medium flex items-center`}>
-              <FileIcon className="w-10 h-10" />
+              <FileIcon className="w-10 h-10 text-gray-200/70" />
               <span
-                className={`absolute text-white top-[15px] rounded px-1 -left-1 scale-[0.8] ${fileTypeConfig.bgColor}`}
+                className={`absolute text-white top-[15px] rounded px-1 ${fileTypeConfig.left} scale-[0.75] ${fileTypeConfig.bgColor}`}
               >
                 {getFileLabel(file)}
               </span>
@@ -205,7 +198,7 @@ const Item = ({ file }: ItemProps) => {
         )}
         <div className="min-w-0 flex-1">
           <div className="flex text-sm font-medium text-gray-900 dark:text-gray-100">
-            <div className="truncate max-w-[60%] flex-shrink">{fileNameStart}</div>
+            <div className="truncate max-w-[80%] flex-shrink">{fileNameStart}</div>
             <If condition={fileNameMiddle !== ""}>
               <span className="flex-shrink-0 -ml-[2px]">{fileNameMiddle}</span>
             </If>
@@ -222,7 +215,7 @@ const Item = ({ file }: ItemProps) => {
         type="button"
         variant="ghost"
         size="icon"
-        className={cn("w-7 h-7 ml-3 -mt-[3px] -mr-[3px]", "text-gray-200 hover:text-gray-400 dark:hover:text-gray-400")}
+        className={cn("w-7 h-7 ml-3 mt-[3px]", "text-gray-200 hover:text-gray-400 dark:hover:text-gray-400")}
       >
         <span className="sr-only">Remove file</span>
         <Trash2 size={16} />

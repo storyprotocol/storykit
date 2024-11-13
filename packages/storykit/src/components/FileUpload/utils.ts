@@ -1,5 +1,6 @@
 type FileTypeConfig = {
   bgColor: string
+  left: string
 }
 export const getFileTypeConfig = (file: File): FileTypeConfig => {
   const extension = file.name.split(".").pop()?.toLowerCase() || ""
@@ -7,24 +8,31 @@ export const getFileTypeConfig = (file: File): FileTypeConfig => {
   const typeConfigs: Record<string, FileTypeConfig> = {
     pdf: {
       bgColor: "bg-red-700/80",
+      left: "-left-1",
     },
     doc: {
       bgColor: "bg-blue-800/80",
+      left: "-left-1",
     },
     docx: {
       bgColor: "bg-blue-800/80",
+      left: "-left-[10px]",
     },
     xls: {
       bgColor: "bg-green-800",
+      left: "-left-1",
     },
     xlsx: {
       bgColor: "bg-green-800",
+      left: "-left-[10px]",
     },
     txt: {
       bgColor: "bg-gray-500",
+      left: "-left-1",
     },
     default: {
       bgColor: "bg-gray-500",
+      left: "-left-1",
     },
   }
 

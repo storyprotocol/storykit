@@ -44,7 +44,7 @@ export const MultipleWithLimit: Story = {
   render: () => {
     return (
       <FileUpload maxFiles={5} onChange={(files) => console.log("Files changed:", files)}>
-        <FileUpload.Dropzone multiple={true} maxSize={1000} description="SVG, PNG, JPG or GIF (max. 800×400px)">
+        <FileUpload.Dropzone multiple={true} maxSize={1000} description="SVG, PNG, JPG or PDF (max. 800×400px)">
           Drag your file(s) here
         </FileUpload.Dropzone>
         <FileUpload.ItemGroup>
