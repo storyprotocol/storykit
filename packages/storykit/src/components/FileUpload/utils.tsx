@@ -76,3 +76,26 @@ export const formatFileSize = (bytes: number): string => {
   const i = Math.floor(Math.log(bytes) / Math.log(k))
   return `${parseFloat((bytes / Math.pow(k, i)).toFixed(0))} ${sizes[i]}`
 }
+
+export const truncateFilename = (filename: string): { start: string; middle: string; end: string } => {
+  const lastDotIndex = filename.lastIndexOf(".")
+  if (lastDotIndex === -1) return { start: filename, middle: "", end: "" }
+
+  const name = filename.slice(0, lastDotIndex)
+  const extension = filename.slice(lastDotIndex) // Includes the dot
+
+  // If name is short enough, no need to truncate
+  if (name.length <= 20) {
+    return { start: name, middle: "", end: extension }
+  }
+
+  // Keep last 4 characters of the name
+  const lastChars = name.slice(-4)
+  const firstPart = name.slice(0, Math.max(0, name.length - 4))
+
+  return {
+    start: firstPart,
+    middle: lastChars,
+    end: extension,
+  }
+}

@@ -6,7 +6,7 @@ import { DropzoneOptions, useDropzone } from "react-dropzone"
 import { Button } from "../Button"
 import { If } from "../utility/If"
 import { buildContext } from "../utility/context"
-import { formatFileSize, getFileLabel, getFileTypeConfig, isImageFile } from "./utils"
+import { formatFileSize, getFileLabel, getFileTypeConfig, isImageFile, truncateFilename } from "./utils"
 
 interface FileUploadContextType {
   acceptedFiles: File[]
@@ -161,6 +161,7 @@ const Item = ({ file }: ItemProps) => {
   const isImage = isImageFile(file)
   const fileTypeConfig = getFileTypeConfig(file)
   const [imageUrl, setImageUrl] = useState<string | null>(null)
+  const { start: fileNameStart, middle: fileNameMiddle, end: fileNameEnd } = truncateFilename(file.name)
 
   React.useEffect(() => {
     if (isImage) {
@@ -186,7 +187,7 @@ const Item = ({ file }: ItemProps) => {
         ) : (
           <div
             className={cn(
-              "p-2 rounded",
+              "p-2 rounded flex-shrink-0",
               fileTypeConfig.bgColor,
               fileTypeConfig.textColor,
               "dark:bg-gray-800",
@@ -199,8 +200,14 @@ const Item = ({ file }: ItemProps) => {
             </div>
           </div>
         )}
-        <div>
-          <p className="text-sm font-medium text-gray-900 dark:text-gray-100">{file.name}</p>
+        <div className="min-w-0 flex-1">
+          <div className="flex text-sm font-medium text-gray-900 dark:text-gray-100">
+            <div className="truncate max-w-[60%] flex-shrink">{fileNameStart}</div>
+            <If condition={fileNameMiddle !== ""}>
+              <span className="flex-shrink-0 -ml-[2px]">{fileNameMiddle}</span>
+            </If>
+            <span className="flex-shrink-0">{fileNameEnd}</span>
+          </div>
           <p className="text-xs text-gray-500 dark:text-gray-400">{formatFileSize(file.size)}</p>
         </div>
       </div>
