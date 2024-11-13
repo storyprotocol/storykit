@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils"
-import { FileText, LucideImage, Trash2, Video } from "lucide-react"
+import { FileIcon, FileText, LucideImage, Trash2, Video } from "lucide-react"
 import React, { useCallback, useState } from "react"
 import { DropzoneOptions, useDropzone } from "react-dropzone"
 
@@ -188,15 +188,18 @@ const Item = ({ file }: ItemProps) => {
           <div
             className={cn(
               "p-2 rounded flex-shrink-0",
-              fileTypeConfig.bgColor,
-              fileTypeConfig.textColor,
+
               "dark:bg-gray-800",
               "dark:text-gray-300"
             )}
           >
-            <div className={`text-xs font-medium ${fileTypeConfig.textColor} flex items-center space-x-1`}>
-              {fileTypeConfig.icon}
-              <span>{getFileLabel(file)}</span>
+            <div className={`relative text-xs font-medium flex items-center`}>
+              <FileIcon className="w-10 h-10" />
+              <span
+                className={`absolute text-white top-[15px] rounded px-1 -left-1 scale-[0.8] ${fileTypeConfig.bgColor}`}
+              >
+                {getFileLabel(file)}
+              </span>
             </div>
           </div>
         )}

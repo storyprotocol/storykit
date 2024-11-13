@@ -1,49 +1,30 @@
-import { FileIcon, FileText } from "lucide-react"
-import React from "react"
-
 type FileTypeConfig = {
-  icon: React.ReactNode
   bgColor: string
-  textColor: string
 }
 export const getFileTypeConfig = (file: File): FileTypeConfig => {
   const extension = file.name.split(".").pop()?.toLowerCase() || ""
 
   const typeConfigs: Record<string, FileTypeConfig> = {
     pdf: {
-      icon: <FileText className="w-4 h-4" />,
-      bgColor: "bg-red-50",
-      textColor: "text-red-600",
+      bgColor: "bg-red-700/80",
     },
     doc: {
-      icon: <FileText className="w-4 h-4" />,
-      bgColor: "bg-blue-50",
-      textColor: "text-blue-600",
+      bgColor: "bg-blue-800/80",
     },
     docx: {
-      icon: <FileText className="w-4 h-4" />,
-      bgColor: "bg-blue-50",
-      textColor: "text-blue-600",
+      bgColor: "bg-blue-800/80",
     },
     xls: {
-      icon: <FileText className="w-4 h-4" />,
-      bgColor: "bg-green-50",
-      textColor: "text-green-600",
+      bgColor: "bg-green-800",
     },
     xlsx: {
-      icon: <FileText className="w-4 h-4" />,
-      bgColor: "bg-green-50",
-      textColor: "text-green-600",
+      bgColor: "bg-green-800",
     },
     txt: {
-      icon: <FileText className="w-4 h-4" />,
-      bgColor: "bg-gray-50",
-      textColor: "text-gray-600",
+      bgColor: "bg-gray-500",
     },
     default: {
-      icon: <FileIcon className="w-4 h-4" />,
-      bgColor: "bg-gray-50",
-      textColor: "text-gray-600",
+      bgColor: "bg-gray-500",
     },
   }
 
