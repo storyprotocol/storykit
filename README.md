@@ -106,9 +106,9 @@ See [the github repo](https://github.com/storyprotocol/storykit) and [the exampl
 
 ### Building
 
-- Build: npm run build
-- Lint: npm run lint
-- Format: npm run format
+- Build: pnpm run build
+- Lint: pnpm run lint
+- Format: pnpm run format
 
 ## Contributing
 
