@@ -220,9 +220,9 @@ const Content = ({ baseDate = new Date(), maxDate = new Date(9999) }: ContentPro
   }
 
   return (
-    <PopoverContent className={cn("w-[300px] p-0", "bg-white dark:bg-gray-950")} align="start">
-      <div className={cn("p-3")}>
-        <div className="relative">
+    <PopoverContent className={cn("sk-w-[300px] sk-p-0", "sk-bg-white dark:sk-bg-gray-950")} align="start">
+      <div className={cn("sk-p-3")}>
+        <div className="sk-relative">
           <Input
             type="text"
             size="sm"
@@ -238,18 +238,20 @@ const Content = ({ baseDate = new Date(), maxDate = new Date(9999) }: ContentPro
                   onClick={handleClear}
                   type="button"
                   className={cn(
-                    "p-1 rounded",
-                    "hover:bg-gray-100/20 dark:hover:bg-gray-800",
-                    "text-gray-500 dark:text-gray-400"
+                    "sk-p-1 sk-rounded",
+                    "hover:sk-bg-gray-100/20 dark:hover:sk-bg-gray-800",
+                    "sk-text-gray-500 dark:sk-text-gray-400"
                   )}
                 >
-                  <X className="h-4 w-4 text-gray-500" />
+                  <X className="sk-h-4 sk-w-4 sk-text-gray-500" />
                 </button>
               ) : null
             }
           />
           {error !== "" && (
-            <p className="absolute right-[10px] top-3 text-xs text-red-700 dark:text-red-400">{error}</p>
+            <p className="sk-absolute sk-right-[10px] sk-top-3 sk-text-xs sk-text-red-700 dark:sk-text-red-400">
+              {error}
+            </p>
           )}
         </div>
       </div>

@@ -87,46 +87,46 @@ const DescribeTerms = (selectedLicenseTerms: PILTerms) => {
   return { cans, cannots, extras }
 }
 
-const licenseStyles = cva("flex flex-col w-full min-w-48 font-sans text-foreground", {
+const licenseStyles = cva("sk-flex sk-flex-col sk-w-full sk-min-w-48 sk-font-sans sk-text-foreground", {
   variants: {
     size: {
-      small: "text-sm",
-      medium: "text-base",
-      large: "text-lg",
+      small: "sk-text-sm",
+      medium: "sk-text-base",
+      large: "sk-text-lg",
     },
   },
 })
 
-const directionStyles = cva("flex w-full", {
+const directionStyles = cva("sk-flex sk-w-full", {
   variants: {
     direction: {
-      row: "flex-row",
-      column: "flex-col",
+      row: "sk-flex-row",
+      column: "sk-flex-col",
     },
     size: {
-      small: "gap-2",
-      medium: "gap-3",
-      large: "gap-4",
-    },
-  },
-})
-
-const groupStyles = cva("flex flex-col flex-1", {
-  variants: {
-    size: {
-      small: "gap-0.5",
-      medium: "gap-1",
-      large: "gap-2",
+      small: "sk-gap-2",
+      medium: "sk-gap-3",
+      large: "sk-gap-4",
     },
   },
 })
 
-const termIconStyles = cva("items-start w-4 h-4 justify-start shrink-0", {
+const groupStyles = cva("sk-flex sk-flex-col sk-flex-1", {
   variants: {
     size: {
-      small: "w-3.5 h-3.5 mt-1",
-      medium: "w-4 h-4 mt-1",
-      large: "w-5 h-5 mt-1",
+      small: "sk-gap-0.5",
+      medium: "sk-gap-1",
+      large: "sk-gap-2",
+    },
+  },
+})
+
+const termIconStyles = cva("sk-items-start sk-w-4 sk-h-4 sk-justify-start sk-shrink-0", {
+  variants: {
+    size: {
+      small: "sk-w-3.5 sk-h-3.5 sk-mt-1",
+      medium: "sk-w-4 sk-h-4 sk-mt-1",
+      large: "sk-w-5 sk-h-5 sk-mt-1",
     },
   },
 })
@@ -181,11 +181,11 @@ function LicenseTermsList({
       <div className={directionStyles({ direction, size })}>
         {cans.length && showCans ? (
           <div className={groupStyles({ size })}>
-            <div className="font-bold">Others Can</div>
-            <div className="flex flex-col">
+            <div className="sk-font-bold">Others Can</div>
+            <div className="sk-flex sk-flex-col">
               {cans.map((term, index) => (
-                <div key={index} className="flex w-full items-start justify-start gap-2 shrink-0">
-                  <CircleCheck width={iconWidth} className={cn(termIconStyles({ size }), "text-success")} />
+                <div key={index} className="sk-flex sk-w-full sk-items-start sk-justify-start sk-gap-2 sk-shrink-0">
+                  <CircleCheck width={iconWidth} className={cn(termIconStyles({ size }), "sk-text-success")} />
                   <span>{term}</span>
                 </div>
               ))}
@@ -194,11 +194,11 @@ function LicenseTermsList({
         ) : null}
         {cannots.length && showCannots ? (
           <div className={groupStyles({ size })}>
-            <div className="font-bold">Others Cannot</div>
-            <div className="flex flex-col">
+            <div className="sk-font-bold">Others Cannot</div>
+            <div className="sk-flex sk-flex-col">
               {cannots.map((term, index) => (
-                <div key={index} className="flex w-full items-start justify-start gap-2 shrink-0">
-                  <CircleMinus width={iconWidth} className={cn(termIconStyles({ size }), "text-destructive")} />
+                <div key={index} className="sk-flex sk-w-full sk-items-start sk-justify-start sk-gap-2 sk-shrink-0">
+                  <CircleMinus width={iconWidth} className={cn(termIconStyles({ size }), "sk-text-destructive")} />
                   <span>{term}</span>
                 </div>
               ))}
@@ -207,10 +207,10 @@ function LicenseTermsList({
         ) : null}
         {extras.length && showExtras ? (
           <div className={groupStyles({ size })}>
-            <div className="font-bold">Additional Notes</div>
-            <div className="flex flex-col">
+            <div className="sk-font-bold">Additional Notes</div>
+            <div className="sk-flex sk-flex-col">
               {extras.map((term, index) => (
-                <div key={index} className="flex w-full items-start justify-start gap-2 shrink-0">
+                <div key={index} className="sk-flex sk-w-full sk-items-start sk-justify-start sk-gap-2 sk-shrink-0">
                   <Info width={iconWidth} className={termIconStyles({ size })} />
                   <span>{term}</span>
                 </div>
