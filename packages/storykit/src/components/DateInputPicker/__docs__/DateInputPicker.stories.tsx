@@ -53,11 +53,11 @@ export const MaxDate: Story = {
   },
   render: ({ maxDate }) => {
     return (
-      <DateInputPicker>
+      <DateInputPicker maxDate={maxDate}>
         <DateInputPicker.Trigger>
           <Button>open</Button>
         </DateInputPicker.Trigger>
-        <DateInputPicker.Content maxDate={maxDate} />
+        <DateInputPicker.Content />
       </DateInputPicker>
     )
   },
@@ -75,6 +75,34 @@ export const WithInitialValue: Story = {
           <Button>open</Button>
         </DateInputPicker.Trigger>
         <DateInputPicker.Content />
+      </DateInputPicker>
+    )
+  },
+}
+
+export const PresetExample: Story = {
+  args: {
+    defaultOpen: false,
+    children: null,
+  },
+  render: () => {
+    return (
+      <DateInputPicker>
+        <DateInputPicker.Trigger>
+          <Button>open</Button>
+        </DateInputPicker.Trigger>
+        <DateInputPicker.Content
+          presets={[
+            {
+              label: "30 days",
+              value: new Date(new Date().getTime() + 30 * 24 * 60 * 60 * 1000),
+            },
+            {
+              label: "60 days",
+              value: new Date(new Date().getTime() + 60 * 24 * 60 * 60 * 1000),
+            },
+          ]}
+        />
       </DateInputPicker>
     )
   },
