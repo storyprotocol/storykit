@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react"
 import * as React from "react"
 
-import { RadioGroup, RadioGroupItemWithDescription } from "../RadioGroup"
+import { RadioGroup, RadioGroupItem } from "../RadioGroup"
 
 const meta = {
   title: "Internal/RadioGroup",
@@ -34,10 +34,10 @@ export const Basic: Story = {
     defaultValue: "yes",
     disabled: false,
     children: (
-      <>
-        <RadioGroupItemWithDescription value="yes" label="Yes" />
-        <RadioGroupItemWithDescription value="no" label="No" />
-      </>
+      <RadioGroup className="w-[400px]">
+        <RadioGroupItem value="yes" label="Yes" />
+        <RadioGroupItem value="no" label="No" />
+      </RadioGroup>
     ),
   },
 }
@@ -47,18 +47,10 @@ export const WithDescriptions: Story = {
     defaultValue: "no",
     disabled: false,
     children: (
-      <>
-        <RadioGroupItemWithDescription
-          value="no"
-          label="No"
-          description="Valid for non commercial, personal use only"
-        />
-        <RadioGroupItemWithDescription
-          value="yes"
-          label="Yes"
-          description="Commercial use is allowed, without restrictions"
-        />
-      </>
+      <RadioGroup className="w-[400px]">
+        <RadioGroupItem value="no" label="No" description="Valid for non commercial, personal use only" />
+        <RadioGroupItem value="yes" label="Yes" description="Commercial use is allowed, without restrictions" />
+      </RadioGroup>
     ),
   },
 }
@@ -68,10 +60,10 @@ export const Disabled: Story = {
     defaultValue: "yes",
     disabled: true,
     children: (
-      <>
-        <RadioGroupItemWithDescription value="yes" label="Yes" description="This option is disabled" />
-        <RadioGroupItemWithDescription value="no" label="No" description="This option is also disabled" />
-      </>
+      <RadioGroup>
+        <RadioGroupItem value="yes" label="Yes" description="This option is disabled" />
+        <RadioGroupItem value="no" label="No" description="This option is also disabled" />
+      </RadioGroup>
     ),
   },
 }
