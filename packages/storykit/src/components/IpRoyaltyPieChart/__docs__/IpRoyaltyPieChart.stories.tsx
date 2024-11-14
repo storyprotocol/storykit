@@ -1,4 +1,4 @@
-import { ILIAD_PREVIEW_IP_ASSETS } from "@/stories/data"
+import { STORY_IP_ASSETS, STORY_IP_ASSETS_MAP } from "@/stories/data"
 import type { Meta, StoryObj } from "@storybook/react"
 import { expect, waitFor, within } from "@storybook/test"
 
@@ -10,10 +10,18 @@ const meta = {
   parameters: {
     layout: "centered",
   },
-  // tags: ["autodocs"],
-  argTypes: {},
-  args: {},
-  // tags: ["isHidden"],
+  argTypes: {
+    ipId: {
+      control: {
+        type: "select",
+      },
+      options: STORY_IP_ASSETS,
+      mapping: STORY_IP_ASSETS_MAP,
+    },
+  },
+  args: {
+    ipId: STORY_IP_ASSETS[0] as `0x${string}`,
+  },
 } satisfies Meta<typeof Example>
 
 export default meta
@@ -21,20 +29,16 @@ type Story = StoryObj<typeof meta>
 
 export const Select: Story = {
   argTypes: {
-    ipId: {
-      options: ILIAD_PREVIEW_IP_ASSETS,
-    },
+    ipId: {},
   },
-  args: {
-    ipId: ILIAD_PREVIEW_IP_ASSETS[1] as `0x${string}`,
-  },
+  args: {},
 }
 export const Input: Story = {
   argTypes: {
     ipId: { control: "text" },
   },
   args: {
-    ipId: ILIAD_PREVIEW_IP_ASSETS[1] as `0x${string}`,
+    ipId: STORY_IP_ASSETS_MAP[STORY_IP_ASSETS[1]] as `0x${string}`,
   },
 }
 export const IpNoRoyalty: Story = {

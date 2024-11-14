@@ -1,7 +1,6 @@
-import { ILIAD_PREVIEW_IP_ASSETS } from "@/stories/data"
+import { STORY_IP_ASSETS, STORY_IP_ASSETS_MAP } from "@/stories/data"
 import type { Meta, StoryObj } from "@storybook/react"
 import { expect, userEvent, waitFor, within } from "@storybook/test"
-import { Address } from "viem"
 
 import Example from "./Example"
 
@@ -14,8 +13,17 @@ const meta = {
   // tags: ["autodocs"],
   argTypes: {
     isBottomNav: { control: "boolean", defaultValue: true },
+    ipId: {
+      control: {
+        type: "select",
+      },
+      options: STORY_IP_ASSETS,
+      mapping: STORY_IP_ASSETS_MAP,
+    },
   },
-  args: {},
+  args: {
+    ipId: STORY_IP_ASSETS[0] as `0x${string}`,
+  },
 } satisfies Meta<typeof Example>
 
 export default meta
@@ -23,12 +31,9 @@ type Story = StoryObj<typeof meta>
 
 export const Select: Story = {
   argTypes: {
-    ipId: {
-      options: ILIAD_PREVIEW_IP_ASSETS,
-    },
+    ipId: {},
   },
   args: {
-    ipId: ILIAD_PREVIEW_IP_ASSETS[0] as `0x${string}`,
     isBottomNav: true,
   },
 }
@@ -37,7 +42,7 @@ export const Input: Story = {
     ipId: { control: "text" },
   },
   args: {
-    ipId: ILIAD_PREVIEW_IP_ASSETS[0] as `0x${string}`,
+    ipId: STORY_IP_ASSETS_MAP[STORY_IP_ASSETS[0]] as `0x${string}`,
     isBottomNav: true,
   },
 }
@@ -50,15 +55,7 @@ export const Input: Story = {
 //     isBottomNav: true,
 //   },
 // }
-export const IliadTestnetExamples: Story = {
-  argTypes: {
-    ipId: { options: ILIAD_PREVIEW_IP_ASSETS },
-  },
-  args: {
-    ipId: ILIAD_PREVIEW_IP_ASSETS[0] as Address,
-    isBottomNav: true,
-  },
-}
+
 export const TopNavigation: Story = {
   argTypes: {
     ipId: { options: ["0x22Fe8C376919586F344fED952A9448df442b10f2"] },

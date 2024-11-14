@@ -31,7 +31,7 @@ const preview: Preview = {
         title: "Chain",
         icon: "link",
         items: [...Object.values(STORYKIT_SUPPORTED_CHAIN)],
-        defaultValue: STORYKIT_SUPPORTED_CHAIN.STORY_TESTNET,
+        defaultValue: STORYKIT_SUPPORTED_CHAIN.ODYSSEY_TESTNET,
         dynamicTitle: true,
       },
     },
@@ -57,7 +57,7 @@ const preview: Preview = {
     },
   },
   globals: {
-    chain: STORYKIT_SUPPORTED_CHAIN.STORY_TESTNET,
+    chain: STORYKIT_SUPPORTED_CHAIN.ODYSSEY_TESTNET,
   },
   decorators: [
     (Story, context) => {
