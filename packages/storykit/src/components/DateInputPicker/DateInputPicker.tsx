@@ -252,7 +252,7 @@ const Content = ({ presets }: ContentProps) => {
   }
 
   return (
-    <PopoverContent className={cn("sk-w-[300px] sk-p-0", "sk-bg-white dark:sk-bg-gray-950")} align="start">
+    <PopoverContent className={cn("sk-w-[300px] sk-p-0")} align="start">
       <div className={cn("sk-p-3 sk-pb-2")}>
         <div className="sk-relative">
           <Input

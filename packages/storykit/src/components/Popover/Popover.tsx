@@ -16,7 +16,9 @@ const PopoverContent = React.forwardRef<
       align={align}
       sideOffset={sideOffset}
       className={cn(
-        "sk-z-50 sk-w-72 sk-rounded-md sk-bg-popover sk-p-4 sk-text-popover-foreground sk-shadow-popover sk-outline-none data-[state=open]:sk-animate-in data-[state=closed]:sk-animate-out data-[state=closed]:sk-fade-out-0 data-[state=open]:sk-fade-in-0 data-[state=closed]:sk-zoom-out-95 data-[state=open]:sk-zoom-in-95 data-[side=bottom]:sk-slide-in-from-top-2 data-[side=left]:sk-slide-in-from-right-2 data-[side=right]:sk-slide-in-from-left-2 data-[side=top]:sk-slide-in-from-bottom-2",
+        "sk-w-72 sk-rounded-md sk-overflow-hidden sk-bg-popover sk-p-4 sk-text-popover-foreground sk-shadow-popover sk-outline-none",
+        "data-[state=open]:sk-animate-in data-[state=closed]:sk-animate-out data-[state=closed]:sk-fade-out-0 data-[state=open]:sk-fade-in-0 data-[state=closed]:sk-zoom-out-95 data-[state=open]:sk-zoom-in-95 data-[side=bottom]:sk-slide-in-from-top-2 data-[side=left]:sk-slide-in-from-right-2 data-[side=right]:sk-slide-in-from-left-2 data-[side=top]:sk-slide-in-from-bottom-2",
+        "sk-border sk-border-[#383B42FF] dark:sk-bg-gray-950",
         className
       )}
       {...props}
@@ -26,3 +28,4 @@ const PopoverContent = React.forwardRef<
 PopoverContent.displayName = PopoverPrimitive.Content.displayName
 
 export { Popover, PopoverTrigger, PopoverContent }
+// lch(24.833 4.707 272)

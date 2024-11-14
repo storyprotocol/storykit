@@ -18,11 +18,11 @@ export interface RadioGroupItemProps extends React.ComponentPropsWithoutRef<type
 const RadioGroupItem = React.forwardRef<React.ElementRef<typeof RadioGroupPrimitive.Item>, RadioGroupItemProps>(
   ({ className, label, description, ...props }, ref) => {
     return (
-      <label className="sk-flex sk-cursor-pointer sk-items-start sk-rounded-lg sk-border sk-border-gray-200 sk-p-4 sk-transition-colors hover:sk-bg-gray-50/40 dark:sk-border-gray-800 dark:hover:sk-bg-gray-900">
+      <label className="sk-flex sk-cursor-pointer sk-items-start sk-rounded-lg sk-border sk-border-gray-200 sk-p-4 sk-transition-colors hover:sk-bg-gray-50/40 dark:sk-border-gray-600/80 dark:hover:sk-bg-gray-800">
         <RadioGroupPrimitive.Item
           ref={ref}
           className={cn(
-            "sk-mt-1 sk-h-4 sk-w-4 sk-rounded-full sk-border sk-border-gray-300 sk-text-primary focus:sk-outline-none disabled:sk-cursor-not-allowed disabled:sk-opacity-50 dark:sk-border-gray-700",
+            "sk-mt-1 sk-h-4 sk-w-4 sk-rounded-full sk-border sk-border-gray-300 sk-text-primary focus:sk-outline-none disabled:sk-cursor-not-allowed disabled:sk-opacity-50 dark:sk-border-gray-600",
             className
           )}
           {...props}
