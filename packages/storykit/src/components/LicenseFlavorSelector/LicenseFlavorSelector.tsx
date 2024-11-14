@@ -69,6 +69,9 @@ export default function LicenseFlavorSelector({
   size,
   ...rest
 }: LicenseFlavorSelectorProps) {
+  const titleId = React.useId()
+  const descriptionId = React.useId()
+
   return (
     <div className={cn("grid gap-4", className)} role="radiogroup">
       {licenseFlavorOptions.map((flavor) => (
@@ -76,6 +79,8 @@ export default function LicenseFlavorSelector({
           <input
             type="radio"
             name="pil-flavor"
+            aria-labelledby={titleId}
+            aria-describedby={descriptionId}
             value={flavor.value}
             checked={value === flavor.value}
             onChange={(e) => onValueChange?.(e.target.value as PIL_FLAVOR)}
@@ -89,8 +94,12 @@ export default function LicenseFlavorSelector({
               value === flavor.value ? "border-foreground" : "border-border hover:border-foreground"
             )}
           >
-            <h3 className={titleStyles({ size })}>{flavor.label}</h3>
-            <h5 className={descriptionStyles({ size })}>{flavor.description}</h5>
+            <div id={titleId} className={titleStyles({ size })}>
+              {flavor.label}
+            </div>
+            <div id={descriptionId} className={descriptionStyles({ size })}>
+              {flavor.description}
+            </div>
             {rest.showCannots || rest.showCans || rest.showExtras ? (
               <div className={cn(value === flavor.value ? "block" : "hidden", size === "small" ? "mt-4" : "mt-6")}>
                 <LicenseTermsList {...rest} size={size} selectedLicenseTerms={flavor.terms} />
