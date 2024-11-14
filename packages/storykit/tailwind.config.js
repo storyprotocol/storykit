@@ -17,7 +17,7 @@ const charcoal = {
 }
 
 module.exports = {
-  darkMode: [".dark, .dark *"],
+  darkMode: ["class"],
   content: ["./pages/**/*.{ts,tsx}", "./components/**/*.{ts,tsx}", "./app/**/*.{ts,tsx}", "./src/**/*.{ts,tsx}"],
   prefix: "sk-",
   theme: {
