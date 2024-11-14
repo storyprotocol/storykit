@@ -295,7 +295,7 @@ const Content = ({ presets }: ContentProps) => {
         onMonthChange={setBaseMonth}
       />
       {presets && presets.length > 0 && (
-        <div className="border-t px-1 py-1 grid grid-flow-row gap-[2px] border-gray-100/25 dark:border-gray-800">
+        <div className="sk-border-t sk-px-1 sk-py-1 sk-grid sk-grid-flow-row sk-gap-[2px] sk-border-gray-100/25 dark:sk-border-gray-800">
           {presets.map((preset) => (
             <Button
               key={preset.value.getTime()}
@@ -303,7 +303,7 @@ const Content = ({ presets }: ContentProps) => {
               variant="ghost"
               size="sm"
               onClick={() => handlePresetClick(preset.value)}
-              className={cn("w-full px-2 text-sm justify-start", "text-gray-700 dark:text-gray-300")}
+              className={cn("sk-w-full sk-px-2 sk-text-sm sk-justify-start", "sk-text-gray-700 dark:sk-text-gray-300")}
             >
               {preset.label}
             </Button>
