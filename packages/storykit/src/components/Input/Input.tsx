@@ -18,7 +18,7 @@ const inputVariants = cva(
           // Light theme
           "sk-bg-[#242A3005] sk-border-[#0000000A]",
           // Dark theme
-          "dark:sk-bg-[#ffffff05] dark:sk-border-[#ffffff08]",
+          "dark:sk-bg-[#ffffff05] dark:sk-border-[#f8f6f62b]",
           // Focus states
           "focus-within:sk-border-gray-800 dark:focus-within:sk-border-gray-300 focus-within:sk-outline-none focus-within:sk-ring-0 focus-within:sk-ring-transparent",
         ],
