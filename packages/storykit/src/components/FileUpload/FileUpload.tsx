@@ -174,37 +174,43 @@ const Item = ({ file }: ItemProps) => {
   return (
     <div
       className={cn(
-        "flex justify-between p-3 rounded-lg",
-        "bg-white dark:bg-gray-900",
-        "border border-gray-100 dark:border-gray-700"
+        "sk-flex sk-justify-between sk-p-3 sk-rounded-lg",
+        "sk-bg-white dark:sk-bg-gray-900",
+        "sk-border sk-border-gray-100 dark:sk-border-gray-700"
       )}
     >
-      <div className="flex items-center space-x-3">
+      <div className="sk-flex sk-items-center sk-space-x-3">
         {isImage && imageUrl ? (
-          <div className="p-2 bg-gray-100/10 dark:bg-gray-800 rounded overflow-hidden">
-            <img src={imageUrl} alt={file.name} className="w-10 h-10  object-cover rounded" />
+          <div className="sk-p-2 sk-bg-gray-100/10 dark:sk-bg-gray-800 sk-rounded sk-overflow-hidden">
+            <img src={imageUrl} alt={file.name} className="sk-w-10 sk-h-10 sk-object-cover sk-rounded" />
           </div>
         ) : (
-          <div className={cn("p-2 rounded flex-shrink-0", "bg-gray-100/10 dark:bg-gray-800", "dark:text-gray-300")}>
-            <div className={`relative text-xs font-medium flex items-center`}>
-              <FileIcon className="w-10 h-10 text-gray-200/70" />
+          <div
+            className={cn(
+              "sk-p-2 sk-rounded sk-flex-shrink-0",
+              "sk-bg-gray-100/10 dark:sk-bg-gray-800",
+              "dark:sk-text-gray-300"
+            )}
+          >
+            <div className={`sk-relative sk-text-xs sk-font-medium sk-flex sk-items-center`}>
+              <FileIcon className="sk-w-10 sk-h-10 sk-text-gray-200/70" />
               <span
-                className={`absolute text-white top-[15px] rounded px-1 ${fileTypeConfig.left} scale-[0.75] ${fileTypeConfig.bgColor}`}
+                className={`sk-absolute sk-text-white sk-top-[15px] sk-rounded sk-px-1 ${fileTypeConfig.left} sk-scale-[0.75] ${fileTypeConfig.bgColor}`}
               >
                 {getFileLabel(file)}
               </span>
             </div>
           </div>
         )}
-        <div className="min-w-0 flex-1">
-          <div className="flex text-sm font-medium text-gray-900 dark:text-gray-100">
-            <div className="truncate max-w-[80%] flex-shrink">{fileNameStart}</div>
+        <div className="sk-min-w-0 sk-flex-1">
+          <div className="sk-flex sk-text-sm sk-font-medium sk-text-gray-900 dark:sk-text-gray-100">
+            <div className="sk-truncate sk-max-w-[80%] sk-flex-shrink">{fileNameStart}</div>
             <If condition={fileNameMiddle !== ""}>
-              <span className="flex-shrink-0 -ml-[2px]">{fileNameMiddle}</span>
+              <span className="sk-flex-shrink-0 -sk-ml-[2px]">{fileNameMiddle}</span>
             </If>
-            <span className="flex-shrink-0">{fileNameEnd}</span>
+            <span className="sk-flex-shrink-0">{fileNameEnd}</span>
           </div>
-          <p className="text-xs text-gray-500 dark:text-gray-400">{formatFileSize(file.size)}</p>
+          <p className="sk-text-xs sk-text-gray-500 dark:sk-text-gray-400">{formatFileSize(file.size)}</p>
         </div>
       </div>
       <Button
@@ -215,9 +221,12 @@ const Item = ({ file }: ItemProps) => {
         type="button"
         variant="ghost"
         size="icon"
-        className={cn("w-7 h-7 ml-3 mt-[3px]", "text-gray-200 hover:text-gray-400 dark:hover:text-gray-400")}
+        className={cn(
+          "sk-w-7 sk-h-7 sk-ml-3 sk-mt-[3px]",
+          "sk-text-gray-200 hover:sk-text-gray-400 dark:hover:sk-text-gray-400"
+        )}
       >
-        <span className="sr-only">Remove file</span>
+        <span className="sk-sr-only">Remove file</span>
         <Trash2 size={16} />
       </Button>
     </div>
