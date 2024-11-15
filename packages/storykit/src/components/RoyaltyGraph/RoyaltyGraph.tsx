@@ -27,6 +27,14 @@ type Link = LinkObject & {
 
 const NODE_R = 8
 
+/**
+ * This component must be wrapped with `IpProvider`.
+ *
+ * @example
+ * <IpProvider ipId={"0xEd8E05f46c39EEFDA7eBB87Dd9434ED86De5C453"} options={{ royaltyGraphData: true }}>
+ *   <RoyaltyGraph />
+ * </IpProvider>
+ */
 function RoyaltyGraph({ width = 600, height = 600, darkMode = false, isAnimated = false }: RoyaltyGraphProps) {
   const { chain } = useStoryKitContext()
   const { isRoyaltyGraphDataLoading, royaltyGraphData } = useRoyaltyGraphContext()
