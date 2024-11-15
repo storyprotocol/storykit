@@ -9,13 +9,13 @@ import "../../global.css"
 import LicenseTermsList from "../LicenseTermsList/LicenseTermsList"
 
 const licensesStyles = cva(
-  "flex w-full items-center justify-between cursor-pointer font-sans text-foreground font-bold",
+  "sk-flex sk-w-full sk-items-center sk-justify-between sk-cursor-pointer sk-font-sans sk-text-foreground sk-font-bold",
   {
     variants: {
       size: {
-        small: "text-sm",
-        medium: "text-base",
-        large: "text-lg",
+        small: "sk-text-sm",
+        medium: "sk-text-base",
+        large: "sk-text-lg",
       },
     },
   }
@@ -30,32 +30,32 @@ function IpLicenseAccordion({ size = "medium" }: IpLicenseAccordionProps) {
   const [expanded, setExpanded] = useState<number | null>(0)
 
   return licenseTermsData?.length ? (
-    <div className={"flex flex-col w-full min-w-48"}>
+    <div className={"sk-flex sk-flex-col sk-w-full sk-min-w-48"}>
       {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
       {(licenseTermsData as unknown as any[])?.map((license, index) => (
-        <div key={license.id} className="flex flex-col w-full">
+        <div key={license.id} className="sk-flex sk-flex-col sk-w-full">
           <div className={licensesStyles({ size })} onClick={() => setExpanded(expanded === index ? null : index)}>
             <span>
               {getPilFlavorByLicenseTerms(license.licenseTerms)}{" "}
-              <span className="text-slate-400 text-xs">(#{license.id})</span>
+              <span className="sk-text-slate-400 sk-text-xs">(#{license.id})</span>
             </span>
             {expanded === index ? <FaCaretUp width={12} /> : <FaCaretDown width={12} />}
           </div>
 
-          <div className={cn("flex w-full overflow-hidden h-0  ", expanded === index && "h-auto")}>
-            <div className="py-2 ">
-              <div className="pl-4 border-l-4 border-gray-100 dark:border-gray-800">
+          <div className={cn("sk-flex sk-w-full sk-overflow-hidden sk-h-0", expanded === index && "sk-h-auto")}>
+            <div className="sk-py-2">
+              <div className="sk-pl-4 sk-border-l-4 sk-border-gray-100 dark:sk-border-gray-800">
                 <LicenseTermsList size={size} selectedLicenseTerms={license.licenseTerms} />
               </div>
             </div>
           </div>
 
-          {index < licenseTermsData.length - 1 && <div className="border-b border-gray-400 w-full my-2" />}
+          {index < licenseTermsData.length - 1 && <div className="sk-border-b sk-border-gray-400 sk-w-full sk-my-2" />}
         </div>
       ))}
     </div>
   ) : (
-    <div className="flex flex-col w-full min-w-48 text-slate-400">No License</div>
+    <div className="sk-flex sk-flex-col sk-w-full sk-min-w-48 sk-text-slate-400">No License</div>
   )
 }
 

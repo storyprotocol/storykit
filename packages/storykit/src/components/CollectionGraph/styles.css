@@ -1,16 +1,16 @@
 .skIpGraph {
-  @apply relative;
+  @apply sk-relative;
 
   .force-graph-container .graph-tooltip {
     .graph-content {
-      @apply flex flex-col gap-1 whitespace-nowrap;
+      @apply sk-flex sk-flex-col sk-gap-1 sk-whitespace-nowrap;
 
       .graph-content-title {
-        @apply font-bold text-lg;
+        @apply sk-font-bold sk-text-lg;
       }
 
       .graph-content-label {
-        @apply font-bold;
+        @apply sk-font-bold;
       }
     }
   }

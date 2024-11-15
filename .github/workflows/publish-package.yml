@@ -3,7 +3,8 @@ name: publish on github
 on:
   push:
     branches:
-      - v0
+      - main
+      - beta
 
 jobs:
   publish-gpr:
@@ -31,6 +32,10 @@ jobs:
       - name: Publish to npm
         run: |
           cd packages/storykit
-          npm publish
+          if [[ "${{ github.ref }}" == "refs/heads/beta" ]]; then
+            npm publish --tag beta
+          elif [[ "${{ github.ref }}" == "refs/heads/main" ]]; then
+            npm publish --tag latest
+          fi
         env:
           NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}

@@ -1,7 +1,12 @@
 import { PILTerms, PIL_FLAVOR, PilFlavor } from "@/types"
 import { type ClassValue, clsx } from "clsx"
-import { twMerge } from "tailwind-merge"
+import { extendTailwindMerge } from "tailwind-merge"
 
+const tailwindMergeConfig = {
+  prefix: "sk-",
+}
+
+const twMerge = extendTailwindMerge(tailwindMergeConfig)
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
