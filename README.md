@@ -4,9 +4,24 @@ StoryKit is a toolkit that allows builders to interact with Story and easily add
 
 ## Installation
 
-You will need Node.js 20+
+_Storykit is currently a github package so you will need repo access and a personal access token to use_
 
-1. Install the package and the required dependencies:
+Also You will need Node.js 20+
+
+1 . Create a personal access token: [github.com/settings/tokens](https://github.com/settings/tokens)
+
+2 . Create an `.npmrc` file in the root of your project and add the following, replacing `NPM_TOKEN` with your access token:
+
+```bash
+//npm.pkg.github.com/:_authToken=NPM_TOKEN
+@storyprotocol/storykit:registry=https://npm.pkg.github.com
+```
+
+The first line authenticates you with the github package registry, the second line tells npm to use the Storykit package from the github registry.
+
+3 . Add `.npmrc` to your `.gitignore` to keep your access token private.
+
+4 . Install the package and the required dependencies:
 
 ```bash
 npm install @storyprotocol/storykit @tanstack/react-query react-force-graph-2d
