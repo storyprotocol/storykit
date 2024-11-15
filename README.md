@@ -46,22 +46,50 @@ NEXT_PUBLIC_SIMPLE_HASH_API_KEY="SIMPLEHASH_API_KEY_HERE"
 
 ### Providers
 
-To initialize StoryKit in your project, you’ll need to wrap your application in `QueryProvider` and `IpProvider` to manage API requests and IP-related functionalities effectively.
+To initialize StoryKit in your project, you’ll need to wrap your application in `QueryProvider` and `StoryKitProvider`.
 
-This setup enables StoryKit to handle queries and IP-based interactions within your app.
+we recommend doing this once in the root of the app.
 
 ```tsx
-import { IpProvider } from "@storyprotocol/storykit";
-import { QueryProvider } from "@tanstack/react-query";
+// app/layout.tsx
 
-function App() {
+import Providers from "./Providers";
+
+export default function Layout({ children }) {
   return (
-    <QueryProvider>
-      <IpProvider></IpProvider>
-    </QueryProvider>
+    <html>
+      <body>
+        <Providers>{children}</Providers>
+      </body>
+    </html>
   );
 }
 ```
+
+```tsx
+// app/Providers.tsx
+
+"use client";
+
+import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
+import {
+  StoryKitProvider,
+  STORYKIT_SUPPORTED_CHAIN,
+} from "@storyprotocol/storykit";
+
+export default function Providers({ children }: { children: React.ReactNode }) {
+  const queryClient = new QueryClient();
+  return (
+    <QueryClientProvider client={queryClient}>
+      <StoryKitProvider chain={STORYKIT_SUPPORTED_CHAIN.STORY_TESTNET}>
+        {children}
+      </StoryKitProvider>
+    </QueryClientProvider>
+  );
+}
+```
+
+#### The IpProvider
 
 The `IpProvider` provides IP Asset data to child components.
 
@@ -93,6 +121,22 @@ const ExampleComponent = () => {
 };
 ```
 
+Among the components that start with `Ip`, all except IpWidget require the IpProvider to supply asset data. Check the Storybook of each component for detailed usage.
+
+```tsx
+"use client";
+
+import { IpProvider, IpGraph } from "@storyprotocol/storykit";
+
+const ExamplePage = () => {
+  return (
+    <IpProvider ipId={"0xbbf08a30b9ff0f717a024a75963d3196aaf0f0dd"}>
+      <IpGraph />
+    </IpProvider>
+  );
+};
+```
+
 ## Run locally
 
 ### Storybook
@@ -107,12 +151,12 @@ Find the Storybook at [http://localhost:6006](http://localhost:6006)
 
 ### Example app
 
-Run the next.js [example app](./examples/next-app/):
+Run the example app.
 
 ```bash
 pnpm build
-pnpm dev-example --filter @example/simple-setup
-pnpm dev-example --filter @example/custom-theme
+pnpm example --filter @example/simple-setup
+pnpm example --filter @example/custom-theme
 ```
 
 The dev server will be running at [http://localhost:3000](http://localhost:3000)
