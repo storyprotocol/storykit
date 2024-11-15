@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react"
+import { expect, screen, userEvent, waitFor, within } from "@storybook/test"
 import React from "react"
 
 import { Button } from "../../Button"
@@ -61,6 +62,28 @@ export const MaxDate: Story = {
       </DateInputPicker>
     )
   },
+  play: async ({ canvasElement, step }) => {
+    const canvas = within(canvasElement)
+    await userEvent.click(canvasElement)
+
+    await step("Shows error message when date exceeds maxDate", async () => {
+      const trigger = canvas.getByRole("button")
+      await userEvent.click(trigger)
+
+      await waitFor(() => {
+        const dialog = within(document.body).getByRole("dialog")
+        expect(dialog).toBeInTheDocument()
+      })
+
+      const portalContent = within(document.body)
+      const input = portalContent.getByRole("textbox")
+      await userEvent.type(input, "12/20/2030")
+      await userEvent.keyboard("{Enter}")
+
+      const errorMessage = await portalContent.findByText("Date exceeds maximum")
+      expect(errorMessage).toBeInTheDocument()
+    })
+  },
 }
 
 export const WithInitialValue: Story = {
@@ -77,6 +100,48 @@ export const WithInitialValue: Story = {
         <DateInputPicker.Content />
       </DateInputPicker>
     )
+  },
+  play: async ({ canvasElement, step }) => {
+    const canvas = within(canvasElement)
+    await userEvent.click(canvasElement)
+
+    await step("Shows initial value", async () => {
+      const trigger = canvas.getByRole("button")
+      await userEvent.click(trigger)
+
+      await waitFor(async () => {
+        const dialog = document.querySelector('[role="dialog"]')
+        expect(dialog).toBeInTheDocument()
+      })
+
+      const calendar = within(document.querySelector('[role="dialog"]') as HTMLElement)
+
+      // Check if December 2024 is shown
+      expect(calendar.getByText(/december/i)).toBeInTheDocument()
+      expect(calendar.getByText(/2024/i)).toBeInTheDocument()
+
+      // Check if December 1st is selected
+      const selectedDate = calendar.getByRole("button", {
+        pressed: true,
+      })
+      expect(selectedDate).toHaveTextContent("1")
+    })
+
+    await step("Can navigate between months", async () => {
+      const calendar = within(document.querySelector('[role="dialog"]') as HTMLElement)
+
+      const nextButton = calendar.getByRole("button", { name: "Go to next month" })
+      await userEvent.click(nextButton)
+
+      expect(calendar.getByText(/january/i)).toBeInTheDocument()
+      expect(calendar.getByText(/2025/i)).toBeInTheDocument()
+
+      const prevButton = calendar.getByRole("button", { name: "Go to previous month" })
+      await userEvent.click(prevButton)
+
+      expect(calendar.getByText(/december/i)).toBeInTheDocument()
+      expect(calendar.getByText(/2024/i)).toBeInTheDocument()
+    })
   },
 }
 
