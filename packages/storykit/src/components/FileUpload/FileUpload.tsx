@@ -108,41 +108,41 @@ const Dropzone = ({ children, accept, className, description, multiple, maxSize 
     <div
       {...getRootProps()}
       className={cn(
-        "h-64 w-full",
-        "flex flex-col items-center justify-center p-6 cursor-pointer",
-        "border rounded-lg transition-colors",
-        "border-gray-50 bg-white",
-        "hover:border-gray-100 hover:bg-gray-50/20",
-        "dark:border-gray-700 dark:bg-gray-900",
-        "dark:hover:border-gray-700 dark:hover:bg-gray-800",
-        isDragActive && ["bg-blue-50 border-blue-300", "dark:bg-blue-900/20 dark:border-blue-800"],
+        "sk-h-64 sk-w-full",
+        "sk-flex sk-flex-col sk-items-center sk-justify-center sk-p-6 sk-cursor-pointer",
+        "sk-border sk-rounded-lg sk-transition-colors",
+        "sk-border-gray-50 sk-bg-white",
+        "hover:sk-border-gray-100 hover:sk-bg-gray-50/20",
+        "dark:sk-border-gray-700 dark:sk-bg-gray-900",
+        "dark:hover:sk-border-gray-700 dark:hover:sk-bg-gray-800",
+        isDragActive && ["sk-bg-blue-50 sk-border-blue-300", "dark:sk-bg-blue-900/20 dark:sk-border-blue-800"],
         className
       )}
     >
       <input {...getInputProps()} />
-      <div className="flex items-center gap-4 mb-3 text-gray-700 dark:text-white">
+      <div className="sk-flex sk-items-center sk-gap-4 sk-mb-3 sk-text-gray-700 dark:sk-text-white">
         <Video name="upload" size={32} />
         <LucideImage name="upload" size={32} />
         <FileText name="upload" size={28} />
       </div>
-      <div className="text-sm text-gray-600 dark:text-gray-200">
+      <div className="sk-text-sm sk-text-gray-600 dark:sk-text-gray-200">
         {isDragActive ? (
           <p>Drop the files here ...</p>
         ) : (
           children ?? (
             <>
-              <span className="text-blue-500 dark:text-blue-400">Click to upload</span>
+              <span className="sk-text-blue-500 dark:sk-text-blue-400">Click to upload</span>
               {" or drag and drop"}
             </>
           )
         )}
       </div>
       <If condition={description != null}>
-        <p className="text-xs text-gray-400 mt-1">{description}</p>
+        <p className="sk-text-xs sk-text-gray-400 sk-mt-1">{description}</p>
       </If>
       <If condition={sizeError != null}>
-        <div className="mt-2">
-          <p className="text-xs text-red-500 dark:text-red-400">{sizeError}</p>
+        <div className="sk-mt-2">
+          <p className="sk-text-xs sk-text-red-500 dark:sk-text-red-400">{sizeError}</p>
         </div>
       </If>
     </div>

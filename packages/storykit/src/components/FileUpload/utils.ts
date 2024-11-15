@@ -1,38 +1,38 @@
 type FileTypeConfig = {
-  bgColor: string
-  left: string
+  bgColor: `sk-${string}`
+  left: `-sk-${string}`
 }
 export const getFileTypeConfig = (file: File): FileTypeConfig => {
   const extension = file.name.split(".").pop()?.toLowerCase() || ""
 
   const typeConfigs: Record<string, FileTypeConfig> = {
     pdf: {
-      bgColor: "bg-red-700/80",
-      left: "-left-1",
+      bgColor: "sk-bg-red-700/80",
+      left: "-sk-left-1",
     },
     doc: {
-      bgColor: "bg-blue-800/80",
-      left: "-left-1",
+      bgColor: "sk-bg-blue-800/80",
+      left: "-sk-left-1",
     },
     docx: {
-      bgColor: "bg-blue-800/80",
-      left: "-left-[10px]",
+      bgColor: "sk-bg-blue-800/80",
+      left: "-sk-left-[10px]",
     },
     xls: {
-      bgColor: "bg-green-800",
-      left: "-left-1",
+      bgColor: "sk-bg-green-800",
+      left: "-sk-left-1",
     },
     xlsx: {
-      bgColor: "bg-green-800",
-      left: "-left-[10px]",
+      bgColor: "sk-bg-green-800",
+      left: "-sk-left-[10px]",
     },
     txt: {
-      bgColor: "bg-gray-500",
-      left: "-left-1",
+      bgColor: "sk-bg-gray-500",
+      left: "-sk-left-1",
     },
     default: {
-      bgColor: "bg-gray-500",
-      left: "-left-1",
+      bgColor: "sk-bg-gray-500",
+      left: "-sk-left-1",
     },
   }
 
