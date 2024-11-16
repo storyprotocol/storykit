@@ -50,7 +50,7 @@ const preview: Preview = {
       toolbar: {
         title: "Mode",
         icon: "sun",
-        items: ["light", "sk-dark"],
+        items: ["light", "dark"],
         defaultValue: "light",
         dynamicTitle: true,
       },
