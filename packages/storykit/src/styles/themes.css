@@ -51,9 +51,9 @@
     --sk-radius: 0.5rem;
   }
 
-  .sk-dark,
-  .sk-dark .default,
-  .sk-dark.default,
+  .dark,
+  .dark .default,
+  .dark.default,
   .default-dark {
     --sk-background: 0 0 2%;
     --sk-foreground: 0 0% 98%;
@@ -84,8 +84,8 @@
     --sk-destructive: 0 100% 70.91%;
   }
 
-  .sk-dark .story,
-  .sk-dark.story,
+  .dark .story,
+  .dark.story,
   .story-dark {
     --sk-background: 222.2 84% 4.9%;
     --sk-foreground: 0 0% 86%;
