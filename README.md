@@ -1,12 +1,12 @@
 # StoryKit
 
-StoryKit is a toolkit that allows builders to interact with Story and easily add Story integration with minimal effort.
+StoryKit is a React toolkit that allows builders to integrate and interact with Story's Proof of Creativity protocol with prebuilt IP management components
 
 ## Installation
 
-_Storykit is currently a github package so you will need repo access and a personal access token to use_
+_StoryKit is currently a GitHub Package so you will need repo access and a personal access token to use_
 
-Also You will need Node.js 20+
+Also you will need Node.js 20+
 
 1 . Create a personal access token: [github.com/settings/tokens](https://github.com/settings/tokens)
 
