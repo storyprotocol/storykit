@@ -25,6 +25,14 @@ export type IpLicenseAccordionProps = {
   size?: "small" | "medium" | "large"
 }
 
+/**
+ * This component must be wrapped with `IpProvider`.
+ *
+ * @example
+ * <IpProvider ipId={"0xbbf08a30b9ff0f717a024a75963d3196aaf0f0dd"}>
+ *   <IpLicenseAccordion />
+ * </IpProvider>
+ */
 function IpLicenseAccordion({ size = "medium" }: IpLicenseAccordionProps) {
   const { licenseTermsData } = useIpContext()
   const [expanded, setExpanded] = useState<number | null>(0)
