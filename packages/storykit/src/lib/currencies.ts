@@ -15,7 +15,7 @@ export const ILIAD_STORYUSD: Currency = {
 export const ODYSSEY_STORYUSD: Currency = {
   name: "Odyssey StoryUSD",
   symbol: "sUSD",
-  address: "0xa906E2589A7F8385A376BABBb70a39dad551603b",
+  address: "0xC0F6E387aC0B324Ec18EAcf22EE7271207dCE3d5",
 }
 
 export const CURRENCIES = {
