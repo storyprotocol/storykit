@@ -1,7 +1,5 @@
-import { listResource } from "@/lib/api"
-import { STORYKIT_SUPPORTED_CHAIN } from "@/lib/chains"
+import { useListResource } from "@/hooks/api"
 import { cn } from "@/lib/utils"
-import { useStoryKitContext } from "@/providers/StoryKitProvider"
 import { RESOURCE_TYPE } from "@/types/api"
 import { useQuery } from "@tanstack/react-query"
 import React, { useEffect, useRef, useState } from "react"
@@ -31,18 +29,18 @@ function CollectionGraph({
   showRelationship = false,
   darkMode = false,
 }: CollectionGraphProps) {
-  const { chain } = useStoryKitContext()
-  const { isLoading: isAssetDataLoading, data: assetData } = useQuery({
-    queryKey: [RESOURCE_TYPE.ASSET, collectionAddress, chain.name],
-    queryFn: () =>
-      listResource(RESOURCE_TYPE.ASSET, chain.name as STORYKIT_SUPPORTED_CHAIN, {
-        pagination: { limit: 100 },
-        where: { tokenContract: collectionAddress },
-        orderBy: "blockTimestamp", // or blockTimestamp
-        orderDirection: "asc", // or "ASC"
-      }),
-    enabled: Boolean(collectionAddress),
-  })
+  const { isLoading: isAssetDataLoading, data: assetData } = useListResource(
+    RESOURCE_TYPE.ASSET,
+    {
+      pagination: { limit: 100 },
+      where: { tokenContract: collectionAddress },
+      orderBy: "blockTimestamp", // or blockTimestamp
+      orderDirection: "asc", // or "ASC"
+    },
+    {
+      enabled: Boolean(collectionAddress),
+    }
+  )
 
   const {
     isLoading: formattedDataLoading,

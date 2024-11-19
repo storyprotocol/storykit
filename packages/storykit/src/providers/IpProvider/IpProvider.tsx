@@ -1,4 +1,4 @@
-import { useGetResource } from "@/hooks/api"
+import { useGetResource, useListResource } from "@/hooks/api"
 import { STORYKIT_SUPPORTED_CHAIN } from "@/lib/chains"
 import { convertLicenseTermObject } from "@/lib/functions/convertLicenseTermObject"
 import { getRoyaltiesByIPs } from "@/lib/royalty-graph"
@@ -131,12 +131,7 @@ export const IpProvider = ({
     data: assetParentData,
     refetch: refetchAssetParentData,
     isFetched: isAssetParentDataFetched,
-  } = useQuery<AssetEdges[] | undefined>({
-    queryKey: [RESOURCE_TYPE.ASSET_EDGES, ipId, "parents"],
-    queryFn: () =>
-      listResource(RESOURCE_TYPE.ASSET_EDGES, chainName as STORYKIT_SUPPORTED_CHAIN, fetchParentEdgeOptions),
-    enabled: queryOptions.assetParentsData,
-  })
+  } = useListResource(RESOURCE_TYPE.ASSET_EDGES, fetchParentEdgeOptions, { enabled: queryOptions.assetParentsData })
 
   const fetchChildEdgeOptions = {
     pagination: {
@@ -166,7 +161,7 @@ export const IpProvider = ({
           offset: pageParam as number,
         },
       }
-      return listResource(RESOURCE_TYPE.ASSET_EDGES, chainName as STORYKIT_SUPPORTED_CHAIN, currentOptions)
+      return listResource(RESOURCE_TYPE.ASSET_EDGES, apiKey || "", appId || "", chainName, apiVersion, currentOptions)
     },
     getNextPageParam: (lastPage: AssetEdges[], allPages: AssetEdges[][]) => {
       const totalFetched = allPages.flat().length
@@ -199,10 +194,7 @@ export const IpProvider = ({
     data: ipLicenseData,
     refetch: refetchIpLicenseData,
     isFetched: isIpLicenseDataFetched,
-  } = useQuery({
-    queryKey: [RESOURCE_TYPE.IP_LICENSE_TERMS, ipLicenseTermsQueryOptions],
-    queryFn: () =>
-      listResource(RESOURCE_TYPE.IP_LICENSE_TERMS, chainName as STORYKIT_SUPPORTED_CHAIN, ipLicenseTermsQueryOptions),
+  } = useListResource(RESOURCE_TYPE.IP_LICENSE_TERMS, ipLicenseTermsQueryOptions, {
     enabled: queryOptions.licenseTermsData,
   })
 
@@ -251,9 +243,7 @@ export const IpProvider = ({
     data: licenseData,
     refetch: refetchLicenseData,
     isFetched: isLicenseDataFetched,
-  } = useQuery({
-    queryKey: [RESOURCE_TYPE.LICENSE, licenseQueryOptions],
-    queryFn: () => listResource(RESOURCE_TYPE.LICENSE, chainName as STORYKIT_SUPPORTED_CHAIN, licenseQueryOptions),
+  } = useListResource(RESOURCE_TYPE.LICENSE, licenseQueryOptions, {
     enabled: queryOptions.licenseData,
   })
 
