@@ -80,8 +80,13 @@ const preview: Preview = {
       if (context.parameters.disableStoryProvider) {
         return <Story />
       }
+      const API_KEY =
+        process.env.STORYBOOK_STORY_PROTOCOL_X_API_KEY ||
+        process.env.NEXT_PUBLIC_STORY_PROTOCOL_X_API_KEY ||
+        process.env.STORY_PROTOCOL_X_API_KEY ||
+        ""
       return (
-        <StoryProvider chain={context.globals.chain} theme={context.globals.skTheme}>
+        <StoryProvider chain={context.globals.chain} theme={context.globals.skTheme} apiKey={API_KEY} appId="StoryKit">
           <Story />
         </StoryProvider>
       )
