@@ -1,20 +1,10 @@
 import { useStoryKitContext } from "@/providers/StoryKitProvider"
-import { UseQueryOptions, useQuery } from "@tanstack/react-query"
+import { UseQueryResult, useQuery } from "@tanstack/react-query"
 
 import { getResource, listResource } from "../lib/api"
 import { QueryOptions, ResourceType } from "../types/api"
 
-// make queryKey and queryFn optional as they are defined by default
-type UseGetResourceOptions = Omit<UseQueryOptions<any>, "queryKey" | "queryFn"> & {
-  queryKey?: string[]
-  queryFn?: () => Promise<any>
-}
-
-export const useGetResource = (
-  resourceName: ResourceType,
-  resourceId: string,
-  queryOptions?: UseGetResourceOptions
-) => {
+export const useGetResource = (resourceName: ResourceType, resourceId: string, queryOptions?: any) => {
   const { apiKey, appId, chain: storyKitChain } = useStoryKitContext()
   const { apiVersion, name: chainName } = storyKitChain
 
@@ -23,14 +13,10 @@ export const useGetResource = (
     queryFn: () => getResource(resourceName, resourceId, apiKey || "", appId || "", chainName, apiVersion),
     enabled: !!resourceId,
     ...queryOptions,
-  })
+  }) as UseQueryResult<any>
 }
 
-export const useListResource = (
-  resourceName: ResourceType,
-  options?: QueryOptions,
-  queryOptions?: UseGetResourceOptions
-) => {
+export const useListResource = (resourceName: ResourceType, options?: QueryOptions, queryOptions?: any) => {
   const { apiKey, appId, chain: storyKitChain } = useStoryKitContext()
   const { apiVersion, name: chainName } = storyKitChain
 
@@ -38,5 +24,5 @@ export const useListResource = (
     queryKey: [resourceName, chainName, options],
     queryFn: () => listResource(resourceName, apiKey || "", appId || "", chainName, apiVersion, options),
     ...queryOptions,
-  })
+  }) as UseQueryResult<any>
 }
