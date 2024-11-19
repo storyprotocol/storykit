@@ -16,25 +16,30 @@ const API_KEY =
 export async function getResource<T>(
   resourceName: ResourceType,
   resourceId: string,
-  chain: STORYKIT_SUPPORTED_CHAIN,
-  options?: QueryOptions
+  apiKey: string,
+  appId: string,
+  chainName: STORYKIT_SUPPORTED_CHAIN,
+  apiVersion: string
 ) {
   try {
-    const _chain = CHAINS[chain]
-    const res = await fetch(`${API_URL}/${_chain.apiVersion}/${resourceName}/${resourceId}`, {
+    const res = await fetch(`${API_URL}/${apiVersion}/${resourceName}/${resourceId}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        "x-api-key": API_KEY as string,
-        "X-CHAIN": options?.chain || _chain.name || STORYKIT_SUPPORTED_CHAIN.STORY_TESTNET,
+        "x-api-key": apiKey,
+        // "x-app-id": appId,
+        "X-CHAIN": chainName,
         "x-extend-asset": "true",
       },
     })
-    if (res.ok) {
-      return res.json()
+
+    if (!res.ok) {
+      throw new Error(`Error fetching resource: ${res.status} ${res.statusText}`)
     }
+
+    return res.json()
   } catch (error) {
-    console.error(error)
+    throw new Error(`Error fetching resource: ${error}`)
   }
 }
 
