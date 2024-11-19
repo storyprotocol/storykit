@@ -2,9 +2,14 @@ import { Chain } from "viem"
 
 import { Currency, ILIAD_STORYUSD, ODYSSEY_STORYUSD } from "./currencies"
 
+export enum STORYKIT_SUPPORTED_CHAIN {
+  STORY_TESTNET = "story-testnet",
+  ODYSSEY_TESTNET = "odyssey-testnet",
+}
+
 export type ChainConfig = {
   id: number
-  name: string
+  name: STORYKIT_SUPPORTED_CHAIN
   displayName: string
   rpcUrl: string
   blockExplorerUrl: string
@@ -16,7 +21,7 @@ export type ChainConfig = {
 
 export const STORY_ILIAD: ChainConfig = {
   id: 1513,
-  name: "story-testnet",
+  name: STORYKIT_SUPPORTED_CHAIN.STORY_TESTNET,
   simplehashId: "story-testnet",
   apiVersion: "v1",
   displayName: "Iliad Testnet",
@@ -28,7 +33,7 @@ export const STORY_ILIAD: ChainConfig = {
 
 export const STORY_ODYSSEY: ChainConfig = {
   id: 1516,
-  name: "odyssey-testnet",
+  name: STORYKIT_SUPPORTED_CHAIN.ODYSSEY_TESTNET,
   simplehashId: "story-odyssey",
   apiVersion: "v2",
   displayName: "Odyssey Testnet",
@@ -63,11 +68,6 @@ export const getChainViemConfig = (chain: ChainConfig): Chain => {
 }
 
 export type SupportedChainConfig = typeof STORY_ODYSSEY | typeof STORY_ILIAD
-
-export enum STORYKIT_SUPPORTED_CHAIN {
-  STORY_TESTNET = "story-testnet",
-  ODYSSEY_TESTNET = "odyssey-testnet",
-}
 
 export const CHAINNAME_TO_CHAINID: { [key: string]: number } = {
   "story-testnet": 1513,
