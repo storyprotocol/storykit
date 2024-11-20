@@ -15,6 +15,7 @@ export interface StoryKitProviderOptions {
   rpcUrl?: string
   apiKey?: string
   appId?: string
+  simplehashKey?: string
   children: React.ReactNode
 }
 
@@ -27,6 +28,7 @@ const StoryKitContext = React.createContext<{
   themeClass: string
   apiKey: string | undefined
   appId: string | undefined
+  simplehashKey: string | undefined
 } | null>(null)
 
 export const StoryKitProvider = ({
@@ -37,6 +39,7 @@ export const StoryKitProvider = ({
   rpcUrl,
   apiKey,
   appId,
+  simplehashKey,
   children,
 }: StoryKitProviderOptions) => {
   //
@@ -52,11 +55,12 @@ export const StoryKitProvider = ({
         chain: chainConfig,
         viemChain: getChainViemConfig(chainConfig),
         defaultCurrency: defaultCurrency ? CURRENCIES[defaultCurrency] : chainConfig.defaultCurrency,
-        theme: theme,
-        mode: mode,
         themeClass: `${theme}${mode ? `-${mode}` : ""}`,
-        apiKey: apiKey,
-        appId: appId,
+        theme,
+        mode,
+        apiKey,
+        appId,
+        simplehashKey,
       }}
     >
       <div className={cn(theme)}>{children}</div>
