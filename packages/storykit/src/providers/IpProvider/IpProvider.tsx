@@ -1,14 +1,14 @@
 import { useGetResource, useListResource } from "@/hooks/api"
+import { useGetNFTByTokenId } from "@/hooks/simplehash"
 import { STORYKIT_SUPPORTED_CHAIN } from "@/lib/chains"
 import { convertLicenseTermObject } from "@/lib/functions/convertLicenseTermObject"
 import { getRoyaltiesByIPs } from "@/lib/royalty-graph"
-import { RoyaltiesGraph, RoyaltyGraph } from "@/types/royalty-graph"
+import { RoyaltiesGraph } from "@/types/royalty-graph"
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query"
 import React from "react"
 import { Address, Hash } from "viem"
 
 import { getResource, listResource } from "../../lib/api"
-import { getNFTByTokenId } from "../../lib/simplehash"
 import { RESOURCE_TYPE } from "../../types/api"
 import {
   Asset,
@@ -266,25 +266,22 @@ export const IpProvider = ({
     enabled: queryOptions.royaltyGraphData,
   })
 
+  const enableMetadata =
+    queryOptions.assetData &&
+    Boolean(assetData) &&
+    Boolean(assetData?.data.nftMetadata.tokenContract) &&
+    Boolean(assetData?.data.nftMetadata.tokenId)
+
   const {
     isLoading: isNftDataLoading,
     data: nftData,
     refetch: refetchNFTData,
     isFetched: isNftDataFetched,
-  } = useQuery({
-    queryKey: ["getNFTByTokenId", assetData?.data?.nftMetadata?.tokenContract, assetData?.data?.nftMetadata?.tokenId],
-    queryFn: () =>
-      getNFTByTokenId(
-        assetData?.data?.nftMetadata?.tokenContract as Hash,
-        assetData?.data?.nftMetadata?.tokenId as string,
-        chainName as STORYKIT_SUPPORTED_CHAIN
-      ),
-    enabled:
-      queryOptions.assetData &&
-      Boolean(assetData) &&
-      Boolean(assetData?.data.nftMetadata.tokenContract) &&
-      Boolean(assetData?.data.nftMetadata.tokenId),
-  })
+  } = useGetNFTByTokenId(
+    assetData?.data?.nftMetadata?.tokenContract as Hash,
+    assetData?.data?.nftMetadata?.tokenId as string,
+    { enabled: enableMetadata }
+  )
 
   return (
     <IpContext.Provider
