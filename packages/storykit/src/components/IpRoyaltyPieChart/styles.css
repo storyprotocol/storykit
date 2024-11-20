@@ -1,30 +1,30 @@
 .skIpRoyaltyPieChart {
-  @apply flex flex-col items-center justify-between;
+  @apply sk-flex sk-flex-col sk-items-center sk-justify-between;
 
   .skIpRoyaltyPieChart__chart {
-    @apply min-h-[230px];
+    @apply sk-min-h-[230px];
   }
 
   .skIpRoyaltyPieChart__key {
-    @apply w-full min-w-[300px] px-2;
+    @apply sk-w-full sk-min-w-[300px] sk-px-2;
   }
 
   .skIpRoyaltyPieChart__list {
-    @apply divide-y divide-gray-100 overflow-x-hidden text-sm leading-6;
+    @apply sk-divide-y sk-divide-gray-100 sk-overflow-x-hidden sk-text-sm sk-leading-6;
   }
 
   .skIpRoyaltyPieChart__item {
-    @apply flex justify-between gap-x-4 py-1;
+    @apply sk-flex sk-justify-between sk-gap-x-4 sk-py-1;
   }
 
   .skIpRoyaltyPieChart__address {
-    @apply text-xs capitalize text-gray-500;
+    @apply sk-text-xs sk-capitalize sk-text-gray-500;
   }
   .skIpRoyaltyPieChart__value {
-    @apply truncate text-gray-700;
+    @apply sk-truncate sk-text-gray-700;
   }
 
   &.skIpRoyaltyPieChart--empty {
-    @apply items-start text-slate-400;
+    @apply sk-items-start sk-text-slate-400;
   }
 }

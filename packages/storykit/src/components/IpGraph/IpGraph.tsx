@@ -18,6 +18,14 @@ export type IpGraphProps = {
   darkMode?: boolean
 }
 
+/**
+ * This component must be wrapped with `IpProvider`.
+ *
+ * @example
+ * <IpProvider ipId={"0xbbf08a30b9ff0f717a024a75963d3196aaf0f0dd"}>
+ *   <IpGraph />
+ * </IpProvider>
+ */
 function IpGraph({ width = 500, height = 500, darkMode = false }: IpGraphProps) {
   const { isAssetDataLoading, assetData, nftData } = useIpContext()
   const { chain } = useStoryKitContext()
@@ -142,8 +150,8 @@ function IpGraph({ width = 500, height = 500, darkMode = false }: IpGraphProps) 
     <div
       className={cn(
         "skIpGraph",
-        "flex items-center justify-center",
-        darkMode ? "bg-black text-white" : "bg-white text-black"
+        "sk-flex sk-items-center sk-justify-center",
+        darkMode ? "sk-bg-black sk-text-white" : "sk-bg-white sk-text-black"
       )}
       style={{ width: `${width}px`, height: `${height}px` }}
     >

@@ -27,6 +27,14 @@ type Link = LinkObject & {
 
 const NODE_R = 8
 
+/**
+ * This component must be wrapped with `IpProvider`.
+ *
+ * @example
+ * <IpProvider ipId={"0xEd8E05f46c39EEFDA7eBB87Dd9434ED86De5C453"} options={{ royaltyGraphData: true }}>
+ *   <RoyaltyGraph />
+ * </IpProvider>
+ */
 function RoyaltyGraph({ width = 600, height = 600, darkMode = false, isAnimated = false }: RoyaltyGraphProps) {
   const { chain } = useStoryKitContext()
   const { isRoyaltyGraphDataLoading, royaltyGraphData } = useRoyaltyGraphContext()
@@ -371,8 +379,8 @@ function RoyaltyGraph({ width = 600, height = 600, darkMode = false, isAnimated 
       // ref={containerRef}
       className={cn(
         "skIpGraph",
-        "flex items-center justify-center w-full h-full",
-        darkMode ? "bg-black text-white" : "bg-white text-black"
+        "sk-flex sk-items-center sk-justify-center sk-w-full sk-h-full",
+        darkMode ? "sk-bg-black sk-text-white" : "sk-bg-white sk-text-black"
       )}
       // style={{ width: `${width}px`, height: `${height}px` }}
     >

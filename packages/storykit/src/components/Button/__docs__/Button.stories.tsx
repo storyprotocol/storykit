@@ -8,26 +8,24 @@ const meta = {
   parameters: {
     layout: "centered",
   },
-  argTypes: {},
+  argTypes: {
+    variant: {
+      control: "select",
+      options: ["primary", "outline", "ghost"],
+      description: "The visual style of the button",
+      defaultValue: "primary",
+    },
+  },
   args: {},
 } satisfies Meta<typeof Button>
 
 export default meta
 type Story = StoryObj<typeof meta>
 
-export const Primary: Story = {
+export const Basic: Story = {
   args: {
     children: "Button",
     variant: "primary",
-    size: "medium",
-    disabled: false,
-  },
-}
-
-export const Secondary: Story = {
-  args: {
-    children: "Button",
-    variant: "secondary",
     size: "medium",
     disabled: false,
   },

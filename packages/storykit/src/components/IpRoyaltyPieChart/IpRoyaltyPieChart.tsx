@@ -7,6 +7,14 @@ import { Address } from "viem"
 import "../../global.css"
 import "./styles.css"
 
+/**
+ * This component must be wrapped with `IpProvider`.
+ *
+ * @example
+ * <IpProvider ipId={"0xbbf08a30b9ff0f717a024a75963d3196aaf0f0dd"}>
+ *   <IpRoyaltyPieChart />
+ * </IpProvider>
+ */
 function IpRoyaltyPieChart() {
   const { royaltyData } = useIpContext()
 

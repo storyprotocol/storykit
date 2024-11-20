@@ -2,9 +2,11 @@ import { cn } from "@/lib/utils"
 import { X } from "lucide-react"
 import React, { forwardRef, useState } from "react"
 
+import { Button } from "../Button"
 import { Calendar } from "../Calendar/Calendar"
 import { Input } from "../Input"
 import { Popover, PopoverContent, PopoverTrigger } from "../Popover/Popover"
+import { If } from "../utility/If"
 import { buildContext } from "../utility/context"
 import { dateUtils } from "./dateUtils"
 
@@ -17,19 +19,31 @@ interface DateInputContextType {
   setIsOpen: (isOpen: boolean) => void
   selectedDate: Date | undefined
   setSelectedDate: (date: Date | undefined) => void
+  baseDate: Date
+  maxDate: Date
 }
+
 export interface DateInputPickerProps {
   children: React.ReactNode
   defaultOpen?: boolean
   initialValue?: Date
+  baseDate?: Date
+  maxDate?: Date
 }
 
 export interface TriggerProps {
   children: React.ReactNode
 }
+
 const [DateInputProvider, useDateInputContext] = buildContext<DateInputContextType>("DateInputPicker")
 
-export const DateInputPicker = ({ children, defaultOpen = false, initialValue }: DateInputPickerProps) => {
+export const DateInputPicker = ({
+  children,
+  defaultOpen = false,
+  initialValue,
+  baseDate = new Date(),
+  maxDate = new Date("9999-12-31"),
+}: DateInputPickerProps) => {
   const initialDateString =
     initialValue != null
       ? `${String(initialValue.getMonth() + 1).padStart(2, "0")}/${String(initialValue.getDate()).padStart(2, "0")}/${initialValue.getFullYear()}`
@@ -50,6 +64,8 @@ export const DateInputPicker = ({ children, defaultOpen = false, initialValue }:
     setIsOpen,
     selectedDate,
     setSelectedDate,
+    baseDate,
+    maxDate,
   }
 
   const handleOpenChange = (open: boolean) => {
@@ -87,12 +103,15 @@ interface DateValidationResult {
 }
 
 export interface ContentProps {
-  baseDate?: Date
-  maxDate?: Date
+  presets?: Array<{
+    label: string
+    value: Date
+  }>
 }
+
 const PLACEHOLDER = "MM/DD/YYYY"
-const Content = ({ baseDate = new Date(), maxDate = new Date(9999) }: ContentProps) => {
-  const { date, setDate, error, setError, setIsOpen, selectedDate, setSelectedDate } =
+const Content = ({ presets }: ContentProps) => {
+  const { date, setDate, error, setError, setIsOpen, selectedDate, setSelectedDate, baseDate, maxDate } =
     useDateInputContext("DateInputPickerContent")
 
   const [baseMonth, setBaseMonth] = useState(selectedDate || baseDate)
@@ -150,6 +169,7 @@ const Content = ({ baseDate = new Date(), maxDate = new Date(9999) }: ContentPro
       date: candidateDate,
     }
   }
+
   const processDateInput = (value: string, validateFully = false) => {
     const baseYear = baseDate.getFullYear()
     const validationResult = validateDateInput(value, validateFully, baseYear)
@@ -213,6 +233,18 @@ const Content = ({ baseDate = new Date(), maxDate = new Date(9999) }: ContentPro
     setIsOpen(false)
   }
 
+  const handlePresetClick = (value: Date) => {
+    const newDate = value
+    const month = String(newDate.getMonth() + 1).padStart(2, "0")
+    const day = String(newDate.getDate()).padStart(2, "0")
+    const year = newDate.getFullYear()
+
+    setDate(`${month}/${day}/${year}`)
+    setSelectedDate(newDate)
+    setBaseMonth(newDate)
+    setError("")
+  }
+
   const handleClear = () => {
     setDate("")
     setSelectedDate(undefined)
@@ -220,9 +252,9 @@ const Content = ({ baseDate = new Date(), maxDate = new Date(9999) }: ContentPro
   }
 
   return (
-    <PopoverContent className={cn("w-[300px] p-0", "bg-white dark:bg-gray-950")} align="start">
-      <div className={cn("p-3")}>
-        <div className="relative">
+    <PopoverContent className={cn("sk-w-[300px] sk-p-0")} align="start">
+      <div className={cn("sk-p-3 sk-pb-2")}>
+        <div className="sk-relative">
           <Input
             type="text"
             size="sm"
@@ -238,19 +270,21 @@ const Content = ({ baseDate = new Date(), maxDate = new Date(9999) }: ContentPro
                   onClick={handleClear}
                   type="button"
                   className={cn(
-                    "p-1 rounded",
-                    "hover:bg-gray-100/20 dark:hover:bg-gray-800",
-                    "text-gray-500 dark:text-gray-400"
+                    "sk-p-1 sk-rounded",
+                    "hover:sk-bg-gray-100/20 dark:hover:sk-bg-gray-800",
+                    "sk-text-gray-500 dark:sk-text-gray-400"
                   )}
                 >
-                  <X className="h-4 w-4 text-gray-500" />
+                  <X className="sk-h-4 sk-w-4 sk-text-gray-500" />
                 </button>
               ) : null
             }
           />
-          {error !== "" && (
-            <p className="absolute right-[10px] top-3 text-xs text-red-700 dark:text-red-400">{error}</p>
-          )}
+          <If condition={error !== ""}>
+            <p className="sk-absolute sk-right-[10px] sk-top-3 sk-text-xs sk-text-red-700 dark:sk-text-red-400">
+              {error}
+            </p>
+          </If>
         </div>
       </div>
       <Calendar
@@ -260,6 +294,22 @@ const Content = ({ baseDate = new Date(), maxDate = new Date(9999) }: ContentPro
         month={baseMonth}
         onMonthChange={setBaseMonth}
       />
+      {presets && presets.length > 0 && (
+        <div className="sk-border-t sk-px-1 sk-py-1 sk-grid sk-grid-flow-row sk-gap-[2px] sk-border-gray-100/25 dark:sk-border-gray-800">
+          {presets.map((preset) => (
+            <Button
+              key={preset.value.getTime()}
+              type="button"
+              variant="ghost"
+              size="sm"
+              onClick={() => handlePresetClick(preset.value)}
+              className={cn("sk-w-full sk-px-2 sk-text-sm sk-justify-start", "sk-text-gray-700 dark:sk-text-gray-300")}
+            >
+              {preset.label}
+            </Button>
+          ))}
+        </div>
+      )}
     </PopoverContent>
   )
 }
