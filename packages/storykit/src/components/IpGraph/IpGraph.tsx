@@ -28,7 +28,7 @@ export type IpGraphProps = {
  */
 function IpGraph({ width = 500, height = 500, darkMode = false }: IpGraphProps) {
   const { isAssetDataLoading, assetData, nftData } = useIpContext()
-  const { chain, apiKey, appId } = useStoryKitContext()
+  const { chain, apiKey, appId, simplehashKey } = useStoryKitContext()
 
   const {
     isLoading: formattedDataLoading,
@@ -37,7 +37,14 @@ function IpGraph({ width = 500, height = 500, darkMode = false }: IpGraphProps) 
   } = useQuery({
     queryKey: ["FORMAT_GRAPH_DATA", assetData?.id, chain],
     queryFn: () =>
-      convertAssetToGraphFormat(assetData as Asset, nftData as NFTMetadata, chain, apiKey || "", appId || ""),
+      convertAssetToGraphFormat(
+        assetData as Asset,
+        nftData as NFTMetadata,
+        chain,
+        apiKey || "",
+        appId || "",
+        simplehashKey || ""
+      ),
     enabled: !!(assetData && nftData),
   })
 

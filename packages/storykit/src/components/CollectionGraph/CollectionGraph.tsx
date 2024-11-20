@@ -1,5 +1,6 @@
 import { useListResource } from "@/hooks/api"
 import { cn } from "@/lib/utils"
+import { useStoryKitContext } from "@/providers"
 import { RESOURCE_TYPE } from "@/types/api"
 import { useQuery } from "@tanstack/react-query"
 import React, { useEffect, useRef, useState } from "react"
@@ -29,6 +30,8 @@ function CollectionGraph({
   showRelationship = false,
   darkMode = false,
 }: CollectionGraphProps) {
+  const { simplehashKey } = useStoryKitContext()
+
   const { isLoading: isAssetDataLoading, data: assetData } = useListResource(
     RESOURCE_TYPE.ASSET,
     {
@@ -48,7 +51,7 @@ function CollectionGraph({
     isError,
   } = useQuery({
     queryKey: ["FORMAT_GRAPH_DATA", assetData?.id],
-    queryFn: () => convertMultipleAssetsToGraphFormat(assetData.data as Asset[]),
+    queryFn: () => convertMultipleAssetsToGraphFormat(assetData.data as Asset[], simplehashKey || ""),
     enabled: !!assetData,
   })
 

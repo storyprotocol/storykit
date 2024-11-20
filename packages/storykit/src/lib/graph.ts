@@ -74,7 +74,8 @@ export async function convertAssetToGraphFormat(
   nftData: NFTMetadata,
   chain: ChainConfig,
   apiKey: string,
-  appId: string
+  appId: string,
+  simplehashKey: string
 ): Promise<GraphData> {
   const rootIpId = jsonData.rootIpIds?.[0]
   const nodes: GraphNode[] = []
@@ -223,7 +224,8 @@ export async function convertAssetToGraphFormat(
       const parentNftData = await getNFTByTokenId(
         parent.nftMetadata.tokenContract,
         parent.nftMetadata.tokenId,
-        chain.name
+        chain.simplehashId,
+        simplehashKey
       )
 
       const parentNode: GraphNode = {
@@ -404,7 +406,7 @@ export async function convertRoyaltyToGraphFormat(apiData: RoyaltiesGraph): Prom
   }
 }
 
-export async function fetchNFTMetadata(assets: Asset[]): Promise<Map<string, NFTMetadata>> {
+export async function fetchNFTMetadata(assets: Asset[], simplehashKey: string): Promise<Map<string, NFTMetadata>> {
   const chunkSize = 200
   const nftDataMap = new Map<string, NFTMetadata>()
 
@@ -429,7 +431,7 @@ export async function fetchNFTMetadata(assets: Asset[]): Promise<Map<string, NFT
     }))
 
     // Fetch metadata for the current chunk
-    const nftMetadataArray = await getNFTByTokenIds(nfts)
+    const nftMetadataArray = await getNFTByTokenIds(nfts, simplehashKey)
 
     // Map NFT metadata to Asset.id
     nftMetadataArray.forEach((metadata) => {
@@ -444,13 +446,13 @@ export async function fetchNFTMetadata(assets: Asset[]): Promise<Map<string, NFT
   return nftDataMap
 }
 
-export async function convertMultipleAssetsToGraphFormat(jsonData: Asset[]): Promise<GraphData> {
+export async function convertMultipleAssetsToGraphFormat(jsonData: Asset[], simplehashKey: string): Promise<GraphData> {
   const nodes: GraphNode[] = []
   const links: Link[] = []
   const linkCounts = new Map<string, number>()
   const nodeSet = new Set<string>() // Set to track unique node IDs
 
-  const nftDataMap = await fetchNFTMetadata(jsonData) // Fetch NFT metadata and update map
+  const nftDataMap = await fetchNFTMetadata(jsonData, simplehashKey) // Fetch NFT metadata and update map
 
   console.log({ nftDataMap })
 
