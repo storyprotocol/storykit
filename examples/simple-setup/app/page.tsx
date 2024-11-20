@@ -2,7 +2,7 @@
 
 import { IpProvider, IpLicenseAccordion } from "@storyprotocol/storykit"
 import IpHeader from "./IpHeader"
-
+import IpChildren from "./IpChildren"
 export default function Home() {
   return (
     <div className="flex items-center justify-center h-screen w-screen ">
@@ -11,6 +11,7 @@ export default function Home() {
           <div className="flex flex-col gap-4">
             <IpHeader />
             <IpLicenseAccordion />
+            <IpChildren />
         </div>
         </IpProvider>
       </div>
