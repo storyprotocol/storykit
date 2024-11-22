@@ -41,7 +41,7 @@ function IpLicenseAccordion({ size = "medium" }: IpLicenseAccordionProps) {
     <div className={"sk-flex sk-flex-col sk-w-full sk-min-w-48"}>
       {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
       {(licenseTermsData as unknown as any[])?.map((license, index) => (
-        <div key={license.id} className="sk-flex sk-flex-col sk-w-full">
+        <div key={`${license.id}-${index}`} className="sk-flex sk-flex-col sk-w-full">
           <div className={licensesStyles({ size })} onClick={() => setExpanded(expanded === index ? null : index)}>
             <span>
               {getPilFlavorByLicenseTerms(license.licenseTerms)}{" "}
