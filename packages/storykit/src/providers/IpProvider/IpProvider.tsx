@@ -5,7 +5,7 @@ import { getRoyaltiesByIPs } from "@/lib/royalty-graph"
 import { STORYKIT_SUPPORTED_CHAIN } from "@/types/chains"
 import { RoyaltiesGraph } from "@/types/royalty-graph"
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query"
-import React from "react"
+import React, { useEffect } from "react"
 import { Address, Hash } from "viem"
 
 import { getResource, listResource } from "../../lib/api"
@@ -76,15 +76,13 @@ const IpContext = React.createContext<{
   isRoyaltyGraphDataFetched: boolean
 } | null>(null)
 
-export const IpProvider = ({
-  ipId,
-  options = {},
-  children,
-}: {
+type IpProviderProps = {
   ipId: Address
   options?: IpProviderOptions
   children: React.ReactNode
-}) => {
+}
+
+export const IpProvider = ({ ipId, options = {}, children }: IpProviderProps) => {
   const queryOptions = {
     assetData: true,
     ipaMetadata: true,
@@ -97,8 +95,14 @@ export const IpProvider = ({
     ...options,
   }
 
-  const { apiKey, appId, chain: storyKitChain } = useStoryKitContext()
+  const { apiKey, appId, simplehashKey, chain: storyKitChain } = useStoryKitContext()
   const { apiVersion, name: chainName } = storyKitChain
+
+  useEffect(() => {
+    if (!apiKey || !appId || !simplehashKey) {
+      throw new Error("IpProvider requires API Key, App ID and Simplehash Key provided in StoryKitProvider")
+    }
+  }, [apiKey, appId, simplehashKey])
 
   // Fetch asset data
   const {
