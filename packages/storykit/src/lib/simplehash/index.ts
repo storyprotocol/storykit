@@ -1,7 +1,8 @@
+import { CHAINS } from "@/constants/chains"
+import { STORYKIT_SUPPORTED_CHAIN } from "@/types/chains"
 import { Address } from "viem"
 
 import { CollectionMetadata, NFTMetadata, NFTWalletResponse } from "../../types/simplehash"
-import { CHAINS, STORYKIT_SUPPORTED_CHAIN } from "../chains"
 
 const createRequestOptions = (): RequestInit => ({
   method: "GET",

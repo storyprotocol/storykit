@@ -1,6 +1,9 @@
+import { CHAINS } from "@/constants/chains"
+import { CURRENCIES } from "@/constants/currencies"
 import { cn } from "@/lib"
-import { CHAINS, ChainConfig, STORYKIT_SUPPORTED_CHAIN, getChainViemConfig } from "@/lib/chains"
-import { CURRENCIES, Currency, STORYKIT_SUPPORTED_CURRENCY } from "@/lib/currencies"
+import { getChainViemConfig } from "@/lib/chains"
+import { ChainConfig, STORYKIT_SUPPORTED_CHAIN } from "@/types/chains"
+import { Currency, STORYKIT_SUPPORTED_CURRENCY } from "@/types/currencies"
 import React, { useMemo } from "react"
 import { Chain } from "viem"
 
