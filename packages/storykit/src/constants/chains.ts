@@ -1,9 +1,9 @@
 import { ILIAD_STORYUSD, ODYSSEY_STORYUSD } from "@/constants/currencies"
-import { ChainConfig } from "@/types/chains"
+import { ChainConfig, STORYKIT_SUPPORTED_CHAIN } from "@/types/chains"
 
 export const STORY_ILIAD: ChainConfig = {
   id: 1513,
-  name: "story-testnet",
+  name: STORYKIT_SUPPORTED_CHAIN.STORY_TESTNET,
   simplehashId: "story-testnet",
   apiVersion: "v1",
   displayName: "Iliad Testnet",
@@ -15,7 +15,7 @@ export const STORY_ILIAD: ChainConfig = {
 
 export const STORY_ODYSSEY: ChainConfig = {
   id: 1516,
-  name: "odyssey-testnet",
+  name: STORYKIT_SUPPORTED_CHAIN.ODYSSEY_TESTNET,
   simplehashId: "story-odyssey",
   apiVersion: "v2",
   displayName: "Odyssey Testnet",
