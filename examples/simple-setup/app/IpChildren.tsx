@@ -1,16 +1,14 @@
 import { IpProvider, useIpContext } from "@storyprotocol/storykit"
 
 export default function IpChildren() {
-  const { assetChildrenData } = useIpContext()
-
+  const { assetChildrenData, assetData } = useIpContext()
   const firstFiveChildren = assetChildrenData?.slice(0, 5)
-  const totalChildren = assetChildrenData?.length
 
   return (
     <div className="flex w-full flex-col gap-1">
       <span className="text-sm font-bold mb-1">Children</span>
       {firstFiveChildren?.map((child, i) => <div key={i}><IpProvider ipId={child.ipId}><Child /></IpProvider></div>)}
-      {totalChildren && totalChildren > 5 && <span className="text-xs text-gray-500 mt-1">+ {totalChildren - 5} more</span>}
+      {assetData?.childrenCount && assetData?.childrenCount > 5 && <span className="text-xs text-gray-500 mt-1">+ {assetData?.childrenCount - 5} more</span>}
     </div>
   )
 }
