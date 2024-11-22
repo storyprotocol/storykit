@@ -42,22 +42,22 @@ export const licenseFlavorOptions = [
   },
 ]
 
-const titleStyles = cva("text-foreground font-sans font-bold", {
+const titleStyles = cva("sk-text-foreground sk-font-sans sk-font-bold", {
   variants: {
     size: {
-      small: "text-sm",
-      medium: "text-base",
-      large: "text-lg",
+      small: "sk-text-sm",
+      medium: "sk-text-base",
+      large: "sk-text-lg",
     },
   },
 })
 
-const descriptionStyles = cva("font-medium text-muted-foreground font-sans", {
+const descriptionStyles = cva("sk-font-medium sk-text-muted-foreground sk-font-sans", {
   variants: {
     size: {
-      small: "text-xs",
-      medium: "text-sm",
-      large: "text-base",
+      small: "sk-text-xs",
+      medium: "sk-text-sm",
+      large: "sk-text-base",
     },
   },
 })
@@ -73,9 +73,9 @@ export default function LicenseFlavorSelector({
   const descriptionId = React.useId()
 
   return (
-    <div className={cn("grid gap-4", className)} role="radiogroup">
+    <div className={cn("sk-grid sk-gap-4", className)} role="radiogroup">
       {licenseFlavorOptions.map((flavor) => (
-        <label className="group" key={flavor.value}>
+        <label className="sk-group" key={flavor.value}>
           <input
             type="radio"
             name="pil-flavor"
@@ -84,14 +84,14 @@ export default function LicenseFlavorSelector({
             value={flavor.value}
             checked={value === flavor.value}
             onChange={(e) => onValueChange?.(e.target.value as PIL_FLAVOR)}
-            className="sr-only"
+            className="sk-sr-only"
           />
           <div
             className={cn(
-              "flex flex-col w-full cursor-pointer items-start text-left rounded-lg border-2 bg-popover p-4",
-              "peer-focus-visible:ring-2 peer-focus-visible:ring-offset-2 peer-focus-visible:ring-foreground/40",
-              "group-focus-visible:ring-2 group-focus-visible:ring-offset-2 group-focus-visible:ring-foreground/40",
-              value === flavor.value ? "border-foreground" : "border-border hover:border-foreground"
+              "sk-flex sk-flex-col sk-w-full sk-cursor-pointer sk-items-start sk-text-left sk-rounded-lg sk-border-2 sk-bg-popover sk-p-4",
+              "sk-peer-focus-visible:ring-2 sk-peer-focus-visible:ring-offset-2 sk-peer-focus-visible:ring-foreground/40",
+              "sk-group-focus-visible:ring-2 sk-group-focus-visible:ring-offset-2 sk-group-focus-visible:ring-foreground/40",
+              value === flavor.value ? "sk-border-foreground" : "sk-border-border sk-hover:sk-border-foreground"
             )}
           >
             <div id={titleId} className={titleStyles({ size })}>
@@ -101,7 +101,12 @@ export default function LicenseFlavorSelector({
               {flavor.description}
             </div>
             {rest.showCannots || rest.showCans || rest.showExtras ? (
-              <div className={cn(value === flavor.value ? "block" : "hidden", size === "small" ? "mt-4" : "mt-6")}>
+              <div
+                className={cn(
+                  value === flavor.value ? "sk-block" : "sk-hidden",
+                  size === "small" ? "sk-mt-4" : "sk-mt-6"
+                )}
+              >
                 <LicenseTermsList {...rest} size={size} selectedLicenseTerms={flavor.terms} />
               </div>
             ) : null}
