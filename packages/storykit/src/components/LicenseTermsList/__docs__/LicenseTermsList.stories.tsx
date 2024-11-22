@@ -3,7 +3,7 @@ import {
   commercialUseLicenseTerms,
   noLicenseTerms,
   nonCommercialSocialRemixingLicenseTerms,
-} from "@/lib/example-data"
+} from "@/constants/pil-flavors"
 import type { Meta, StoryObj } from "@storybook/react"
 import { expect, waitFor } from "@storybook/test"
 

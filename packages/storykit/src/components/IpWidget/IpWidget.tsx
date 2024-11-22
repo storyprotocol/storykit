@@ -1,4 +1,4 @@
-import { STORYKIT_SUPPORTED_CHAIN } from "@/lib/chains"
+import { STORYKIT_SUPPORTED_CHAIN } from "@/types/chains"
 import { Menu, Transition } from "@headlessui/react"
 import React, { Fragment, useState } from "react"
 import { FaWandMagicSparkles } from "react-icons/fa6"

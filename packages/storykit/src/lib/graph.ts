@@ -1,11 +1,12 @@
+import { CHAINID_TO_CHAINNAME } from "@/constants/chains"
 import { shortenAddress } from "@/lib/utils"
 import { Asset, NFTMetadata } from "@/types"
 import { RESOURCE_TYPE } from "@/types/api"
+import { ChainConfig, STORYKIT_SUPPORTED_CHAIN } from "@/types/chains"
 import { RoyaltiesGraph, RoyaltyBalance, RoyaltyGraph, RoyaltyLink } from "@/types/royalty-graph"
 import { Address } from "viem"
 
 import { listResource } from "./api"
-import { CHAINID_TO_CHAINNAME, ChainConfig } from "./chains"
 import { NFT, getNFTByTokenId, getNFTByTokenIds } from "./simplehash"
 
 export interface GraphNode {
@@ -129,7 +130,7 @@ export async function convertAssetToGraphFormat(
       RESOURCE_TYPE.ASSET,
       apiKey,
       appId,
-      chain.name,
+      chain.name as STORYKIT_SUPPORTED_CHAIN,
       chain.apiVersion,
       listRequest
     )

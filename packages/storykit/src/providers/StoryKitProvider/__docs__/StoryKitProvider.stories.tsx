@@ -1,5 +1,5 @@
-import { STORYKIT_SUPPORTED_CHAIN } from "@/lib/chains"
-import { STORYKIT_SUPPORTED_CURRENCY } from "@/lib/currencies"
+import { STORYKIT_SUPPORTED_CHAIN } from "@/types/chains"
+import { STORYKIT_SUPPORTED_CURRENCY } from "@/types/currencies"
 import type { Meta, StoryObj } from "@storybook/react"
 import React from "react"
 

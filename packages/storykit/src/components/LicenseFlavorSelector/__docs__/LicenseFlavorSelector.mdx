@@ -1,0 +1,30 @@
+import { Canvas, Controls, Meta } from "@storybook/blocks"
+
+import * as LicenseFlavorSelectorStory from "./LicenseFlavorSelector.stories"
+
+<Meta of={LicenseFlavorSelectorStory} />
+
+# LicenseFlavorSelector
+
+Displays the License Terms cans and cannots for specified license type.
+
+#### Example
+
+<Canvas of={LicenseFlavorSelectorStory.Select} />
+
+<Controls sort="requiredFirst" />
+
+## Usage
+
+```ts
+
+import { LicenseFlavorSelector } from "@storyprotocol/storykit"
+
+const ExamplePage = () => {
+  return (
+    <LicenseFlavorSelector />
+  );
+};
+
+export default ExamplePage;
+```

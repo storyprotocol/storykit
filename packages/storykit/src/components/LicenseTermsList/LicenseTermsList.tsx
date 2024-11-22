@@ -1,6 +1,6 @@
+import { noLicenseTerms } from "@/constants/pil-flavors"
 import { useGetResource } from "@/hooks/api"
 import { cn } from "@/lib"
-import { noLicenseTerms } from "@/lib/example-data"
 import { convertLicenseTermObject } from "@/lib/functions/convertLicenseTermObject"
 import { PILTerms } from "@/types"
 import { RESOURCE_TYPE } from "@/types/api"
