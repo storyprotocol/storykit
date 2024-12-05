@@ -52,7 +52,7 @@ const DescribeTerms = (selectedLicenseTerms: PILTerms) => {
     cannots.push(DESCRIPTIONS.COMMERCIAL_USE)
   }
 
-  // if commercial use or derivatives alowed, give attribution?
+  // if commercial use or derivatives allowed, give attribution?
   if (
     (selectedLicenseTerms.commercialUse && selectedLicenseTerms.commercialAttribution) ||
     (selectedLicenseTerms.derivativesAllowed && selectedLicenseTerms.derivativesAttribution)
