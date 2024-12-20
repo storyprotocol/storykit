@@ -5,7 +5,7 @@ export enum PIL_FLAVOR {
   COMMERCIAL_USE = "Commercial Use",
   COMMERCIAL_REMIX = "Commercial Remix",
   CUSTOM = "Custom",
-  // OPEN_DOMAIN = "Open Domain",
+  OPEN_USE = "Open Use",
   // NO_DERIVATIVE = "No Derivative",
 }
 
@@ -14,6 +14,7 @@ export type PilFlavor =
   | PIL_FLAVOR.COMMERCIAL_USE
   | PIL_FLAVOR.COMMERCIAL_REMIX
   | PIL_FLAVOR.CUSTOM
+  | PIL_FLAVOR.OPEN_USE
 
 export type Asset = {
   id: Address

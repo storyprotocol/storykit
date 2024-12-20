@@ -35,11 +35,11 @@ export function camelize(str: string) {
 export function getPilFlavorByLicenseTerms(pilTerms: PILTerms): PilFlavor {
   const { commercialUse, derivativesAllowed, derivativesAttribution, commercialRevenueShare } = pilTerms
 
-  if (!commercialUse && derivativesAllowed && derivativesAttribution) {
-    return PIL_FLAVOR.NON_COMMERCIAL_SOCIAL_REMIXING
+  if (!commercialUse && derivativesAllowed) {
+    return derivativesAttribution ? PIL_FLAVOR.NON_COMMERCIAL_SOCIAL_REMIXING : PIL_FLAVOR.OPEN_USE
   }
 
-  if (commercialUse && derivativesAllowed && derivativesAttribution && commercialRevenueShare === 0) {
+  if (commercialUse && derivativesAllowed && !derivativesAttribution && commercialRevenueShare === 0) {
     // TODO: commercial use should check that mintingFee is set, currently not received from the API
     return PIL_FLAVOR.COMMERCIAL_USE
   }
