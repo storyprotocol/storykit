@@ -21,7 +21,7 @@ export type Asset = {
   ancestorCount: number
   descendantCount: number
   parentCount?: number
-  childCount?: number
+  childrenCount?: number
   rootCount?: number
   parentIpIds: Address[] | null
   childIpIds: Address[] | null

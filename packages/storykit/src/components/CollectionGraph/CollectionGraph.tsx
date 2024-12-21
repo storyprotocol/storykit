@@ -1,8 +1,7 @@
-import { listResource } from "@/lib/api"
+import { useListResource } from "@/hooks/api"
 import { cn } from "@/lib/utils"
-import { useStoryKitContext } from "@/providers/StoryKitProvider"
+import { useStoryKitContext } from "@/providers"
 import { RESOURCE_TYPE } from "@/types/api"
-import { STORYKIT_SUPPORTED_CHAIN } from "@/types/chains"
 import { useQuery } from "@tanstack/react-query"
 import React, { useEffect, useRef, useState } from "react"
 import { LinkObject } from "react-force-graph-2d"
@@ -31,18 +30,20 @@ function CollectionGraph({
   showRelationship = false,
   darkMode = false,
 }: CollectionGraphProps) {
-  const { chain } = useStoryKitContext()
-  const { isLoading: isAssetDataLoading, data: assetData } = useQuery({
-    queryKey: [RESOURCE_TYPE.ASSET, collectionAddress, chain.name],
-    queryFn: () =>
-      listResource(RESOURCE_TYPE.ASSET, chain.name as STORYKIT_SUPPORTED_CHAIN, {
-        pagination: { limit: 100 },
-        where: { tokenContract: collectionAddress },
-        orderBy: "blockTimestamp", // or blockTimestamp
-        orderDirection: "asc", // or "ASC"
-      }),
-    enabled: Boolean(collectionAddress),
-  })
+  const { simplehashKey } = useStoryKitContext()
+
+  const { isLoading: isAssetDataLoading, data: assetData } = useListResource(
+    RESOURCE_TYPE.ASSET,
+    {
+      pagination: { limit: 100 },
+      where: { tokenContract: collectionAddress },
+      orderBy: "blockTimestamp", // or blockTimestamp
+      orderDirection: "asc", // or "ASC"
+    },
+    {
+      enabled: Boolean(collectionAddress),
+    }
+  )
 
   const {
     isLoading: formattedDataLoading,
@@ -50,7 +51,7 @@ function CollectionGraph({
     isError,
   } = useQuery({
     queryKey: ["FORMAT_GRAPH_DATA", assetData?.id],
-    queryFn: () => convertMultipleAssetsToGraphFormat(assetData.data as Asset[]),
+    queryFn: () => convertMultipleAssetsToGraphFormat(assetData.data as Asset[], simplehashKey || ""),
     enabled: !!assetData,
   })
 
