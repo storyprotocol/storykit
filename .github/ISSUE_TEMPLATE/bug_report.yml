@@ -43,7 +43,7 @@ body:
     attributes:
       label: Codesandbox/StackBlitz/App link
       description: |
-        A link to a CodeSandbox or StackBlitz or App that includes a minimal reproduction of the problem. In rare cases when not applicable, you can link to a GitHub repository that we can easily run to recreate the issue. If a report is vague and does not have a reproduction, it will be closed without warning. 
+        A link to a CodeSandbox or StackBlitz or App that includes a minimal reproduction of the problem. If this is not applicable, you can link to a GitHub repository that we can easily run to recreate the issue. If a report is vague and does not have a reproduction, it will be closed without warning. 
 
         > [!CAUTION]
         > If you skip this step, this issue might be **labeled** with `please add a reproduction` and **closed**.
@@ -61,7 +61,7 @@ body:
     id: system-info
     attributes:
       label: System Info
-      description: Information about browsers, system or binaries that's relevant.
+      description: Information about browsers, system or binaries that are relevant.
       render: bash
       placeholder: System, Binaries, Browsers
     validations:
@@ -71,7 +71,7 @@ body:
     id: terms
     attributes:
       label: Before submitting
-      description: By submitting this issue, you agree to follow our [Contributing Guidelines]().
+      description: By submitting this issue, you agree to follow our [Contributing Guidelines](../CONTRIBUTING.md).
       options:
         - label: I've made research efforts and searched the documentation
           required: true
