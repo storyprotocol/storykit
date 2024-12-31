@@ -6,6 +6,9 @@ import React, { FC } from "react"
 import "../../../global.css"
 import { StoryKitProvider, Theme, useStoryKitContext } from "../StoryKitProvider"
 
+const API_KEY = process.env.STORYBOOK_STORY_PROTOCOL_X_API_KEY || process.env.NEXT_PUBLIC_STORY_PROTOCOL_X_API_KEY || ""
+const SH_KEY = process.env.STORYBOOK_SIMPLE_HASH_API_KEY || process.env.NEXT_PUBLIC_SIMPLE_HASH_API_KEY || ""
+
 const Example: FC<{
   chain: STORYKIT_SUPPORTED_CHAIN
   defaultCurrency: STORYKIT_SUPPORTED_CURRENCY
@@ -19,6 +22,9 @@ const Example: FC<{
       defaultCurrency={defaultCurrency}
       theme={theme}
       mode={mode !== "auto" ? mode : undefined}
+      apiKey={API_KEY}
+      appId="StoryKit"
+      simplehashKey={SH_KEY}
     >
       {children}
     </StoryKitProvider>

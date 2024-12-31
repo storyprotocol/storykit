@@ -2,7 +2,7 @@ import { CHAINID_TO_CHAINNAME } from "@/constants/chains"
 import { shortenAddress } from "@/lib/utils"
 import { Asset, NFTMetadata } from "@/types"
 import { RESOURCE_TYPE } from "@/types/api"
-import { STORYKIT_SUPPORTED_CHAIN } from "@/types/chains"
+import { ChainConfig, STORYKIT_SUPPORTED_CHAIN } from "@/types/chains"
 import { RoyaltiesGraph, RoyaltyBalance, RoyaltyGraph, RoyaltyLink } from "@/types/royalty-graph"
 import { Address } from "viem"
 
@@ -73,7 +73,10 @@ export function generateNFTDetails(nftData: NFTMetadata | undefined, assetId: Ad
 export async function convertAssetToGraphFormat(
   jsonData: Asset,
   nftData: NFTMetadata,
-  chain: STORYKIT_SUPPORTED_CHAIN
+  chain: ChainConfig,
+  apiKey: string,
+  appId: string,
+  simplehashKey: string
 ): Promise<GraphData> {
   const rootIpId = jsonData.rootIpIds?.[0]
   const nodes: GraphNode[] = []
@@ -123,7 +126,14 @@ export async function convertAssetToGraphFormat(
       ipAssetIds: jsonData.childIpIds,
     }
 
-    const childNftData = await listResource(RESOURCE_TYPE.ASSET, chain, listRequest)
+    const childNftData = await listResource(
+      RESOURCE_TYPE.ASSET,
+      apiKey,
+      appId,
+      chain.name as STORYKIT_SUPPORTED_CHAIN,
+      chain.apiVersion,
+      listRequest
+    )
 
     console.log({ childNftData })
     for (const child of childNftData.data) {
@@ -212,7 +222,12 @@ export async function convertAssetToGraphFormat(
   // Add all parentIpIds to nodes array and create links
   if (jsonData.parentIps) {
     for (const parent of jsonData.parentIps) {
-      const parentNftData = await getNFTByTokenId(parent.nftMetadata.tokenContract, parent.nftMetadata.tokenId, chain)
+      const parentNftData = await getNFTByTokenId(
+        parent.nftMetadata.tokenContract,
+        parent.nftMetadata.tokenId,
+        chain.simplehashId,
+        simplehashKey
+      )
 
       const parentNode: GraphNode = {
         id: parent.id,
@@ -392,7 +407,7 @@ export async function convertRoyaltyToGraphFormat(apiData: RoyaltiesGraph): Prom
   }
 }
 
-export async function fetchNFTMetadata(assets: Asset[]): Promise<Map<string, NFTMetadata>> {
+export async function fetchNFTMetadata(assets: Asset[], simplehashKey: string): Promise<Map<string, NFTMetadata>> {
   const chunkSize = 200
   const nftDataMap = new Map<string, NFTMetadata>()
 
@@ -417,7 +432,7 @@ export async function fetchNFTMetadata(assets: Asset[]): Promise<Map<string, NFT
     }))
 
     // Fetch metadata for the current chunk
-    const nftMetadataArray = await getNFTByTokenIds(nfts)
+    const nftMetadataArray = await getNFTByTokenIds(nfts, simplehashKey)
 
     // Map NFT metadata to Asset.id
     nftMetadataArray.forEach((metadata) => {
@@ -432,13 +447,13 @@ export async function fetchNFTMetadata(assets: Asset[]): Promise<Map<string, NFT
   return nftDataMap
 }
 
-export async function convertMultipleAssetsToGraphFormat(jsonData: Asset[]): Promise<GraphData> {
+export async function convertMultipleAssetsToGraphFormat(jsonData: Asset[], simplehashKey: string): Promise<GraphData> {
   const nodes: GraphNode[] = []
   const links: Link[] = []
   const linkCounts = new Map<string, number>()
   const nodeSet = new Set<string>() // Set to track unique node IDs
 
-  const nftDataMap = await fetchNFTMetadata(jsonData) // Fetch NFT metadata and update map
+  const nftDataMap = await fetchNFTMetadata(jsonData, simplehashKey) // Fetch NFT metadata and update map
 
   console.log({ nftDataMap })
 

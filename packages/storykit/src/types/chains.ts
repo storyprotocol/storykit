@@ -1,9 +1,14 @@
 import { STORY_ILIAD, STORY_ODYSSEY } from "@/constants/chains"
 import { Currency } from "@/types/currencies"
 
+export enum STORYKIT_SUPPORTED_CHAIN {
+  STORY_TESTNET = "story-testnet",
+  ODYSSEY_TESTNET = "odyssey-testnet",
+}
+
 export type ChainConfig = {
   id: number
-  name: string
+  name: STORYKIT_SUPPORTED_CHAIN
   displayName: string
   rpcUrl: string
   blockExplorerUrl: string
@@ -14,8 +19,3 @@ export type ChainConfig = {
 }
 
 export type SupportedChainConfig = typeof STORY_ODYSSEY | typeof STORY_ILIAD
-
-export enum STORYKIT_SUPPORTED_CHAIN {
-  STORY_TESTNET = "story-testnet",
-  ODYSSEY_TESTNET = "odyssey-testnet",
-}
