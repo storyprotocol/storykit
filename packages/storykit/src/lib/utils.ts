@@ -12,8 +12,8 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export function shortenAddress(address: string, length = 4): string {
-  if (!address) {
-    return ""
+  if (!/^0x[a-fA-F0-9]+$/.test(address)) {
+    throw new Error("Invalid address format")
   }
   if (address.length < 2 * length + 2) {
     // Check if the address is too short to be shortened.
@@ -52,9 +52,14 @@ export function getPilFlavorByLicenseTerms(pilTerms: PILTerms): PilFlavor {
 }
 
 export async function getImageUrlFromIpfsUrl(ipfsUrl: string) {
-  const metadata = await fetch(ipfsUrl).then((res) => res.json())
-
-  return convertIpfsUriToUrl(metadata.image)
+  const metadata = await fetch(ipfsUrl).then((res) => res.json()).catch((error) => {
+    console.error('Fetch operation failed:', error);
+    return null;
+  })
+  if(!!metadata) {
+    return convertIpfsUriToUrl(metadata.image)
+  }
+  return ""
 }
 
 export function convertIpfsUriToUrl(ipfsUri: string): string {
