@@ -16,12 +16,12 @@ jobs:
         with:
           version: 8.8.0
 
-      - uses: actions/setup-node@v1
+      - uses: actions/setup-node@v3
         with:
-          node-version: 20.0.0
-          cache: pnpm
-          registry-url: https://npm.pkg.github.com/
-          scope: "@storyprotocol"
+          node-version: 20
+          cache: 'pnpm'
+          registry-url: 'https://npm.pkg.github.com/'
+          scope: '@storyprotocol'
 
       - name: Install dependencies
         run: pnpm install
@@ -38,4 +38,4 @@ jobs:
             npm publish --tag latest
           fi
         env:
-          NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
