@@ -52,9 +52,14 @@ export function getPilFlavorByLicenseTerms(pilTerms: PILTerms): PilFlavor {
 }
 
 export async function getImageUrlFromIpfsUrl(ipfsUrl: string) {
-  const metadata = await fetch(ipfsUrl).then((res) => res.json())
-
-  return convertIpfsUriToUrl(metadata.image)
+  const metadata = await fetch(ipfsUrl).then((res) => res.json()).catch((error) => {
+    console.error('Fetch operation failed:', error);
+    return null;
+  })
+  if(!!metadata) {
+    return convertIpfsUriToUrl(metadata.image)
+  }
+  return ""
 }
 
 export function convertIpfsUriToUrl(ipfsUri: string): string {
