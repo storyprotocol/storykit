@@ -14,7 +14,7 @@ export const commercialRemixingLicenseTerms: PILTerms = {
   derivativesReciprocal: true,
   derivativesRevenueCelling: 0,
   expiration: "never",
-  uRI: "",
+  uri: "",
 }
 
 export const commercialUseLicenseTerms: PILTerms = {
@@ -30,7 +30,7 @@ export const commercialUseLicenseTerms: PILTerms = {
   derivativesReciprocal: false,
   derivativesRevenueCelling: 0,
   expiration: "never",
-  uRI: "",
+  uri: "",
 }
 
 export const nonCommercialSocialRemixingLicenseTerms: PILTerms = {
@@ -46,7 +46,7 @@ export const nonCommercialSocialRemixingLicenseTerms: PILTerms = {
   derivativesReciprocal: true,
   derivativesRevenueCelling: 0,
   expiration: "0",
-  uRI: "",
+  uri: "",
 }
 
 export const noLicenseTerms: PILTerms = {
@@ -62,5 +62,5 @@ export const noLicenseTerms: PILTerms = {
   derivativesReciprocal: false,
   derivativesRevenueCelling: 0,
   expiration: "",
-  uRI: "",
+  uri: "",
 }

@@ -80,7 +80,7 @@ export type PILTerms = {
   derivativesReciprocal: boolean
   derivativesRevenueCelling: number
   expiration: string
-  uRI: string
+  uri: string
 }
 
 export type IPLicenseTerms = {
