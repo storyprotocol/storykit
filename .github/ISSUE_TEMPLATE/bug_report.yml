@@ -12,7 +12,7 @@ body:
     id: bug-description
     attributes:
       label: Describe the bug
-      description: A clear and concise description of what the bug is. If you intend to submit a PR for this issue, tell us how in the description. Thanks!
+      description: A clear and concise description of what the bug is. If you plan to submit a PR for this issue, please tell us how in the description. Thanks!
       placeholder: Bug description
     validations:
       required: true
@@ -61,7 +61,7 @@ body:
     id: system-info
     attributes:
       label: System Info
-      description: Information about browsers, system or binaries that's relevant.
+      description: Information about browsers, systems, or binaries that's relevant.
       render: bash
       placeholder: System, Binaries, Browsers
     validations:
