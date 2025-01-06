@@ -39,7 +39,7 @@ export function getPilFlavorByLicenseTerms(pilTerms: PILTerms): PilFlavor {
     return derivativesAttribution ? PIL_FLAVOR.NON_COMMERCIAL_SOCIAL_REMIXING : PIL_FLAVOR.OPEN_USE
   }
 
-  if (commercialUse && derivativesAllowed && !derivativesAttribution && commercialRevenueShare === 0) {
+  if (commercialUse && !derivativesAllowed && !derivativesAttribution && commercialRevenueShare === 0) {
     // TODO: commercial use should check that mintingFee is set, currently not received from the API
     return PIL_FLAVOR.COMMERCIAL_USE
   }
