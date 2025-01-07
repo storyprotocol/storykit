@@ -21,12 +21,36 @@ export const DESCRIPTIONS: { [key: string]: string } = {
   DERIVATIVES_RECIPROCAL: "Enforce that derivatives have the same License Terms that you provide them",
   NEVER_EXPIRES: "This license never expires",
 }
+function getTimezoneAbbr(date: Date) {
+  const longName =
+    date
+      .toLocaleDateString("en-US", {
+        timeZoneName: "long",
+        timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+      })
+      .split(",")[1]
+      ?.trim() || ""
 
+  return longName
+    .split(" ")
+    .map((word) => word[0])
+    .join("")
+}
 const convertExpiration = (expiration: string): string => {
   if (expiration == "never" || expiration == "0") {
     return DESCRIPTIONS.NEVER_EXPIRES
   }
-  return expiration
+
+  const date = new Date(Number(expiration))
+  const expirationDateString = date.toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  })
+
+  const timezone = getTimezoneAbbr(date)
+
+  return `This license expires in ${expirationDateString} (${timezone})`
 }
 
 const DescribeTerms = (selectedLicenseTerms: PILTerms) => {

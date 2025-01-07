@@ -1,6 +1,7 @@
 import {
   commercialRemixingLicenseTerms,
   commercialUseLicenseTerms,
+  commercialUseLicenseTermsWithExpiration,
   noLicenseTerms,
   nonCommercialSocialRemixingLicenseTerms,
 } from "@/constants/pil-flavors"
@@ -37,12 +38,14 @@ export const Select: Story = {
         "NonCommercialSocialRemixing",
         "CommercialRemixingLicenseTerms",
         "CommercialUseLicenseTerms",
+        "CommercialUseLicenseTermsWithExpiration",
         "No License",
       ],
       mapping: {
         NonCommercialSocialRemixing: nonCommercialSocialRemixingLicenseTerms,
         CommercialRemixingLicenseTerms: commercialRemixingLicenseTerms,
         CommercialUseLicenseTerms: commercialUseLicenseTerms,
+        CommercialUseLicenseTermsWithExpiration: commercialUseLicenseTermsWithExpiration,
         "No License": noLicenseTerms,
       },
     },
