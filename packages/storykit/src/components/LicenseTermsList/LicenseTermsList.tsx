@@ -26,7 +26,13 @@ const convertExpiration = (expiration: string): string => {
   if (expiration == "never" || expiration == "0") {
     return DESCRIPTIONS.NEVER_EXPIRES
   }
-  return expiration
+
+  const expirationDateString = new Date(Number(expiration)).toLocaleDateString(undefined, {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  })
+  return `This license expires in ${expirationDateString}`
 }
 
 const DescribeTerms = (selectedLicenseTerms: PILTerms) => {
