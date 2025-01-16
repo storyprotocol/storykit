@@ -135,8 +135,15 @@ export const IpProvider = ({
     isFetched: isAssetParentDataFetched,
   } = useQuery<AssetEdges[] | undefined>({
     queryKey: [RESOURCE_TYPE.ASSET_EDGES, ipId, "parents"],
-    queryFn: () =>
-      listResource(RESOURCE_TYPE.ASSET_EDGES, chain.name as STORYKIT_SUPPORTED_CHAIN, fetchParentEdgeOptions),
+    queryFn: async () => {
+      const response = await listResource(
+        RESOURCE_TYPE.ASSET_EDGES,
+        chain.name as STORYKIT_SUPPORTED_CHAIN,
+        fetchParentEdgeOptions
+      )
+
+      return response.data
+    },
     enabled: queryOptions.assetParentsData,
   })
 
