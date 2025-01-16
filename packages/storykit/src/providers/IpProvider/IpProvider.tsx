@@ -158,7 +158,7 @@ export const IpProvider = ({
     isFetched: isAssetChildrenDataFetched,
     fetchNextPage,
     hasNextPage,
-  } = useInfiniteQuery<AssetEdges[]>({
+  } = useInfiniteQuery<{ data: AssetEdges[]; next: string; prev: string }>({
     queryKey: [RESOURCE_TYPE.ASSET_EDGES, ipId, "children"],
     queryFn: ({ pageParam = 0 }) => {
       const currentOptions = {
@@ -170,9 +170,19 @@ export const IpProvider = ({
       }
       return listResource(RESOURCE_TYPE.ASSET_EDGES, chain.name as STORYKIT_SUPPORTED_CHAIN, currentOptions)
     },
-    getNextPageParam: (lastPage: AssetEdges[], allPages: AssetEdges[][]) => {
-      const totalFetched = allPages.flat().length
-      return lastPage && lastPage.length > 0 && totalFetched < lastPage.length ? totalFetched : undefined
+    getNextPageParam: (
+      lastPage: { data: AssetEdges[]; next: string; prev: string },
+      allPages: { data: AssetEdges[]; next: string; prev: string }[]
+    ) => {
+      // Calculate total items fetched across all pages
+      const totalFetched = allPages.reduce((acc, page) => acc + page.data.length, 0)
+
+      // If there's data in the last page and there's a next page indicator
+      if (lastPage.data.length > 0 && lastPage.next) {
+        return totalFetched
+      }
+
+      return undefined
     },
     enabled: queryOptions.assetChildrenData,
     initialPageParam: 0,
@@ -323,7 +333,7 @@ export const IpProvider = ({
         isAssetDataLoading,
         assetParentData,
         isAssetParentDataLoading,
-        assetChildrenData: assetChildrenData?.pages.flatMap((page: AssetEdges[]) => page),
+        assetChildrenData: assetChildrenData?.pages.flatMap((page) => page.data),
         loadMoreAssetChildren,
         isAssetChildrenDataLoading,
         ipaMetadata,
