@@ -340,7 +340,9 @@ export const IpProvider = ({
         isAssetDataLoading,
         assetParentData,
         isAssetParentDataLoading,
-        assetChildrenData: assetChildrenData?.pages.flatMap((page) => page.data),
+        assetChildrenData: assetChildrenData?.pages.flatMap(
+          (page: { data: AssetEdges[]; next: string; prev: string }) => page.data
+        ),
         loadMoreAssetChildren,
         isAssetChildrenDataLoading,
         ipaMetadata,
