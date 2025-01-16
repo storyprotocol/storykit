@@ -10,14 +10,14 @@ Also you will need Node.js 20+.
 
 1 . Create a personal access token: [github.com/settings/tokens](https://github.com/settings/tokens).
 
-2 . Create an `.npmrc` file in the root of your project and add the following, replacing `NPM_TOKEN` with your access token:
+2 . Create a `.npmrc` file in the root of your project and add the following, replacing `NPM_TOKEN` with your access token:
 
 ```bash
 //npm.pkg.github.com/:_authToken=NPM_TOKEN
 @storyprotocol/storykit:registry=https://npm.pkg.github.com
 ```
 
-The first line authenticates you with the github package registry, the second line tells npm to use the Storykit package from the github registry.
+The first line authenticates you with the GitHub package registry, the second line tells npm to use the Storykit package from the GitHub registry.
 
 3 . Add `.npmrc` to your `.gitignore` to keep your access token private.
 
