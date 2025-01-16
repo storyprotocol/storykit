@@ -182,10 +182,10 @@ export const IpProvider = ({
       allPages: { data: AssetEdges[]; next: string; prev: string }[]
     ) => {
       // Calculate total items fetched across all pages
-      const totalFetched = allPages.reduce((acc, page) => acc + page.data.length, 0)
+      const totalFetched = allPages.reduce((acc, page) => acc + (page.data ?? []).length, 0)
 
       // If there's data in the last page and there's a next page indicator
-      if (lastPage.data.length > 0 && lastPage.next) {
+      if ((lastPage.data ?? []).length > 0 && lastPage.next) {
         return totalFetched
       }
 
