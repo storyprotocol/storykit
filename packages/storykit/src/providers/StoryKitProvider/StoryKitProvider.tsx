@@ -70,7 +70,7 @@ export const StoryKitProvider = ({
 export const useStoryKitContext = () => {
   const context = React.useContext(StoryKitContext)
   if (!context) {
-    throw new Error("useStoryKitContext must be used within an StoryKitProvider")
+    throw new Error("useStoryKitContext must be used within a StoryKitProvider")
   }
   return context
 }
