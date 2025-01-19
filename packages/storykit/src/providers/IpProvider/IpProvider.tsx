@@ -6,7 +6,7 @@ import { useInfiniteQuery, useQuery } from "@tanstack/react-query"
 import React from "react"
 import { Address, Hash } from "viem"
 
-import { getResource, listResource } from "../../lib/api"
+import { getMetadataFromIpfs, getResource, listResource } from "../../lib/api"
 import { getNFTByTokenId } from "../../lib/simplehash"
 import { RESOURCE_TYPE } from "../../types/api"
 import {
@@ -111,11 +111,23 @@ export const IpProvider = ({
   })
 
   // Fetch IP metadata
-  const { isLoading: isIpaMetadataLoading, data: ipaMetadata } = useQuery({
+  const { isLoading: isIpaMetadataLoading, data: ipaMetadataRaw } = useQuery({
     queryKey: [RESOURCE_TYPE.ASSET, `${ipId}/metadata`],
     queryFn: () => getResource(RESOURCE_TYPE.ASSET, `${ipId}/metadata`, chain.name as STORYKIT_SUPPORTED_CHAIN),
     enabled: queryOptions.ipaMetadata,
   })
+
+  // Fetch IP Metadata from IPFS
+  const { isLoading: isLoadingFromIpfs, data: metadaFromIpfs } = useQuery({
+    queryKey: ["getMetadataFromIpfs", ipId, ipaMetadataRaw?.metadataUri ?? ""],
+    queryFn: () => getMetadataFromIpfs(ipaMetadataRaw?.metadataUri ?? ""),
+    enabled: queryOptions.ipaMetadata && ipaMetadataRaw != null,
+  })
+
+  const ipaMetadata = {
+    ...ipaMetadataRaw,
+    metadataJson: metadaFromIpfs,
+  }
 
   const fetchParentEdgeOptions = {
     pagination: {
@@ -346,7 +358,7 @@ export const IpProvider = ({
         loadMoreAssetChildren,
         isAssetChildrenDataLoading,
         ipaMetadata,
-        isIpaMetadataLoading,
+        isIpaMetadataLoading: isIpaMetadataLoading || isLoadingFromIpfs,
         ipLicenseData: ipLicenseData?.data,
         isipLicenseDataLoading,
         licenseTermsData,
