@@ -61,3 +61,9 @@ export async function listResource<T>(
     console.error(error)
   }
 }
+
+export async function getMetadataFromIpfs(ipfsUrl: string) {
+  const metadata = await fetch(ipfsUrl).then((res) => res.json())
+  console.log("@@ metadata", metadata)
+  return metadata
+}
