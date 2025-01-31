@@ -114,7 +114,9 @@ export interface Trait {
 export interface LicenseOffChainData {
   aiLearningModels?: boolean
 }
-export type PILTermsWithOffChainData = PILTerms & LicenseOffChainData
+export interface PILTermsWithOffChainData extends PILTerms {
+  offChainData: LicenseOffChainData | undefined
+}
 export type LicenseTerms = {
   id: string
   // json: string
