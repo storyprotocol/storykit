@@ -8,6 +8,7 @@ import { Address, Hash } from "viem"
 
 import { getMetadataFromIpfs, getResource, listResource } from "../../lib/api"
 import { getNFTByTokenId } from "../../lib/simplehash"
+import { convertIpfsUriToUrl } from "../../lib/utils"
 import { RESOURCE_TYPE } from "../../types/api"
 import {
   Asset,
@@ -245,7 +246,7 @@ export const IpProvider = ({
     )
     const results = await Promise.all(requests)
 
-    return results
+    const termsDetail = results
       .filter((value) => !!value)
       .map((result) => {
         return {
@@ -253,6 +254,31 @@ export const IpProvider = ({
           licenseTerms: convertLicenseTermObject(result.data.licenseTerms),
         }
       })
+
+    const offChainUri = termsDetail.map((detail) => detail.terms.uri)
+    const offChainData = await Promise.all(
+      offChainUri.map(async (uri) => {
+        try {
+          if (uri === "") {
+            return
+          }
+          const ipfsData = await getMetadataFromIpfs(convertIpfsUriToUrl(uri))
+          return ipfsData
+        } catch (error) {
+          return
+        }
+      })
+    )
+
+    return termsDetail.map((termDetail, index) => {
+      return {
+        ...termDetail,
+        terms: {
+          ...termDetail.terms,
+          offChainData: offChainData[index],
+        },
+      }
+    })
   }
 
   const {
