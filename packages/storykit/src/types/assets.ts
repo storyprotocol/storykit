@@ -80,7 +80,9 @@ export type PILTerms = {
   derivativesReciprocal: boolean
   derivativesRevenueCelling: number
   expiration: string
+  // @deprecated, use uri instead
   uRI: string
+  uri?: string
 }
 
 export type IPLicenseTerms = {
@@ -109,6 +111,10 @@ export interface Trait {
   max_value?: number
 }
 
+export interface LicenseOffChainData {
+  aiLearningModels?: boolean
+}
+export type PILTermsWithOffChainData = PILTerms & LicenseOffChainData
 export type LicenseTerms = {
   id: string
   // json: string
@@ -116,6 +122,7 @@ export type LicenseTerms = {
   licenseTemplate: Address
   blockNumber: string
   blockTime: string
+  terms: PILTermsWithOffChainData
 }
 
 export type LicenseToken = {
