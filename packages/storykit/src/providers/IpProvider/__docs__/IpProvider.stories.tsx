@@ -113,14 +113,14 @@ export const AssetData: Story = {
         expect(canvas.getByTestId("asset-token-uri").textContent).toBe(assetData.data.nftMetadata.tokenUri)
         expect(canvas.getByTestId("asset-nft-image-url").textContent).toBe(assetData.data.nftMetadata.imageUrl)
         const rootIps = canvas.getAllByTestId("asset-root-ip").map((el) => el.textContent)
-        const expctedRootIps = assetData.data.rootIpIds
-        expect(rootIps).toStrictEqual(expctedRootIps)
+        const expectedRootIps = assetData.data.rootIpIds
+        expect(rootIps).toStrictEqual(expectedRootIps)
         const parentIps = canvas.getAllByTestId("asset-parent-ip").map((el) => el.textContent)
-        const expctedParentIps = assetData.data.parentIpIds
-        expect(parentIps).toStrictEqual(expctedParentIps)
+        const expectedParentIps = assetData.data.parentIpIds
+        expect(parentIps).toStrictEqual(expectedParentIps)
         const childIps = canvas.getAllByTestId("asset-child-ip").map((el) => el.textContent)
-        const expctedChildIps = assetData.data.childIpIds
-        expect(childIps).toStrictEqual(expctedChildIps)
+        const expectedChildIps = assetData.data.childIpIds
+        expect(childIps).toStrictEqual(expectedChildIps)
       },
       { timeout: 10000 }
     )
