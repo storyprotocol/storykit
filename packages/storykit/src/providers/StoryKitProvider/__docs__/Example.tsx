@@ -27,35 +27,24 @@ const Example: FC<{
 
 const ExampleComponent = () => {
   const { themeClass, defaultCurrency, chain } = useStoryKitContext()
+  const chainInfoList = [ "id", "name", "displayName", "rpcUrl", "blockExplorerUrl", "protocolExplorerUrl" ]
+  const defaultCurrencyInfoList = [ "name", "symbol", "address" ]
   return (
     <div className={cn(themeClass, "flex flex-col h-full bg-background p-8 font-sans text-primary")}>
-      <div className="text-sm text-foreground">
-        <i>id:</i> <strong>{chain.id}</strong>
-      </div>
-      <div className="text-sm text-foreground">
-        <i>name:</i> <strong>{chain.name}</strong>
-      </div>
-      <div className="text-sm text-foreground">
-        <i>displayName:</i> <strong>{chain.displayName}</strong>
-      </div>
-      <div className="text-sm text-foreground">
-        <i>rpcUrl:</i> <strong>{chain.rpcUrl}</strong>
-      </div>
-      <div className="text-sm text-foreground">
-        <i>blockExplorerUrl:</i> <strong>{chain.blockExplorerUrl}</strong>
-      </div>
-      <div className="text-sm text-foreground">
-        <i>protocolExplorerUrl:</i> <strong>{chain.protocolExplorerUrl}</strong>
-      </div>
-      <div className="text-sm text-foreground">
-        <i>currency name:</i> <strong>{defaultCurrency.name}</strong>
-      </div>
-      <div className="text-sm text-foreground">
-        <i>currency symbol:</i> <strong>{defaultCurrency.symbol}</strong>
-      </div>
-      <div className="text-sm text-foreground">
-        <i>currency address:</i> <strong>{defaultCurrency.address}</strong>
-      </div>
+      {
+        chainInfoList.map(item => (
+          <div key={item} className="text-sm text-foreground">
+            <i>{item}:</i> <strong>{chain[item]}</strong>
+          </div>
+        ))
+      }
+      {
+        defaultCurrencyInfoList.map(item => (
+          <div key={item} className="text-sm text-foreground">
+            <i>currency{item}:</i> <strong>{defaultCurrency[item]}</strong>
+          </div>
+        ))
+      }
     </div>
   )
 }
