@@ -49,8 +49,6 @@ export const StoryKitProvider = ({
     [chain, rpcUrl]
   )
 
-  console.log({ defaultCurrency, chainConfig })
-
   return (
     <StoryKitContext.Provider
       value={{
