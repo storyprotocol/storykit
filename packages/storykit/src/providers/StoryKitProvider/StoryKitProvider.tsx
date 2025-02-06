@@ -24,7 +24,7 @@ export interface StoryKitProviderOptions {
 const StoryKitContext = React.createContext<{
   chain: ChainConfig
   viemChain: Chain
-  defaultCurrency: Currency
+  defaultCurrency?: Currency | undefined
   theme: Theme
   mode: Mode
   themeClass: string

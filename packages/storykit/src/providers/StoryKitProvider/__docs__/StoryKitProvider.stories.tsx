@@ -20,7 +20,6 @@ const meta = {
   },
   args: {
     chain: STORYKIT_SUPPORTED_CHAIN.ODYSSEY_TESTNET,
-    defaultCurrency: STORYKIT_SUPPORTED_CURRENCY.ODYSSEY_STORYUSD,
     theme: "default",
     mode: "auto",
   },
@@ -33,7 +32,10 @@ export const Odyssey: Story = {
   argTypes: {
     children: { control: false },
   },
-  args: {},
+  args: {
+    chain: STORYKIT_SUPPORTED_CHAIN.ODYSSEY_TESTNET,
+    defaultCurrency: STORYKIT_SUPPORTED_CURRENCY.ODYSSEY_STORYUSD,
+  },
 }
 
 export const Iliad: Story = {
@@ -43,6 +45,15 @@ export const Iliad: Story = {
   args: {
     chain: STORYKIT_SUPPORTED_CHAIN.STORY_TESTNET,
     defaultCurrency: STORYKIT_SUPPORTED_CURRENCY.ILIAD_STORYUSD,
+  },
+}
+
+export const Aeneid: Story = {
+  argTypes: {
+    children: { control: false },
+  },
+  args: {
+    chain: STORYKIT_SUPPORTED_CHAIN.AENEID_TESTNET,
   },
 }
 

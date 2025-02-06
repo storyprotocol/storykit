@@ -8,7 +8,7 @@ import { StoryKitProvider, Theme, useStoryKitContext } from "../StoryKitProvider
 
 const Example: FC<{
   chain: STORYKIT_SUPPORTED_CHAIN
-  defaultCurrency: STORYKIT_SUPPORTED_CURRENCY
+  defaultCurrency?: STORYKIT_SUPPORTED_CURRENCY
   theme: Theme
   mode: "auto" | "light" | "dark"
   children?: React.ReactNode
@@ -47,15 +47,19 @@ const ExampleComponent = () => {
       <div className="text-sm text-foreground">
         <i>protocolExplorerUrl:</i> <strong>{chain.protocolExplorerUrl}</strong>
       </div>
-      <div className="text-sm text-foreground">
-        <i>currency name:</i> <strong>{defaultCurrency.name}</strong>
-      </div>
-      <div className="text-sm text-foreground">
-        <i>currency symbol:</i> <strong>{defaultCurrency.symbol}</strong>
-      </div>
-      <div className="text-sm text-foreground">
-        <i>currency address:</i> <strong>{defaultCurrency.address}</strong>
-      </div>
+      {defaultCurrency && (
+        <>
+          <div className="text-sm text-foreground">
+            <i>currency name:</i> <strong>{defaultCurrency.name}</strong>
+          </div>
+          <div className="text-sm text-foreground">
+            <i>currency symbol:</i> <strong>{defaultCurrency.symbol}</strong>
+          </div>
+          <div className="text-sm text-foreground">
+            <i>currency address:</i> <strong>{defaultCurrency.address}</strong>
+          </div>
+        </>
+      )}
     </div>
   )
 }
