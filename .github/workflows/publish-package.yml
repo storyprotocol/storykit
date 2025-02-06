@@ -2,6 +2,9 @@ name: publish on github
 
 on:
   push:
+    branches:
+      - main
+      - beta
 
 jobs:
   publish-gpr:
