@@ -1,15 +1,13 @@
 # StoryKit
-
 StoryKit is a React toolkit that allows builders to integrate and interact with Story's Proof of Creativity protocol with prebuilt IP management components.
 
 ## Installation
 
 _StoryKit is currently a GitHub Package so you will need repo access and a personal access token to use._
 
-Also you will need Node.js 20+.
+Also, you will need Node.js 20+.
 
 1 . Create a personal access token: [github.com/settings/tokens](https://github.com/settings/tokens).
-
 2 . Create a `.npmrc` file in the root of your project and add the following, replacing `NPM_TOKEN` with your access token:
 
 ```bash
@@ -17,7 +15,8 @@ Also you will need Node.js 20+.
 @storyprotocol/storykit:registry=https://npm.pkg.github.com
 ```
 
-The first line authenticates you with the GitHub package registry, the second line tells npm to use the Storykit package from the GitHub registry.
+The first line authenticates you with the GitHub package registry.
+The second line tells npm to use the Storykit package from the GitHub registry.
 
 3 . Add `.npmrc` to your `.gitignore` to keep your access token private.
 
@@ -37,7 +36,7 @@ To use StoryKit’s API functionalities, you’ll need two types of API keys:
 
 2. SimpleHash API Key: You can generate an api token for free at [simplehash.com](https://simplehash.com/).
 
-Add these keys to your environment configuration:
+3. Add these keys to your environment configuration file:
 
 ```bash
 NEXT_PUBLIC_STORY_PROTOCOL_X_API_KEY="YOUR_STORY_PROTOCOL_API_KEY_HERE"
@@ -48,7 +47,7 @@ NEXT_PUBLIC_SIMPLE_HASH_API_KEY="SIMPLEHASH_API_KEY_HERE"
 
 To initialize StoryKit in your project, you’ll need to wrap your application in `QueryProvider` and `StoryKitProvider`.
 
-we recommend doing this once in the root of the app.
+We recommend doing this once in the root of the app.
 
 ```tsx
 // app/layout.tsx
@@ -121,7 +120,7 @@ const ExampleComponent = () => {
 };
 ```
 
-Among the components that start with `Ip`, all except IpWidget require the IpProvider to supply asset data. Check the Storybook of each component for detailed usage.
+All components that start with 'IP', except for IpWidget, require the IpProvider to supply asset data. Check the Storybook of each component for detailed usage.
 
 ```tsx
 "use client";
@@ -159,7 +158,7 @@ pnpm example --filter @example/simple-setup
 pnpm example --filter @example/custom-theme
 ```
 
-The dev server will be running at [http://localhost:3000](http://localhost:3000)
+The development server will be running at [http://localhost:3000]
 
 See [the github repo](https://github.com/storyprotocol/storykit) and [the example app](https://github.com/storyprotocol/storykit/tree/main/examples/next-app).
 
