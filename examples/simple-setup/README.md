@@ -1,6 +1,6 @@
 # Simple Setup Example
 
-This example demonstrates a simple setup of StoryKit;
+This example demonstrates a simple setup of StoryKit:
 - wraps the app with the `StoryKitProvider` and specifies the chain in [`app/Providers.tsx`](./app/Providers.tsx)
 - uses the `IpProvider` to pass the IP data to child components in [`app/page.tsx`](./app/page.tsx)
 - the [`IpHeader`](./app/IpHeader.tsx) component uses the `IpProviders` `useIpContext` hook to access the IP data
