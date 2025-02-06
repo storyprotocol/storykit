@@ -25,17 +25,32 @@ export const STORY_ODYSSEY: ChainConfig = {
   defaultCurrency: ODYSSEY_STORYUSD,
 }
 
+export const STORY_AENEID: ChainConfig = {
+  id: 1315,
+  name: "aeneid-testnet",
+  simplehashId: "story-aeneid",
+  apiVersion: "v3",
+  displayName: "Aeneid Testnet",
+  rpcUrl: "https://aeneid.storyrpc.io/",
+  blockExplorerUrl: "https://aeneid.storyscan.xyz",
+  protocolExplorerUrl: "https://aeneid.explorer.story.foundation",
+  // NOTE: No default currency for Aeneid
+}
+
 export const CHAINS = {
   [STORY_ILIAD.name]: STORY_ILIAD,
   [STORY_ODYSSEY.name]: STORY_ODYSSEY,
+  [STORY_AENEID.name]: STORY_AENEID,
 }
 
 export const CHAINNAME_TO_CHAINID: { [key: string]: number } = {
   "story-testnet": 1513,
   "odyssey-testnet": 1516,
+  "aeneid-testnet": 1315,
 }
 
 export const CHAINID_TO_CHAINNAME: { [key: number]: string } = {
   1513: "story-testnet",
   1516: "odyssey-testnet",
+  1315: "aeneid-testnet",
 }
