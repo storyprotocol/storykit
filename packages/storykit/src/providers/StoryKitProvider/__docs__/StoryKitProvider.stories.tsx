@@ -20,7 +20,6 @@ const meta = {
   },
   args: {
     chain: STORYKIT_SUPPORTED_CHAIN.ODYSSEY_TESTNET,
-    // defaultCurrency: STORYKIT_SUPPORTED_CURRENCY.ODYSSEY_STORYUSD,
     theme: "default",
     mode: "auto",
   },
