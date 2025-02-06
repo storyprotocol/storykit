@@ -18,5 +18,5 @@ export type SupportedChainConfig = typeof STORY_ODYSSEY | typeof STORY_ILIAD | t
 export enum STORYKIT_SUPPORTED_CHAIN {
   STORY_TESTNET = "story-testnet",
   ODYSSEY_TESTNET = "odyssey-testnet",
-  AENEID_TESTNET = "aeneid-testnet",
+  AENEID_TESTNET = "story-aeneid",
 }

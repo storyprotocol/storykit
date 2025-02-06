@@ -27,10 +27,10 @@ export const STORY_ODYSSEY: ChainConfig = {
 
 export const STORY_AENEID: ChainConfig = {
   id: 1315,
-  name: "aeneid-testnet",
+  name: "story-aeneid",
   simplehashId: "story-aeneid",
   apiVersion: "v3",
-  displayName: "Aeneid Testnet",
+  displayName: "Story Aeneid Testnet",
   rpcUrl: "https://aeneid.storyrpc.io/",
   blockExplorerUrl: "https://aeneid.storyscan.xyz",
   protocolExplorerUrl: "https://aeneid.explorer.story.foundation",
@@ -46,11 +46,11 @@ export const CHAINS = {
 export const CHAINNAME_TO_CHAINID: { [key: string]: number } = {
   "story-testnet": 1513,
   "odyssey-testnet": 1516,
-  "aeneid-testnet": 1315,
+  "story-aeneid": 1315,
 }
 
 export const CHAINID_TO_CHAINNAME: { [key: number]: string } = {
   1513: "story-testnet",
   1516: "odyssey-testnet",
-  1315: "aeneid-testnet",
+  1315: "story-aeneid",
 }
