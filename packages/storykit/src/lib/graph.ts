@@ -81,35 +81,35 @@ export async function convertAssetToGraphFormat(
 
   // Create node for the main object
   const mainNode: GraphNode = {
-    id: jsonData.id,
-    name: nftData.name || jsonData.nftMetadata.name || "Untitled",
+    id: jsonData?.id,
+    name: nftData?.name || jsonData?.nftMetadata.name || "Untitled",
     details: `
         <div class="graph-content">
           
           <div>
             <span class="graph-content-label">Name:</span> 
-            <span>${nftData.name || jsonData.nftMetadata.name || "Untitled"}</span>
+            <span>${nftData?.name || jsonData?.nftMetadata.name || "Untitled"}</span>
           </div>
           <div>
             <span class="graph-content-label">Chain:</span> 
-            <span>${nftData.chain}</span>
+            <span>${nftData?.chain}</span>
           </div>
           <div>
             <span class="graph-content-label">Contract:</span> 
-            <span>${shortenAddress(nftData.contract_address)}</span>
+            <span>${shortenAddress(nftData?.contract_address)}</span>
           </div>
           <div>
             <span class="graph-content-label">Token ID:</span> 
-            <span>${nftData.token_id}</span>
+            <span>${nftData?.token_id}</span>
           </div>
         </div>
       `,
-    tokenContract: jsonData.nftMetadata.tokenContract,
-    tokenId: jsonData.nftMetadata.tokenId,
+    tokenContract: jsonData?.nftMetadata.tokenContract,
+    tokenId: jsonData?.nftMetadata.tokenId,
     val: 1,
     level: 0,
-    imageUrl: nftData.previews.image_small_url || nftData.image_url,
-    imageProperties: nftData.image_properties,
+    imageUrl: nftData?.previews.image_small_url || nftData?.image_url,
+    imageProperties: nftData?.image_properties,
     isRoot: rootIpId === undefined,
   }
   nodes.push(mainNode)
