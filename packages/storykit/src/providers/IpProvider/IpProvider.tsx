@@ -378,6 +378,7 @@ export const IpProvider = ({
         isAssetDataLoading,
         assetParentData,
         isAssetParentDataLoading,
+        // TODO: fix this for empty children
         assetChildrenData: assetChildrenData?.pages.flatMap(
           (page: { data: AssetEdges[]; next: string; prev: string }) => page.data
         ),

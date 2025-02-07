@@ -15,7 +15,7 @@ export const STORY_ILIAD: ChainConfig = {
 
 export const STORY_ODYSSEY: ChainConfig = {
   id: 1516,
-  name: "odyssey-testnet",
+  name: "story-odyssey",
   simplehashId: "story-odyssey",
   apiVersion: "v2",
   displayName: "Odyssey Testnet",
@@ -45,12 +45,12 @@ export const CHAINS = {
 
 export const CHAINNAME_TO_CHAINID: { [key: string]: number } = {
   "story-testnet": 1513,
-  "odyssey-testnet": 1516,
+  "story-odyssey": 1516,
   "story-aeneid": 1315,
 }
 
 export const CHAINID_TO_CHAINNAME: { [key: number]: string } = {
   1513: "story-testnet",
-  1516: "odyssey-testnet",
+  1516: "story-odyssey",
   1315: "story-aeneid",
 }
