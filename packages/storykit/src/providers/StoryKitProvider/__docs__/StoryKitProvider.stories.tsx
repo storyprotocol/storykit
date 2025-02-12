@@ -57,6 +57,15 @@ export const Aeneid: Story = {
   },
 }
 
+export const Mainnet: Story = {
+  argTypes: {
+    children: { control: false },
+  },
+  args: {
+    chain: STORYKIT_SUPPORTED_CHAIN.STORY_MAINNET,
+  },
+}
+
 export const DarkMode: Story = {
   argTypes: {
     children: { control: false },
