@@ -37,9 +37,9 @@ export const StoryKitProvider = ({
   defaultCurrency,
   theme = "default",
   mode,
-  rpcUrl,
-  apiKey,
-  appId,
+  rpcUrl = "",
+  apiKey = "",
+  appId = "",
   children,
 }: StoryKitProviderOptions) => {
   //
