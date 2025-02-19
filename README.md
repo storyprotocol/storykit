@@ -2,9 +2,24 @@
 
 StoryKit is a React toolkit that allows builders to integrate and interact with Story's Proof of Creativity protocol with prebuilt IP management components.
 
-## Installation
+## 📋 Overview
 
-_StoryKit is currently a GitHub Package so you will need repo access and a personal access token to use._
+StoryKit provides:
+- Ready-to-use components for IP asset management
+- Blockchain integration for creative work protection
+- Simple API for interacting with Story protocol
+- Customizable UI components
+
+## ⚡ Requirements
+
+- Node.js 20 or higher
+- React 17 or higher
+- GitHub repository access
+- TypeScript support (recommended)
+
+## 🚀 Installation
+
+_StoryKit is currently available as a GitHub Package, so you will need repository access and a personal access token._
 
 Also you will need Node.js 20+.
 
@@ -25,6 +40,40 @@ The first line authenticates you with the GitHub package registry, the second li
 
 ```bash
 npm install @storyprotocol/storykit @tanstack/react-query react-force-graph-2d
+```
+
+## 💡 Usage Examples
+
+### Basic Example
+
+```tsx
+import { IpWidget } from "@storyprotocol/storykit";
+
+function App() {
+  return (
+    <IpWidget 
+      ipId="0xbbf08a30b9ff0f717a024a75963d3196aaf0f0dd"
+      theme="light"
+    />
+  );
+}
+```
+
+### Custom Theme
+
+```tsx
+import { IpWidget, createTheme } from "@storyprotocol/storykit";
+
+const customTheme = createTheme({
+  colors: {
+    primary: "#1a73e8",
+    secondary: "#188038",
+  },
+});
+
+function App() {
+  return <IpWidget theme={customTheme} />;
+}
 ```
 
 ## Getting Started
@@ -169,6 +218,20 @@ See [the github repo](https://github.com/storyprotocol/storykit) and [the exampl
 - Lint: pnpm run lint
 - Format: pnpm run format
 
-## Contributing
+## 🤝 Contributing
 
-For guidelines on contributing to StoryKit, see the [CONTRIBUTING.md](./CONTRIBUTING.md) file.
+We welcome community contributions! Before you start:
+
+1. Make sure you've read [CONTRIBUTING.md](./CONTRIBUTING.md)
+2. Check existing issues and pull requests
+3. Discuss major changes in issues before starting work
+
+## 📝 License
+
+MIT License - see the [LICENSE](./LICENSE) file for details.
+
+## 🔗 Useful Links
+
+- [Official Documentation](https://docs.storyprotocol.xyz)
+- [Example Applications](https://github.com/storyprotocol/storykit/tree/main/examples)
+- [Story Protocol](https://www.storyprotocol.xyz)
